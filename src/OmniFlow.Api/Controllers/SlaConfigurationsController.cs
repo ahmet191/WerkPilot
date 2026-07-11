@@ -24,7 +24,9 @@ public class SlaConfigurationsController : ControllerBase
         var lang = _userContext.Language;
         var slas = await _context.SLAConfigurations
             .Include(s => s.Department)
-            .Select(s => new
+            .ToListAsync();
+
+        var result = slas.Select(s => new
             {
                 s.Id,
                 s.Name,
@@ -34,9 +36,9 @@ public class SlaConfigurationsController : ControllerBase
                 s.DepartmentId,
                 DepartmentName = s.Department != null ? s.Department.LocalizedName.Translations.ContainsKey(lang) ? s.Department.LocalizedName.Translations[lang] : (s.Department.LocalizedName.Translations.ContainsKey("en") ? s.Department.LocalizedName.Translations["en"] : "Unknown") : "None"
             })
-            .ToListAsync();
+            .ToList();
 
-        return Ok(slas);
+        return Ok(result);
     }
 
     [HttpPost]
@@ -49,5 +51,32 @@ public class SlaConfigurationsController : ControllerBase
         await _context.SaveChangesAsync(default);
 
         return Ok(sla);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(Guid id, [FromBody] SLAConfiguration sla)
+    {
+        var existing = await _context.SLAConfigurations.FindAsync(id);
+        if (existing == null) return NotFound();
+
+        existing.Name = sla.Name;
+        existing.PriorityLevel = sla.PriorityLevel;
+        existing.ResolutionTimeMinutes = sla.ResolutionTimeMinutes;
+        existing.FirstResponseTimeMinutes = sla.FirstResponseTimeMinutes;
+        existing.DepartmentId = sla.DepartmentId;
+
+        await _context.SaveChangesAsync(default);
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        var existing = await _context.SLAConfigurations.FindAsync(id);
+        if (existing == null) return NotFound();
+
+        _context.SLAConfigurations.Remove(existing);
+        await _context.SaveChangesAsync(default);
+        return NoContent();
     }
 }

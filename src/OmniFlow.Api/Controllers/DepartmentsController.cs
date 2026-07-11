@@ -29,4 +29,22 @@ public class DepartmentsController : ControllerBase
         var id = await _mediator.Send(command);
         return CreatedAtAction(nameof(Get), new { id }, id);
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(Guid id, [FromBody] UpdateDepartmentCommand command)
+    {
+        if (id != command.Id)
+        {
+            return BadRequest("Id mismatch");
+        }
+        await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        await _mediator.Send(new DeleteDepartmentCommand { Id = id });
+        return NoContent();
+    }
 }

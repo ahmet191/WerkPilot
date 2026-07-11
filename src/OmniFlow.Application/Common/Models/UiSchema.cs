@@ -32,6 +32,7 @@ public class GridAction
     public string Method { get; set; } = "POST"; // POST, PUT, DELETE
     public string Endpoint { get; set; } = string.Empty; // e.g. /api/leaverequests/{id}/approve
     public string Color { get; set; } = "default"; // primary, dashed, link, text, default, danger, success
+    public string ActionType { get; set; } = "action"; // edit, delete, action
 }
 
 public class GridColumn

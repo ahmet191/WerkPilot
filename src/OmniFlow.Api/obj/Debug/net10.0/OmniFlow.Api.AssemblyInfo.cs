@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OmniFlow.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+504e98b87c98eabaea73945ee34404edbaa7f626")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+394ab4cdb6c028137133437795601ffd7a0e655a")]
 [assembly: System.Reflection.AssemblyProductAttribute("OmniFlow.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OmniFlow.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

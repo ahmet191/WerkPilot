@@ -56,7 +56,12 @@ public class UiSchemaController : ControllerBase
                     new() { DataIndex = "name", TitleKey = "departments.name", Sortable = true },
                     new() { DataIndex = "managerName", TitleKey = "departments.manager" },
                     new() { DataIndex = "parentDepartmentName", TitleKey = "departments.parentDepartment" }
-                }
+                },
+                RowActions = _userContext.Role == "Admin" ? new List<GridAction>
+                {
+                    new() { LabelKey = "actions.edit", Method = "PUT", Endpoint = "/departments/{id}", Color = "primary", ActionType = "edit" },
+                    new() { LabelKey = "actions.delete", Method = "DELETE", Endpoint = "/departments/{id}", Color = "danger", ActionType = "delete" }
+                } : new List<GridAction>()
             },
             Form = new FormSchema
             {
@@ -86,7 +91,12 @@ public class UiSchemaController : ControllerBase
                     new() { DataIndex = "name", TitleKey = "servicedesks.name", Sortable = true },
                     new() { DataIndex = "description", TitleKey = "servicedesks.description" },
                     new() { DataIndex = "isPublicToAllEmployees", TitleKey = "servicedesks.isPublic", Type = "tag" }
-                }
+                },
+                RowActions = _userContext.Role == "Admin" ? new List<GridAction>
+                {
+                    new() { LabelKey = "actions.edit", Method = "PUT", Endpoint = "/servicedesks/{id}", Color = "primary", ActionType = "edit" },
+                    new() { LabelKey = "actions.delete", Method = "DELETE", Endpoint = "/servicedesks/{id}", Color = "danger", ActionType = "delete" }
+                } : new List<GridAction>()
             },
             Form = new FormSchema
             {
@@ -119,7 +129,12 @@ public class UiSchemaController : ControllerBase
                     new() { DataIndex = "serialNumber", TitleKey = "assets.serial" },
                     new() { DataIndex = "status", TitleKey = "assets.status", Type = "tag", Width = 100 },
                     new() { DataIndex = "assignedToUserName", TitleKey = "assets.assigned" }
-                }
+                },
+                RowActions = _userContext.Role == "Admin" ? new List<GridAction>
+                {
+                    new() { LabelKey = "actions.edit", Method = "PUT", Endpoint = "/assets/{id}", Color = "primary", ActionType = "edit" },
+                    new() { LabelKey = "actions.delete", Method = "DELETE", Endpoint = "/assets/{id}", Color = "danger", ActionType = "delete" }
+                } : new List<GridAction>()
             },
             Form = new FormSchema
             {
@@ -298,7 +313,12 @@ public class UiSchemaController : ControllerBase
                     new() { DataIndex = "titleKey", TitleKey = "menus.titleKey", Sortable = true },
                     new() { DataIndex = "path", TitleKey = "menus.path" },
                     new() { DataIndex = "icon", TitleKey = "menus.icon" }
-                }
+                },
+                RowActions = _userContext.Role == "Admin" ? new List<GridAction>
+                {
+                    new() { LabelKey = "actions.edit", Method = "PUT", Endpoint = "/menu/{id}", Color = "primary", ActionType = "edit" },
+                    new() { LabelKey = "actions.delete", Method = "DELETE", Endpoint = "/menu/{id}", Color = "danger", ActionType = "delete" }
+                } : new List<GridAction>()
             },
             Form = new FormSchema
             {
@@ -331,7 +351,12 @@ public class UiSchemaController : ControllerBase
                     new() { DataIndex = "email", TitleKey = "users.email" },
                     new() { DataIndex = "role", TitleKey = "users.role", Type = "tag" },
                     new() { DataIndex = "departmentName", TitleKey = "users.department" }
-                }
+                },
+                RowActions = _userContext.Role == "Admin" ? new List<GridAction>
+                {
+                    new() { LabelKey = "actions.edit", Method = "PUT", Endpoint = "/users/{id}", Color = "primary", ActionType = "edit" },
+                    new() { LabelKey = "actions.delete", Method = "DELETE", Endpoint = "/users/{id}", Color = "danger", ActionType = "delete" }
+                } : new List<GridAction>()
             },
             Form = new FormSchema
             {
@@ -360,7 +385,12 @@ public class UiSchemaController : ControllerBase
                 Columns = new List<GridColumn>
                 {
                     new() { DataIndex = "serviceDeskName", TitleKey = "templates.serviceDesk" }
-                }
+                },
+                RowActions = _userContext.Role == "Admin" ? new List<GridAction>
+                {
+                    new() { LabelKey = "actions.edit", Method = "PUT", Endpoint = "/templates/{id}", Color = "primary", ActionType = "edit" },
+                    new() { LabelKey = "actions.delete", Method = "DELETE", Endpoint = "/templates/{id}", Color = "danger", ActionType = "delete" }
+                } : new List<GridAction>()
             },
             Form = new FormSchema
             {
@@ -390,7 +420,12 @@ public class UiSchemaController : ControllerBase
                 {
                     new() { DataIndex = "name", TitleKey = "categories.name", Sortable = true },
                     new() { DataIndex = "departmentName", TitleKey = "categories.department" }
-                }
+                },
+                RowActions = _userContext.Role == "Admin" ? new List<GridAction>
+                {
+                    new() { LabelKey = "actions.edit", Method = "PUT", Endpoint = "/categories/{id}", Color = "primary", ActionType = "edit" },
+                    new() { LabelKey = "actions.delete", Method = "DELETE", Endpoint = "/categories/{id}", Color = "danger", ActionType = "delete" }
+                } : new List<GridAction>()
             },
             Form = new FormSchema
             {
@@ -421,7 +456,12 @@ public class UiSchemaController : ControllerBase
                     new() { DataIndex = "priorityLevel", TitleKey = "slas.priority", Type = "tag" },
                     new() { DataIndex = "resolutionTimeMinutes", TitleKey = "slas.resolutionTime" },
                     new() { DataIndex = "firstResponseTimeMinutes", TitleKey = "slas.responseTime" }
-                }
+                },
+                RowActions = _userContext.Role == "Admin" ? new List<GridAction>
+                {
+                    new() { LabelKey = "actions.edit", Method = "PUT", Endpoint = "/slaconfigurations/{id}", Color = "primary", ActionType = "edit" },
+                    new() { LabelKey = "actions.delete", Method = "DELETE", Endpoint = "/slaconfigurations/{id}", Color = "danger", ActionType = "delete" }
+                } : new List<GridAction>()
             },
             Form = new FormSchema
             {

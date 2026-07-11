@@ -61,9 +61,41 @@ public class ServiceDesksController : ControllerBase
 
         return Ok(desk);
     }
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(Guid id, [FromBody] UpdateServiceDeskRequest request)
+    {
+        var desk = await _context.ServiceDesks.FindAsync(id);
+        if (desk == null) return NotFound();
+
+        desk.Name = request.Name;
+        desk.Description = request.Description ?? string.Empty;
+        desk.DepartmentId = request.DepartmentId;
+        // Defaulting to true or keeping it from request if it existed
+        
+        await _context.SaveChangesAsync(default);
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        var desk = await _context.ServiceDesks.FindAsync(id);
+        if (desk == null) return NotFound();
+
+        _context.ServiceDesks.Remove(desk);
+        await _context.SaveChangesAsync(default);
+        return NoContent();
+    }
 }
 
 public class CreateServiceDeskRequest
+{
+    public string Name { get; set; } = string.Empty;
+    public string? Description { get; set; }
+    public Guid DepartmentId { get; set; }
+}
+
+public class UpdateServiceDeskRequest
 {
     public string Name { get; set; } = string.Empty;
     public string? Description { get; set; }

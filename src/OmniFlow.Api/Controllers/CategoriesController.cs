@@ -24,7 +24,9 @@ public class CategoriesController : ControllerBase
         var lang = _userContext.Language;
         var categories = await _context.TicketCategories
             .Include(c => c.Department)
-            .Select(c => new
+            .ToListAsync();
+
+        var result = categories.Select(c => new
             {
                 c.Id,
                 Name = c.LocalizedName.Translations.ContainsKey(lang) ? c.LocalizedName.Translations[lang] : (c.LocalizedName.Translations.ContainsKey("en") ? c.LocalizedName.Translations["en"] : "Unknown"),
@@ -32,20 +34,77 @@ public class CategoriesController : ControllerBase
                 DepartmentName = c.Department != null ? c.Department.LocalizedName.Translations.ContainsKey(lang) ? c.Department.LocalizedName.Translations[lang] : (c.Department.LocalizedName.Translations.ContainsKey("en") ? c.Department.LocalizedName.Translations["en"] : "Unknown") : "None",
                 c.ParentCategoryId
             })
-            .ToListAsync();
+            .ToList();
 
-        return Ok(categories);
+        return Ok(result);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(TicketCategory category)
+    public async Task<IActionResult> Create([FromBody] CategoryRequest request)
     {
-        if (category.Id == Guid.Empty)
-            category.Id = Guid.NewGuid();
+        var category = new TicketCategory
+        {
+            Id = Guid.NewGuid(),
+            LocalizedName = new Domain.Common.MultiLingualString
+            {
+                Translations = new Dictionary<string, string>
+                {
+                    { "en", request.Name },
+                    { "tr", request.Name }
+                }
+            },
+            DepartmentId = request.DepartmentId
+        };
 
         _context.TicketCategories.Add(category);
         await _context.SaveChangesAsync(default);
 
         return Ok(category);
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(Guid id, [FromBody] CategoryRequest request)
+    {
+        var category = await _context.TicketCategories.FindAsync(id);
+        if (category == null) return NotFound();
+
+        if (category.LocalizedName != null && category.LocalizedName.Translations != null)
+        {
+            category.LocalizedName.Translations["en"] = request.Name;
+            category.LocalizedName.Translations["tr"] = request.Name;
+        }
+        else
+        {
+            category.LocalizedName = new Domain.Common.MultiLingualString
+            {
+                Translations = new Dictionary<string, string>
+                {
+                    { "en", request.Name },
+                    { "tr", request.Name }
+                }
+            };
+        }
+
+        category.DepartmentId = request.DepartmentId;
+        
+        await _context.SaveChangesAsync(default);
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        var category = await _context.TicketCategories.FindAsync(id);
+        if (category == null) return NotFound();
+
+        _context.TicketCategories.Remove(category);
+        await _context.SaveChangesAsync(default);
+        return NoContent();
+    }
+}
+
+public class CategoryRequest
+{
+    public string Name { get; set; } = string.Empty;
+    public Guid DepartmentId { get; set; }
 }

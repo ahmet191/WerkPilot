@@ -294,7 +294,16 @@ const WorkflowBuilder = ({ value = { transitions: [] }, onChange }: any) => {
   );
 };
 
-export function DynamicFormModal({ open, schema, onCancel, onSuccess }: DynamicFormModalProps) {
+interface DynamicFormModalProps {
+  open: boolean;
+  schema: FormSchema;
+  editRecord?: any;
+  editEndpoint?: string | null;
+  onCancel: () => void;
+  onSuccess: () => void;
+}
+
+export function DynamicFormModal({ open, schema, editRecord, editEndpoint, onCancel, onSuccess }: DynamicFormModalProps) {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
@@ -306,13 +315,16 @@ export function DynamicFormModal({ open, schema, onCancel, onSuccess }: DynamicF
     if (open) {
       setSelectedTemplate(null);
       form.resetFields();
-      if (schema.templateEndpoint) {
+      if (editRecord) {
+        form.setFieldsValue(editRecord);
+      }
+      if (schema.templateEndpoint && !editRecord) {
         loadTemplates();
       } else {
         setActiveSchema(schema);
       }
     }
-  }, [open, schema]);
+  }, [open, schema, editRecord, form]);
 
   const loadTemplates = async () => {
     setLoading(true);
@@ -410,7 +422,12 @@ export function DynamicFormModal({ open, schema, onCancel, onSuccess }: DynamicF
       }
 
       setLoading(true);
-      await SchemaService.submitFormData(activeSchema.submitEndpoint || schema.submitEndpoint, payload);
+      if (editRecord && editEndpoint) {
+        await api.put(editEndpoint, payload);
+      } else {
+        await SchemaService.submitFormData(submitUrl, payload);
+      }
+      
       message.success(t('form.success', 'Saved successfully!'));
       form.resetFields();
       onSuccess();
@@ -474,7 +491,7 @@ export function DynamicFormModal({ open, schema, onCancel, onSuccess }: DynamicF
 
   return (
     <Modal
-      title={t(activeSchema?.titleKey || schema.titleKey)}
+      title={editRecord ? t('form.edit', 'Edit') : t(activeSchema?.titleKey || schema.titleKey)}
       open={open}
       onOk={handleSubmit}
       onCancel={onCancel}

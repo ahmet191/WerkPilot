@@ -35,7 +35,9 @@ public class UsersController : ControllerBase
         var lang = _userContext.Language;
         var users = await _context.Users
             .Include(u => u.Department)
-            .Select(u => new
+            .ToListAsync();
+
+        var result = users.Select(u => new
             {
                 u.Id,
                 u.Name,
@@ -44,8 +46,9 @@ public class UsersController : ControllerBase
                 u.DepartmentId,
                 DepartmentName = u.Department != null ? u.Department.LocalizedName.Translations.ContainsKey(lang) ? u.Department.LocalizedName.Translations[lang] : (u.Department.LocalizedName.Translations.ContainsKey("en") ? u.Department.LocalizedName.Translations["en"] : "Unknown") : "None"
             })
-            .ToListAsync();
-        return Ok(users);
+            .ToList();
+            
+        return Ok(result);
     }
 
     [HttpGet("{id}")]
@@ -54,5 +57,23 @@ public class UsersController : ControllerBase
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
         if (user == null) return NotFound();
         return Ok(user);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(Guid id, [FromBody] UpdateUserCommand command)
+    {
+        if (id != command.Id)
+        {
+            return BadRequest("Id mismatch");
+        }
+        await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        await _mediator.Send(new DeleteUserCommand { Id = id });
+        return NoContent();
     }
 }

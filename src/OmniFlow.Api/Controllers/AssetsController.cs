@@ -37,4 +37,22 @@ public class AssetsController : ControllerBase
         var result = await _mediator.Send(command);
         return Ok(result);
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(Guid id, [FromBody] UpdateAssetCommand command)
+    {
+        if (id != command.Id)
+        {
+            return BadRequest("Id mismatch");
+        }
+        await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        await _mediator.Send(new DeleteAssetCommand { Id = id });
+        return NoContent();
+    }
 }

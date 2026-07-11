@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { Tag, Spin } from 'antd';
+import { Tag, Spin, Modal } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { EnterpriseDataGrid } from '../datagrid/EnterpriseDataGrid';
 import { DynamicFormModal } from './DynamicFormModal';
@@ -18,6 +18,8 @@ export function DynamicPage({ entityType }: DynamicPageProps) {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [editRecord, setEditRecord] = useState<any>(null);
+  const [editEndpoint, setEditEndpoint] = useState<string | null>(null);
 
   useEffect(() => {
     const loadSchema = async () => {
@@ -86,13 +88,38 @@ export function DynamicPage({ entityType }: DynamicPageProps) {
 
   const handleActionClick = async (action: any, record: any) => {
     const url = action.endpoint.replace('{id}', record.id);
+    
+    if (action.method.toUpperCase() === 'DELETE') {
+      Modal.confirm({
+        title: t('delete.confirmTitle', 'Are you sure you want to delete this?'),
+        content: t('delete.confirmContent', 'This action cannot be undone.'),
+        okText: t('delete.ok', 'Yes, delete'),
+        okType: 'danger',
+        cancelText: t('common.cancel', 'Cancel'),
+        onOk: async () => {
+          try {
+            await api.delete(url);
+            setRefreshKey(prev => prev + 1);
+          } catch (err) {
+            console.error('Delete failed', err);
+          }
+        }
+      });
+      return;
+    }
+
+    if (action.method.toUpperCase() === 'PUT' && action.actionType === 'edit') {
+      setEditRecord(record);
+      setEditEndpoint(url);
+      setIsModalOpen(true);
+      return;
+    }
+
     try {
       if (action.method.toUpperCase() === 'PUT') {
         await api.put(url);
       } else if (action.method.toUpperCase() === 'POST') {
         await api.post(url);
-      } else if (action.method.toUpperCase() === 'DELETE') {
-        await api.delete(url);
       }
       setRefreshKey(prev => prev + 1);
     } catch (err) {
@@ -127,16 +154,28 @@ export function DynamicPage({ entityType }: DynamicPageProps) {
         title={t(schema.grid.titleKey)}
         columns={columns}
         fetchData={handleFetchData}
-        onAdd={schema.grid.actions.includes('add') ? () => setIsModalOpen(true) : undefined}
+        onAdd={schema.grid.actions.includes('add') ? () => {
+          setEditRecord(null);
+          setEditEndpoint(null);
+          setIsModalOpen(true);
+        } : undefined}
       />
       
       {schema.form && (
         <DynamicFormModal
           open={isModalOpen}
           schema={schema.form}
-          onCancel={() => setIsModalOpen(false)}
+          editRecord={editRecord}
+          editEndpoint={editEndpoint}
+          onCancel={() => {
+            setIsModalOpen(false);
+            setEditRecord(null);
+            setEditEndpoint(null);
+          }}
           onSuccess={() => {
             setIsModalOpen(false);
+            setEditRecord(null);
+            setEditEndpoint(null);
             setRefreshKey(prev => prev + 1); // Trigger grid refresh
           }}
         />

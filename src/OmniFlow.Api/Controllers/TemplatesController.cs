@@ -57,4 +57,30 @@ public class TemplatesController : ControllerBase
         if (template == null) return NotFound();
         return Ok(template);
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(Guid id, [FromBody] TicketTemplate template)
+    {
+        var existing = await _context.TicketTemplates.FindAsync(id);
+        if (existing == null) return NotFound();
+
+        existing.LocalizedName = template.LocalizedName;
+        existing.ServiceDeskId = template.ServiceDeskId;
+        existing.Fields = template.Fields;
+        existing.Workflow = template.Workflow;
+
+        await _context.SaveChangesAsync(default);
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        var existing = await _context.TicketTemplates.FindAsync(id);
+        if (existing == null) return NotFound();
+
+        _context.TicketTemplates.Remove(existing);
+        await _context.SaveChangesAsync(default);
+        return NoContent();
+    }
 }
