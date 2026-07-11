@@ -1,10 +1,15 @@
 using MassTransit;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OmniFlow.Application.Interfaces;
+using OmniFlow.Domain.Entities;
 using OmniFlow.Infrastructure.Identity;
 using OmniFlow.Infrastructure.Messaging;
 using OmniFlow.Infrastructure.Persistence;
 using OmniFlow.Infrastructure.Persistence.Interceptors;
+using OmniFlow.Infrastructure.Persistence.Seed;
+using OpenIddict.Abstractions;
+using OpenIddict.Validation.AspNetCore;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -13,13 +18,17 @@ using OmniFlow.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// ═══════════════════════════════════════════════════════
 // 1. Serilog Setup
+// ═══════════════════════════════════════════════════════
 builder.Host.UseSerilog((context, loggerConfig) => loggerConfig
     .ReadFrom.Configuration(context.Configuration)
     .Enrich.FromLogContext()
     .WriteTo.Console());
 
+// ═══════════════════════════════════════════════════════
 // 2. OpenTelemetry Setup
+// ═══════════════════════════════════════════════════════
 builder.Services.AddOpenTelemetry()
     .ConfigureResource(resource => resource.AddService("OmniFlow.Api"))
     .WithTracing(tracing => tracing
@@ -30,12 +39,10 @@ builder.Services.AddOpenTelemetry()
         .AddAspNetCoreInstrumentation()
         .AddHttpClientInstrumentation());
 
-// 3. Application Layer Setup (MediatR)
-builder.Services.AddScoped<OmniFlow.Application.Interfaces.ITenantService, OmniFlow.Api.Services.TenantService>();
-builder.Services.AddMediatR(cfg => {
-    cfg.RegisterServicesFromAssembly(typeof(OmniFlow.Application.Tickets.Commands.CreateTicketCommand).Assembly);
-    cfg.RegisterServicesFromAssembly(typeof(OmniFlow.Infrastructure.Messaging.TelegramGateway).Assembly);
-});
+// ═══════════════════════════════════════════════════════
+// 3. Application Layer Setup
+// ═══════════════════════════════════════════════════════
+builder.Services.AddScoped<ITenantService, OmniFlow.Api.Services.TenantService>();
 
 // Telegram Bot Client Setup
 var telegramToken = builder.Configuration["Telegram:BotToken"];
@@ -45,18 +52,113 @@ if (!string.IsNullOrEmpty(telegramToken))
     builder.Services.AddHostedService<OmniFlow.Api.Services.TelegramWebhookRegistrationService>();
 }
 
-// 4. Infrastructure Layer Setup (DbContext)
+// ═══════════════════════════════════════════════════════
+// 4. Infrastructure Layer Setup (DbContext + Identity + OpenIddict)
+// ═══════════════════════════════════════════════════════
 builder.Services.AddScoped<AuditableEntityInterceptor>();
 builder.Services.AddDbContext<IOmniFlowDbContext, OmniFlowDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection") 
-                      ?? "Host=localhost;Database=OmniFlowDb;Username=postgres;Password=postgres"));
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")
+                      ?? "Host=localhost;Database=OmniFlowDb;Username=postgres;Password=postgres");
 
+    // Register the OpenIddict entity sets in the DbContext
+    options.UseOpenIddict<Guid>();
+});
+
+// ASP.NET Core Identity
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 8;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireLowercase = true;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.User.RequireUniqueEmail = true;
+})
+.AddEntityFrameworkStores<OmniFlowDbContext>()
+.AddDefaultTokenProviders();
+
+// OpenIddict
+builder.Services.AddOpenIddict()
+    // Core: use EF Core stores
+    .AddCore(options =>
+    {
+        options.UseEntityFrameworkCore()
+               .UseDbContext<OmniFlowDbContext>()
+               .ReplaceDefaultEntities<Guid>();
+    })
+    // Server: configure the authorization server
+    .AddServer(options =>
+    {
+        options.SetTokenEndpointUris("/connect/token")
+               .SetUserInfoEndpointUris("/connect/userinfo");
+
+        options.AllowPasswordFlow()
+               .AllowRefreshTokenFlow();
+
+        // Register scopes
+        options.RegisterScopes(
+            OpenIddictConstants.Scopes.OpenId,
+            OpenIddictConstants.Scopes.Email,
+            OpenIddictConstants.Scopes.Profile,
+            OpenIddictConstants.Scopes.Roles,
+            OpenIddictConstants.Scopes.OfflineAccess);
+
+        // Accept anonymous clients (no client_id/secret required from SPA)
+        options.AcceptAnonymousClients();
+
+        // Register ASP.NET Core host and enable passthrough for the token endpoint
+        options.UseAspNetCore()
+               .EnableTokenEndpointPassthrough()
+               .EnableUserInfoEndpointPassthrough()
+               .DisableTransportSecurityRequirement(); // Allow HTTP in development
+
+        // Use ephemeral keys for development (replace with persistent keys in production)
+        options.AddEphemeralEncryptionKey()
+               .AddEphemeralSigningKey();
+
+        // Disable access token encryption so it's a plain JWT readable by APIs
+        options.DisableAccessTokenEncryption();
+
+        // Token lifetimes
+        options.SetAccessTokenLifetime(TimeSpan.FromHours(1));
+        options.SetRefreshTokenLifetime(TimeSpan.FromDays(30));
+    })
+    // Validation: validate tokens locally
+    .AddValidation(options =>
+    {
+        options.UseLocalServer();
+        options.UseAspNetCore();
+    });
+
+// Override default authentication scheme to use OpenIddict validation
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme;
+});
+
+// Authorization policies
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Administrator", policy => policy.RequireRole("Administrator"));
+    options.AddPolicy("HRAdmin", policy => policy.RequireRole("HRAdmin", "Administrator"));
+    options.AddPolicy("ITAgent", policy => policy.RequireRole("ITAgent", "Administrator"));
+    options.AddPolicy("Requester", policy => policy.RequireRole("Requester", "Administrator", "HRAdmin", "ITAgent"));
+});
+
+// ═══════════════════════════════════════════════════════
 // 5. Infrastructure Layer Setup (Services)
+// ═══════════════════════════════════════════════════════
 builder.Services.AddScoped<IMessageGateway, TelegramGateway>();
 builder.Services.AddScoped<ITelegramIdentityService, TelegramIdentityService>();
 builder.Services.AddScoped<IDashboardMetricsService, OmniFlow.Api.Services.DashboardMetricsService>();
 
+// ═══════════════════════════════════════════════════════
 // 6. MassTransit (Event-Driven Design)
+// ═══════════════════════════════════════════════════════
 builder.Services.AddMassTransit(x =>
 {
     x.AddDelayedMessageScheduler();
@@ -73,6 +175,9 @@ builder.Services.AddMassTransit(x =>
     });
 });
 
+// ═══════════════════════════════════════════════════════
+// 7. ASP.NET Core Services
+// ═══════════════════════════════════════════════════════
 builder.Services.AddControllers()
     .AddJsonOptions(options => 
     {
@@ -82,7 +187,7 @@ builder.Services.AddSignalR();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<OmniFlow.Application.Interfaces.IUserContext, OmniFlow.Api.Services.UserContextService>();
+builder.Services.AddScoped<IUserContext, OmniFlow.Api.Services.UserContextService>();
 
 builder.Services.AddCors(options =>
 {
@@ -91,14 +196,19 @@ builder.Services.AddCors(options =>
         policy.WithOrigins("http://localhost:5173")
               .AllowAnyHeader()
               .AllowAnyMethod()
-              .AllowCredentials(); // useful for SignalR/Cookies later
+              .AllowCredentials();
     });
 });
 
+// ═══════════════════════════════════════════════════════
+// BUILD APP
+// ═══════════════════════════════════════════════════════
 var app = builder.Build();
 
+// ═══════════════════════════════════════════════════════
+// Middleware Pipeline
+// ═══════════════════════════════════════════════════════
 app.UseMiddleware<CorrelationIdMiddleware>();
-
 app.UseMiddleware<OmniFlow.Api.Middlewares.ExceptionHandlingMiddleware>();
 app.UseMiddleware<OmniFlow.Api.Middleware.AuditLoggingMiddleware>();
 
@@ -111,10 +221,16 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors("AllowViteUI");
 
+// Authentication & Authorization (order matters!)
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 app.MapHub<OmniFlow.Api.Hubs.DashboardHub>("/hubs/dashboard");
 
+// ═══════════════════════════════════════════════════════
+// Database Initialization & Seeding
+// ═══════════════════════════════════════════════════════
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<IOmniFlowDbContext>() as DbContext;
@@ -122,11 +238,14 @@ using (var scope = app.Services.CreateScope())
     {
         try
         {
-            // Drop and recreate DB schema to apply new tables (Users, Comments, AuditLogs)
+            // Drop and recreate DB schema to apply new tables
             await context.Database.EnsureDeletedAsync();
             await context.Database.EnsureCreatedAsync();
 
-            // 1. Seed Users representing different roles
+            // ── Identity & OpenIddict Seed ──
+            await IdentitySeedData.SeedAsync(scope.ServiceProvider);
+
+            // ── 1. Seed Legacy Users representing different roles ──
             if (!await context.Set<OmniFlow.Domain.Entities.User>().AnyAsync())
             {
                 var departmentId = Guid.Parse("55555555-5555-5555-5555-555555555555");
@@ -144,7 +263,7 @@ using (var scope = app.Services.CreateScope())
                     Email = "alice@omniflow.com",
                     Role = OmniFlow.Domain.Enums.UserRole.Requester,
                     DepartmentId = departmentId,
-                    TelegramChatId = "8920226584" // Mock default from bot testing
+                    TelegramChatId = "8920226584"
                 };
 
                 var agent = new OmniFlow.Domain.Entities.User
@@ -194,7 +313,7 @@ using (var scope = app.Services.CreateScope())
                 await context.SaveChangesAsync();
             }
 
-            // 2. Seed IT Support Request Template with advanced custom field rules and custom workflow definition
+            // ── 2. Seed IT Support Request Template ──
             if (!await context.Set<OmniFlow.Domain.Entities.TicketTemplate>().AnyAsync())
             {
                 var template = new OmniFlow.Domain.Entities.TicketTemplate
@@ -210,25 +329,16 @@ using (var scope = app.Services.CreateScope())
                         new() { Key = "Impact", LocalizedName = new OmniFlow.Domain.Common.MultiLingualString("en", "Impact"), Type = "Dropdown", IsRequired = true, DropdownOptions = new List<string> { "Low", "Medium", "High" } },
                         new() { Key = "Urgency", LocalizedName = new OmniFlow.Domain.Common.MultiLingualString("en", "Urgency"), Type = "Dropdown", IsRequired = true, DropdownOptions = new List<string> { "Low", "Medium", "High" } },
                         new() { Key = "Description", LocalizedName = new OmniFlow.Domain.Common.MultiLingualString("en", "Description"), Type = "Text", IsRequired = false, LocalizedDescription = new OmniFlow.Domain.Common.MultiLingualString("en", "Detailed logs or explanation") },
-                        new() { Key = "AssetTag", LocalizedName = new OmniFlow.Domain.Common.MultiLingualString("en", "Asset Tag"), Type = "Text", IsRequired = false, ValidationRegex = "^[A-Z]{3}-\\d{4}$", LocalizedDescription = new OmniFlow.Domain.Common.MultiLingualString("en", "Device asset tag in ABC-1234 format") }
+                        new() { Key = "AssetTag", LocalizedName = new OmniFlow.Domain.Common.MultiLingualString("en", "Asset Tag"), Type = "Text", IsRequired = false, ValidationRegex = "^[A-Z]{3}-\\\\d{4}$", LocalizedDescription = new OmniFlow.Domain.Common.MultiLingualString("en", "Device asset tag in ABC-1234 format") }
                     },
                     Workflow = new OmniFlow.Domain.Entities.WorkflowDefinition
                     {
                         Transitions = new List<OmniFlow.Domain.Entities.WorkflowTransition>
                         {
-                            // New -> InProgress
                             new() { FromState = OmniFlow.Domain.Enums.TicketState.New, ToState = OmniFlow.Domain.Enums.TicketState.InProgress, Trigger = "StartWork", RequiredRole = OmniFlow.Domain.Enums.UserRole.Agent },
-                            
-                            // InProgress -> WaitingForApproval
                             new() { FromState = OmniFlow.Domain.Enums.TicketState.InProgress, ToState = OmniFlow.Domain.Enums.TicketState.WaitingForApproval, Trigger = "RequestApproval", RequiredRole = OmniFlow.Domain.Enums.UserRole.Agent },
-                            
-                            // WaitingForApproval -> Resolved (Approved)
                             new() { FromState = OmniFlow.Domain.Enums.TicketState.WaitingForApproval, ToState = OmniFlow.Domain.Enums.TicketState.Resolved, Trigger = "Approve", RequiredRole = OmniFlow.Domain.Enums.UserRole.Approver },
-                            
-                            // WaitingForApproval -> InProgress (Rejected)
                             new() { FromState = OmniFlow.Domain.Enums.TicketState.WaitingForApproval, ToState = OmniFlow.Domain.Enums.TicketState.InProgress, Trigger = "Reject", RequiredRole = OmniFlow.Domain.Enums.UserRole.Approver },
-                            
-                            // Resolved -> Closed
                             new() { FromState = OmniFlow.Domain.Enums.TicketState.Resolved, ToState = OmniFlow.Domain.Enums.TicketState.Closed, Trigger = "Close", RequiredRole = OmniFlow.Domain.Enums.UserRole.Requester }
                         }
                     }
@@ -238,7 +348,7 @@ using (var scope = app.Services.CreateScope())
                 await context.SaveChangesAsync();
             }
 
-            // 3. Seed Dynamic Menu Hierarchy
+            // ── 3. Seed Dynamic Menu Hierarchy ──
             if (!await context.Set<OmniFlow.Domain.Entities.AppMenu>().AnyAsync())
             {
                 var dashboard = new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), TitleKey = "sidebar.dashboard", Path = "/", Icon = "DashboardOutlined", OrderIndex = 10 };

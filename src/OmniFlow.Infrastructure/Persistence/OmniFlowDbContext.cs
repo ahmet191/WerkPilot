@@ -1,12 +1,14 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Domain.Entities;
 using OmniFlow.Infrastructure.Persistence.Interceptors;
 using System.Reflection;
+using HR = OmniFlow.Domain.Entities.HR;
 
 namespace OmniFlow.Infrastructure.Persistence;
 
-public class OmniFlowDbContext : DbContext, IOmniFlowDbContext
+public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>, IOmniFlowDbContext
 {
     private readonly AuditableEntityInterceptor _auditableEntityInterceptor;
     private readonly ITenantService _tenantService;
@@ -21,7 +23,7 @@ public class OmniFlowDbContext : DbContext, IOmniFlowDbContext
         _tenantService = tenantService;
     }
 
-    public DbSet<User> Users => Set<User>();
+    public new DbSet<User> Users => Set<User>();
     public DbSet<Department> Departments => Set<Department>();
     public DbSet<Location> Locations => Set<Location>();
     public DbSet<Team> Teams => Set<Team>();
@@ -31,8 +33,15 @@ public class OmniFlowDbContext : DbContext, IOmniFlowDbContext
     public DbSet<LeaveBalance> LeaveBalances => Set<LeaveBalance>();
     public DbSet<Asset> Assets => Set<Asset>();
     
-    public DbSet<Compensation> Compensations => Set<Compensation>();
+    public DbSet<OmniFlow.Domain.Entities.Compensation> Compensations => Set<OmniFlow.Domain.Entities.Compensation>();
     public DbSet<JobTitle> JobTitles => Set<JobTitle>();
+    // HR entities (fully qualified to avoid ambiguity with HR namespace)
+    public DbSet<HR.Employee> Employees => Set<HR.Employee>();
+    public DbSet<HR.Position> Positions => Set<HR.Position>();
+    public DbSet<HR.AttendanceRecord> AttendanceRecords => Set<HR.AttendanceRecord>();
+    public DbSet<HR.TimeOffRequest> TimeOffRequests => Set<HR.TimeOffRequest>();
+    public DbSet<HR.PayrollRun> PayrollRuns => Set<HR.PayrollRun>();
+    public DbSet<HR.Benefit> Benefits => Set<HR.Benefit>();
     
     public DbSet<Ticket> Tickets => Set<Ticket>();
     public DbSet<TicketTemplate> TicketTemplates => Set<TicketTemplate>();
@@ -57,6 +66,12 @@ public class OmniFlowDbContext : DbContext, IOmniFlowDbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        // Must call base first to configure Identity tables
+        base.OnModelCreating(builder);
+
+        // Configure OpenIddict tables with Guid keys
+        builder.UseOpenIddict<Guid>();
+
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         // Global Query Filter for Multi-Tenancy
@@ -71,8 +86,6 @@ public class OmniFlowDbContext : DbContext, IOmniFlowDbContext
                 method?.Invoke(this, new object[] { builder });
             }
         }
-
-        base.OnModelCreating(builder);
     }
 
     private void SetGlobalQueryFilter<TEntity>(ModelBuilder builder) where TEntity : OmniFlow.Domain.Common.AuditableEntity

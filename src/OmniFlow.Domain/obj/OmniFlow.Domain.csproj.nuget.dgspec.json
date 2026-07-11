@@ -49,6 +49,10 @@
             "MediatR.Contracts": {
               "target": "Package",
               "version": "[2.0.1, )"
+            },
+            "Microsoft.Extensions.Identity.Stores": {
+              "target": "Package",
+              "version": "[10.0.3, )"
             }
           },
           "imports": [

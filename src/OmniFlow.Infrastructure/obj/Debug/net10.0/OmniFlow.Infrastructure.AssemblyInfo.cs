@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OmniFlow.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+394ab4cdb6c028137133437795601ffd7a0e655a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a7a0f7d3ea54ee7ca2a931c1cd041da22aa9c1f4")]
 [assembly: System.Reflection.AssemblyProductAttribute("OmniFlow.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OmniFlow.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
