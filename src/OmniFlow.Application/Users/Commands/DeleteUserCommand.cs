@@ -1,4 +1,5 @@
 using MediatR;
+using OmniFlow.Application.Common.Exceptions;
 using OmniFlow.Application.Interfaces;
 
 namespace OmniFlow.Application.Users.Commands;
@@ -20,7 +21,7 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand>
     public async Task Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
         var user = await _context.Users.FindAsync(new object[] { request.Id }, cancellationToken);
-        if (user == null) throw new Exception("User not found");
+        if (user == null) throw new NotFoundException("User", request.Id);
 
         _context.Users.Remove(user);
         await _context.SaveChangesAsync(cancellationToken);

@@ -28,10 +28,8 @@ public class CreateLeaveRequestCommandHandler : IRequestHandler<CreateLeaveReque
 
     public async Task<Guid> Handle(CreateLeaveRequestCommand request, CancellationToken cancellationToken)
     {
-        // Simple business logic check
-        if (request.EndDate <= request.StartDate)
-            throw new Exception("End Date must be after Start Date.");
-
+        // Input validation (incl. date ordering) is enforced by
+        // CreateLeaveRequestCommandValidator via the MediatR ValidationBehavior.
         var leave = new LeaveRequest
         {
             Id = Guid.NewGuid(),

@@ -1,6 +1,9 @@
 using MassTransit;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
+using OmniFlow.Application;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Domain.Entities;
 using OmniFlow.Infrastructure.Identity;
@@ -14,6 +17,7 @@ using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
+using System.Threading.RateLimiting;
 using OmniFlow.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,26 +28,55 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((context, loggerConfig) => loggerConfig
     .ReadFrom.Configuration(context.Configuration)
     .Enrich.FromLogContext()
+    .Enrich.WithProperty("Application", "OmniFlow.Api")
     .WriteTo.Console());
 
 // ═══════════════════════════════════════════════════════
 // 2. OpenTelemetry Setup
 // ═══════════════════════════════════════════════════════
+// The OTLP exporter is only attached when Otlp:Endpoint is configured, so the
+// API boots fine without a local collector. Point it at an OTel collector /
+// Jaeger / Grafana Alloy to ship traces and metrics.
+var otlpEndpoint = builder.Configuration["Otlp:Endpoint"];
+
 builder.Services.AddOpenTelemetry()
     .ConfigureResource(resource => resource.AddService("OmniFlow.Api"))
-    .WithTracing(tracing => tracing
-        .AddAspNetCoreInstrumentation()
-        .AddHttpClientInstrumentation()
-        .AddEntityFrameworkCoreInstrumentation())
-    .WithMetrics(metrics => metrics
-        .AddAspNetCoreInstrumentation()
-        .AddHttpClientInstrumentation());
+    .WithTracing(tracing =>
+    {
+        tracing
+            .AddAspNetCoreInstrumentation()
+            .AddHttpClientInstrumentation()
+            .AddEntityFrameworkCoreInstrumentation();
+
+        if (!string.IsNullOrEmpty(otlpEndpoint))
+        {
+            tracing.AddOtlpExporter(options => options.Endpoint = new Uri(otlpEndpoint));
+        }
+    })
+    .WithMetrics(metrics =>
+    {
+        metrics
+            .AddAspNetCoreInstrumentation()
+            .AddHttpClientInstrumentation();
+
+        if (!string.IsNullOrEmpty(otlpEndpoint))
+        {
+            metrics.AddOtlpExporter(options => options.Endpoint = new Uri(otlpEndpoint));
+        }
+    });
 
 // ═══════════════════════════════════════════════════════
 // 3. Application Layer Setup
 // ═══════════════════════════════════════════════════════
 builder.Services.AddScoped<ITenantService, OmniFlow.Api.Services.TenantService>();
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(OmniFlow.Application.Interfaces.ITenantService).Assembly));
+
+// MediatR handlers + FluentValidation validators + logging/validation pipeline behaviors.
+builder.Services.AddApplication();
+
+// Notification handlers living in Infrastructure (Telegram/SignalR reactions to
+// domain events) must be scanned separately — they are not in the Application assembly.
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(OmniFlow.Infrastructure.Messaging.TelegramGateway).Assembly));
 
 // Telegram Bot Client Setup
 var telegramToken = builder.Configuration["Telegram:BotToken"];
@@ -142,9 +175,9 @@ builder.Services.AddOpenIddict()
                     "Production requires persistent certificates. Configure OpenIddict:SigningCertificate and OpenIddict:EncryptionCertificate (Path + Password).");
             }
 
-            options.AddSigningCertificate(new System.Security.Cryptography.X509Certificates.X509Certificate2(
+            options.AddSigningCertificate(System.Security.Cryptography.X509Certificates.X509CertificateLoader.LoadPkcs12FromFile(
                 signingCertPath, builder.Configuration["OpenIddict:SigningCertificate:Password"]));
-            options.AddEncryptionCertificate(new System.Security.Cryptography.X509Certificates.X509Certificate2(
+            options.AddEncryptionCertificate(System.Security.Cryptography.X509Certificates.X509CertificateLoader.LoadPkcs12FromFile(
                 encryptionCertPath, builder.Configuration["OpenIddict:EncryptionCertificate:Password"]));
         }
 
@@ -236,6 +269,28 @@ builder.Services.AddCors(options =>
 });
 
 // ═══════════════════════════════════════════════════════
+// 8. Health Checks & Rate Limiting
+// ═══════════════════════════════════════════════════════
+builder.Services.AddHealthChecks()
+    .AddCheck<OmniFlow.Api.Services.DatabaseHealthCheck>("database", tags: ["ready"]);
+
+// Brute-force guard on the token endpoint: 10 attempts per minute per client IP.
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    options.AddPolicy("token-endpoint", httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 10,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0
+            }));
+});
+
+// ═══════════════════════════════════════════════════════
 // BUILD APP
 // ═══════════════════════════════════════════════════════
 var app = builder.Build();
@@ -244,7 +299,33 @@ var app = builder.Build();
 // Middleware Pipeline
 // ═══════════════════════════════════════════════════════
 app.UseMiddleware<CorrelationIdMiddleware>();
-app.UseMiddleware<OmniFlow.Api.Middlewares.ExceptionHandlingMiddleware>();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+// One structured completion log per request, enriched with correlation/tenant/user.
+// The enricher runs after the downstream pipeline, so authentication has already
+// populated the user by the time these values are read.
+app.UseSerilogRequestLogging(options =>
+{
+    options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
+    {
+        if (httpContext.Items.TryGetValue("CorrelationId", out var correlationId))
+        {
+            diagnosticContext.Set("CorrelationId", correlationId);
+        }
+
+        var tenantService = httpContext.RequestServices.GetService<ITenantService>();
+        if (tenantService is not null)
+        {
+            diagnosticContext.Set("TenantId", tenantService.TenantId);
+        }
+
+        var userContext = httpContext.RequestServices.GetService<IUserContext>();
+        if (userContext is not null)
+        {
+            diagnosticContext.Set("UserId", userContext.UserId);
+        }
+    };
+});
 
 if (app.Environment.IsDevelopment())
 {
@@ -254,6 +335,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors("AllowViteUI");
+app.UseRateLimiter();
 
 // Authentication & Authorization (order matters!)
 app.UseAuthentication();
@@ -267,6 +349,12 @@ app.MapControllers();
 // TODO(Phase 5): require auth on the hub once the SPA sends access tokens on the
 // SignalR connection (accessTokenFactory) and query-string token extraction is wired.
 app.MapHub<OmniFlow.Api.Hubs.DashboardHub>("/hubs/dashboard").AllowAnonymous();
+
+// Liveness: the process is up. Readiness: dependencies (database) are reachable.
+app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = _ => false })
+   .AllowAnonymous();
+app.MapHealthChecks("/health/ready", new HealthCheckOptions { Predicate = check => check.Tags.Contains("ready") })
+   .AllowAnonymous();
 
 // ═══════════════════════════════════════════════════════
 // Database Initialization & Seeding

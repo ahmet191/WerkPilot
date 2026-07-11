@@ -7,6 +7,12 @@
       "runtimeArgs": ["run", "dev"],
       "cwd": "src/omniflow-ui",
       "port": 5173
+    },
+    {
+      "name": "omniflow-api",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": ["run", "--project", "src/OmniFlow.Api"],
+      "port": 5226
     }
   ]
 }

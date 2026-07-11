@@ -31,8 +31,10 @@ public class AuthorizationController : ControllerBase
     /// <summary>
     /// Handles the OAuth2 token endpoint (Password + Refresh Token grants).
     /// POST /connect/token
+    /// Rate limited per client IP to slow credential brute-forcing.
     /// </summary>
     [HttpPost("~/connect/token"), IgnoreAntiforgeryToken, Produces("application/json")]
+    [Microsoft.AspNetCore.RateLimiting.EnableRateLimiting("token-endpoint")]
     public async Task<IActionResult> Exchange()
     {
         var request = HttpContext.GetOpenIddictServerRequest()
