@@ -28,3 +28,5 @@ Thumbs.db
 # Logs
 *.log
 logs/
+/src/OmniFlow.Api/bin
+/src/OmniFlow.Api/obj
