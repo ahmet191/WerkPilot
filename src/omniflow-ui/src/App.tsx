@@ -25,6 +25,11 @@ function App() {
           <Route path="leaves" element={<DynamicPage entityType="leaves" />} />
           <Route path="expenses" element={<DynamicPage entityType="expenses" />} />
           <Route path="auditlogs" element={<DynamicPage entityType="auditlogs" />} />
+          <Route path="templates" element={<DynamicPage entityType="templates" />} />
+          <Route path="categories" element={<DynamicPage entityType="categories" />} />
+          <Route path="slas" element={<DynamicPage entityType="slas" />} />
+          <Route path="users" element={<DynamicPage entityType="users" />} />
+          <Route path="menus" element={<DynamicPage entityType="menus" />} />
         </Route>
       </Routes>
     </BrowserRouter>

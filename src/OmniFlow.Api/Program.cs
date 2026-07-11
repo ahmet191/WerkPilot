@@ -263,7 +263,11 @@ using (var scope = app.Services.CreateScope())
                     adminParent,
                     new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), ParentId = adminParent.Id, TitleKey = "sidebar.departments", Path = "/departments", Icon = "TeamOutlined", OrderIndex = 10 },
                     new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), ParentId = adminParent.Id, TitleKey = "sidebar.servicedesks", Path = "/servicedesks", Icon = "ContainerOutlined", OrderIndex = 20 },
-                    new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), ParentId = adminParent.Id, TitleKey = "sidebar.auditlogs", Path = "/auditlogs", Icon = "SafetyCertificateOutlined", OrderIndex = 30 }
+                    new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), ParentId = adminParent.Id, TitleKey = "sidebar.auditlogs", Path = "/auditlogs", Icon = "SafetyCertificateOutlined", OrderIndex = 30 },
+                    new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), ParentId = adminParent.Id, TitleKey = "sidebar.users", Path = "/users", Icon = "UserOutlined", OrderIndex = 40 },
+                    new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), ParentId = adminParent.Id, TitleKey = "sidebar.templates", Path = "/templates", Icon = "FileTextOutlined", OrderIndex = 50 },
+                    new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), ParentId = adminParent.Id, TitleKey = "sidebar.categories", Path = "/categories", Icon = "AppstoreAddOutlined", OrderIndex = 60 },
+                    new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), ParentId = adminParent.Id, TitleKey = "sidebar.slas", Path = "/slas", Icon = "FieldTimeOutlined", OrderIndex = 70 }
                 };
 
                 context.Set<OmniFlow.Domain.Entities.AppMenu>().AddRange(menus);

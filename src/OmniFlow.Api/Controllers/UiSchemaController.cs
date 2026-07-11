@@ -28,6 +28,10 @@ public class UiSchemaController : ControllerBase
             "leaves" => GetLeavesSchema(),
             "expenses" => GetExpensesSchema(),
             "menus" => GetMenusSchema(),
+            "users" => GetUsersSchema(),
+            "templates" => GetTemplatesSchema(),
+            "categories" => GetCategoriesSchema(),
+            "slas" => GetSlasSchema(),
             "auditlogs" => _userContext.Role == "Admin" ? GetAuditLogsSchema() : null,
             _ => null
         };
@@ -49,9 +53,9 @@ public class UiSchemaController : ControllerBase
                 Actions = new List<string> { "add", "export", "refresh" },
                 Columns = new List<GridColumn>
                 {
-                    new() { DataIndex = "id", TitleKey = "departments.id", Width = 250, Ellipsis = true },
                     new() { DataIndex = "name", TitleKey = "departments.name", Sortable = true },
-                    new() { DataIndex = "managerId", TitleKey = "departments.manager" }
+                    new() { DataIndex = "managerName", TitleKey = "departments.manager" },
+                    new() { DataIndex = "parentDepartmentName", TitleKey = "departments.parentDepartment" }
                 }
             },
             Form = new FormSchema
@@ -62,7 +66,7 @@ public class UiSchemaController : ControllerBase
                 {
                     new() { Name = "name", LabelKey = "departments.name", Type = "text", Required = true, MinLength = 3, MaxLength = 100 },
                     new() { Name = "managerId", LabelKey = "departments.manager", Type = "select", Required = false, DataSourceEndpoint = "/lookup/users" },
-                    new() { Name = "parentDepartmentId", LabelKey = "departments.id", Type = "text" }
+                    new() { Name = "parentDepartmentId", LabelKey = "departments.parentDepartment", Type = "select", Required = false, DataSourceEndpoint = "/lookup/departments" }
                 }
             }
         };
@@ -92,7 +96,7 @@ public class UiSchemaController : ControllerBase
                 {
                     new() { Name = "name", LabelKey = "servicedesks.name", Type = "text", Required = true },
                     new() { Name = "description", LabelKey = "servicedesks.description", Type = "text" },
-                    new() { Name = "departmentId", LabelKey = "servicedesks.department", Type = "select", DataSourceEndpoint = "/departments" }
+                    new() { Name = "departmentId", LabelKey = "servicedesks.department", Type = "select", DataSourceEndpoint = "/lookup/departments" }
                 }
             }
         };
@@ -114,7 +118,7 @@ public class UiSchemaController : ControllerBase
                     new() { DataIndex = "model", TitleKey = "assets.model" },
                     new() { DataIndex = "serialNumber", TitleKey = "assets.serial" },
                     new() { DataIndex = "status", TitleKey = "assets.status", Type = "tag", Width = 100 },
-                    new() { DataIndex = "assignedToUserId", TitleKey = "assets.assigned", Ellipsis = true }
+                    new() { DataIndex = "assignedToUserName", TitleKey = "assets.assigned" }
                 }
             },
             Form = new FormSchema
@@ -166,7 +170,7 @@ public class UiSchemaController : ControllerBase
                 Actions = new List<string> { "add", "refresh" },
                 Columns = new List<GridColumn>
                 {
-                    new() { DataIndex = "id", TitleKey = "tickets.id", Width = 250, Ellipsis = true },
+                    new() { DataIndex = "title", TitleKey = "tickets.title", Width = 250, Ellipsis = true },
                     new() { DataIndex = "type", TitleKey = "tickets.type", Type = "string", Width = 150 },
                     new() { DataIndex = "priority", TitleKey = "tickets.priority", Type = "tag", Width = 120 },
                     new() { DataIndex = "impact", TitleKey = "tickets.impact", Type = "tag", Width = 120 },
@@ -178,8 +182,8 @@ public class UiSchemaController : ControllerBase
             {
                 TitleKey = "tickets.create",
                 SubmitEndpoint = "/tickets",
-                TemplateEndpoint = "/api/templates",
-                DynamicSchemaEndpoint = "/api/uischema/forms/tickets/{templateId}"
+                TemplateEndpoint = "/templates",
+                DynamicSchemaEndpoint = "/uischema/forms/tickets/{templateId}"
             }
         };
     }
@@ -306,7 +310,130 @@ public class UiSchemaController : ControllerBase
                     new() { Name = "path", LabelKey = "menus.path", Type = "text" },
                     new() { Name = "icon", LabelKey = "menus.icon", Type = "text" },
                     new() { Name = "orderIndex", LabelKey = "menus.order", Type = "number", Required = true },
-                    new() { Name = "parentId", LabelKey = "menus.parent", Type = "text" }
+                    new() { Name = "parentId", LabelKey = "menus.parent", Type = "select", DataSourceEndpoint = "/lookup/menus" }
+                }
+            }
+        };
+    }
+
+    private UiSchema GetUsersSchema()
+    {
+        return new UiSchema
+        {
+            Grid = new GridSchema
+            {
+                TitleKey = "sidebar.users",
+                Endpoint = "/users",
+                Actions = new List<string> { "add", "refresh" },
+                Columns = new List<GridColumn>
+                {
+                    new() { DataIndex = "name", TitleKey = "users.name", Sortable = true },
+                    new() { DataIndex = "email", TitleKey = "users.email" },
+                    new() { DataIndex = "role", TitleKey = "users.role", Type = "tag" },
+                    new() { DataIndex = "departmentName", TitleKey = "users.department" }
+                }
+            },
+            Form = new FormSchema
+            {
+                TitleKey = "users.create",
+                SubmitEndpoint = "/users",
+                Fields = new List<FormField>
+                {
+                    new() { Name = "name", LabelKey = "users.name", Type = "text", Required = true },
+                    new() { Name = "email", LabelKey = "users.email", Type = "text", Required = true },
+                    new() { Name = "role", LabelKey = "users.role", Type = "select", Options = new List<FieldOption> { new() { Label = "Requester", Value = "Requester" }, new() { Label = "Agent", Value = "Agent" }, new() { Label = "Approver", Value = "Approver" }, new() { Label = "Administrator", Value = "Administrator" } }, Required = true },
+                    new() { Name = "departmentId", LabelKey = "users.department", Type = "select", DataSourceEndpoint = "/lookup/departments", Required = true }
+                }
+            }
+        };
+    }
+
+    private UiSchema GetTemplatesSchema()
+    {
+        return new UiSchema
+        {
+            Grid = new GridSchema
+            {
+                TitleKey = "sidebar.templates",
+                Endpoint = "/templates",
+                Actions = new List<string> { "add", "refresh" },
+                Columns = new List<GridColumn>
+                {
+                    new() { DataIndex = "serviceDeskName", TitleKey = "templates.serviceDesk" }
+                }
+            },
+            Form = new FormSchema
+            {
+                TitleKey = "templates.create",
+                SubmitEndpoint = "/templates",
+                Fields = new List<FormField>
+                {
+                    new() { Name = "templateName", LabelKey = "templates.name", Type = "text", Required = true },
+                    new() { Name = "serviceDeskId", LabelKey = "templates.serviceDesk", Type = "select", DataSourceEndpoint = "/servicedesks", Required = true },
+                    new() { Name = "fields", LabelKey = "templates.fields", Type = "fields_builder", Required = true },
+                    new() { Name = "workflow", LabelKey = "templates.workflow", Type = "workflow_builder", Required = true }
+                }
+            }
+        };
+    }
+
+    private UiSchema GetCategoriesSchema()
+    {
+        return new UiSchema
+        {
+            Grid = new GridSchema
+            {
+                TitleKey = "sidebar.categories",
+                Endpoint = "/categories",
+                Actions = new List<string> { "add", "refresh" },
+                Columns = new List<GridColumn>
+                {
+                    new() { DataIndex = "name", TitleKey = "categories.name", Sortable = true },
+                    new() { DataIndex = "departmentName", TitleKey = "categories.department" }
+                }
+            },
+            Form = new FormSchema
+            {
+                TitleKey = "categories.create",
+                SubmitEndpoint = "/categories",
+                Fields = new List<FormField>
+                {
+                    new() { Name = "departmentId", LabelKey = "categories.department", Type = "select", DataSourceEndpoint = "/lookup/departments", Required = true },
+                    new() { Name = "parentCategoryId", LabelKey = "categories.parentCategory", Type = "select", DataSourceEndpoint = "/lookup/categories", Required = false }
+                }
+            }
+        };
+    }
+
+    private UiSchema GetSlasSchema()
+    {
+        return new UiSchema
+        {
+            Grid = new GridSchema
+            {
+                TitleKey = "sidebar.slas",
+                Endpoint = "/slaconfigurations",
+                Actions = new List<string> { "add", "refresh" },
+                Columns = new List<GridColumn>
+                {
+                    new() { DataIndex = "name", TitleKey = "slas.name", Sortable = true },
+                    new() { DataIndex = "departmentName", TitleKey = "slas.department" },
+                    new() { DataIndex = "priorityLevel", TitleKey = "slas.priority", Type = "tag" },
+                    new() { DataIndex = "resolutionTimeMinutes", TitleKey = "slas.resolutionTime" },
+                    new() { DataIndex = "firstResponseTimeMinutes", TitleKey = "slas.responseTime" }
+                }
+            },
+            Form = new FormSchema
+            {
+                TitleKey = "slas.create",
+                SubmitEndpoint = "/slaconfigurations",
+                Fields = new List<FormField>
+                {
+                    new() { Name = "name", LabelKey = "slas.name", Type = "text", Required = true },
+                    new() { Name = "departmentId", LabelKey = "slas.department", Type = "select", DataSourceEndpoint = "/lookup/departments", Required = true },
+                    new() { Name = "priorityLevel", LabelKey = "slas.priority", Type = "select", Options = new List<FieldOption> { new() { Label = "Low", Value = "Low" }, new() { Label = "Medium", Value = "Medium" }, new() { Label = "High", Value = "High" }, new() { Label = "Critical", Value = "Critical" } }, Required = true },
+                    new() { Name = "resolutionTimeMinutes", LabelKey = "slas.resolutionTime", Type = "number", Required = true },
+                    new() { Name = "firstResponseTimeMinutes", LabelKey = "slas.responseTime", Type = "number", Required = true }
                 }
             }
         };
@@ -379,11 +506,7 @@ public class UiSchemaController : ControllerBase
             TitleKey = template.LocalizedName.GetValueOrDefault(userLang),
             SubmitEndpoint = "/tickets",
             Method = "POST",
-            Fields = new List<FormField>
-            {
-                new() { Name = "templateId", LabelKey = "tickets.templateId", Type = "text", Required = true }
-                // Here we map dynamic fields from the JSON
-            }
+            Fields = new List<FormField>()
         };
 
         if (template.Fields != null)

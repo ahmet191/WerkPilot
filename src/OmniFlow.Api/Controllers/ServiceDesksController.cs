@@ -43,4 +43,29 @@ public class ServiceDesksController : ControllerBase
 
         return Ok(desks);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] CreateServiceDeskRequest request)
+    {
+        var desk = new ServiceDesk
+        {
+            Id = Guid.NewGuid(),
+            Name = request.Name,
+            Description = request.Description ?? string.Empty,
+            DepartmentId = request.DepartmentId,
+            IsPublicToAllEmployees = true // Default to true as per existing visibility rules
+        };
+
+        _context.ServiceDesks.Add(desk);
+        await _context.SaveChangesAsync(default);
+
+        return Ok(desk);
+    }
+}
+
+public class CreateServiceDeskRequest
+{
+    public string Name { get; set; } = string.Empty;
+    public string? Description { get; set; }
+    public Guid DepartmentId { get; set; }
 }

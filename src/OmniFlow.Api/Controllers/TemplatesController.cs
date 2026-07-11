@@ -10,10 +10,12 @@ namespace OmniFlow.Api.Controllers;
 public class TemplatesController : ControllerBase
 {
     private readonly IOmniFlowDbContext _context;
+    private readonly IUserContext _userContext;
 
-    public TemplatesController(IOmniFlowDbContext context)
+    public TemplatesController(IOmniFlowDbContext context, IUserContext userContext)
     {
         _context = context;
+        _userContext = userContext;
     }
 
     [HttpPost]
@@ -31,9 +33,20 @@ public class TemplatesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<TicketTemplate>>> GetAll()
+    public async Task<IActionResult> GetAll()
     {
-        var templates = await _context.TicketTemplates.ToListAsync();
+        var templates = await _context.TicketTemplates
+            .Include(t => t.ServiceDesk)
+            .Select(t => new
+            {
+                t.Id,
+                t.ServiceDeskId,
+                ServiceDeskName = t.ServiceDesk != null ? t.ServiceDesk.Name : "Unknown",
+                Fields = t.Fields,
+                Workflow = t.Workflow,
+                LocalizedName = t.LocalizedName
+            })
+            .ToListAsync();
         return Ok(templates);
     }
 

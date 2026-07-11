@@ -9,7 +9,9 @@ public class DepartmentDto
     public Guid Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public Guid? ManagerId { get; set; }
+    public string ManagerName { get; set; } = string.Empty;
     public Guid? ParentDepartmentId { get; set; }
+    public string ParentDepartmentName { get; set; } = string.Empty;
 }
 
 public class GetDepartmentsQuery : IRequest<List<DepartmentDto>>
@@ -29,9 +31,11 @@ public class GetDepartmentsQueryHandler : IRequestHandler<GetDepartmentsQuery, L
 
     public async Task<List<DepartmentDto>> Handle(GetDepartmentsQuery request, CancellationToken cancellationToken)
     {
-        var departments = await _context.Departments.ToListAsync(cancellationToken);
+        var departments = await _context.Departments
+            .Include(d => d.Manager)
+            .Include(d => d.ParentDepartment)
+            .ToListAsync(cancellationToken);
         
-        // Use the user's Accept-Language preference to resolve the name dynamically
         var lang = _userContext.Language;
 
         return departments.Select(d => new DepartmentDto
@@ -39,7 +43,9 @@ public class GetDepartmentsQueryHandler : IRequestHandler<GetDepartmentsQuery, L
             Id = d.Id,
             Name = d.LocalizedName.GetValueOrDefault(lang),
             ManagerId = d.ManagerId,
-            ParentDepartmentId = d.ParentDepartmentId
+            ManagerName = d.Manager != null ? d.Manager.Name : string.Empty,
+            ParentDepartmentId = d.ParentDepartmentId,
+            ParentDepartmentName = d.ParentDepartment != null ? d.ParentDepartment.LocalizedName.GetValueOrDefault(lang) : string.Empty
         }).ToList();
     }
 }

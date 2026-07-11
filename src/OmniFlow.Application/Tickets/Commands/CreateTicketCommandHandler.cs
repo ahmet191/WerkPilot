@@ -53,6 +53,10 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
             if (hasValue && fieldValue != null)
             {
                 var stringVal = fieldValue.ToString() ?? string.Empty;
+                if (string.IsNullOrWhiteSpace(stringVal))
+                {
+                    continue;
+                }
 
                 // Validate dropdown choices
                 if (field.DropdownOptions != null && field.DropdownOptions.Count > 0)

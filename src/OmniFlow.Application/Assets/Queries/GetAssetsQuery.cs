@@ -13,6 +13,7 @@ public class AssetDto
     public string Category { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
     public Guid? AssignedToUserId { get; set; }
+    public string AssignedToUserName { get; set; } = string.Empty;
 }
 
 public class GetAssetsQuery : IRequest<List<AssetDto>>
@@ -30,7 +31,9 @@ public class GetAssetsQueryHandler : IRequestHandler<GetAssetsQuery, List<AssetD
 
     public async Task<List<AssetDto>> Handle(GetAssetsQuery request, CancellationToken cancellationToken)
     {
-        var assets = await _context.Assets.ToListAsync(cancellationToken);
+        var assets = await _context.Assets
+            .Include(a => a.AssignedToUser)
+            .ToListAsync(cancellationToken);
         
         return assets.Select(a => new AssetDto
         {
@@ -40,7 +43,8 @@ public class GetAssetsQueryHandler : IRequestHandler<GetAssetsQuery, List<AssetD
             Model = a.Model,
             Category = a.Category,
             Status = a.Status.ToString(),
-            AssignedToUserId = a.AssignedToUserId
+            AssignedToUserId = a.AssignedToUserId,
+            AssignedToUserName = a.AssignedToUser != null ? a.AssignedToUser.Name : string.Empty
         }).ToList();
     }
 }

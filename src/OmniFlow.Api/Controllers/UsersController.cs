@@ -13,11 +13,13 @@ public class UsersController : ControllerBase
 {
     private readonly IMediator _mediator;
     private readonly IOmniFlowDbContext _context;
+    private readonly IUserContext _userContext;
 
-    public UsersController(IMediator mediator, IOmniFlowDbContext context)
+    public UsersController(IMediator mediator, IOmniFlowDbContext context, IUserContext userContext)
     {
         _mediator = mediator;
         _context = context;
+        _userContext = userContext;
     }
 
     [HttpPost]
@@ -28,9 +30,21 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<User>>> GetAll()
+    public async Task<IActionResult> GetAll()
     {
-        var users = await _context.Users.ToListAsync();
+        var lang = _userContext.Language;
+        var users = await _context.Users
+            .Include(u => u.Department)
+            .Select(u => new
+            {
+                u.Id,
+                u.Name,
+                u.Email,
+                u.Role,
+                u.DepartmentId,
+                DepartmentName = u.Department != null ? u.Department.LocalizedName.Translations.ContainsKey(lang) ? u.Department.LocalizedName.Translations[lang] : (u.Department.LocalizedName.Translations.ContainsKey("en") ? u.Department.LocalizedName.Translations["en"] : "Unknown") : "None"
+            })
+            .ToListAsync();
         return Ok(users);
     }
 
