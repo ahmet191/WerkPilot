@@ -7,7 +7,7 @@ import { useTranslation } from '../../../core/LanguageContext';
 interface EnterpriseDataGridProps<T> extends Omit<TableProps<T>, 'dataSource' | 'columns' | 'loading'> {
   title: string;
   columns: ColumnsType<T>;
-  fetchData: (page: number, pageSize: number, search: string) => Promise<{ data: T[]; total: number }>;
+  fetchData: (page: number, pageSize: number, search: string, sortBy?: string, sortDesc?: boolean) => Promise<{ data: T[]; total: number }>;
   onAdd?: () => void;
   onExport?: (data: T[]) => void;
   actions?: React.ReactNode;
@@ -29,11 +29,13 @@ export function EnterpriseDataGrid<T extends object>({
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const [search, setSearch] = useState('');
+  const [sortBy, setSortBy] = useState<string | undefined>();
+  const [sortDesc, setSortDesc] = useState<boolean | undefined>();
 
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
-      const result = await fetchData(page, pageSize, search);
+      const result = await fetchData(page, pageSize, search, sortBy, sortDesc);
       setData(result.data);
       setTotal(result.total);
     } catch (error) {
@@ -41,7 +43,7 @@ export function EnterpriseDataGrid<T extends object>({
     } finally {
       setLoading(false);
     }
-  }, [fetchData, page, pageSize, search]);
+  }, [fetchData, page, pageSize, search, sortBy, sortDesc]);
 
   useEffect(() => {
     loadData();
@@ -93,6 +95,7 @@ export function EnterpriseDataGrid<T extends object>({
       </div>
       <Table<T>
         size="small"
+        rowKey="id"
         scroll={{ y: 'calc(100vh - 200px)' }}
         dataSource={data}
         columns={columns}
@@ -105,10 +108,18 @@ export function EnterpriseDataGrid<T extends object>({
           showSizeChanger: true,
           pageSizeOptions: ['10', '20', '50', '100'],
           showTotal: (totalCount) => t('grid.total', totalCount),
-          onChange: (p, ps) => {
-            setPage(p);
-            setPageSize(ps);
-          },
+        }}
+        onChange={(pagination, filters, sorter: any) => {
+          if (pagination.current) setPage(pagination.current);
+          if (pagination.pageSize) setPageSize(pagination.pageSize);
+          
+          if (sorter && sorter.columnKey) {
+            setSortBy(sorter.columnKey);
+            setSortDesc(sorter.order === 'descend');
+          } else {
+            setSortBy(undefined);
+            setSortDesc(undefined);
+          }
         }}
         {...tableProps}
       />

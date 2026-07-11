@@ -82,9 +82,17 @@ public class TelegramGateway : IMessageGateway
 
             // 1. Authenticate / Resolve Internal User ID
             var userId = await _identityService.GetUserIdByTelegramChatIdAsync(chatId, cancellationToken);
+            
+            // Allow linking
+            if (text.StartsWith("/link"))
+            {
+                await HandleLinkCommandAsync(chatId, text, cancellationToken);
+                return;
+            }
+
             if (userId == null)
             {
-                await SendMessageAsync(chatId, "Unauthorized: Please link your Telegram account with HR.", cancellationToken);
+                await SendMessageAsync(chatId, "Unauthorized: Please link your Telegram account with HR using `/link <Email>`.", cancellationToken);
                 return;
             }
 
@@ -113,6 +121,41 @@ public class TelegramGateway : IMessageGateway
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error processing webhook update payload");
+        }
+    }
+
+    private async Task HandleLinkCommandAsync(string chatId, string commandText, CancellationToken cancellationToken)
+    {
+        var parts = commandText.Split(' ', 2);
+        if (parts.Length < 2)
+        {
+            await SendMessageAsync(chatId, "Usage: `/link <YourEmail>`", cancellationToken);
+            return;
+        }
+
+        var email = parts[1].Trim();
+
+        try
+        {
+            using var scope = _serviceProvider.CreateScope();
+            var context = scope.ServiceProvider.GetRequiredService<IOmniFlowDbContext>();
+
+            var user = context.Users.FirstOrDefault(u => u.Email == email);
+            if (user == null)
+            {
+                await SendMessageAsync(chatId, $"❌ User with email '{email}' not found.", cancellationToken);
+                return;
+            }
+
+            user.TelegramChatId = chatId;
+            await context.SaveChangesAsync(cancellationToken);
+
+            await SendMessageAsync(chatId, $"✅ Successfully linked Telegram account to {email}! You will now receive notifications.", cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to link Telegram account");
+            await SendMessageAsync(chatId, "❌ Failed to link account due to an error.", cancellationToken);
         }
     }
 

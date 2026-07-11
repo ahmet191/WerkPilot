@@ -31,6 +31,7 @@ builder.Services.AddOpenTelemetry()
         .AddHttpClientInstrumentation());
 
 // 3. Application Layer Setup (MediatR)
+builder.Services.AddScoped<OmniFlow.Application.Interfaces.ITenantService, OmniFlow.Api.Services.TenantService>();
 builder.Services.AddMediatR(cfg => {
     cfg.RegisterServicesFromAssembly(typeof(OmniFlow.Application.Tickets.Commands.CreateTicketCommand).Assembly);
     cfg.RegisterServicesFromAssembly(typeof(OmniFlow.Infrastructure.Messaging.TelegramGateway).Assembly);
@@ -53,6 +54,7 @@ builder.Services.AddDbContext<IOmniFlowDbContext, OmniFlowDbContext>(options =>
 // 5. Infrastructure Layer Setup (Services)
 builder.Services.AddScoped<IMessageGateway, TelegramGateway>();
 builder.Services.AddScoped<ITelegramIdentityService, TelegramIdentityService>();
+builder.Services.AddScoped<IDashboardMetricsService, OmniFlow.Api.Services.DashboardMetricsService>();
 
 // 6. MassTransit (Event-Driven Design)
 builder.Services.AddMassTransit(x =>
@@ -72,6 +74,7 @@ builder.Services.AddMassTransit(x =>
 });
 
 builder.Services.AddControllers();
+builder.Services.AddSignalR();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
@@ -93,6 +96,7 @@ var app = builder.Build();
 app.UseMiddleware<CorrelationIdMiddleware>();
 
 app.UseMiddleware<OmniFlow.Api.Middlewares.ExceptionHandlingMiddleware>();
+app.UseMiddleware<OmniFlow.Api.Middleware.AuditLoggingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
@@ -105,6 +109,7 @@ app.UseCors("AllowViteUI");
 
 app.UseAuthorization();
 app.MapControllers();
+app.MapHub<OmniFlow.Api.Hubs.DashboardHub>("/hubs/dashboard");
 
 using (var scope = app.Services.CreateScope())
 {

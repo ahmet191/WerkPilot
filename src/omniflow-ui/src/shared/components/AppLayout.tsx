@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Layout, Menu, Select, Space, message } from 'antd';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { TeamOutlined, LaptopOutlined, ContainerOutlined, TranslationOutlined, BgColorsOutlined } from '@ant-design/icons';
+import { TeamOutlined, LaptopOutlined, ContainerOutlined, TranslationOutlined, BgColorsOutlined, DashboardOutlined, CalendarOutlined, SafetyCertificateOutlined } from '@ant-design/icons';
 import { useAppTheme } from '../../core/ThemeContext';
 import type { AppTheme } from '../../core/ThemeContext';
 import { useTranslation } from '../../core/LanguageContext';
@@ -26,9 +26,12 @@ export function AppLayout() {
   }, [t]);
 
   const menuItems = [
+    { key: '/', icon: <DashboardOutlined />, label: t('sidebar.dashboard') || 'Dashboard' },
     { key: '/departments', icon: <TeamOutlined />, label: t('sidebar.departments') },
     { key: '/assets', icon: <LaptopOutlined />, label: t('sidebar.assets') },
     { key: '/tickets', icon: <ContainerOutlined />, label: t('sidebar.tickets') },
+    { key: '/leaves', icon: <CalendarOutlined />, label: t('sidebar.leaves') || 'Leaves' },
+    { key: '/auditlogs', icon: <SafetyCertificateOutlined />, label: t('sidebar.auditlogs') || 'Audit Logs' },
   ];
 
   return (

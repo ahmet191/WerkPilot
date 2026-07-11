@@ -6,6 +6,13 @@ namespace OmniFlow.Infrastructure.Persistence.Interceptors;
 
 public class AuditableEntityInterceptor : SaveChangesInterceptor
 {
+    private readonly OmniFlow.Application.Interfaces.ITenantService _tenantService;
+
+    public AuditableEntityInterceptor(OmniFlow.Application.Interfaces.ITenantService tenantService)
+    {
+        _tenantService = tenantService;
+    }
+
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
     {
         UpdateEntities(eventData.Context);
@@ -29,6 +36,7 @@ public class AuditableEntityInterceptor : SaveChangesInterceptor
                 // In a real scenario, retrieve UserId from HttpContext or Identity Service
                 entry.Entity.CreatedBy = Guid.Empty; 
                 entry.Entity.CreatedAt = DateTimeOffset.UtcNow;
+                entry.Entity.TenantId = _tenantService.TenantId;
             }
 
             if (entry.State == EntityState.Modified || entry.HasChangedOwnedEntities())

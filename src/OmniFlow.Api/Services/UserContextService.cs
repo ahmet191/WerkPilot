@@ -26,6 +26,15 @@ public class UserContextService : IUserContext
         }
     }
 
+    public string Role
+    {
+        get
+        {
+            var roleStr = _httpContextAccessor.HttpContext?.Request.Headers["X-User-Role"].FirstOrDefault();
+            return string.IsNullOrEmpty(roleStr) ? "Admin" : roleStr;
+        }
+    }
+
     public string Language
     {
         get

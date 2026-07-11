@@ -4,6 +4,7 @@ import type { ColumnsType } from 'antd/es/table';
 import { EnterpriseDataGrid } from '../datagrid/EnterpriseDataGrid';
 import { DynamicFormModal } from './DynamicFormModal';
 import { SchemaService } from '../../../services/schema.service';
+import { api } from '../../../core/api';
 import type { UiSchema } from '../../../core/schema.models';
 import { useTranslation } from '../../../core/LanguageContext';
 
@@ -33,23 +34,32 @@ export function DynamicPage({ entityType }: DynamicPageProps) {
     loadSchema();
   }, [entityType]);
 
-  const handleFetchData = useCallback(async (page: number, pageSize: number, search: string) => {
+  const handleFetchData = useCallback(async (page: number, pageSize: number, search: string, sortBy?: string, sortDesc?: boolean) => {
     if (!schema) return { data: [], total: 0 };
     
-    // In a real implementation, you'd pass ?page=1&limit=20&search=xyz to the backend.
-    // For our demo, we fetch all and slice it on the client side since the current /api/departments endpoint doesn't support pagination yet.
-    const all = await SchemaService.fetchGridData(schema.grid.endpoint);
-    
-    let filtered = all;
-    if (search) {
-        filtered = all.filter(item => JSON.stringify(item).toLowerCase().includes(search.toLowerCase()));
+    try {
+      const endpoint = schema.grid.endpoint;
+      const separator = endpoint.includes('?') ? '&' : '?';
+      let url = `${endpoint}${separator}current=${page}&pageSize=${pageSize}`;
+      
+      if (search) url += `&search=${encodeURIComponent(search)}`;
+      if (sortBy) url += `&sortBy=${encodeURIComponent(sortBy)}&sortDesc=${sortDesc}`;
+
+      const response = await api.get(url);
+      
+      // Check if response is PagedResponse (has items and totalCount)
+      if (response.data && response.data.items !== undefined) {
+          return { data: response.data.items, total: response.data.totalCount };
+      }
+      
+      // Fallback for non-paginated legacy endpoints
+      const all = response.data;
+      const paged = all.slice((page - 1) * pageSize, page * pageSize);
+      return { data: paged, total: all.length };
+    } catch (err) {
+      console.error('Failed to fetch data', err);
+      return { data: [], total: 0 };
     }
-    
-    const paged = filtered.slice((page - 1) * pageSize, page * pageSize);
-    return {
-      data: paged,
-      total: filtered.length,
-    };
   }, [schema, refreshKey]); // Include refreshKey so grid refetches on save
 
   if (loading || !schema) {
@@ -62,11 +72,7 @@ export function DynamicPage({ entityType }: DynamicPageProps) {
       title: t(col.titleKey),
       dataIndex: col.dataIndex,
       key: col.dataIndex,
-      sorter: col.sortable ? (a, b) => {
-          const valA = a[col.dataIndex] || '';
-          const valB = b[col.dataIndex] || '';
-          return valA.toString().localeCompare(valB.toString());
-      } : undefined,
+      sorter: col.sortable ? true : undefined,
       width: col.width,
       ellipsis: col.ellipsis,
       render: (text: any) => {
@@ -77,6 +83,43 @@ export function DynamicPage({ entityType }: DynamicPageProps) {
       }
     };
   });
+
+  const handleActionClick = async (action: any, record: any) => {
+    const url = action.endpoint.replace('{id}', record.id);
+    try {
+      if (action.method.toUpperCase() === 'PUT') {
+        await api.put(url);
+      } else if (action.method.toUpperCase() === 'POST') {
+        await api.post(url);
+      } else if (action.method.toUpperCase() === 'DELETE') {
+        await api.delete(url);
+      }
+      setRefreshKey(prev => prev + 1);
+    } catch (err) {
+      console.error('Action failed', err);
+    }
+  };
+
+  if (schema.grid.rowActions && schema.grid.rowActions.length > 0) {
+    columns.push({
+      title: t('grid.actions') || 'Actions',
+      key: 'actions',
+      width: 150,
+      render: (_, record) => (
+        <span style={{ display: 'flex', gap: '8px' }}>
+          {schema.grid.rowActions?.map((action, idx) => (
+            <a
+              key={idx}
+              style={{ color: action.color === 'danger' ? 'red' : 'var(--primary-color)', cursor: 'pointer' }}
+              onClick={() => handleActionClick(action, record)}
+            >
+              {t(action.labelKey)}
+            </a>
+          ))}
+        </span>
+      ),
+    });
+  }
 
   return (
     <>

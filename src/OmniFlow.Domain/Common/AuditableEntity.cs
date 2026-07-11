@@ -6,4 +6,5 @@ public abstract class AuditableEntity
     public DateTimeOffset CreatedAt { get; set; }
     public Guid? ModifiedBy { get; set; }
     public DateTimeOffset? ModifiedAt { get; set; }
+    public Guid TenantId { get; set; } // Global Multi-Tenancy Key
 }

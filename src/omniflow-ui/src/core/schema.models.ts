@@ -1,6 +1,16 @@
 export interface UiSchema {
-  grid: GridSchema;
-  form: FormSchema;
+  grid?: GridSchema;
+  form?: FormSchema;
+  widgets?: WidgetSchema[];
+}
+
+export interface WidgetSchema {
+  type: string;
+  titleKey: string;
+  endpoint: string;
+  dataKey: string;
+  icon: string;
+  color: string;
 }
 
 export interface GridSchema {
@@ -8,6 +18,14 @@ export interface GridSchema {
   endpoint: string;
   actions: string[];
   columns: GridColumn[];
+  rowActions?: GridAction[];
+}
+
+export interface GridAction {
+  labelKey: string;
+  method: string;
+  endpoint: string;
+  color: string;
 }
 
 export interface GridColumn {
@@ -22,7 +40,10 @@ export interface GridColumn {
 export interface FormSchema {
   titleKey: string;
   submitEndpoint: string;
+  method: string;
   fields: FormField[];
+  templateEndpoint?: string;
+  dynamicSchemaEndpoint?: string;
 }
 
 export interface FormField {
@@ -30,7 +51,10 @@ export interface FormField {
   labelKey: string;
   type: 'text' | 'select' | 'date' | 'number';
   required: boolean;
-  optionsEndpoint?: string;
+  dataSourceEndpoint?: string;
+  regexPattern?: string;
+  minLength?: number;
+  maxLength?: number;
   options?: FieldOption[];
 }
 

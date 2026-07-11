@@ -9,15 +9,18 @@ public class TicketCreatedNotificationHandler : INotificationHandler<TicketCreat
 {
     private readonly IMessageGateway _messageGateway;
     private readonly ITelegramIdentityService _identityService;
+    private readonly IDashboardMetricsService _dashboardMetricsService;
     private readonly ILogger<TicketCreatedNotificationHandler> _logger;
 
     public TicketCreatedNotificationHandler(
         IMessageGateway messageGateway,
         ITelegramIdentityService identityService,
+        IDashboardMetricsService dashboardMetricsService,
         ILogger<TicketCreatedNotificationHandler> logger)
     {
         _messageGateway = messageGateway;
         _identityService = identityService;
+        _dashboardMetricsService = dashboardMetricsService;
         _logger = logger;
     }
 
@@ -41,5 +44,8 @@ public class TicketCreatedNotificationHandler : INotificationHandler<TicketCreat
         {
             _logger.LogWarning("No Telegram Chat ID mapped for user {UserId}. Cannot send notification.", ticket.RequesterId);
         }
+
+        // 3. Update Dashboard Live Metrics
+        await _dashboardMetricsService.BroadcastMetricUpdateAsync("open_tickets", 1, cancellationToken);
     }
 }

@@ -9,13 +9,16 @@ namespace OmniFlow.Infrastructure.Persistence;
 public class OmniFlowDbContext : DbContext, IOmniFlowDbContext
 {
     private readonly AuditableEntityInterceptor _auditableEntityInterceptor;
+    private readonly ITenantService _tenantService;
 
     public OmniFlowDbContext(
         DbContextOptions<OmniFlowDbContext> options,
-        AuditableEntityInterceptor auditableEntityInterceptor) 
+        AuditableEntityInterceptor auditableEntityInterceptor,
+        ITenantService tenantService) 
         : base(options)
     {
         _auditableEntityInterceptor = auditableEntityInterceptor;
+        _tenantService = tenantService;
     }
 
     public DbSet<User> Users => Set<User>();
@@ -35,11 +38,31 @@ public class OmniFlowDbContext : DbContext, IOmniFlowDbContext
     public DbSet<TicketCategory> TicketCategories => Set<TicketCategory>();
     public DbSet<SLAConfiguration> SLAConfigurations => Set<SLAConfiguration>();
     public DbSet<KnowledgeBaseArticle> KnowledgeBaseArticles => Set<KnowledgeBaseArticle>();
+    public DbSet<AuditLog> AuditLogs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        // Global Query Filter for Multi-Tenancy
+        foreach (var entityType in builder.Model.GetEntityTypes())
+        {
+            if (typeof(OmniFlow.Domain.Common.AuditableEntity).IsAssignableFrom(entityType.ClrType))
+            {
+                var method = typeof(OmniFlowDbContext)
+                    .GetMethod(nameof(SetGlobalQueryFilter), BindingFlags.NonPublic | BindingFlags.Instance)
+                    ?.MakeGenericMethod(entityType.ClrType);
+                
+                method?.Invoke(this, new object[] { builder });
+            }
+        }
+
         base.OnModelCreating(builder);
+    }
+
+    private void SetGlobalQueryFilter<TEntity>(ModelBuilder builder) where TEntity : OmniFlow.Domain.Common.AuditableEntity
+    {
+        builder.Entity<TEntity>().HasQueryFilter(e => e.TenantId == _tenantService.TenantId);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

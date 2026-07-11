@@ -22,6 +22,7 @@ public interface IOmniFlowDbContext
     DbSet<TicketCategory> TicketCategories { get; }
     DbSet<SLAConfiguration> SLAConfigurations { get; }
     DbSet<KnowledgeBaseArticle> KnowledgeBaseArticles { get; }
+    DbSet<AuditLog> AuditLogs { get; set; }
     
     DbSet<TEntity> Set<TEntity>() where TEntity : class;
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
