@@ -76,6 +76,17 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<OmniFlow.Application.Interfaces.IUserContext, OmniFlow.Api.Services.UserContextService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowViteUI", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials(); // useful for SignalR/Cookies later
+    });
+});
+
 var app = builder.Build();
 
 app.UseMiddleware<CorrelationIdMiddleware>();
@@ -87,6 +98,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowViteUI");
+
 app.UseAuthorization();
 app.MapControllers();
 
