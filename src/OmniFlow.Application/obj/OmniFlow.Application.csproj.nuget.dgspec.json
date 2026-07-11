@@ -54,6 +54,10 @@
               "target": "Package",
               "version": "[12.1.1, )"
             },
+            "MassTransit.Abstractions": {
+              "target": "Package",
+              "version": "[9.1.2, )"
+            },
             "MediatR": {
               "target": "Package",
               "version": "[14.2.0, )"

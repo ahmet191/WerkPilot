@@ -44,15 +44,15 @@
           }
         }
       },
-      "MassTransit.Abstractions/8.3.4": {
+      "MassTransit.Abstractions/9.1.2": {
         "type": "package",
         "compile": {
-          "lib/net9.0/MassTransit.Abstractions.dll": {
+          "lib/net10.0/MassTransit.Abstractions.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net9.0/MassTransit.Abstractions.dll": {
+          "lib/net10.0/MassTransit.Abstractions.dll": {
             "related": ".xml"
           }
         }
@@ -1177,6 +1177,7 @@
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "FluentValidation": "12.1.1",
+          "MassTransit.Abstractions": "9.1.2",
           "MediatR": "14.2.0",
           "Microsoft.EntityFrameworkCore": "10.0.9",
           "OmniFlow.Domain": "1.0.0",
@@ -1276,14 +1277,16 @@
         "mt-logo-small.png"
       ]
     },
-    "MassTransit.Abstractions/8.3.4": {
-      "sha512": "0a7nxUzJIP6v2pQYQQ8RhQR+XFtFCxUR9dJJK7ewLONuxj26issAoJicppCJdXHGaBdxAMCvWvKulHjGpuJoeA==",
+    "MassTransit.Abstractions/9.1.2": {
+      "sha512": "o2MymiTaxaJ0LUNm6W/8taD1u6Q/hyee1FwM/XvJ8l4IHgGBOVllPLuViYiI/XDu/t86ErjXOJqXrkOB/+ZrCg==",
       "type": "package",
-      "path": "masstransit.abstractions/8.3.4",
+      "path": "masstransit.abstractions/9.1.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "NuGet.README.md",
+        "lib/net10.0/MassTransit.Abstractions.dll",
+        "lib/net10.0/MassTransit.Abstractions.xml",
         "lib/net472/MassTransit.Abstractions.dll",
         "lib/net472/MassTransit.Abstractions.xml",
         "lib/net8.0/MassTransit.Abstractions.dll",
@@ -1292,7 +1295,7 @@
         "lib/net9.0/MassTransit.Abstractions.xml",
         "lib/netstandard2.0/MassTransit.Abstractions.dll",
         "lib/netstandard2.0/MassTransit.Abstractions.xml",
-        "masstransit.abstractions.8.3.4.nupkg.sha512",
+        "masstransit.abstractions.9.1.2.nupkg.sha512",
         "masstransit.abstractions.nuspec",
         "mt-logo-small.png"
       ]

@@ -13,11 +13,13 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
 {
     private readonly IOmniFlowDbContext _context;
     private readonly IMediator _mediator;
+    private readonly MassTransit.IMessageScheduler _messageScheduler;
 
-    public CreateTicketCommandHandler(IOmniFlowDbContext context, IMediator mediator)
+    public CreateTicketCommandHandler(IOmniFlowDbContext context, IMediator mediator, MassTransit.IMessageScheduler messageScheduler)
     {
         _context = context;
         _mediator = mediator;
+        _messageScheduler = messageScheduler;
     }
 
     public async Task<Guid> Handle(CreateTicketCommand request, CancellationToken cancellationToken)

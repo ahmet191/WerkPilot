@@ -13,3 +13,4 @@
 /Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Application/obj/Debug/net10.0/refint/OmniFlow.Application.dll
 /Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Application/obj/Debug/net10.0/OmniFlow.Application.pdb
 /Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Application/obj/Debug/net10.0/ref/OmniFlow.Application.dll
+/Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Application/obj/Debug/net10.0/OmniFlow.Application.sourcelink.json

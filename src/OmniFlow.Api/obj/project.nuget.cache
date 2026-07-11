@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "PYqPWXZYFdY=",
+  "dgSpecHash": "hBp0ZTdYYcM=",
   "success": true,
   "projectFilePath": "/Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Api/OmniFlow.Api.csproj",
   "expectedPackageFiles": [
     "/Users/ahmetsekerci/.nuget/packages/fluentvalidation/12.1.1/fluentvalidation.12.1.1.nupkg.sha512",
     "/Users/ahmetsekerci/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/ahmetsekerci/.nuget/packages/masstransit/8.3.4/masstransit.8.3.4.nupkg.sha512",
-    "/Users/ahmetsekerci/.nuget/packages/masstransit.abstractions/8.3.4/masstransit.abstractions.8.3.4.nupkg.sha512",
+    "/Users/ahmetsekerci/.nuget/packages/masstransit.abstractions/9.1.2/masstransit.abstractions.9.1.2.nupkg.sha512",
     "/Users/ahmetsekerci/.nuget/packages/mediatr/14.2.0/mediatr.14.2.0.nupkg.sha512",
     "/Users/ahmetsekerci/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
     "/Users/ahmetsekerci/.nuget/packages/microsoft.aspnetcore.openapi/10.0.2/microsoft.aspnetcore.openapi.10.0.2.nupkg.sha512",

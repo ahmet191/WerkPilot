@@ -15,3 +15,4 @@
 /Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Infrastructure/obj/Debug/net10.0/refint/OmniFlow.Infrastructure.dll
 /Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Infrastructure/obj/Debug/net10.0/OmniFlow.Infrastructure.pdb
 /Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Infrastructure/obj/Debug/net10.0/ref/OmniFlow.Infrastructure.dll
+/Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Infrastructure/obj/Debug/net10.0/OmniFlow.Infrastructure.sourcelink.json

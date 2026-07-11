@@ -156,3 +156,4 @@
 /Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Api/obj/Debug/net10.0/OmniFlow.Api.genruntimeconfig.cache
 /Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Api/obj/Debug/net10.0/ref/OmniFlow.Api.dll
 /Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Api/bin/Debug/net10.0/Telegram.Bot.dll
+/Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Api/obj/Debug/net10.0/OmniFlow.Api.sourcelink.json

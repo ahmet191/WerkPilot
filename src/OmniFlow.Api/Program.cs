@@ -57,9 +57,15 @@ builder.Services.AddScoped<ITelegramIdentityService, TelegramIdentityService>();
 // 6. MassTransit (Event-Driven Design)
 builder.Services.AddMassTransit(x =>
 {
-    // Configure RabbitMQ or Memory for now
+    x.AddDelayedMessageScheduler();
+
+    // Register Consumers
+    x.AddConsumer<OmniFlow.Infrastructure.Messaging.Consumers.LeaveRequestNotificationConsumer>();
+    x.AddConsumer<OmniFlow.Infrastructure.Messaging.Consumers.TicketSlaBreachConsumer>();
+
     x.UsingInMemory((context, cfg) =>
     {
+        cfg.UseDelayedMessageScheduler();
         cfg.ConfigureEndpoints(context);
     });
 });

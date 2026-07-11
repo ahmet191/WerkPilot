@@ -15,6 +15,19 @@
           }
         }
       },
+      "MassTransit.Abstractions/9.1.2": {
+        "type": "package",
+        "compile": {
+          "lib/net10.0/MassTransit.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/MassTransit.Abstractions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "MediatR/14.2.0": {
         "type": "package",
         "dependencies": {
@@ -342,6 +355,29 @@
         "fluentvalidation.nuspec",
         "lib/net8.0/FluentValidation.dll",
         "lib/net8.0/FluentValidation.xml"
+      ]
+    },
+    "MassTransit.Abstractions/9.1.2": {
+      "sha512": "o2MymiTaxaJ0LUNm6W/8taD1u6Q/hyee1FwM/XvJ8l4IHgGBOVllPLuViYiI/XDu/t86ErjXOJqXrkOB/+ZrCg==",
+      "type": "package",
+      "path": "masstransit.abstractions/9.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "NuGet.README.md",
+        "lib/net10.0/MassTransit.Abstractions.dll",
+        "lib/net10.0/MassTransit.Abstractions.xml",
+        "lib/net472/MassTransit.Abstractions.dll",
+        "lib/net472/MassTransit.Abstractions.xml",
+        "lib/net8.0/MassTransit.Abstractions.dll",
+        "lib/net8.0/MassTransit.Abstractions.xml",
+        "lib/net9.0/MassTransit.Abstractions.dll",
+        "lib/net9.0/MassTransit.Abstractions.xml",
+        "lib/netstandard2.0/MassTransit.Abstractions.dll",
+        "lib/netstandard2.0/MassTransit.Abstractions.xml",
+        "masstransit.abstractions.9.1.2.nupkg.sha512",
+        "masstransit.abstractions.nuspec",
+        "mt-logo-small.png"
       ]
     },
     "MediatR/14.2.0": {
@@ -853,6 +889,7 @@
   "projectFileDependencyGroups": {
     "net10.0": [
       "FluentValidation >= 12.1.1",
+      "MassTransit.Abstractions >= 9.1.2",
       "MediatR >= 14.2.0",
       "Microsoft.EntityFrameworkCore >= 10.0.9",
       "OmniFlow.Domain >= 1.0.0",
@@ -911,6 +948,10 @@
           "FluentValidation": {
             "target": "Package",
             "version": "[12.1.1, )"
+          },
+          "MassTransit.Abstractions": {
+            "target": "Package",
+            "version": "[9.1.2, )"
           },
           "MediatR": {
             "target": "Package",

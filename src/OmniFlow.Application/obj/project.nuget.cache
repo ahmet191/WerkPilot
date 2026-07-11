@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "640VA4sG8cM=",
+  "dgSpecHash": "aki3DRdomkc=",
   "success": true,
   "projectFilePath": "/Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Application/OmniFlow.Application.csproj",
   "expectedPackageFiles": [
     "/Users/ahmetsekerci/.nuget/packages/fluentvalidation/12.1.1/fluentvalidation.12.1.1.nupkg.sha512",
+    "/Users/ahmetsekerci/.nuget/packages/masstransit.abstractions/9.1.2/masstransit.abstractions.9.1.2.nupkg.sha512",
     "/Users/ahmetsekerci/.nuget/packages/mediatr/14.2.0/mediatr.14.2.0.nupkg.sha512",
     "/Users/ahmetsekerci/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
     "/Users/ahmetsekerci/.nuget/packages/microsoft.entityframeworkcore/10.0.9/microsoft.entityframeworkcore.10.0.9.nupkg.sha512",
