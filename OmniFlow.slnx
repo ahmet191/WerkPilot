@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/OmniFlow.Api/OmniFlow.Api.csproj" />
+    <Project Path="src/OmniFlow.Application/OmniFlow.Application.csproj" />
+    <Project Path="src/OmniFlow.Domain/OmniFlow.Domain.csproj" />
+    <Project Path="src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj" />
+  </Folder>
+</Solution>

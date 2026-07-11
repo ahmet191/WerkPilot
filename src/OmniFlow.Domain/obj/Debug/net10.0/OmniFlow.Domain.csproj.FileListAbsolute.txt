@@ -1,0 +1,12 @@
+/Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Domain/bin/Debug/net10.0/OmniFlow.Domain.deps.json
+/Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Domain/bin/Debug/net10.0/OmniFlow.Domain.dll
+/Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Domain/bin/Debug/net10.0/OmniFlow.Domain.pdb
+/Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Domain/obj/Debug/net10.0/OmniFlow.Domain.csproj.AssemblyReference.cache
+/Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Domain/obj/Debug/net10.0/OmniFlow.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Domain/obj/Debug/net10.0/OmniFlow.Domain.AssemblyInfoInputs.cache
+/Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Domain/obj/Debug/net10.0/OmniFlow.Domain.AssemblyInfo.cs
+/Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Domain/obj/Debug/net10.0/OmniFlow.Domain.csproj.CoreCompileInputs.cache
+/Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Domain/obj/Debug/net10.0/OmniFlow.Domain.dll
+/Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Domain/obj/Debug/net10.0/refint/OmniFlow.Domain.dll
+/Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Domain/obj/Debug/net10.0/OmniFlow.Domain.pdb
+/Users/ahmetsekerci/Projects/WerkPilot/src/OmniFlow.Domain/obj/Debug/net10.0/ref/OmniFlow.Domain.dll

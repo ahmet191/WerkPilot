@@ -1,0 +1,28 @@
+using Microsoft.EntityFrameworkCore;
+using OmniFlow.Domain.Entities;
+
+namespace OmniFlow.Application.Interfaces;
+
+public interface IOmniFlowDbContext
+{
+    DbSet<User> Users { get; }
+    DbSet<Department> Departments { get; }
+    DbSet<Location> Locations { get; }
+    DbSet<Team> Teams { get; }
+    DbSet<EmploymentDetails> EmploymentDetails { get; }
+    DbSet<EmployeeDocument> EmployeeDocuments { get; }
+    DbSet<LeaveRequest> LeaveRequests { get; }
+    DbSet<LeaveBalance> LeaveBalances { get; }
+    DbSet<Asset> Assets { get; }
+    
+    DbSet<Ticket> Tickets { get; }
+    DbSet<TicketTemplate> TicketTemplates { get; }
+    DbSet<TicketComment> TicketComments { get; }
+    DbSet<TicketAuditLog> TicketAuditLogs { get; }
+    DbSet<TicketCategory> TicketCategories { get; }
+    DbSet<SLAConfiguration> SLAConfigurations { get; }
+    DbSet<KnowledgeBaseArticle> KnowledgeBaseArticles { get; }
+    
+    DbSet<TEntity> Set<TEntity>() where TEntity : class;
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+}
