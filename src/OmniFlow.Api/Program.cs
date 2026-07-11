@@ -73,7 +73,11 @@ builder.Services.AddMassTransit(x =>
     });
 });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options => 
+    {
+        options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+    });
 builder.Services.AddSignalR();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -174,6 +178,22 @@ using (var scope = app.Services.CreateScope())
                 await context.SaveChangesAsync();
             }
 
+            // Create default ServiceDesk first
+            var serviceDeskId = Guid.Parse("77777777-7777-7777-7777-777777777777");
+            if (!await context.Set<OmniFlow.Domain.Entities.ServiceDesk>().AnyAsync())
+            {
+                var serviceDesk = new OmniFlow.Domain.Entities.ServiceDesk
+                {
+                    Id = serviceDeskId,
+                    Name = "IT Service Desk",
+                    Description = "Global IT Support",
+                    DepartmentId = Guid.Parse("55555555-5555-5555-5555-555555555555"),
+                    IsPublicToAllEmployees = true
+                };
+                context.Set<OmniFlow.Domain.Entities.ServiceDesk>().Add(serviceDesk);
+                await context.SaveChangesAsync();
+            }
+
             // 2. Seed IT Support Request Template with advanced custom field rules and custom workflow definition
             if (!await context.Set<OmniFlow.Domain.Entities.TicketTemplate>().AnyAsync())
             {
@@ -181,11 +201,14 @@ using (var scope = app.Services.CreateScope())
                 {
                     Id = Guid.Parse("2e3e5c9b-6dbb-4171-aa7a-8cf0c74fb1d2"),
                     LocalizedName = new OmniFlow.Domain.Common.MultiLingualString { Translations = new Dictionary<string, string> { { "en", "IT Support Request" }, { "tr", "BT Destek Talebi" } } },
-                    DepartmentId = Guid.Parse("55555555-5555-5555-5555-555555555555"),
+                    ServiceDeskId = serviceDeskId,
                     Fields = new List<OmniFlow.Domain.Entities.FieldDefinition>
                     {
                         new() { Key = "Title", LocalizedName = new OmniFlow.Domain.Common.MultiLingualString("en", "Title"), Type = "Text", IsRequired = true, ValidationRegex = "^.{5,150}$", LocalizedDescription = new OmniFlow.Domain.Common.MultiLingualString("en", "Short description of the issue") },
+                        new() { Key = "Type", LocalizedName = new OmniFlow.Domain.Common.MultiLingualString("en", "Type"), Type = "Dropdown", IsRequired = true, DropdownOptions = new List<string> { "Incident", "ServiceRequest", "Problem", "Change" } },
                         new() { Key = "Priority", LocalizedName = new OmniFlow.Domain.Common.MultiLingualString("en", "Priority"), Type = "Dropdown", IsRequired = true, DropdownOptions = new List<string> { "Low", "Medium", "High", "Critical" }, LocalizedDescription = new OmniFlow.Domain.Common.MultiLingualString("en", "Urgency levels") },
+                        new() { Key = "Impact", LocalizedName = new OmniFlow.Domain.Common.MultiLingualString("en", "Impact"), Type = "Dropdown", IsRequired = true, DropdownOptions = new List<string> { "Low", "Medium", "High" } },
+                        new() { Key = "Urgency", LocalizedName = new OmniFlow.Domain.Common.MultiLingualString("en", "Urgency"), Type = "Dropdown", IsRequired = true, DropdownOptions = new List<string> { "Low", "Medium", "High" } },
                         new() { Key = "Description", LocalizedName = new OmniFlow.Domain.Common.MultiLingualString("en", "Description"), Type = "Text", IsRequired = false, LocalizedDescription = new OmniFlow.Domain.Common.MultiLingualString("en", "Detailed logs or explanation") },
                         new() { Key = "AssetTag", LocalizedName = new OmniFlow.Domain.Common.MultiLingualString("en", "Asset Tag"), Type = "Text", IsRequired = false, ValidationRegex = "^[A-Z]{3}-\\d{4}$", LocalizedDescription = new OmniFlow.Domain.Common.MultiLingualString("en", "Device asset tag in ABC-1234 format") }
                     },
@@ -212,6 +235,38 @@ using (var scope = app.Services.CreateScope())
                 };
 
                 context.Set<OmniFlow.Domain.Entities.TicketTemplate>().Add(template);
+                await context.SaveChangesAsync();
+            }
+
+            // 3. Seed Dynamic Menu Hierarchy
+            if (!await context.Set<OmniFlow.Domain.Entities.AppMenu>().AnyAsync())
+            {
+                var dashboard = new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), TitleKey = "sidebar.dashboard", Path = "/", Icon = "DashboardOutlined", OrderIndex = 10 };
+                var itsmParent = new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), TitleKey = "sidebar.itsm", Icon = "AppstoreOutlined", OrderIndex = 20 };
+                var hrParent = new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), TitleKey = "sidebar.hr", Icon = "TeamOutlined", OrderIndex = 30 };
+                var adminParent = new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), TitleKey = "sidebar.admin", Icon = "SettingOutlined", OrderIndex = 40 };
+
+                var menus = new List<OmniFlow.Domain.Entities.AppMenu>
+                {
+                    dashboard,
+                    itsmParent,
+                    new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), ParentId = itsmParent.Id, TitleKey = "sidebar.servicedeskportal", Path = "/servicedeskportal", Icon = "AppstoreOutlined", OrderIndex = 10 },
+                    new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), ParentId = itsmParent.Id, TitleKey = "sidebar.tickets", Path = "/tickets", Icon = "ContainerOutlined", OrderIndex = 20 },
+                    new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), ParentId = itsmParent.Id, TitleKey = "sidebar.assets", Path = "/assets", Icon = "LaptopOutlined", OrderIndex = 30 },
+                    
+                    hrParent,
+                    new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), ParentId = hrParent.Id, TitleKey = "sidebar.directory", Path = "/directory", Icon = "TeamOutlined", OrderIndex = 10 },
+                    new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), ParentId = hrParent.Id, TitleKey = "sidebar.orgchart", Path = "/orgchart", Icon = "DashboardOutlined", OrderIndex = 20 },
+                    new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), ParentId = hrParent.Id, TitleKey = "sidebar.leaves", Path = "/leaves", Icon = "CalendarOutlined", OrderIndex = 30 },
+                    new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), ParentId = hrParent.Id, TitleKey = "sidebar.expenses", Path = "/expenses", Icon = "DollarOutlined", OrderIndex = 40 },
+                    
+                    adminParent,
+                    new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), ParentId = adminParent.Id, TitleKey = "sidebar.departments", Path = "/departments", Icon = "TeamOutlined", OrderIndex = 10 },
+                    new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), ParentId = adminParent.Id, TitleKey = "sidebar.servicedesks", Path = "/servicedesks", Icon = "ContainerOutlined", OrderIndex = 20 },
+                    new OmniFlow.Domain.Entities.AppMenu { Id = Guid.NewGuid(), ParentId = adminParent.Id, TitleKey = "sidebar.auditlogs", Path = "/auditlogs", Icon = "SafetyCertificateOutlined", OrderIndex = 30 }
+                };
+
+                context.Set<OmniFlow.Domain.Entities.AppMenu>().AddRange(menus);
                 await context.SaveChangesAsync();
             }
         }

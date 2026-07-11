@@ -20,6 +20,18 @@ public interface IOmniFlowDbContext
     DbSet<TicketComment> TicketComments { get; }
     DbSet<TicketAuditLog> TicketAuditLogs { get; }
     DbSet<TicketCategory> TicketCategories { get; }
+    
+    DbSet<ConfigurationItem> ConfigurationItems { get; }
+    DbSet<Problem> Problems { get; }
+    DbSet<ChangeRequest> ChangeRequests { get; }
+    
+    DbSet<ServiceDesk> ServiceDesks { get; }
+    DbSet<ExpenseClaim> ExpenseClaims { get; }
+    DbSet<AuthorityDelegation> AuthorityDelegations { get; }
+    DbSet<DirectoryProfile> DirectoryProfiles { get; }
+    
+    DbSet<AppMenu> AppMenus { get; }
+    
     DbSet<SLAConfiguration> SLAConfigurations { get; }
     DbSet<KnowledgeBaseArticle> KnowledgeBaseArticles { get; }
     DbSet<AuditLog> AuditLogs { get; set; }

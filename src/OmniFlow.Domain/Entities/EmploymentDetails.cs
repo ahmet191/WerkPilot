@@ -9,8 +9,9 @@ public class EmploymentDetails : AuditableEntity
     public Guid UserId { get; set; }
     public DateTime DateOfHire { get; set; }
     public DateTime? DateOfTermination { get; set; }
-    public string ContractType { get; set; } = string.Empty; // e.g., Full-Time, Part-Time, Contractor
+    public EmploymentType EmploymentType { get; set; } = EmploymentType.FullTime;
     public EmploymentStatus Status { get; set; }
+    public DateTime? ProbationEndDate { get; set; }
     
     // Navigation
     public User User { get; set; } = null!;

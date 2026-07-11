@@ -31,12 +31,27 @@ public class OmniFlowDbContext : DbContext, IOmniFlowDbContext
     public DbSet<LeaveBalance> LeaveBalances => Set<LeaveBalance>();
     public DbSet<Asset> Assets => Set<Asset>();
     
+    public DbSet<Compensation> Compensations => Set<Compensation>();
+    public DbSet<JobTitle> JobTitles => Set<JobTitle>();
+    
     public DbSet<Ticket> Tickets => Set<Ticket>();
     public DbSet<TicketTemplate> TicketTemplates => Set<TicketTemplate>();
     public DbSet<TicketComment> TicketComments => Set<TicketComment>();
     public DbSet<TicketAuditLog> TicketAuditLogs => Set<TicketAuditLog>();
     public DbSet<TicketCategory> TicketCategories => Set<TicketCategory>();
-    public DbSet<SLAConfiguration> SLAConfigurations => Set<SLAConfiguration>();
+    
+    public DbSet<ConfigurationItem> ConfigurationItems => Set<ConfigurationItem>();
+    public DbSet<Problem> Problems => Set<Problem>();
+    public DbSet<ChangeRequest> ChangeRequests => Set<ChangeRequest>();
+    
+    public DbSet<ServiceDesk> ServiceDesks => Set<ServiceDesk>();
+    public DbSet<ExpenseClaim> ExpenseClaims { get; set; }
+    public DbSet<AuthorityDelegation> AuthorityDelegations { get; set; }
+    public DbSet<DirectoryProfile> DirectoryProfiles { get; set; }
+    
+    public DbSet<AppMenu> AppMenus { get; set; }
+
+    public DbSet<SLAConfiguration> SLAConfigurations { get; set; }
     public DbSet<KnowledgeBaseArticle> KnowledgeBaseArticles => Set<KnowledgeBaseArticle>();
     public DbSet<AuditLog> AuditLogs { get; set; }
 

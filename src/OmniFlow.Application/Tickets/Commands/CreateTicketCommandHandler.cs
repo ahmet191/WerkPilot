@@ -74,7 +74,35 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
             }
         }
 
-        // 2. Set up initial Ticket State
+        // 2. Extract standard fields from dynamic data if present
+        var title = request.DynamicData.TryGetValue("Title", out var titleObj) ? titleObj.ToString() ?? "Untitled Ticket" : "Untitled Ticket";
+        var description = request.DynamicData.TryGetValue("Description", out var descObj) ? descObj.ToString() ?? string.Empty : string.Empty;
+
+        // Parse Enums
+        var type = TicketType.Incident;
+        if (request.DynamicData.TryGetValue("Type", out var typeObj) && Enum.TryParse<TicketType>(typeObj.ToString(), out var parsedType))
+        {
+            type = parsedType;
+        }
+
+        var priority = TicketPriority.Medium;
+        if (request.DynamicData.TryGetValue("Priority", out var prioObj) && Enum.TryParse<TicketPriority>(prioObj.ToString(), out var parsedPrio))
+        {
+            priority = parsedPrio;
+        }
+
+        var impact = TicketImpact.Medium;
+        if (request.DynamicData.TryGetValue("Impact", out var impactObj) && Enum.TryParse<TicketImpact>(impactObj.ToString(), out var parsedImpact))
+        {
+            impact = parsedImpact;
+        }
+
+        var urgency = TicketUrgency.Medium;
+        if (request.DynamicData.TryGetValue("Urgency", out var urgencyObj) && Enum.TryParse<TicketUrgency>(urgencyObj.ToString(), out var parsedUrgency))
+        {
+            urgency = parsedUrgency;
+        }
+
         var ticket = new Ticket
         {
             Id = Guid.NewGuid(),
@@ -82,10 +110,12 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
             RequesterId = request.RequesterId,
             CurrentState = TicketState.New,
             DynamicData = request.DynamicData,
-            
-            // Extract standard fields from dynamic data if present, or set placeholders
-            Title = request.DynamicData.TryGetValue("Title", out var titleObj) ? titleObj.ToString() ?? "Untitled Ticket" : "Untitled Ticket",
-            Description = request.DynamicData.TryGetValue("Description", out var descObj) ? descObj.ToString() ?? string.Empty : string.Empty
+            Title = title,
+            Description = description,
+            Type = type,
+            Priority = priority,
+            Impact = impact,
+            Urgency = urgency
         };
 
         // 3. Write initial Audit Log

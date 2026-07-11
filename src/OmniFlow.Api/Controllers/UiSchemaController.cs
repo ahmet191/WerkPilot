@@ -21,10 +21,13 @@ public class UiSchemaController : ControllerBase
         var schema = entityType.ToLower() switch
         {
             "departments" => GetDepartmentsSchema(),
+            "servicedesks" => GetServiceDesksSchema(),
             "assets" => GetAssetsSchema(),
             "tickets" => GetTicketsSchema(),
             "dashboard" => GetDashboardSchema(),
             "leaves" => GetLeavesSchema(),
+            "expenses" => GetExpensesSchema(),
+            "menus" => GetMenusSchema(),
             "auditlogs" => _userContext.Role == "Admin" ? GetAuditLogsSchema() : null,
             _ => null
         };
@@ -60,6 +63,36 @@ public class UiSchemaController : ControllerBase
                     new() { Name = "name", LabelKey = "departments.name", Type = "text", Required = true, MinLength = 3, MaxLength = 100 },
                     new() { Name = "managerId", LabelKey = "departments.manager", Type = "select", Required = false, DataSourceEndpoint = "/lookup/users" },
                     new() { Name = "parentDepartmentId", LabelKey = "departments.id", Type = "text" }
+                }
+            }
+        };
+    }
+
+    private UiSchema GetServiceDesksSchema()
+    {
+        return new UiSchema
+        {
+            Grid = new GridSchema
+            {
+                TitleKey = "servicedesks.title",
+                Endpoint = "/servicedesks",
+                Actions = new List<string> { "add", "refresh" },
+                Columns = new List<GridColumn>
+                {
+                    new() { DataIndex = "name", TitleKey = "servicedesks.name", Sortable = true },
+                    new() { DataIndex = "description", TitleKey = "servicedesks.description" },
+                    new() { DataIndex = "isPublicToAllEmployees", TitleKey = "servicedesks.isPublic", Type = "tag" }
+                }
+            },
+            Form = new FormSchema
+            {
+                TitleKey = "servicedesks.create",
+                SubmitEndpoint = "/servicedesks",
+                Fields = new List<FormField>
+                {
+                    new() { Name = "name", LabelKey = "servicedesks.name", Type = "text", Required = true },
+                    new() { Name = "description", LabelKey = "servicedesks.description", Type = "text" },
+                    new() { Name = "departmentId", LabelKey = "servicedesks.department", Type = "select", DataSourceEndpoint = "/departments" }
                 }
             }
         };
@@ -134,6 +167,9 @@ public class UiSchemaController : ControllerBase
                 Columns = new List<GridColumn>
                 {
                     new() { DataIndex = "id", TitleKey = "tickets.id", Width = 250, Ellipsis = true },
+                    new() { DataIndex = "type", TitleKey = "tickets.type", Type = "string", Width = 150 },
+                    new() { DataIndex = "priority", TitleKey = "tickets.priority", Type = "tag", Width = 120 },
+                    new() { DataIndex = "impact", TitleKey = "tickets.impact", Type = "tag", Width = 120 },
                     new() { DataIndex = "currentState", TitleKey = "tickets.state", Type = "tag", Width = 120 },
                     new() { DataIndex = "slaDueDate", TitleKey = "tickets.deadline", Type = "date" }
                 }
@@ -192,6 +228,85 @@ public class UiSchemaController : ControllerBase
                     new() { Name = "startDate", LabelKey = "leaves.startDate", Type = "date", Required = true },
                     new() { Name = "endDate", LabelKey = "leaves.endDate", Type = "date", Required = true },
                     new() { Name = "reason", LabelKey = "leaves.reason", Type = "text" }
+                }
+            }
+        };
+    }
+
+    private UiSchema GetExpensesSchema()
+    {
+        return new UiSchema
+        {
+            Grid = new GridSchema
+            {
+                TitleKey = "expenses.title",
+                Endpoint = "/expenseclaims",
+                Actions = new List<string> { "add", "refresh" },
+                Columns = new List<GridColumn>
+                {
+                    new() { DataIndex = "title", TitleKey = "expenses.titleKey", Sortable = true },
+                    new() { DataIndex = "amount", TitleKey = "expenses.amount", Sortable = true },
+                    new() { DataIndex = "currency", TitleKey = "expenses.currency" },
+                    new() { DataIndex = "category", TitleKey = "expenses.category", Type = "tag", Sortable = true },
+                    new() { DataIndex = "expenseDate", TitleKey = "expenses.date", Type = "date", Sortable = true },
+                    new() { DataIndex = "status", TitleKey = "expenses.status", Type = "tag", Sortable = true }
+                }
+            },
+            Form = new FormSchema
+            {
+                TitleKey = "expenses.create",
+                SubmitEndpoint = "/expenseclaims",
+                Fields = new List<FormField>
+                {
+                    new() { Name = "title", LabelKey = "expenses.titleKey", Type = "text", Required = true },
+                    new() { Name = "amount", LabelKey = "expenses.amount", Type = "number", Required = true },
+                    new() { 
+                        Name = "category", 
+                        LabelKey = "expenses.category", 
+                        Type = "select", 
+                        Required = true,
+                        Options = new List<FieldOption>
+                        {
+                            new() { Label = "Travel", Value = "1" },
+                            new() { Label = "Meals", Value = "2" },
+                            new() { Label = "Accommodation", Value = "3" },
+                            new() { Label = "Equipment", Value = "4" }
+                        }
+                    },
+                    new() { Name = "expenseDate", LabelKey = "expenses.date", Type = "date", Required = true },
+                    new() { Name = "description", LabelKey = "expenses.description", Type = "text" }
+                }
+            }
+        };
+    }
+
+    private UiSchema GetMenusSchema()
+    {
+        return new UiSchema
+        {
+            Grid = new GridSchema
+            {
+                TitleKey = "menus.title",
+                Endpoint = "/menu",
+                Actions = new List<string> { "add", "refresh" },
+                Columns = new List<GridColumn>
+                {
+                    new() { DataIndex = "titleKey", TitleKey = "menus.titleKey", Sortable = true },
+                    new() { DataIndex = "path", TitleKey = "menus.path" },
+                    new() { DataIndex = "icon", TitleKey = "menus.icon" }
+                }
+            },
+            Form = new FormSchema
+            {
+                TitleKey = "menus.create",
+                SubmitEndpoint = "/menu",
+                Fields = new List<FormField>
+                {
+                    new() { Name = "titleKey", LabelKey = "menus.titleKey", Type = "text", Required = true },
+                    new() { Name = "path", LabelKey = "menus.path", Type = "text" },
+                    new() { Name = "icon", LabelKey = "menus.icon", Type = "text" },
+                    new() { Name = "orderIndex", LabelKey = "menus.order", Type = "number", Required = true },
+                    new() { Name = "parentId", LabelKey = "menus.parent", Type = "text" }
                 }
             }
         };

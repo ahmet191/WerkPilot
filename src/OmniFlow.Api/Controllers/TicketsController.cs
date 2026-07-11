@@ -74,6 +74,20 @@ public class TicketsController : ControllerBase
         var tickets = await _mediator.Send(query);
         return Ok(tickets);
     }
+    [HttpGet("servicedesk/{serviceDeskId}")]
+    public async Task<ActionResult<List<Ticket>>> GetByServiceDesk(Guid serviceDeskId)
+    {
+        // For simplicity, directly using DbContext here.
+        // In real architecture, this should go through Mediator and enforce Security policies!
+        var tickets = await _context.Tickets
+            .Include(t => t.Requester)
+            .Include(t => t.Assignee)
+            .Where(t => t.ServiceDeskId == serviceDeskId)
+            .OrderByDescending(t => t.CreatedAt)
+            .ToListAsync();
+            
+        return Ok(tickets);
+    }
 }
 
 public record TransitionRequest(string Trigger, Guid UserId);

@@ -15,6 +15,25 @@ public class Ticket : AuditableEntity
     public string Description { get; set; } = string.Empty;
     public TicketState CurrentState { get; set; }
     
+    // ITSM Fields
+    public TicketType Type { get; set; } = TicketType.Incident;
+    public TicketPriority Priority { get; set; } = TicketPriority.Medium;
+    public TicketImpact Impact { get; set; } = TicketImpact.Medium;
+    public TicketUrgency Urgency { get; set; } = TicketUrgency.Medium;
+    
+    public string? ResolutionNotes { get; set; }
+    public List<string> Tags { get; set; } = new();
+    public Guid? ServiceDeskId { get; set; }
+    public ServiceDesk? ServiceDesk { get; set; }
+    
+    // CMDB & Problem Management References
+    public Guid? ConfigurationItemId { get; set; }
+    public Guid? ProblemId { get; set; }
+    
+    // Navigation
+    public ConfigurationItem? ConfigurationItem { get; set; }
+    public Problem? Problem { get; set; }
+    
     // SLAs
     public DateTimeOffset? SlaDueDate { get; set; }
     public DateTimeOffset? ResolutionDate { get; set; }

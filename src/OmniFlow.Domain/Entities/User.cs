@@ -12,6 +12,17 @@ public class User : AuditableEntity
     
     // Core HR Details
     public string? Title { get; set; }
+    public string? IdentificationNumber { get; set; } // TCKN or Tax ID
+    public DateTime? DateOfBirth { get; set; }
+    public Gender Gender { get; set; } = Gender.PreferNotToSay;
+    public MaritalStatus MaritalStatus { get; set; } = MaritalStatus.Single;
+    public string? Nationality { get; set; }
+    
+    // Contact Info
+    public string? PersonalEmail { get; set; }
+    public string? PhoneNumber { get; set; }
+    public string? EmergencyContact { get; set; }
+
     public Guid? ManagerId { get; set; }
     public Guid? DepartmentId { get; set; }
     public Guid? LocationId { get; set; }

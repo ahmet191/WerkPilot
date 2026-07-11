@@ -11,6 +11,7 @@ public class Department : AuditableEntity
     
     public Guid? ManagerId { get; set; }
     public Guid? ParentDepartmentId { get; set; }
+    public string? CostCenterCode { get; set; }
     
     // Navigation
     public User? Manager { get; set; }

@@ -10,8 +10,6 @@ public class EmploymentDetailsConfiguration : IEntityTypeConfiguration<Employmen
     {
         builder.HasKey(e => e.Id);
         
-        builder.Property(e => e.ContractType).HasMaxLength(100);
-
         builder.HasOne(e => e.User)
             .WithMany()
             .HasForeignKey(e => e.UserId)

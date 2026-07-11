@@ -10,7 +10,8 @@ public class TicketTemplate : AuditableEntity
     // Multi-lingual name (e.g., {"en": "IT Support", "tr": "BT Destek"})
     public MultiLingualString LocalizedName { get; set; } = new();
     
-    public Guid DepartmentId { get; set; }
+    public Guid ServiceDeskId { get; set; }
+    public ServiceDesk? ServiceDesk { get; set; }
     public List<FieldDefinition> Fields { get; set; } = new();
     
     // Dynamic workflow transitions configured by admins

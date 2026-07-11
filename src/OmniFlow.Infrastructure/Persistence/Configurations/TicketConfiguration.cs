@@ -38,5 +38,22 @@ public class TicketConfiguration : IEntityTypeConfiguration<Ticket>
             .WithMany()
             .HasForeignKey(t => t.AssigneeId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne(t => t.ServiceDesk)
+            .WithMany(sd => sd.Tickets)
+            .HasForeignKey(t => t.ServiceDeskId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Property(t => t.ResolutionNotes).HasMaxLength(2000);
+
+        builder.HasOne(t => t.ConfigurationItem)
+            .WithMany()
+            .HasForeignKey(t => t.ConfigurationItemId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        builder.HasOne(t => t.Problem)
+            .WithMany(p => p.Incidents)
+            .HasForeignKey(t => t.ProblemId)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }
