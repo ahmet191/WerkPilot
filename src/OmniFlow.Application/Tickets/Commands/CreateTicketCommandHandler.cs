@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OmniFlow.Application.Common.Exceptions;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Domain.Entities;
 using OmniFlow.Domain.Enums;
@@ -29,7 +30,7 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
 
         if (template == null)
         {
-            throw new Exception($"Template with ID {request.TemplateId} not found.");
+            throw new NotFoundException(nameof(TicketTemplate), request.TemplateId);
         }
 
         var requester = await _context.Set<User>()
@@ -37,7 +38,7 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
 
         if (requester == null)
         {
-            throw new Exception($"Requester with ID {request.RequesterId} not found.");
+            throw new NotFoundException(nameof(User), request.RequesterId);
         }
 
         // 1. Perform Dynamic Field Validations (Regex, Dropdown options, Presence)
@@ -47,7 +48,7 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
             
             if (field.IsRequired && (!hasValue || fieldValue == null || string.IsNullOrWhiteSpace(fieldValue.ToString())))
             {
-                throw new Exception($"Required custom field '{field.Key}' is missing or empty.");
+                throw new ValidationException(field.Key, $"Required custom field '{field.Key}' is missing or empty.");
             }
 
             if (hasValue && fieldValue != null)
@@ -63,7 +64,7 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
                 {
                     if (!field.DropdownOptions.Contains(stringVal))
                     {
-                        throw new Exception($"Custom field '{field.Key}' value '{stringVal}' is invalid. Allowed options: {string.Join(", ", field.DropdownOptions)}");
+                        throw new ValidationException(field.Key, $"Value '{stringVal}' is invalid. Allowed options: {string.Join(", ", field.DropdownOptions)}");
                     }
                 }
 
@@ -72,7 +73,7 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
                 {
                     if (!Regex.IsMatch(stringVal, field.ValidationRegex))
                     {
-                        throw new Exception($"Custom field '{field.Key}' value '{stringVal}' does not match validation pattern: '{field.ValidationRegex}'");
+                        throw new ValidationException(field.Key, $"Value '{stringVal}' does not match the required pattern: '{field.ValidationRegex}'");
                     }
                 }
             }

@@ -26,7 +26,7 @@ public class AssignAssetCommandHandler : IRequestHandler<AssignAssetCommand, boo
     {
         var asset = await _context.Assets.FirstOrDefaultAsync(a => a.Id == request.AssetId, cancellationToken);
         if (asset == null)
-            throw new OmniFlow.Application.Common.Exceptions.ApiException("api.error.notfound");
+            throw new OmniFlow.Application.Common.Exceptions.NotFoundException(nameof(OmniFlow.Domain.Entities.Asset), request.AssetId);
 
         asset.AssignedToUserId = request.UserId;
         asset.Status = AssetStatus.Assigned;

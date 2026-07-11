@@ -1,4 +1,5 @@
 using MediatR;
+using OmniFlow.Application.Common.Exceptions;
 using OmniFlow.Application.Interfaces;
 
 namespace OmniFlow.Application.Departments.Commands;
@@ -23,7 +24,7 @@ public class UpdateDepartmentCommandHandler : IRequestHandler<UpdateDepartmentCo
     public async Task Handle(UpdateDepartmentCommand request, CancellationToken cancellationToken)
     {
         var department = await _context.Departments.FindAsync(new object[] { request.Id }, cancellationToken);
-        if (department == null) throw new Exception("Department not found");
+        if (department == null) throw new NotFoundException("Department", request.Id);
 
         if (department.LocalizedName != null && department.LocalizedName.Translations != null)
         {

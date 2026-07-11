@@ -1,4 +1,5 @@
 using MediatR;
+using OmniFlow.Application.Common.Exceptions;
 using OmniFlow.Application.Interfaces;
 
 namespace OmniFlow.Application.Assets.Commands;
@@ -20,7 +21,7 @@ public class DeleteAssetCommandHandler : IRequestHandler<DeleteAssetCommand>
     public async Task Handle(DeleteAssetCommand request, CancellationToken cancellationToken)
     {
         var asset = await _context.Assets.FindAsync(new object[] { request.Id }, cancellationToken);
-        if (asset == null) throw new Exception("Asset not found");
+        if (asset == null) throw new NotFoundException("Asset", request.Id);
 
         _context.Assets.Remove(asset);
         await _context.SaveChangesAsync(cancellationToken);

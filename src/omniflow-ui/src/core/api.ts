@@ -24,7 +24,9 @@ api.interceptors.request.use((config) => {
     return Promise.reject(error);
 });
 
-// Response Interceptor: Global error handling
+// Response Interceptor: Global error handling.
+// The API returns RFC 7807 ProblemDetails; `messageKey`, `traceId` and `errors`
+// are custom extensions serialized at the top level of the body.
 api.interceptors.response.use((response) => {
     return response;
 }, (error) => {
@@ -32,13 +34,16 @@ api.interceptors.response.use((response) => {
         window.dispatchEvent(new CustomEvent('auth-error'));
     }
 
-    const messageKey = error.response?.data?.messageKey || 'api.error.generic';
-    
+    const problem = error.response?.data;
+    const messageKey = problem?.messageKey || 'api.error.generic';
+    const traceId = problem?.traceId;
+    const errors = problem?.errors; // field-keyed validation errors, if any
+
     // Dispatch a custom event to the window so React components (like AppLayout) can listen and translate it
-    window.dispatchEvent(new CustomEvent('api-error', { 
-        detail: { messageKey }
+    window.dispatchEvent(new CustomEvent('api-error', {
+        detail: { messageKey, traceId, errors, detail: problem?.detail }
     }));
-    
-    console.error('API Error:', error.response?.status, error.response?.data);
+
+    console.error('API Error:', error.response?.status, problem);
     return Promise.reject(error);
 });
