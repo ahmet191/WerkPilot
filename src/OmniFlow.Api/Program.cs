@@ -62,6 +62,7 @@ builder.Services.AddMassTransit(x =>
     // Register Consumers
     x.AddConsumer<OmniFlow.Infrastructure.Messaging.Consumers.LeaveRequestNotificationConsumer>();
     x.AddConsumer<OmniFlow.Infrastructure.Messaging.Consumers.TicketSlaBreachConsumer>();
+    x.AddConsumer<OmniFlow.Infrastructure.Messaging.Consumers.AssetAssignedConsumer>();
 
     x.UsingInMemory((context, cfg) =>
     {
@@ -90,6 +91,8 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 app.UseMiddleware<CorrelationIdMiddleware>();
+
+app.UseMiddleware<OmniFlow.Api.Middlewares.ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

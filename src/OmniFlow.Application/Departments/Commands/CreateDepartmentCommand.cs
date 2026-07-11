@@ -7,8 +7,7 @@ namespace OmniFlow.Application.Departments.Commands;
 
 public class CreateDepartmentCommand : IRequest<Guid>
 {
-    // Admin sends the dictionary to define all translations
-    public Dictionary<string, string> LocalizedName { get; set; } = new();
+    public string Name { get; set; } = string.Empty;
     public Guid? ManagerId { get; set; }
     public Guid? ParentDepartmentId { get; set; }
 }
@@ -27,7 +26,8 @@ public class CreateDepartmentCommandHandler : IRequestHandler<CreateDepartmentCo
         var department = new Department
         {
             Id = Guid.NewGuid(),
-            LocalizedName = new MultiLingualString { Translations = request.LocalizedName },
+            // For now, save the same name to both languages or use a default
+            LocalizedName = new MultiLingualString { Translations = new Dictionary<string, string> { { "en", request.Name }, { "tr", request.Name } } },
             ManagerId = request.ManagerId,
             ParentDepartmentId = request.ParentDepartmentId
         };

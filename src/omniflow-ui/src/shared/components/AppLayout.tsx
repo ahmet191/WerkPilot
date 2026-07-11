@@ -1,8 +1,9 @@
-import React from 'react';
-import { Layout, Menu, Select, Space } from 'antd';
+import React, { useEffect } from 'react';
+import { Layout, Menu, Select, Space, message } from 'antd';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { TeamOutlined, LaptopOutlined, ContainerOutlined, TranslationOutlined, BgColorsOutlined } from '@ant-design/icons';
-import { useAppTheme, AppTheme } from '../../core/ThemeContext';
+import { useAppTheme } from '../../core/ThemeContext';
+import type { AppTheme } from '../../core/ThemeContext';
 import { useTranslation } from '../../core/LanguageContext';
 
 const { Header, Sider, Content } = Layout;
@@ -12,6 +13,17 @@ export function AppLayout() {
   const location = useLocation();
   const { theme, setTheme } = useAppTheme();
   const { language, setLanguage, t } = useTranslation();
+
+  useEffect(() => {
+    const handleApiError = (event: any) => {
+      const messageKey = event.detail?.messageKey;
+      if (messageKey) {
+        message.error(t(messageKey, 'An error occurred'));
+      }
+    };
+    window.addEventListener('api-error', handleApiError);
+    return () => window.removeEventListener('api-error', handleApiError);
+  }, [t]);
 
   const menuItems = [
     { key: '/departments', icon: <TeamOutlined />, label: t('sidebar.departments') },
@@ -31,7 +43,7 @@ export function AppLayout() {
           items={menuItems}
           onClick={({ key }) => navigate(key)}
           style={{ borderRight: 0, background: 'transparent' }}
-          theme="dark"
+          theme={theme === 'light' ? 'light' : 'dark'}
         />
       </Sider>
       <Layout className="main-content">

@@ -26,7 +26,13 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use((response) => {
     return response;
 }, (error) => {
-    // We can show Ant Design notification here based on status codes
+    const messageKey = error.response?.data?.messageKey || 'api.error.generic';
+    
+    // Dispatch a custom event to the window so React components (like AppLayout) can listen and translate it
+    window.dispatchEvent(new CustomEvent('api-error', { 
+        detail: { messageKey }
+    }));
+    
     console.error('API Error:', error.response?.status, error.response?.data);
     return Promise.reject(error);
 });

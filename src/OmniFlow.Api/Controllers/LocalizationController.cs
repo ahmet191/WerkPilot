@@ -27,7 +27,16 @@ public class LocalizationController : ControllerBase
                 { "assets.model", "Model" },
                 { "assets.serial", "S/N" },
                 { "assets.status", "Status" },
-                { "assets.assigned", "Assigned To" }
+                { "assets.assigned", "Assigned To" },
+                { "form.error", "An error occurred during save." },
+                { "form.success", "Saved successfully!" },
+                { "api.error.generic", "An unexpected error occurred." },
+                { "tickets.id", "Ticket ID" },
+                { "tickets.state", "State" },
+                { "tickets.deadline", "SLA Deadline" },
+                { "tickets.create", "New Ticket" },
+                { "tickets.templateId", "Template ID" },
+                { "tickets.requesterId", "Requester ID" }
             }
         },
         {
@@ -49,7 +58,16 @@ public class LocalizationController : ControllerBase
                 { "assets.model", "Model" },
                 { "assets.serial", "Seri No" },
                 { "assets.status", "Durum" },
-                { "assets.assigned", "Atanan Kişi" }
+                { "assets.assigned", "Atanan Kişi" },
+                { "form.error", "Kaydetme sırasında bir hata oluştu." },
+                { "form.success", "Başarıyla kaydedildi!" },
+                { "api.error.generic", "Beklenmeyen bir hata oluştu." },
+                { "tickets.id", "Bilet ID" },
+                { "tickets.state", "Durum" },
+                { "tickets.deadline", "SLA Bitiş" },
+                { "tickets.create", "Yeni Bilet" },
+                { "tickets.templateId", "Şablon ID" },
+                { "tickets.requesterId", "Talep Eden ID" }
             }
         }
     };
