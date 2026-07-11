@@ -6,8 +6,11 @@ using OmniFlow.Application.Tickets.Commands;
 using OmniFlow.Application.Tickets.Queries;
 using OmniFlow.Domain.Entities;
 
+using Microsoft.AspNetCore.Authorization;
+
 namespace OmniFlow.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/tickets")]
 public class TicketsController : ControllerBase

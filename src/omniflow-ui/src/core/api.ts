@@ -13,9 +13,11 @@ api.interceptors.request.use((config) => {
     
     config.headers['Accept-Language'] = userLanguage;
     
-    // We could also attach JWT tokens here
-    // const token = localStorage.getItem('token');
-    // if (token) config.headers.Authorization = `Bearer ${token}`;
+    // Attach JWT token
+    const token = localStorage.getItem('access_token');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
 
     return config;
 }, (error) => {
@@ -26,6 +28,10 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use((response) => {
     return response;
 }, (error) => {
+    if (error.response?.status === 401) {
+        window.dispatchEvent(new CustomEvent('auth-error'));
+    }
+
     const messageKey = error.response?.data?.messageKey || 'api.error.generic';
     
     // Dispatch a custom event to the window so React components (like AppLayout) can listen and translate it

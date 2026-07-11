@@ -1,21 +1,48 @@
+using Microsoft.AspNetCore.Http;
 using OmniFlow.Application.Interfaces;
 
 namespace OmniFlow.Api.Services;
 
 public class TenantService : ITenantService
 {
-    private Guid _tenantId;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private Guid? _tenantIdOverride;
 
-    public TenantService()
+    public TenantService(IHttpContextAccessor httpContextAccessor)
     {
-        // For demonstration, default to a dummy tenant ID
-        _tenantId = Guid.Parse("22222222-2222-2222-2222-222222222222");
+        _httpContextAccessor = httpContextAccessor;
     }
 
-    public Guid TenantId => _tenantId;
+    public Guid TenantId
+    {
+        get
+        {
+            if (_tenantIdOverride.HasValue)
+            {
+                return _tenantIdOverride.Value;
+            }
+
+            // Try to get from JWT claims
+            var tenantClaim = _httpContextAccessor.HttpContext?.User?.FindFirst("tenant_id")?.Value;
+            if (Guid.TryParse(tenantClaim, out var claimTenantId))
+            {
+                return claimTenantId;
+            }
+
+            // Fallback to headers for legacy
+            var tenantHeader = _httpContextAccessor.HttpContext?.Request.Headers["X-Tenant-Id"].FirstOrDefault();
+            if (Guid.TryParse(tenantHeader, out var headerTenantId))
+            {
+                return headerTenantId;
+            }
+
+            // Return a dummy/default tenant ID for testing if not found
+            return Guid.Empty;
+        }
+    }
 
     public void SetTenantId(Guid tenantId)
     {
-        _tenantId = tenantId;
+        _tenantIdOverride = tenantId;
     }
 }

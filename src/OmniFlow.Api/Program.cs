@@ -43,6 +43,7 @@ builder.Services.AddOpenTelemetry()
 // 3. Application Layer Setup
 // ═══════════════════════════════════════════════════════
 builder.Services.AddScoped<ITenantService, OmniFlow.Api.Services.TenantService>();
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(OmniFlow.Application.Interfaces.ITenantService).Assembly));
 
 // Telegram Bot Client Setup
 var telegramToken = builder.Configuration["Telegram:BotToken"];
@@ -287,8 +288,8 @@ using (var scope = app.Services.CreateScope())
                 var admin = new OmniFlow.Domain.Entities.User
                 {
                     Id = Guid.Parse("44444444-4444-4444-4444-444444444444"),
-                    Name = "Dave Admin",
-                    Email = "dave@omniflow.com",
+                    Name = "Admin User",
+                    Email = "admin@werkpilot.com",
                     Role = OmniFlow.Domain.Enums.UserRole.Administrator,
                     DepartmentId = departmentId
                 };
@@ -329,7 +330,7 @@ using (var scope = app.Services.CreateScope())
                         new() { Key = "Impact", LocalizedName = new OmniFlow.Domain.Common.MultiLingualString("en", "Impact"), Type = "Dropdown", IsRequired = true, DropdownOptions = new List<string> { "Low", "Medium", "High" } },
                         new() { Key = "Urgency", LocalizedName = new OmniFlow.Domain.Common.MultiLingualString("en", "Urgency"), Type = "Dropdown", IsRequired = true, DropdownOptions = new List<string> { "Low", "Medium", "High" } },
                         new() { Key = "Description", LocalizedName = new OmniFlow.Domain.Common.MultiLingualString("en", "Description"), Type = "Text", IsRequired = false, LocalizedDescription = new OmniFlow.Domain.Common.MultiLingualString("en", "Detailed logs or explanation") },
-                        new() { Key = "AssetTag", LocalizedName = new OmniFlow.Domain.Common.MultiLingualString("en", "Asset Tag"), Type = "Text", IsRequired = false, ValidationRegex = "^[A-Z]{3}-\\\\d{4}$", LocalizedDescription = new OmniFlow.Domain.Common.MultiLingualString("en", "Device asset tag in ABC-1234 format") }
+                        new() { Key = "AssetTag", LocalizedName = new OmniFlow.Domain.Common.MultiLingualString("en", "Asset Tag"), Type = "Text", IsRequired = false, ValidationRegex = @"^[A-Z]{3}-\d{4}$", LocalizedDescription = new OmniFlow.Domain.Common.MultiLingualString("en", "Device asset tag in ABC-1234 format") }
                     },
                     Workflow = new OmniFlow.Domain.Entities.WorkflowDefinition
                     {

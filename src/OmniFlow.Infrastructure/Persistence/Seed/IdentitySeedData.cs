@@ -30,6 +30,7 @@ public static class IdentitySeedData
         {
             adminUser = new ApplicationUser
             {
+                Id = Guid.Parse("44444444-4444-4444-4444-444444444444"),
                 UserName = adminEmail,
                 Email = adminEmail,
                 EmailConfirmed = true,

@@ -5,6 +5,7 @@ import type { FormSchema } from '../../../core/schema.models';
 import { useTranslation } from '../../../core/LanguageContext';
 import { SchemaService } from '../../../services/schema.service';
 import { api } from '../../../core/api';
+import { useAuth } from '../../../core/AuthContext';
 
 interface DynamicFormModalProps {
   open: boolean;
@@ -70,12 +71,14 @@ const DynamicSelect = ({ field, ...props }: any) => {
   );
 };
 
-const FieldsBuilder = ({ value = [], onChange }: any) => {
+const FieldsBuilder = ({ value, onChange }: any) => {
   const { t } = useTranslation();
-  const [fields, setFields] = useState<any[]>(value);
+  const [fields, setFields] = useState<any[]>(value || []);
 
   useEffect(() => {
-    setFields(value);
+    if (value) {
+      setFields(value);
+    }
   }, [value]);
 
   const updateFields = (newFields: any[]) => {
@@ -190,12 +193,14 @@ const FieldsBuilder = ({ value = [], onChange }: any) => {
   );
 };
 
-const WorkflowBuilder = ({ value = { transitions: [] }, onChange }: any) => {
+const WorkflowBuilder = ({ value, onChange }: any) => {
   const { t } = useTranslation();
-  const [transitions, setTransitions] = useState<any[]>(value.transitions || []);
+  const [transitions, setTransitions] = useState<any[]>(value?.transitions || []);
 
   useEffect(() => {
-    setTransitions(value.transitions || []);
+    if (value?.transitions) {
+      setTransitions(value.transitions);
+    }
   }, [value]);
 
   const updateTransitions = (newTransitions: any[]) => {
@@ -305,6 +310,7 @@ interface DynamicFormModalProps {
 
 export function DynamicFormModal({ open, schema, editRecord, editEndpoint, onCancel, onSuccess }: DynamicFormModalProps) {
   const { t } = useTranslation();
+  const { user } = useAuth();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [templates, setTemplates] = useState<any[]>([]);
@@ -416,7 +422,7 @@ export function DynamicFormModal({ open, schema, editRecord, editEndpoint, onCan
         // If dynamic ticket form, nest values in DynamicData except templateId/requesterId
         payload = {
           templateId: selectedTemplate,
-          requesterId: values.requesterId || "11111111-1111-1111-1111-111111111111", // Mock requester fallback
+          requesterId: values.requesterId || user?.id, 
           dynamicData: values
         };
       }

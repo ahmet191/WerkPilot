@@ -5,6 +5,7 @@ import * as Icons from '@ant-design/icons';
 import { useAppTheme } from '../../core/ThemeContext';
 import type { AppTheme } from '../../core/ThemeContext';
 import { useTranslation } from '../../core/LanguageContext';
+import { useAuth } from '../../core/AuthContext';
 
 const { Header, Sider, Content } = Layout;
 
@@ -13,6 +14,7 @@ export function AppLayout() {
   const location = useLocation();
   const { theme, setTheme } = useAppTheme();
   const { language, setLanguage, t } = useTranslation();
+  const { user, logout } = useAuth();
   
   const [collapsed, setCollapsed] = useState(() => {
     return localStorage.getItem('sidebar_collapsed') === 'true';
@@ -156,6 +158,20 @@ export function AppLayout() {
                   { value: 'en-US', label: 'English' },
                   { value: 'tr-TR', label: 'Türkçe' },
                 ]}
+              />
+            </Space>
+
+            {/* User Profile & Logout */}
+            <Space size="small" style={{ marginLeft: 16 }}>
+              <span style={{ fontSize: 13, color: 'var(--text-secondary)', marginRight: 8 }}>
+                {user?.email}
+              </span>
+              <Button 
+                type="text" 
+                size="small" 
+                icon={<Icons.LogoutOutlined />} 
+                onClick={logout}
+                title="Logout"
               />
             </Space>
           </Space>

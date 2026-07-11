@@ -15,8 +15,16 @@ public class UserContextService : IUserContext
     {
         get
         {
-            // For now, extract from headers or claims. Assuming a simplistic approach for testing
-            // We will default to the "Requester" test user if no header is present
+            // First try to get from JWT claims (sub)
+            var claimValue = _httpContextAccessor.HttpContext?.User?.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value
+                          ?? _httpContextAccessor.HttpContext?.User?.FindFirst("sub")?.Value;
+            
+            if (Guid.TryParse(claimValue, out var claimUserId))
+            {
+                return claimUserId;
+            }
+
+            // Fallback to headers for legacy support
             var userIdStr = _httpContextAccessor.HttpContext?.Request.Headers["X-User-Id"].FirstOrDefault();
             if (Guid.TryParse(userIdStr, out var userId))
             {
@@ -30,6 +38,16 @@ public class UserContextService : IUserContext
     {
         get
         {
+            // Try to get from JWT claims
+            var roleClaim = _httpContextAccessor.HttpContext?.User?.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value
+                         ?? _httpContextAccessor.HttpContext?.User?.FindFirst("role")?.Value;
+            
+            if (!string.IsNullOrEmpty(roleClaim))
+            {
+                return roleClaim;
+            }
+
+            // Fallback to headers
             var roleStr = _httpContextAccessor.HttpContext?.Request.Headers["X-User-Role"].FirstOrDefault();
             return string.IsNullOrEmpty(roleStr) ? "Admin" : roleStr;
         }
