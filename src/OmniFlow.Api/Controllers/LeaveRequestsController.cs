@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OmniFlow.Application.LeaveRequests.Commands;
 using OmniFlow.Application.LeaveRequests.Queries;
@@ -38,6 +39,7 @@ public class LeaveRequestsController : ControllerBase
     }
 
     [HttpPut("{id:guid}/approve")]
+    [Authorize(Policy = "HRAdmin")]
     public async Task<IActionResult> Approve(Guid id, [FromBody] ApproveLeaveRequestCommand command)
     {
         command.Id = id;

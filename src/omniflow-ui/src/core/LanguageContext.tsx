@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import { api } from './api';
 
 interface LanguageContextType {
   language: string;
@@ -20,7 +20,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const fetchDictionary = async (lang: string) => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:5226/api/localization/${lang}`);
+      const response = await api.get(`/localization/${lang}`);
       setDictionary(response.data);
     } catch (error) {
       console.error('Failed to load localization dictionary from API', error);

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OmniFlow.Application.Interfaces;
@@ -42,6 +43,7 @@ public class SlaConfigurationsController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> Create(SLAConfiguration sla)
     {
         if (sla.Id == Guid.Empty)
@@ -54,6 +56,7 @@ public class SlaConfigurationsController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> Update(Guid id, [FromBody] SLAConfiguration sla)
     {
         var existing = await _context.SLAConfigurations.FindAsync(id);
@@ -70,6 +73,7 @@ public class SlaConfigurationsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var existing = await _context.SLAConfigurations.FindAsync(id);

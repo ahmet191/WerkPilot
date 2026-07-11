@@ -1,0 +1,30 @@
+# .NET build output
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+.vs/
+
+# Rider / IDE
+.idea/
+*.DotSettings.user
+
+# Node / frontend
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Environment & secrets — never commit real credentials
+.env
+.env.*
+!.env.example
+appsettings.*.Local.json
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/

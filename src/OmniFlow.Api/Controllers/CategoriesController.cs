@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OmniFlow.Application.Interfaces;
@@ -40,6 +41,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> Create([FromBody] CategoryRequest request)
     {
         var category = new TicketCategory
@@ -63,6 +65,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> Update(Guid id, [FromBody] CategoryRequest request)
     {
         var category = await _context.TicketCategories.FindAsync(id);
@@ -92,6 +95,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var category = await _context.TicketCategories.FindAsync(id);

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OmniFlow.Application.Interfaces;
@@ -19,6 +20,7 @@ public class TemplatesController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> Create(TicketTemplate template)
     {
         if (template.Id == Guid.Empty)
@@ -59,6 +61,7 @@ public class TemplatesController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> Update(Guid id, [FromBody] TicketTemplate template)
     {
         var existing = await _context.TicketTemplates.FindAsync(id);
@@ -74,6 +77,7 @@ public class TemplatesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> Delete(Guid id)
     {
         var existing = await _context.TicketTemplates.FindAsync(id);
