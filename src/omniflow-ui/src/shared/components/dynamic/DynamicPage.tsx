@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Tag, Spin, Modal } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { EnterpriseDataGrid } from '../datagrid/EnterpriseDataGrid';
@@ -37,8 +37,8 @@ export function DynamicPage({ entityType }: DynamicPageProps) {
   }, [entityType]);
 
   const handleFetchData = useCallback(async (page: number, pageSize: number, search: string, sortBy?: string, sortDesc?: boolean) => {
-    if (!schema) return { data: [], total: 0 };
-    
+    if (!schema?.grid) return { data: [], total: 0 };
+
     try {
       const endpoint = schema.grid.endpoint;
       const separator = endpoint.includes('?') ? '&' : '?';
@@ -64,12 +64,14 @@ export function DynamicPage({ entityType }: DynamicPageProps) {
     }
   }, [schema, refreshKey]); // Include refreshKey so grid refetches on save
 
-  if (loading || !schema) {
+  if (loading || !schema || !schema.grid) {
     return <div style={{ padding: 50, textAlign: 'center' }}><Spin size="large" /></div>;
   }
 
+  const grid = schema.grid;
+
   // Map Backend JSON Schema to Ant Design Columns
-  const columns: ColumnsType<any> = schema.grid.columns.map(col => {
+  const columns: ColumnsType<any> = grid.columns.map(col => {
     return {
       title: t(col.titleKey),
       dataIndex: col.dataIndex,
@@ -127,14 +129,14 @@ export function DynamicPage({ entityType }: DynamicPageProps) {
     }
   };
 
-  if (schema.grid.rowActions && schema.grid.rowActions.length > 0) {
+  if (grid.rowActions && grid.rowActions.length > 0) {
     columns.push({
       title: t('grid.actions') || 'Actions',
       key: 'actions',
       width: 150,
       render: (_, record) => (
         <span style={{ display: 'flex', gap: '8px' }}>
-          {schema.grid.rowActions?.map((action, idx) => (
+          {grid.rowActions?.map((action, idx) => (
             <a
               key={idx}
               style={{ color: action.color === 'danger' ? 'red' : 'var(--primary-color)', cursor: 'pointer' }}
@@ -151,10 +153,10 @@ export function DynamicPage({ entityType }: DynamicPageProps) {
   return (
     <>
       <EnterpriseDataGrid
-        title={t(schema.grid.titleKey)}
+        title={t(grid.titleKey)}
         columns={columns}
         fetchData={handleFetchData}
-        onAdd={schema.grid.actions.includes('add') ? () => {
+        onAdd={grid.actions.includes('add') ? () => {
           setEditRecord(null);
           setEditEndpoint(null);
           setIsModalOpen(true);

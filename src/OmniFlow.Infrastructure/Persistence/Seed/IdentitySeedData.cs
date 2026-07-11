@@ -30,11 +30,11 @@ public static class IdentitySeedData
         {
             adminUser = new ApplicationUser
             {
-                Id = Guid.Parse("44444444-4444-4444-4444-444444444444"),
+                Id = SeedConstants.AdminUserId,
                 UserName = adminEmail,
                 Email = adminEmail,
                 EmailConfirmed = true,
-                TenantId = Guid.Empty // default tenant for super-admin
+                TenantId = SeedConstants.DefaultTenantId
             };
 
             var result = await userManager.CreateAsync(adminUser, "Admin@123");

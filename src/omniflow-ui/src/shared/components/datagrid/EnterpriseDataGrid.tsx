@@ -4,7 +4,7 @@ import type { ColumnsType, TableProps } from 'antd/es/table';
 import { ReloadOutlined, PlusOutlined, DownloadOutlined, SearchOutlined } from '@ant-design/icons';
 import { useTranslation } from '../../../core/LanguageContext';
 
-interface EnterpriseDataGridProps<T> extends Omit<TableProps<T>, 'dataSource' | 'columns' | 'loading'> {
+interface EnterpriseDataGridProps<T> extends Omit<TableProps<T>, 'dataSource' | 'columns' | 'loading' | 'title'> {
   title: string;
   columns: ColumnsType<T>;
   fetchData: (page: number, pageSize: number, search: string, sortBy?: string, sortDesc?: boolean) => Promise<{ data: T[]; total: number }>;
@@ -109,7 +109,7 @@ export function EnterpriseDataGrid<T extends object>({
           pageSizeOptions: ['10', '20', '50', '100'],
           showTotal: (totalCount) => t('grid.total', totalCount),
         }}
-        onChange={(pagination, filters, sorter: any) => {
+        onChange={(pagination, _filters, sorter: any) => {
           if (pagination.current) setPage(pagination.current);
           if (pagination.pageSize) setPageSize(pagination.pageSize);
           

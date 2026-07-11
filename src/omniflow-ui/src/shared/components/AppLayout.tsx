@@ -6,6 +6,7 @@ import { useAppTheme } from '../../core/ThemeContext';
 import type { AppTheme } from '../../core/ThemeContext';
 import { useTranslation } from '../../core/LanguageContext';
 import { useAuth } from '../../core/AuthContext';
+import { api } from '../../core/api';
 
 const { Header, Sider, Content } = Layout;
 
@@ -28,13 +29,12 @@ export function AppLayout() {
   }, [collapsed]);
 
   useEffect(() => {
-    fetch('http://localhost:5226/api/menu')
-      .then(res => res.json())
-      .then(data => {
-        setMenuData(data);
+    api.get('/menu')
+      .then(res => {
+        setMenuData(res.data);
         setLoading(false);
       })
-      .catch(err => {
+      .catch(() => {
         message.error('Failed to load menus');
         setLoading(false);
       });

@@ -39,13 +39,22 @@ public class TelegramWebhookRegistrationService : IHostedService
                 return;
             }
 
+            var webhookSecret = _configuration["Telegram:WebhookSecret"];
+            if (string.IsNullOrEmpty(webhookSecret))
+            {
+                _logger.LogWarning("Telegram:WebhookSecret is not configured. Skipping webhook registration — the webhook endpoint rejects unsigned requests.");
+                return;
+            }
+
             _logger.LogInformation("Registering Telegram webhook to: {Url}...", webhookUrl);
 
             try
             {
-                // We pass CancellationToken.None to let it complete even if host token cancellation is requested immediately
+                // We pass CancellationToken.None to let it complete even if host token cancellation is requested immediately.
+                // Telegram echoes secretToken back on every update; the webhook endpoint validates it.
                 await _botClient.SetWebhook(
                     url: webhookUrl,
+                    secretToken: webhookSecret,
                     cancellationToken: CancellationToken.None);
                 _logger.LogInformation("Telegram webhook registered successfully.");
             }

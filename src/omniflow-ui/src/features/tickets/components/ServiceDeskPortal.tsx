@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Col, Row, Typography, Spin, Space, Button } from 'antd';
+import { Card, Col, Row, Typography, Spin, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { AppstoreOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import { api } from '../../../core/api';
 
 const { Title, Text } = Typography;
 
@@ -11,12 +12,12 @@ export const ServiceDeskPortal: React.FC = () => {
 
     useEffect(() => {
         // Fetch Service Desks from our API
-        fetch('http://localhost:5226/api/servicedesks')
-            .then(res => res.json())
-            .then(data => {
-                setDesks(data);
+        api.get('/servicedesks')
+            .then(res => {
+                setDesks(res.data);
                 setLoading(false);
-            });
+            })
+            .catch(() => setLoading(false));
     }, []);
 
     if (loading) {

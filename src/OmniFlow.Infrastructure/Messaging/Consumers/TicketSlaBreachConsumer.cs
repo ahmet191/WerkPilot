@@ -43,12 +43,15 @@ public class TicketSlaBreachConsumer : IConsumer<CheckTicketSlaBreachEvent>
             return;
         }
 
-        // Notify the Manager of the assigned department or the default admin if unassigned
-        // For simplicity in this demo, let's notify a hardcoded Chat ID or the Assignee if they exist
-        var alertChatId = ticket.Assignee?.TelegramChatId ?? "8920226584";
+        var alertChatId = ticket.Assignee?.TelegramChatId;
+        if (string.IsNullOrEmpty(alertChatId))
+        {
+            _logger.LogWarning("SLA breach on ticket {TicketId} but no assignee with a linked Telegram chat; skipping notification.", ticket.Id);
+            return;
+        }
 
         var msg = $"🚨 SLA BREACH ALERT 🚨\nTicket '{ticket.Title}' (ID: {ticket.Id}) has breached its resolution SLA!\nCurrent State: {ticket.CurrentState}\nAssignee: {ticket.Assignee?.Name ?? "Unassigned"}";
-        
+
         await _messageGateway.SendMessageAsync(alertChatId, msg, context.CancellationToken);
     }
 }
