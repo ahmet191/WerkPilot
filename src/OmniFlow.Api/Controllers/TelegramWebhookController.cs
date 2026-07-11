@@ -1,10 +1,14 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OmniFlow.Application.Interfaces;
 
 namespace OmniFlow.Api.Controllers;
 
+// Anonymous by necessity (Telegram cannot authenticate), but every request must
+// carry the webhook secret token registered via setWebhook.
 [ApiController]
 [Route("api/webhook/telegram")]
+[AllowAnonymous]
 public class TelegramWebhookController : ControllerBase
 {
     private readonly IMessageGateway _messageGateway;
@@ -24,15 +28,13 @@ public class TelegramWebhookController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> HandleUpdate(CancellationToken cancellationToken)
     {
-        // 1. Optional Telegram secret token validation for Webhooks
-        if (Request.Headers.TryGetValue("X-Telegram-Bot-Api-Secret-Token", out var secretToken))
+        // 1. Mandatory Telegram secret token validation.
+        Request.Headers.TryGetValue("X-Telegram-Bot-Api-Secret-Token", out var secretToken);
+        var isValid = await _identityService.ValidateWebhookPayloadAsync(string.Empty, secretToken.ToString());
+        if (!isValid)
         {
-            var isValid = await _identityService.ValidateWebhookPayloadAsync(string.Empty, secretToken.ToString());
-            if (!isValid)
-            {
-                _logger.LogWarning("Webhook unauthorized: secret token mismatch");
-                return Unauthorized();
-            }
+            _logger.LogWarning("Webhook rejected: missing or mismatched secret token");
+            return Unauthorized();
         }
 
         // 2. Read raw request body to pass to the gateway

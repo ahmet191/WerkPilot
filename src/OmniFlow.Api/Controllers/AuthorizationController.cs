@@ -11,7 +11,10 @@ using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace OmniFlow.Api.Controllers;
 
+// Token issuance must be reachable without a token; OpenIddict enforces
+// grant validation itself.
 [ApiController]
+[Microsoft.AspNetCore.Authorization.AllowAnonymous]
 public class AuthorizationController : ControllerBase
 {
     private readonly SignInManager<ApplicationUser> _signInManager;

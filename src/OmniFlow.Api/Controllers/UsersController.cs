@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OmniFlow.Application.Interfaces;
@@ -23,6 +24,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> Create(CreateUserCommand command)
     {
         var id = await _mediator.Send(command);
@@ -60,6 +62,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateUserCommand command)
     {
         if (id != command.Id)
@@ -71,6 +74,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Policy = "Administrator")]
     public async Task<IActionResult> Delete(Guid id)
     {
         await _mediator.Send(new DeleteUserCommand { Id = id });

@@ -1,9 +1,12 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace OmniFlow.Api.Controllers;
 
+// Anonymous: the login page loads translations before authentication.
 [ApiController]
 [Route("api/[controller]")]
+[AllowAnonymous]
 public class LocalizationController : ControllerBase
 {
     private static readonly Dictionary<string, Dictionary<string, string>> Translations = new()

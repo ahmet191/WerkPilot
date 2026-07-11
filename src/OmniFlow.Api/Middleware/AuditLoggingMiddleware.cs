@@ -1,10 +1,13 @@
-using System.Text;
-using Microsoft.AspNetCore.Http;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Domain.Entities;
 
 namespace OmniFlow.Api.Middleware;
 
+/// <summary>
+/// Writes an audit trail row for every mutating API request. Runs after
+/// authentication so the entry carries the real user. Only /api/* paths are
+/// audited — credentials posted to /connect/token must never be captured.
+/// </summary>
 public class AuditLoggingMiddleware
 {
     private readonly RequestDelegate _next;
@@ -16,9 +19,11 @@ public class AuditLoggingMiddleware
 
     public async Task InvokeAsync(HttpContext context, IOmniFlowDbContext dbContext, IUserContext userContext)
     {
-        // Intercept POST, PUT, DELETE requests
         var method = context.Request.Method;
-        if (method == HttpMethods.Post || method == HttpMethods.Put || method == HttpMethods.Delete)
+        var isMutation = method == HttpMethods.Post || method == HttpMethods.Put || method == HttpMethods.Delete;
+        var isApiPath = context.Request.Path.StartsWithSegments("/api");
+
+        if (isMutation && isApiPath && context.User.Identity?.IsAuthenticated == true)
         {
             context.Request.EnableBuffering();
             var body = await new StreamReader(context.Request.Body).ReadToEndAsync();

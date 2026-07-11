@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Col, Row, Typography, Spin, Avatar, Input, Tag } from 'antd';
 import { UserOutlined, MailOutlined, PhoneOutlined, SolutionOutlined } from '@ant-design/icons';
+import { api } from '../../../core/api';
 
 const { Title, Text } = Typography;
 const { Search } = Input;
@@ -11,13 +12,13 @@ export const EmployeeDirectory: React.FC = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:5226/api/directory/employees')
-            .then(res => res.json())
-            .then(data => {
-                setEmployees(data);
-                setFilteredEmployees(data);
+        api.get('/directory/employees')
+            .then(res => {
+                setEmployees(res.data);
+                setFilteredEmployees(res.data);
                 setLoading(false);
-            });
+            })
+            .catch(() => setLoading(false));
     }, []);
 
     const onSearch = (value: string) => {

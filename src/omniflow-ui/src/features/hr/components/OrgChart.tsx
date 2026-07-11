@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Typography, Spin, Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { api } from '../../../core/api';
 // Normally we would use an Org Chart library like react-organization-chart, 
 // but for simplicity we'll render a structured tree or basic lists.
 
@@ -11,12 +12,12 @@ export const OrgChart: React.FC = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:5226/api/directory/orgchart')
-            .then(res => res.json())
-            .then(data => {
-                setUsers(data);
+        api.get('/directory/orgchart')
+            .then(res => {
+                setUsers(res.data);
                 setLoading(false);
-            });
+            })
+            .catch(() => setLoading(false));
     }, []);
 
     const buildHierarchy = () => {

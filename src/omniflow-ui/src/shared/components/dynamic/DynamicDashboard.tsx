@@ -3,7 +3,7 @@ import * as signalR from '@microsoft/signalr';
 import { Row, Col, Card, Statistic, Spin } from 'antd';
 import { ContainerOutlined, ExclamationCircleOutlined, FireOutlined, LaptopOutlined } from '@ant-design/icons';
 import { SchemaService } from '../../../services/schema.service';
-import type { UiSchema, WidgetSchema } from '../../../core/schema.models';
+import type { UiSchema } from '../../../core/schema.models';
 import { useTranslation } from '../../../core/LanguageContext';
 import { api } from '../../../core/api';
 

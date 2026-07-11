@@ -64,6 +64,10 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
     public DbSet<KnowledgeBaseArticle> KnowledgeBaseArticles => Set<KnowledgeBaseArticle>();
     public DbSet<AuditLog> AuditLogs { get; set; }
 
+    // Tenant registry: deliberately NOT an AuditableEntity, so it stays outside
+    // the tenant global query filter (it is the root the filter resolves against).
+    public DbSet<Tenant> Tenants => Set<Tenant>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         // Must call base first to configure Identity tables
