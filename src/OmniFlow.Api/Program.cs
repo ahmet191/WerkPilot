@@ -246,6 +246,8 @@ builder.Services.AddMassTransit(x =>
     x.AddConsumer<OmniFlow.Infrastructure.Messaging.Consumers.LeaveRequestNotificationConsumer>();
     x.AddConsumer<OmniFlow.Infrastructure.Messaging.Consumers.TicketSlaBreachConsumer>();
     x.AddConsumer<OmniFlow.Infrastructure.Messaging.Consumers.AssetAssignedConsumer>();
+    x.AddConsumer<OmniFlow.Infrastructure.Messaging.Consumers.ApprovalCompletedConsumer>();
+    x.AddConsumer<OmniFlow.Infrastructure.Messaging.Consumers.ApprovalStepActivatedConsumer>();
 
     x.UsingInMemory((context, cfg) =>
     {

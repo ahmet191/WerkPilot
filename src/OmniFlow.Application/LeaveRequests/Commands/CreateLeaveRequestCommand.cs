@@ -1,6 +1,10 @@
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using OmniFlow.Application.Approvals;
 using OmniFlow.Application.Interfaces;
+using OmniFlow.Domain.Common;
 using OmniFlow.Domain.Entities;
+using OmniFlow.Domain.Entities.Approvals;
 using OmniFlow.Domain.Enums;
 
 namespace OmniFlow.Application.LeaveRequests.Commands;
@@ -19,17 +23,20 @@ public class CreateLeaveRequestCommandHandler : IRequestHandler<CreateLeaveReque
     private readonly IUserContext _userContext;
     private readonly ITenantService _tenantService;
     private readonly MassTransit.IPublishEndpoint _publishEndpoint;
+    private readonly ApprovalRequestBuilder _approvalBuilder;
 
     public CreateLeaveRequestCommandHandler(
         IOmniFlowDbContext context,
         IUserContext userContext,
         ITenantService tenantService,
-        MassTransit.IPublishEndpoint publishEndpoint)
+        MassTransit.IPublishEndpoint publishEndpoint,
+        ApprovalRequestBuilder approvalBuilder)
     {
         _context = context;
         _userContext = userContext;
         _tenantService = tenantService;
         _publishEndpoint = publishEndpoint;
+        _approvalBuilder = approvalBuilder;
     }
 
     public async Task<Guid> Handle(CreateLeaveRequestCommand request, CancellationToken cancellationToken)
@@ -50,6 +57,26 @@ public class CreateLeaveRequestCommandHandler : IRequestHandler<CreateLeaveReque
         };
 
         _context.LeaveRequests.Add(leave);
+
+        // Open the approval chain from the tenant's default leave policy
+        // (seeded: manager → HRAdmin). Falls back to manager-only when the
+        // tenant has no policy configured.
+        var policy = await _context.Tenants
+            .Where(t => t.Id == _tenantService.TenantId)
+            .Select(t => t.LeaveApprovalPolicy)
+            .FirstOrDefaultAsync(cancellationToken)
+            ?? new ApprovalDefinition
+            {
+                Steps = { new ApprovalStepDefinition { Order = 1, ApproverType = ApproverType.ManagerOfRequester } }
+            };
+
+        await _approvalBuilder.CreateAsync(
+            ApprovalEntityTypes.LeaveRequest,
+            leave.Id,
+            $"{leave.Type} leave {leave.StartDate:yyyy-MM-dd} → {leave.EndDate:yyyy-MM-dd}",
+            leave.UserId,
+            policy,
+            cancellationToken);
 
         // Publish BEFORE SaveChanges: the transactional outbox commits the
         // message atomically with the entity — nothing is lost on a crash.

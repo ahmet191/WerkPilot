@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using OmniFlow.Domain.Entities;
+using OmniFlow.Domain.Entities.Approvals;
 
 namespace OmniFlow.Application.Interfaces;
 
@@ -35,6 +36,10 @@ public interface IOmniFlowDbContext
     DbSet<SLAConfiguration> SLAConfigurations { get; }
     DbSet<KnowledgeBaseArticle> KnowledgeBaseArticles { get; }
     DbSet<AuditLog> AuditLogs { get; set; }
+
+    DbSet<Tenant> Tenants { get; }
+    DbSet<ApprovalRequest> ApprovalRequests { get; }
+    DbSet<ApprovalStep> ApprovalSteps { get; }
     
     DbSet<TEntity> Set<TEntity>() where TEntity : class;
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);

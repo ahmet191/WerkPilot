@@ -41,4 +41,10 @@ public class WorkflowTransition
     public TicketState ToState { get; set; }
     public string Trigger { get; set; } = string.Empty;
     public UserRole? RequiredRole { get; set; } // Enforce role-based state updates
+
+    /// <summary>
+    /// Optional approval chain started when this transition lands the ticket
+    /// in WaitingForApproval. Lives inside the template's Workflow JSONB.
+    /// </summary>
+    public ApprovalDefinition? ApprovalPolicy { get; set; }
 }

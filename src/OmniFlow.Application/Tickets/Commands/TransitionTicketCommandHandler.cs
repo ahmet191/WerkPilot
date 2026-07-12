@@ -1,8 +1,11 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OmniFlow.Application.Approvals;
 using OmniFlow.Application.Common.Exceptions;
 using OmniFlow.Application.Interfaces;
+using OmniFlow.Domain.Common;
 using OmniFlow.Domain.Entities;
+using OmniFlow.Domain.Entities.Approvals;
 using OmniFlow.Domain.Enums;
 using OmniFlow.Domain.Events;
 using Stateless;
@@ -13,11 +16,16 @@ public class TransitionTicketCommandHandler : IRequestHandler<TransitionTicketCo
 {
     private readonly IOmniFlowDbContext _context;
     private readonly IMediator _mediator;
+    private readonly ApprovalRequestBuilder _approvalBuilder;
 
-    public TransitionTicketCommandHandler(IOmniFlowDbContext context, IMediator mediator)
+    public TransitionTicketCommandHandler(
+        IOmniFlowDbContext context,
+        IMediator mediator,
+        ApprovalRequestBuilder approvalBuilder)
     {
         _context = context;
         _mediator = mediator;
+        _approvalBuilder = approvalBuilder;
     }
 
     public async Task<bool> Handle(TransitionTicketCommand request, CancellationToken cancellationToken)
@@ -67,13 +75,43 @@ public class TransitionTicketCommandHandler : IRequestHandler<TransitionTicketCo
             throw new ConflictException($"Transition '{request.Trigger}' is not configured from state '{previousState}'.");
         }
 
-        if (matchingTransition.RequiredRole.HasValue && matchingTransition.RequiredRole.Value != user.Role && user.Role != UserRole.Administrator)
+        // Tickets waiting for approval are decided exclusively through the
+        // approval engine; the outcome consumer fires the transition system-side.
+        if (previousState == TicketState.WaitingForApproval && !request.IsSystem)
+        {
+            throw new ForbiddenAccessException(
+                "This ticket is pending approval. Decisions are made from the Approvals screen, not by direct transition.");
+        }
+
+        if (!request.IsSystem &&
+            matchingTransition.RequiredRole.HasValue &&
+            matchingTransition.RequiredRole.Value != user.Role &&
+            user.Role != UserRole.Administrator)
         {
             throw new ForbiddenAccessException($"Trigger '{request.Trigger}' requires the '{matchingTransition.RequiredRole}' role. Your role is '{user.Role}'.");
         }
 
         // 3. Fire state machine transition
         await stateMachine.FireAsync(request.Trigger);
+
+        // 3b. Landing in WaitingForApproval opens an approval chain. The chain,
+        // the state change and the activation event commit atomically (outbox).
+        if (ticket.CurrentState == TicketState.WaitingForApproval)
+        {
+            var policy = matchingTransition.ApprovalPolicy ?? new ApprovalDefinition
+            {
+                // Sensible default when the template author didn't configure one.
+                Steps = { new ApprovalStepDefinition { Order = 1, ApproverType = ApproverType.Role, ApproverRole = "Administrator" } }
+            };
+
+            await _approvalBuilder.CreateAsync(
+                ApprovalEntityTypes.Ticket,
+                ticket.Id,
+                ticket.Title,
+                request.ChangedById,
+                policy,
+                cancellationToken);
+        }
 
         // 4. Record Audit Log entry
         var audit = new TicketAuditLog

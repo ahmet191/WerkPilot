@@ -46,8 +46,81 @@ public static class DatabaseSeeder
         await SeedServiceDeskAsync(context, cancellationToken);
         await SeedTicketTemplateAsync(context, cancellationToken);
         await SeedMenusAsync(context, cancellationToken);
+        await SeedApprovalArtifactsAsync(context, cancellationToken);
 
         logger.LogInformation("Database seeding completed");
+    }
+
+    /// <summary>
+    /// Approval-engine seed data. Unlike the bulk seeds above this is fully
+    /// idempotent per artifact (not gated on an empty database), so existing
+    /// dev databases pick up the approvals menu, tenant leave policy and
+    /// template approval policy on the next boot.
+    /// </summary>
+    private static async Task SeedApprovalArtifactsAsync(OmniFlowDbContext context, CancellationToken cancellationToken)
+    {
+        var dirty = false;
+
+        // 1. "My Approvals" menu entry (root level, right after Dashboard).
+        if (!await context.AppMenus.AnyAsync(m => m.TitleKey == "sidebar.approvals", cancellationToken))
+        {
+            context.AppMenus.Add(new AppMenu
+            {
+                Id = Guid.NewGuid(),
+                TitleKey = "sidebar.approvals",
+                Path = "/approvals",
+                Icon = "AuditOutlined",
+                OrderIndex = 15,
+                IsActive = true
+            });
+            dirty = true;
+        }
+
+        // 2. Tenant-wide default leave approval chain: manager → HR admin.
+        var tenant = await context.Tenants
+            .FirstOrDefaultAsync(t => t.Id == SeedConstants.DefaultTenantId, cancellationToken);
+        if (tenant is not null && tenant.LeaveApprovalPolicy is null)
+        {
+            tenant.LeaveApprovalPolicy = new ApprovalDefinition
+            {
+                Steps =
+                {
+                    new ApprovalStepDefinition { Order = 1, ApproverType = ApproverType.ManagerOfRequester },
+                    new ApprovalStepDefinition { Order = 2, ApproverType = ApproverType.Role, ApproverRole = "HRAdmin" }
+                }
+            };
+            dirty = true;
+        }
+
+        // 3. Approval policy on the IT template's RequestApproval transition:
+        //    Charlie (the seeded approver) decides.
+        var template = await context.TicketTemplates
+            .FirstOrDefaultAsync(t => t.Id == SeedConstants.ItSupportTemplateId, cancellationToken);
+        var requestApproval = template?.Workflow.Transitions
+            .FirstOrDefault(tr => tr.Trigger == "RequestApproval");
+        if (template is not null && requestApproval is not null && requestApproval.ApprovalPolicy is null)
+        {
+            requestApproval.ApprovalPolicy = new ApprovalDefinition
+            {
+                Steps =
+                {
+                    new ApprovalStepDefinition
+                    {
+                        Order = 1,
+                        ApproverType = ApproverType.SpecificUser,
+                        ApproverUserId = SeedConstants.ApproverUserId
+                    }
+                }
+            };
+            // JSONB value conversion compares by reference — mark explicitly.
+            context.Entry(template).Property(t => t.Workflow).IsModified = true;
+            dirty = true;
+        }
+
+        if (dirty)
+        {
+            await context.SaveChangesAsync(cancellationToken);
+        }
     }
 
     private static async Task SeedLegacyUsersAsync(OmniFlowDbContext context, CancellationToken cancellationToken)
