@@ -15,6 +15,9 @@ public class UiSchemaController : ControllerBase
         _userContext = userContext;
     }
 
+    // Identity roles are "Administrator"/"HRAdmin"/...; legacy checks used "Admin".
+    private bool IsAdmin => _userContext.Role is "Admin" or "Administrator";
+
     [HttpGet("{entityType}")]
     public IActionResult GetSchema(string entityType)
     {
@@ -32,7 +35,7 @@ public class UiSchemaController : ControllerBase
             "templates" => GetTemplatesSchema(),
             "categories" => GetCategoriesSchema(),
             "slas" => GetSlasSchema(),
-            "auditlogs" => _userContext.Role == "Admin" ? GetAuditLogsSchema() : null,
+            "auditlogs" => IsAdmin ? GetAuditLogsSchema() : null,
             _ => null
         };
 
@@ -53,11 +56,11 @@ public class UiSchemaController : ControllerBase
                 Actions = new List<string> { "add", "export", "refresh" },
                 Columns = new List<GridColumn>
                 {
-                    new() { DataIndex = "name", TitleKey = "departments.name", Sortable = true },
-                    new() { DataIndex = "managerName", TitleKey = "departments.manager" },
-                    new() { DataIndex = "parentDepartmentName", TitleKey = "departments.parentDepartment" }
+                    new() { DataIndex = "name", TitleKey = "departments.name", Sortable = true, Filterable = true },
+                    new() { DataIndex = "managerName", TitleKey = "departments.manager", Sortable = true, Filterable = true },
+                    new() { DataIndex = "parentDepartmentName", TitleKey = "departments.parentDepartment", Sortable = true, Filterable = true }
                 },
-                RowActions = _userContext.Role == "Admin" ? new List<GridAction>
+                RowActions = IsAdmin ? new List<GridAction>
                 {
                     new() { LabelKey = "actions.edit", Method = "PUT", Endpoint = "/departments/{id}", Color = "primary", ActionType = "edit" },
                     new() { LabelKey = "actions.delete", Method = "DELETE", Endpoint = "/departments/{id}", Color = "danger", ActionType = "delete" }
@@ -88,11 +91,11 @@ public class UiSchemaController : ControllerBase
                 Actions = new List<string> { "add", "refresh" },
                 Columns = new List<GridColumn>
                 {
-                    new() { DataIndex = "name", TitleKey = "servicedesks.name", Sortable = true },
-                    new() { DataIndex = "description", TitleKey = "servicedesks.description" },
-                    new() { DataIndex = "isPublicToAllEmployees", TitleKey = "servicedesks.isPublic", Type = "tag" }
+                    new() { DataIndex = "name", TitleKey = "servicedesks.name", Sortable = true, Filterable = true },
+                    new() { DataIndex = "description", TitleKey = "servicedesks.description", Sortable = true, Filterable = true },
+                    new() { DataIndex = "isPublicToAllEmployees", TitleKey = "servicedesks.isPublic", Type = "tag", Sortable = true }
                 },
-                RowActions = _userContext.Role == "Admin" ? new List<GridAction>
+                RowActions = IsAdmin ? new List<GridAction>
                 {
                     new() { LabelKey = "actions.edit", Method = "PUT", Endpoint = "/servicedesks/{id}", Color = "primary", ActionType = "edit" },
                     new() { LabelKey = "actions.delete", Method = "DELETE", Endpoint = "/servicedesks/{id}", Color = "danger", ActionType = "delete" }
@@ -123,14 +126,14 @@ public class UiSchemaController : ControllerBase
                 Actions = new List<string> { "add", "export", "refresh" },
                 Columns = new List<GridColumn>
                 {
-                    new() { DataIndex = "assetTag", TitleKey = "assets.tag", Width = 120 },
-                    new() { DataIndex = "category", TitleKey = "assets.category", Width = 150 },
-                    new() { DataIndex = "model", TitleKey = "assets.model" },
-                    new() { DataIndex = "serialNumber", TitleKey = "assets.serial" },
-                    new() { DataIndex = "status", TitleKey = "assets.status", Type = "tag", Width = 100 },
-                    new() { DataIndex = "assignedToUserName", TitleKey = "assets.assigned" }
+                    new() { DataIndex = "assetTag", TitleKey = "assets.tag", Width = 120, Sortable = true, Filterable = true },
+                    new() { DataIndex = "category", TitleKey = "assets.category", Width = 150, Sortable = true, Filterable = true },
+                    new() { DataIndex = "model", TitleKey = "assets.model", Sortable = true, Filterable = true },
+                    new() { DataIndex = "serialNumber", TitleKey = "assets.serial", Sortable = true, Filterable = true },
+                    new() { DataIndex = "status", TitleKey = "assets.status", Type = "tag", Width = 100, Sortable = true, Filterable = true },
+                    new() { DataIndex = "assignedToUserName", TitleKey = "assets.assigned", Sortable = true, Filterable = true }
                 },
-                RowActions = _userContext.Role == "Admin" ? new List<GridAction>
+                RowActions = IsAdmin ? new List<GridAction>
                 {
                     new() { LabelKey = "actions.edit", Method = "PUT", Endpoint = "/assets/{id}", Color = "primary", ActionType = "edit" },
                     new() { LabelKey = "actions.delete", Method = "DELETE", Endpoint = "/assets/{id}", Color = "danger", ActionType = "delete" }
@@ -181,16 +184,19 @@ public class UiSchemaController : ControllerBase
             Grid = new GridSchema
             {
                 TitleKey = "sidebar.tickets",
-                Endpoint = "/tickets/requester/11111111-1111-1111-1111-111111111111", // Hardcoded mock user
+                // Role-scoped, fully server-side list endpoint.
+                Endpoint = "/tickets",
                 Actions = new List<string> { "add", "refresh" },
                 Columns = new List<GridColumn>
                 {
-                    new() { DataIndex = "title", TitleKey = "tickets.title", Width = 250, Ellipsis = true },
-                    new() { DataIndex = "type", TitleKey = "tickets.type", Type = "string", Width = 150 },
-                    new() { DataIndex = "priority", TitleKey = "tickets.priority", Type = "tag", Width = 120 },
-                    new() { DataIndex = "impact", TitleKey = "tickets.impact", Type = "tag", Width = 120 },
-                    new() { DataIndex = "currentState", TitleKey = "tickets.state", Type = "tag", Width = 120 },
-                    new() { DataIndex = "slaDueDate", TitleKey = "tickets.deadline", Type = "date" }
+                    new() { DataIndex = "title", TitleKey = "tickets.title", Width = 250, Ellipsis = true, Sortable = true, Filterable = true },
+                    new() { DataIndex = "type", TitleKey = "tickets.type", Type = "string", Width = 130, Sortable = true, Filterable = true },
+                    new() { DataIndex = "priority", TitleKey = "tickets.priority", Type = "tag", Width = 110, Sortable = true, Filterable = true },
+                    new() { DataIndex = "impact", TitleKey = "tickets.impact", Type = "tag", Width = 110, Sortable = true, Filterable = true },
+                    new() { DataIndex = "currentState", TitleKey = "tickets.state", Type = "tag", Width = 120, Sortable = true, Filterable = true },
+                    new() { DataIndex = "requesterName", TitleKey = "tickets.requester", Width = 150, Sortable = true, Filterable = true },
+                    new() { DataIndex = "assigneeName", TitleKey = "tickets.assignee", Width = 150, Sortable = true, Filterable = true },
+                    new() { DataIndex = "slaDueDate", TitleKey = "tickets.deadline", Type = "date", Sortable = true }
                 }
             },
             Form = new FormSchema
@@ -226,13 +232,13 @@ public class UiSchemaController : ControllerBase
                 Endpoint = "/leaverequests/my",
                 Columns = new List<GridColumn>
                 {
-                    new() { DataIndex = "type", TitleKey = "leaves.type", Width = 150, Sortable = true },
+                    new() { DataIndex = "type", TitleKey = "leaves.type", Width = 150, Sortable = true, Filterable = true },
                     new() { DataIndex = "startDate", TitleKey = "leaves.startDate", Type = "date", Width = 150, Sortable = true },
                     new() { DataIndex = "endDate", TitleKey = "leaves.endDate", Type = "date", Width = 150, Sortable = true },
-                    new() { DataIndex = "status", TitleKey = "leaves.status", Type = "tag", Width = 120, Sortable = true }
+                    new() { DataIndex = "status", TitleKey = "leaves.status", Type = "tag", Width = 120, Sortable = true, Filterable = true }
                 },
                 Actions = new List<string> { "add" },
-                RowActions = _userContext.Role == "Admin" || _userContext.Role == "Manager" ? new List<GridAction>
+                RowActions = IsAdmin || _userContext.Role is "Manager" or "HRAdmin" ? new List<GridAction>
                 {
                     new() { LabelKey = "leaves.approve", Method = "PUT", Endpoint = "/leaverequests/{id}/approve", Color = "primary" }
                 } : new List<GridAction>()
@@ -263,12 +269,12 @@ public class UiSchemaController : ControllerBase
                 Actions = new List<string> { "add", "refresh" },
                 Columns = new List<GridColumn>
                 {
-                    new() { DataIndex = "title", TitleKey = "expenses.titleKey", Sortable = true },
-                    new() { DataIndex = "amount", TitleKey = "expenses.amount", Sortable = true },
-                    new() { DataIndex = "currency", TitleKey = "expenses.currency" },
-                    new() { DataIndex = "category", TitleKey = "expenses.category", Type = "tag", Sortable = true },
+                    new() { DataIndex = "title", TitleKey = "expenses.titleKey", Sortable = true, Filterable = true },
+                    new() { DataIndex = "amount", TitleKey = "expenses.amount", Sortable = true, Filterable = true },
+                    new() { DataIndex = "currency", TitleKey = "expenses.currency", Sortable = true, Filterable = true },
+                    new() { DataIndex = "category", TitleKey = "expenses.category", Type = "tag", Sortable = true, Filterable = true },
                     new() { DataIndex = "expenseDate", TitleKey = "expenses.date", Type = "date", Sortable = true },
-                    new() { DataIndex = "status", TitleKey = "expenses.status", Type = "tag", Sortable = true }
+                    new() { DataIndex = "status", TitleKey = "expenses.status", Type = "tag", Sortable = true, Filterable = true }
                 }
             },
             Form = new FormSchema
@@ -310,11 +316,11 @@ public class UiSchemaController : ControllerBase
                 Actions = new List<string> { "add", "refresh" },
                 Columns = new List<GridColumn>
                 {
-                    new() { DataIndex = "titleKey", TitleKey = "menus.titleKey", Sortable = true },
-                    new() { DataIndex = "path", TitleKey = "menus.path" },
-                    new() { DataIndex = "icon", TitleKey = "menus.icon" }
+                    new() { DataIndex = "titleKey", TitleKey = "menus.titleKey", Sortable = true, Filterable = true },
+                    new() { DataIndex = "path", TitleKey = "menus.path", Sortable = true, Filterable = true },
+                    new() { DataIndex = "icon", TitleKey = "menus.icon", Sortable = true }
                 },
-                RowActions = _userContext.Role == "Admin" ? new List<GridAction>
+                RowActions = IsAdmin ? new List<GridAction>
                 {
                     new() { LabelKey = "actions.edit", Method = "PUT", Endpoint = "/menu/{id}", Color = "primary", ActionType = "edit" },
                     new() { LabelKey = "actions.delete", Method = "DELETE", Endpoint = "/menu/{id}", Color = "danger", ActionType = "delete" }
@@ -347,12 +353,12 @@ public class UiSchemaController : ControllerBase
                 Actions = new List<string> { "add", "refresh" },
                 Columns = new List<GridColumn>
                 {
-                    new() { DataIndex = "name", TitleKey = "users.name", Sortable = true },
-                    new() { DataIndex = "email", TitleKey = "users.email" },
-                    new() { DataIndex = "role", TitleKey = "users.role", Type = "tag" },
-                    new() { DataIndex = "departmentName", TitleKey = "users.department" }
+                    new() { DataIndex = "name", TitleKey = "users.name", Sortable = true, Filterable = true },
+                    new() { DataIndex = "email", TitleKey = "users.email", Sortable = true, Filterable = true },
+                    new() { DataIndex = "role", TitleKey = "users.role", Type = "tag", Sortable = true, Filterable = true },
+                    new() { DataIndex = "departmentName", TitleKey = "users.department", Sortable = true, Filterable = true }
                 },
-                RowActions = _userContext.Role == "Admin" ? new List<GridAction>
+                RowActions = IsAdmin ? new List<GridAction>
                 {
                     new() { LabelKey = "actions.edit", Method = "PUT", Endpoint = "/users/{id}", Color = "primary", ActionType = "edit" },
                     new() { LabelKey = "actions.delete", Method = "DELETE", Endpoint = "/users/{id}", Color = "danger", ActionType = "delete" }
@@ -384,9 +390,10 @@ public class UiSchemaController : ControllerBase
                 Actions = new List<string> { "add", "refresh" },
                 Columns = new List<GridColumn>
                 {
-                    new() { DataIndex = "serviceDeskName", TitleKey = "templates.serviceDesk" }
+                    new() { DataIndex = "name", TitleKey = "templates.name", Sortable = true, Filterable = true },
+                    new() { DataIndex = "serviceDeskName", TitleKey = "templates.serviceDesk", Sortable = true, Filterable = true }
                 },
-                RowActions = _userContext.Role == "Admin" ? new List<GridAction>
+                RowActions = IsAdmin ? new List<GridAction>
                 {
                     new() { LabelKey = "actions.edit", Method = "PUT", Endpoint = "/templates/{id}", Color = "primary", ActionType = "edit" },
                     new() { LabelKey = "actions.delete", Method = "DELETE", Endpoint = "/templates/{id}", Color = "danger", ActionType = "delete" }
@@ -418,10 +425,10 @@ public class UiSchemaController : ControllerBase
                 Actions = new List<string> { "add", "refresh" },
                 Columns = new List<GridColumn>
                 {
-                    new() { DataIndex = "name", TitleKey = "categories.name", Sortable = true },
-                    new() { DataIndex = "departmentName", TitleKey = "categories.department" }
+                    new() { DataIndex = "name", TitleKey = "categories.name", Sortable = true, Filterable = true },
+                    new() { DataIndex = "departmentName", TitleKey = "categories.department", Sortable = true, Filterable = true }
                 },
-                RowActions = _userContext.Role == "Admin" ? new List<GridAction>
+                RowActions = IsAdmin ? new List<GridAction>
                 {
                     new() { LabelKey = "actions.edit", Method = "PUT", Endpoint = "/categories/{id}", Color = "primary", ActionType = "edit" },
                     new() { LabelKey = "actions.delete", Method = "DELETE", Endpoint = "/categories/{id}", Color = "danger", ActionType = "delete" }
@@ -451,13 +458,13 @@ public class UiSchemaController : ControllerBase
                 Actions = new List<string> { "add", "refresh" },
                 Columns = new List<GridColumn>
                 {
-                    new() { DataIndex = "name", TitleKey = "slas.name", Sortable = true },
-                    new() { DataIndex = "departmentName", TitleKey = "slas.department" },
-                    new() { DataIndex = "priorityLevel", TitleKey = "slas.priority", Type = "tag" },
-                    new() { DataIndex = "resolutionTimeMinutes", TitleKey = "slas.resolutionTime" },
-                    new() { DataIndex = "firstResponseTimeMinutes", TitleKey = "slas.responseTime" }
+                    new() { DataIndex = "name", TitleKey = "slas.name", Sortable = true, Filterable = true },
+                    new() { DataIndex = "departmentName", TitleKey = "slas.department", Sortable = true, Filterable = true },
+                    new() { DataIndex = "priorityLevel", TitleKey = "slas.priority", Type = "tag", Sortable = true, Filterable = true },
+                    new() { DataIndex = "resolutionTimeMinutes", TitleKey = "slas.resolutionTime", Sortable = true },
+                    new() { DataIndex = "firstResponseTimeMinutes", TitleKey = "slas.responseTime", Sortable = true }
                 },
-                RowActions = _userContext.Role == "Admin" ? new List<GridAction>
+                RowActions = IsAdmin ? new List<GridAction>
                 {
                     new() { LabelKey = "actions.edit", Method = "PUT", Endpoint = "/slaconfigurations/{id}", Color = "primary", ActionType = "edit" },
                     new() { LabelKey = "actions.delete", Method = "DELETE", Endpoint = "/slaconfigurations/{id}", Color = "danger", ActionType = "delete" }
@@ -489,9 +496,9 @@ public class UiSchemaController : ControllerBase
                 Columns = new List<GridColumn>
                 {
                     new() { DataIndex = "timestamp", TitleKey = "auditlogs.timestamp", Type = "date", Width = 180, Sortable = true },
-                    new() { DataIndex = "action", TitleKey = "auditlogs.action", Type = "tag", Width = 100, Sortable = true },
-                    new() { DataIndex = "entityType", TitleKey = "auditlogs.entityType", Width = 150, Sortable = true },
-                    new() { DataIndex = "details", TitleKey = "auditlogs.details", Width = 300 }
+                    new() { DataIndex = "action", TitleKey = "auditlogs.action", Type = "tag", Width = 100, Sortable = true, Filterable = true },
+                    new() { DataIndex = "entityType", TitleKey = "auditlogs.entityType", Width = 150, Sortable = true, Filterable = true },
+                    new() { DataIndex = "details", TitleKey = "auditlogs.details", Width = 300, Filterable = true }
                 }
             }
         };

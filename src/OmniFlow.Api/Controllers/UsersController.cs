@@ -2,6 +2,8 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OmniFlow.Application.Common.Grid;
+using OmniFlow.Application.Common.Models;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Application.Users.Commands;
 using OmniFlow.Domain.Entities;
@@ -32,9 +34,13 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] GridRequest request)
     {
         var lang = _userContext.Language;
+
+        // Localized department names come from a JSONB dictionary, so the
+        // projection happens in memory; grid search/filter/sort/paging is then
+        // applied server-side over the projected shape.
         var users = await _context.Users
             .Include(u => u.Department)
             .ToListAsync();
@@ -44,12 +50,12 @@ public class UsersController : ControllerBase
                 u.Id,
                 u.Name,
                 u.Email,
-                u.Role,
+                Role = u.Role.ToString(),
                 u.DepartmentId,
                 DepartmentName = u.Department != null ? u.Department.LocalizedName.Translations.ContainsKey(lang) ? u.Department.LocalizedName.Translations[lang] : (u.Department.LocalizedName.Translations.ContainsKey("en") ? u.Department.LocalizedName.Translations["en"] : "Unknown") : "None"
             })
-            .ToList();
-            
+            .ToGridResult(request, ["Name", "Email", "Role", "DepartmentName"]);
+
         return Ok(result);
     }
 

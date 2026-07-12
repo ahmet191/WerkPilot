@@ -1,11 +1,12 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OmniFlow.Application.Common.Grid;
 using OmniFlow.Application.Common.Models;
 using OmniFlow.Application.Interfaces;
 
 namespace OmniFlow.Application.AuditLogs.Queries;
 
-public record GetAuditLogsQuery(PagedRequest PagedRequest) : IRequest<PagedResponse<AuditLogDto>>;
+public record GetAuditLogsQuery(GridRequest Request) : IRequest<PagedResponse<AuditLogDto>>;
 
 public class GetAuditLogsQueryHandler : IRequestHandler<GetAuditLogsQuery, PagedResponse<AuditLogDto>>
 {
@@ -18,37 +19,17 @@ public class GetAuditLogsQueryHandler : IRequestHandler<GetAuditLogsQuery, Paged
 
     public async Task<PagedResponse<AuditLogDto>> Handle(GetAuditLogsQuery request, CancellationToken cancellationToken)
     {
-        var query = _context.AuditLogs.AsNoTracking();
-
-        // Apply filtering (example: by EntityType)
-        if (request.PagedRequest.Filters.TryGetValue("entityType", out var entityType) && !string.IsNullOrEmpty(entityType))
+        // Newest first unless the grid requests an explicit sort.
+        if (string.IsNullOrEmpty(request.Request.SortBy))
         {
-            query = query.Where(a => a.EntityType.Contains(entityType));
+            request.Request.SortBy = nameof(AuditLogDto.Timestamp);
+            request.Request.SortDesc = true;
         }
 
-        var totalCount = await query.CountAsync(cancellationToken);
-
-        // Apply sorting
-        if (!string.IsNullOrEmpty(request.PagedRequest.SortBy))
-        {
-            if (request.PagedRequest.SortBy.Equals("timestamp", StringComparison.OrdinalIgnoreCase))
-                query = request.PagedRequest.SortDesc ? query.OrderByDescending(a => a.Timestamp) : query.OrderBy(a => a.Timestamp);
-            else if (request.PagedRequest.SortBy.Equals("action", StringComparison.OrdinalIgnoreCase))
-                query = request.PagedRequest.SortDesc ? query.OrderByDescending(a => a.Action) : query.OrderBy(a => a.Action);
-            else if (request.PagedRequest.SortBy.Equals("entityType", StringComparison.OrdinalIgnoreCase))
-                query = request.PagedRequest.SortDesc ? query.OrderByDescending(a => a.EntityType) : query.OrderBy(a => a.EntityType);
-            else
-                query = query.OrderByDescending(a => a.Timestamp);
-        }
-        else
-        {
-            query = query.OrderByDescending(a => a.Timestamp);
-        }
-
-        // Apply pagination
-        var items = await query
-            .Skip((request.PagedRequest.PageNumber - 1) * request.PagedRequest.PageSize)
-            .Take(request.PagedRequest.PageSize)
+        // Fully SQL-translated: search/filter/sort/paging run in Postgres —
+        // audit logs are the highest-volume table in the system.
+        return await _context.AuditLogs
+            .AsNoTracking()
             .Select(al => new AuditLogDto
             {
                 Id = al.Id,
@@ -59,8 +40,6 @@ public class GetAuditLogsQueryHandler : IRequestHandler<GetAuditLogsQuery, Paged
                 Details = al.Details,
                 Timestamp = al.Timestamp
             })
-            .ToListAsync(cancellationToken);
-
-        return new PagedResponse<AuditLogDto>(items, totalCount, request.PagedRequest.PageNumber, request.PagedRequest.PageSize);
+            .ToGridResultAsync(request.Request, [nameof(AuditLogDto.Action), nameof(AuditLogDto.EntityType), nameof(AuditLogDto.Details)], cancellationToken);
     }
 }

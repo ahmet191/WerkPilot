@@ -17,7 +17,10 @@ public class CorrelationIdMiddleware
     public async Task InvokeAsync(HttpContext context, ILogger<CorrelationIdMiddleware> logger)
     {
         var correlationId = GetCorrelationId(context);
-        
+
+        // Expose to downstream components (e.g. Serilog request-log enrichment).
+        context.Items["CorrelationId"] = correlationId;
+
         // Add Correlation ID to the Response headers
         context.Response.OnStarting(() =>
         {

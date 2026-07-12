@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OmniFlow.Application.Common.Grid;
+using OmniFlow.Application.Common.Models;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Domain.Entities;
 
@@ -19,11 +21,11 @@ public class ServiceDesksController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get([FromQuery] GridRequest request)
     {
-        // Simple logic for visibility: 
+        // Simple logic for visibility:
         // Admin sees all. Others see Public ones + ones allowed for their department.
-        
+
         var query = _context.ServiceDesks.AsQueryable();
 
         if (_userContext.Role != "Admin")
@@ -33,13 +35,14 @@ public class ServiceDesksController : ControllerBase
             query = query.Where(sd => sd.IsPublicToAllEmployees);
         }
 
+        // Fully SQL-translated: search/filter/sort/paging all run in Postgres.
         var desks = await query.Select(sd => new
         {
             sd.Id,
             sd.Name,
             sd.Description,
             sd.IsPublicToAllEmployees
-        }).ToListAsync();
+        }).ToGridResultAsync(request, ["Name", "Description"]);
 
         return Ok(desks);
     }
