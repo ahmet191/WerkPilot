@@ -5,7 +5,6 @@ namespace OmniFlow.Domain.Entities;
 
 public class Department : AuditableEntity
 {
-    public Guid Id { get; set; }
     
     // Multi-lingual name (e.g., {"en": "Human Resources", "tr": "İnsan Kaynakları"})
     public MultiLingualString LocalizedName { get; set; } = new();

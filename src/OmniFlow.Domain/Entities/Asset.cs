@@ -5,7 +5,6 @@ namespace OmniFlow.Domain.Entities;
 
 public class Asset : AuditableEntity
 {
-    public Guid Id { get; set; }
     public string AssetTag { get; set; } = string.Empty;
     public string SerialNumber { get; set; } = string.Empty;
     public string Model { get; set; } = string.Empty; // e.g., "MacBook Pro 16"

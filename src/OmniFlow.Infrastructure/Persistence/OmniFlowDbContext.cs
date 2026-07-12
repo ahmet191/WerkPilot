@@ -1,7 +1,9 @@
+using MassTransit;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Domain.Entities;
+using OmniFlow.Infrastructure.Identity;
 using OmniFlow.Infrastructure.Persistence.Interceptors;
 using System.Reflection;
 using HR = OmniFlow.Domain.Entities.HR;
@@ -76,6 +78,11 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
         // Configure OpenIddict tables with Guid keys
         builder.UseOpenIddict<Guid>();
 
+        // MassTransit transactional outbox tables (OutboxMessage/OutboxState/InboxState)
+        builder.AddInboxStateEntity();
+        builder.AddOutboxMessageEntity();
+        builder.AddOutboxStateEntity();
+
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         // Global Query Filter for Multi-Tenancy
@@ -94,7 +101,9 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
 
     private void SetGlobalQueryFilter<TEntity>(ModelBuilder builder) where TEntity : OmniFlow.Domain.Common.AuditableEntity
     {
-        builder.Entity<TEntity>().HasQueryFilter(e => e.TenantId == _tenantService.TenantId);
+        // Single combined filter: EF allows only ONE HasQueryFilter per entity —
+        // a second call would silently replace the first.
+        builder.Entity<TEntity>().HasQueryFilter(e => e.TenantId == _tenantService.TenantId && !e.IsDeleted);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
