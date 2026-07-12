@@ -22,6 +22,10 @@ public static class DependencyInjection
 
         services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly);
 
+        // Approval engine: materializes ApprovalDefinition templates into
+        // concrete requests inside the caller's unit of work.
+        services.AddScoped<Approvals.ApprovalRequestBuilder>();
+
         return services;
     }
 }

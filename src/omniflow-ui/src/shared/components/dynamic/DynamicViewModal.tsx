@@ -2,6 +2,7 @@ import { Modal, Descriptions, Tag, Button, Empty, Typography } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import type { GridColumn } from '../../../core/schema.models';
 import { useTranslation } from '../../../core/LanguageContext';
+import { ApprovalTimeline } from '../../../features/approvals/ApprovalTimeline';
 
 const STATE_COLORS: Record<string, string> = {
   New: 'blue',
@@ -45,6 +46,8 @@ interface DynamicViewModalProps {
   onCancel: () => void;
   /** Optional shortcut: closes the view and opens the edit modal for this record. */
   onEdit?: (record: any) => void;
+  /** Approval engine entity type ("Ticket"/"LeaveRequest") — renders the approval timeline when set. */
+  approvalEntityType?: string;
 }
 
 /**
@@ -52,7 +55,7 @@ interface DynamicViewModalProps {
  * typed formatting); any remaining scalar fields on the record follow, so
  * nothing in the payload is hidden from the user.
  */
-export function DynamicViewModal({ open, record, columns, title, onCancel, onEdit }: DynamicViewModalProps) {
+export function DynamicViewModal({ open, record, columns, title, onCancel, onEdit, approvalEntityType }: DynamicViewModalProps) {
   const { t } = useTranslation();
 
   if (!record) {
@@ -119,6 +122,15 @@ export function DynamicViewModal({ open, record, columns, title, onCancel, onEdi
               </Descriptions.Item>
             ))}
           </Descriptions>
+        </>
+      )}
+
+      {approvalEntityType && record.id && (
+        <>
+          <Typography.Title level={5} style={{ marginTop: 16 }}>
+            {t('approvals.history', 'Approval history')}
+          </Typography.Title>
+          <ApprovalTimeline entityType={approvalEntityType} entityId={record.id} />
         </>
       )}
     </Modal>

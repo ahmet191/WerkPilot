@@ -13,4 +13,10 @@ public class Tenant : BaseEntity
     public string Domain { get; set; } = string.Empty; // e.g., acmecorp.omniflow.com
     public DateTime CreatedAt { get; set; }
     public bool IsActive { get; set; } = true;
+
+    /// <summary>
+    /// Tenant-wide default approval chain for leave requests (JSONB).
+    /// Seeded as manager → HRAdmin; editable per tenant.
+    /// </summary>
+    public ApprovalDefinition? LeaveApprovalPolicy { get; set; }
 }

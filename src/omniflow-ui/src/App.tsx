@@ -7,6 +7,7 @@ import { ServiceDeskPortal } from './features/tickets/components/ServiceDeskPort
 import { IsolatedServiceDesk } from './features/tickets/components/IsolatedServiceDesk';
 import { EmployeeDirectory } from './features/hr/components/EmployeeDirectory';
 import { OrgChart } from './features/hr/components/OrgChart';
+import { MyApprovals } from './features/approvals/MyApprovals';
 
 import { AuthProvider } from './core/AuthContext';
 import { ProtectedRoute } from './core/ProtectedRoute';
@@ -22,6 +23,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<AppLayout />}>
               <Route index element={<DynamicDashboard />} />
+              <Route path="approvals" element={<MyApprovals />} />
               <Route path="servicedeskportal" element={<ServiceDeskPortal />} />
               <Route path="servicedesk/:id/tickets" element={<IsolatedServiceDesk />} />
               <Route path="servicedesks" element={<DynamicPage entityType="servicedesks" />} />

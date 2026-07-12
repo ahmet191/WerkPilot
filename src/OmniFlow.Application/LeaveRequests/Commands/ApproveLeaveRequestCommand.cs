@@ -38,6 +38,17 @@ public class ApproveLeaveRequestCommandHandler : IRequestHandler<ApproveLeaveReq
         if (leave == null)
             throw new NotFoundException("LeaveRequest", request.Id);
 
+        // Leaves governed by a pending approval chain must be decided through
+        // it — a direct approve here would leave the chain dangling.
+        var hasPendingApproval = await _context.ApprovalRequests.AnyAsync(a =>
+            a.EntityType == Domain.Entities.Approvals.ApprovalEntityTypes.LeaveRequest &&
+            a.EntityId == leave.Id &&
+            a.Status == ApprovalStatus.Pending, cancellationToken);
+
+        if (hasPendingApproval)
+            throw new ConflictException(
+                "This leave request has a pending approval flow. Decide it from the Approvals screen.");
+
         leave.Status = request.IsApproved ? LeaveStatus.Approved : LeaveStatus.Rejected;
         leave.ApproverId = _userContext.UserId;
 

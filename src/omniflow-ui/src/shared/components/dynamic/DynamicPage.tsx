@@ -15,6 +15,12 @@ interface DynamicPageProps {
   entityType: string;
 }
 
+/** UI entity types whose detail view embeds the approval timeline. */
+const APPROVAL_ENTITY_TYPES: Record<string, string> = {
+  tickets: 'Ticket',
+  leaves: 'LeaveRequest',
+};
+
 export function DynamicPage({ entityType }: DynamicPageProps) {
   const { t } = useTranslation();
   const [schema, setSchema] = useState<UiSchema | null>(null);
@@ -215,6 +221,7 @@ export function DynamicPage({ entityType }: DynamicPageProps) {
         record={viewRecord}
         columns={grid.columns}
         title={t(grid.titleKey)}
+        approvalEntityType={APPROVAL_ENTITY_TYPES[entityType]}
         onCancel={() => setViewRecord(null)}
         onEdit={grid.rowActions?.some(a => a.actionType === 'edit') ? (record) => {
           setViewRecord(null);

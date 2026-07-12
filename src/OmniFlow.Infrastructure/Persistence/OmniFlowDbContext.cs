@@ -70,6 +70,9 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
     // the tenant global query filter (it is the root the filter resolves against).
     public DbSet<Tenant> Tenants => Set<Tenant>();
 
+    public DbSet<Domain.Entities.Approvals.ApprovalRequest> ApprovalRequests => Set<Domain.Entities.Approvals.ApprovalRequest>();
+    public DbSet<Domain.Entities.Approvals.ApprovalStep> ApprovalSteps => Set<Domain.Entities.Approvals.ApprovalStep>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         // Must call base first to configure Identity tables
