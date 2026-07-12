@@ -45,9 +45,14 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   };
 
   const t = (key: string, ...args: any[]) => {
-    let value = dictionary[key] || key;
+    let value = dictionary[key];
+    if (value === undefined) {
+      // Missing key: a string first argument acts as the fallback text;
+      // otherwise the raw key is shown so gaps stay visible during dev.
+      value = typeof args[0] === 'string' ? args[0] : key;
+    }
     args.forEach((arg, index) => {
-      value = value.replace(`{${index}}`, arg);
+      value = value!.replace(`{${index}}`, arg);
     });
     return value;
   };

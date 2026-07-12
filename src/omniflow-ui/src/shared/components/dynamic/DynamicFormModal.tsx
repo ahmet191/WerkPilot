@@ -4,15 +4,8 @@ import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import type { FormSchema } from '../../../core/schema.models';
 import { useTranslation } from '../../../core/LanguageContext';
 import { SchemaService } from '../../../services/schema.service';
-import { api } from '../../../core/api';
+import { api, unwrapList } from '../../../core/api';
 import { useAuth } from '../../../core/AuthContext';
-
-interface DynamicFormModalProps {
-  open: boolean;
-  schema: FormSchema;
-  onCancel: () => void;
-  onSuccess: () => void;
-}
 
 const DynamicSelect = ({ field, ...props }: any) => {
   const [fetchedOptions, setFetchedOptions] = useState<any[]>([]);
@@ -30,7 +23,8 @@ const DynamicSelect = ({ field, ...props }: any) => {
     try {
       const res = await api.get(field.dataSourceEndpoint);
       // Smart mapping for different entity types
-      const mappedOptions = res.data.map((item: any) => {
+      // (unwrapList: server-side grid endpoints return { items, totalCount })
+      const mappedOptions = unwrapList(res.data).map((item: any) => {
         let label = item.label || item.name || item.title || item.titleKey || item.id;
         if (item.localizedName?.translations) {
           label = item.localizedName.translations['en'] || label;
@@ -335,8 +329,10 @@ export function DynamicFormModal({ open, schema, editRecord, editEndpoint, onCan
   const loadTemplates = async () => {
     setLoading(true);
     try {
-      const res = await api.get(schema.templateEndpoint!);
-      setTemplates(res.data);
+      // Template picker needs the whole catalog, not one grid page.
+      const separator = schema.templateEndpoint!.includes('?') ? '&' : '?';
+      const res = await api.get(`${schema.templateEndpoint!}${separator}pageSize=200`);
+      setTemplates(unwrapList(res.data));
     } catch (err) {
       console.error('Failed to load templates', err);
     } finally {
@@ -503,6 +499,14 @@ export function DynamicFormModal({ open, schema, editRecord, editEndpoint, onCan
       onCancel={onCancel}
       confirmLoading={loading}
       destroyOnHidden
+      // destroyOnHidden + preserve=false: fields only exist after the modal
+      // content mounts, so populate AFTER the open transition completes —
+      // a setFieldsValue fired from an effect would be silently dropped.
+      afterOpenChange={(opened) => {
+        if (opened && editRecord) {
+          form.setFieldsValue(editRecord);
+        }
+      }}
     >
       <Form form={form} layout="vertical" preserve={false}>
         {schema.templateEndpoint && !selectedTemplate ? (

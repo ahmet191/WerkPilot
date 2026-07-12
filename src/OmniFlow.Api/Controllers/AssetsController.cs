@@ -17,9 +17,9 @@ public class AssetsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get([FromQuery] OmniFlow.Application.Common.Models.GridRequest request)
     {
-        var result = await _mediator.Send(new GetAssetsQuery());
+        var result = await _mediator.Send(new GetAssetsQuery(request));
         return Ok(result);
     }
 

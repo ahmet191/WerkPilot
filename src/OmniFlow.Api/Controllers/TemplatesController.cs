@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OmniFlow.Application.Common.Grid;
+using OmniFlow.Application.Common.Models;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Domain.Entities;
 
@@ -35,21 +37,31 @@ public class TemplatesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] GridRequest request)
     {
+        var lang = _userContext.Language;
+
         var templates = await _context.TicketTemplates
             .Include(t => t.ServiceDesk)
+            .ToListAsync();
+
+        // Localized JSONB projection — grid ops applied server-side in memory.
+        // Fields/Workflow/LocalizedName stay in the payload: the template picker
+        // and the edit modal (FieldsBuilder/WorkflowBuilder) need them.
+        var result = templates
             .Select(t => new
             {
                 t.Id,
+                Name = t.LocalizedName.GetValueOrDefault(lang),
                 t.ServiceDeskId,
                 ServiceDeskName = t.ServiceDesk != null ? t.ServiceDesk.Name : "Unknown",
                 Fields = t.Fields,
                 Workflow = t.Workflow,
                 LocalizedName = t.LocalizedName
             })
-            .ToListAsync();
-        return Ok(templates);
+            .ToGridResult(request, ["Name", "ServiceDeskName"]);
+
+        return Ok(result);
     }
 
     [HttpGet("{id}")]

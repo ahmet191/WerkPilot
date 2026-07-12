@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OmniFlow.Application.Common.Grid;
+using OmniFlow.Application.Common.Models;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Domain.Entities;
 
@@ -20,13 +22,14 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get([FromQuery] GridRequest request)
     {
         var lang = _userContext.Language;
         var categories = await _context.TicketCategories
             .Include(c => c.Department)
             .ToListAsync();
 
+        // Localized JSONB projection — grid ops applied server-side in memory.
         var result = categories.Select(c => new
             {
                 c.Id,
@@ -35,7 +38,7 @@ public class CategoriesController : ControllerBase
                 DepartmentName = c.Department != null ? c.Department.LocalizedName.Translations.ContainsKey(lang) ? c.Department.LocalizedName.Translations[lang] : (c.Department.LocalizedName.Translations.ContainsKey("en") ? c.Department.LocalizedName.Translations["en"] : "Unknown") : "None",
                 c.ParentCategoryId
             })
-            .ToList();
+            .ToGridResult(request, ["Name", "DepartmentName"]);
 
         return Ok(result);
     }

@@ -6,6 +6,18 @@ export const api = axios.create({
     timeout: 10000,
 });
 
+/**
+ * List endpoints migrated to server-side grids return PagedResponse
+ * ({ items, totalCount }); legacy ones still return raw arrays.
+ * Components that just need "the list" (pickers, portals) use this to
+ * accept both shapes.
+ */
+export function unwrapList<T = any>(data: any): T[] {
+    if (Array.isArray(data)) return data;
+    if (data && Array.isArray(data.items)) return data.items;
+    return [];
+}
+
 // Request Interceptor: Attach the selected language for dynamic Backend localization
 api.interceptors.request.use((config) => {
     // In a real app, this might come from localStorage or AuthContext
