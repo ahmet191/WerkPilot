@@ -41,8 +41,10 @@ public class CreateLeaveRequestCommandHandler : IRequestHandler<CreateLeaveReque
             Id = Guid.NewGuid(),
             UserId = _userContext.UserId,
             Type = request.Type,
-            StartDate = request.StartDate,
-            EndDate = request.EndDate,
+            // Bare dates deserialize with Kind=Unspecified; Npgsql only accepts
+            // UTC for 'timestamp with time zone' columns.
+            StartDate = DateTime.SpecifyKind(request.StartDate, DateTimeKind.Utc),
+            EndDate = DateTime.SpecifyKind(request.EndDate, DateTimeKind.Utc),
             Status = LeaveStatus.Pending,
             Reason = request.Reason
         };
