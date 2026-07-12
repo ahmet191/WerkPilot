@@ -18,16 +18,9 @@ public class LeaveRequestsController : ControllerBase
     }
 
     [HttpGet("my")]
-    public async Task<IActionResult> GetMyLeaves([FromQuery] int current = 1, [FromQuery] int pageSize = 10, [FromQuery] string? sortBy = null, [FromQuery] bool sortDesc = false)
+    public async Task<IActionResult> GetMyLeaves([FromQuery] OmniFlow.Application.Common.Models.GridRequest request)
     {
-        var pagedRequest = new OmniFlow.Application.Common.Models.PagedRequest
-        {
-            PageNumber = current,
-            PageSize = pageSize,
-            SortBy = sortBy,
-            SortDesc = sortDesc
-        };
-        var leaves = await _mediator.Send(new GetMyLeaveRequestsQuery(pagedRequest));
+        var leaves = await _mediator.Send(new GetMyLeaveRequestsQuery(request));
         return Ok(leaves);
     }
 

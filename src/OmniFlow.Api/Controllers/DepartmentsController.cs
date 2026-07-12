@@ -17,9 +17,9 @@ public class DepartmentsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get([FromQuery] OmniFlow.Application.Common.Models.GridRequest request)
     {
-        var result = await _mediator.Send(new GetDepartmentsQuery());
+        var result = await _mediator.Send(new GetDepartmentsQuery(request));
         return Ok(result);
     }
 

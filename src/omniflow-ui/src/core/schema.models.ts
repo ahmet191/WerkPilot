@@ -26,6 +26,8 @@ export interface GridAction {
   method: string;
   endpoint: string;
   color: string;
+  /** 'edit' | 'delete' | 'action' — drives which toolbar button is rendered. */
+  actionType?: string;
 }
 
 export interface GridColumn {
@@ -33,6 +35,8 @@ export interface GridColumn {
   titleKey: string;
   type: 'string' | 'number' | 'date' | 'tag';
   sortable: boolean;
+  /** Enables the per-column filter dropdown (server-side filtering). */
+  filterable?: boolean;
   ellipsis: boolean;
   width?: number;
 }

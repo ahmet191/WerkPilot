@@ -41,6 +41,10 @@ public class GridColumn
     public string TitleKey { get; set; } = string.Empty;
     public string Type { get; set; } = "string"; // string, number, date, tag
     public bool Sortable { get; set; } = false;
+
+    /// <summary>Enables the per-column filter dropdown (server-side filtering).</summary>
+    public bool Filterable { get; set; } = false;
+
     public bool Ellipsis { get; set; } = false;
     public int? Width { get; set; }
 }

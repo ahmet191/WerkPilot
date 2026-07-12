@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Col, Row, Typography, Spin, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { AppstoreOutlined, ArrowRightOutlined } from '@ant-design/icons';
-import { api } from '../../../core/api';
+import { api, unwrapList } from '../../../core/api';
 
 const { Title, Text } = Typography;
 
@@ -12,9 +12,9 @@ export const ServiceDeskPortal: React.FC = () => {
 
     useEffect(() => {
         // Fetch Service Desks from our API
-        api.get('/servicedesks')
+        api.get('/servicedesks?pageSize=100')
             .then(res => {
-                setDesks(res.data);
+                setDesks(unwrapList(res.data));
                 setLoading(false);
             })
             .catch(() => setLoading(false));

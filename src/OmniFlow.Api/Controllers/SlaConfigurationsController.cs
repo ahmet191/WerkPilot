@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OmniFlow.Application.Common.Grid;
+using OmniFlow.Application.Common.Models;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Domain.Entities;
 
@@ -20,13 +22,14 @@ public class SlaConfigurationsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get([FromQuery] GridRequest request)
     {
         var lang = _userContext.Language;
         var slas = await _context.SLAConfigurations
             .Include(s => s.Department)
             .ToListAsync();
 
+        // Localized JSONB projection — grid ops applied server-side in memory.
         var result = slas.Select(s => new
             {
                 s.Id,
@@ -37,7 +40,7 @@ public class SlaConfigurationsController : ControllerBase
                 s.DepartmentId,
                 DepartmentName = s.Department != null ? s.Department.LocalizedName.Translations.ContainsKey(lang) ? s.Department.LocalizedName.Translations[lang] : (s.Department.LocalizedName.Translations.ContainsKey("en") ? s.Department.LocalizedName.Translations["en"] : "Unknown") : "None"
             })
-            .ToList();
+            .ToGridResult(request, ["Name", "DepartmentName"]);
 
         return Ok(result);
     }

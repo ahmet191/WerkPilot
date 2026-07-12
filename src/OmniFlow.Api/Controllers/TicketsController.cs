@@ -1,6 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OmniFlow.Application.Common.Grid;
+using OmniFlow.Application.Common.Models;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Application.Tickets.Commands;
 using OmniFlow.Application.Tickets.Queries;
@@ -17,11 +19,57 @@ public class TicketsController : ControllerBase
 {
     private readonly IMediator _mediator;
     private readonly IOmniFlowDbContext _context;
+    private readonly IUserContext _userContext;
 
-    public TicketsController(IMediator mediator, IOmniFlowDbContext context)
+    public TicketsController(IMediator mediator, IOmniFlowDbContext context, IUserContext userContext)
     {
         _mediator = mediator;
         _context = context;
+        _userContext = userContext;
+    }
+
+    /// <summary>
+    /// Role-scoped ticket list feeding the grid. Privileged roles see every
+    /// ticket in the tenant; requesters only their own. Search/filter/sort/
+    /// paging all run in SQL — this is a high-volume table.
+    /// </summary>
+    [HttpGet]
+    public async Task<IActionResult> GetList([FromQuery] GridRequest request)
+    {
+        var query = _context.Tickets.AsNoTracking();
+
+        var isPrivileged = _userContext.Role is "Administrator" or "Admin" or "ITAgent" or "HRAdmin" or "Agent";
+        if (!isPrivileged)
+        {
+            var userId = _userContext.UserId;
+            query = query.Where(t => t.RequesterId == userId);
+        }
+
+        if (string.IsNullOrEmpty(request.SortBy))
+        {
+            request.SortBy = "CreatedAt";
+            request.SortDesc = true;
+        }
+
+        var result = await query
+            .Select(t => new
+            {
+                t.Id,
+                t.Title,
+                Type = t.Type.ToString(),
+                Priority = t.Priority.ToString(),
+                Impact = t.Impact.ToString(),
+                Urgency = t.Urgency.ToString(),
+                CurrentState = t.CurrentState.ToString(),
+                t.RequesterId,
+                RequesterName = t.Requester != null ? t.Requester.Name : string.Empty,
+                AssigneeName = t.Assignee != null ? t.Assignee.Name : string.Empty,
+                t.SlaDueDate,
+                t.CreatedAt
+            })
+            .ToGridResultAsync(request, ["Title", "RequesterName", "AssigneeName"]);
+
+        return Ok(result);
     }
 
     [HttpPost]

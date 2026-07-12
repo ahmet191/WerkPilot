@@ -18,22 +18,9 @@ public class AuditLogsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get([FromQuery] int current = 1, [FromQuery] int pageSize = 10, [FromQuery] string? sortBy = null, [FromQuery] bool sortDesc = false, [FromQuery] string? entityType = null)
+    public async Task<IActionResult> Get([FromQuery] OmniFlow.Application.Common.Models.GridRequest request)
     {
-        var pagedRequest = new OmniFlow.Application.Common.Models.PagedRequest
-        {
-            PageNumber = current,
-            PageSize = pageSize,
-            SortBy = sortBy,
-            SortDesc = sortDesc
-        };
-
-        if (!string.IsNullOrEmpty(entityType))
-        {
-            pagedRequest.Filters.Add("entityType", entityType);
-        }
-
-        var logs = await _mediator.Send(new GetAuditLogsQuery(pagedRequest));
+        var logs = await _mediator.Send(new GetAuditLogsQuery(request));
         return Ok(logs);
     }
 }
