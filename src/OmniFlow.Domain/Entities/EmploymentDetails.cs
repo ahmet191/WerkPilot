@@ -5,7 +5,6 @@ namespace OmniFlow.Domain.Entities;
 
 public class EmploymentDetails : AuditableEntity
 {
-    public Guid Id { get; set; }
     public Guid UserId { get; set; }
     public DateTime DateOfHire { get; set; }
     public DateTime? DateOfTermination { get; set; }

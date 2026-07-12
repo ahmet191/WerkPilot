@@ -5,7 +5,6 @@ namespace OmniFlow.Domain.Entities;
 
 public class ConfigurationItem : AuditableEntity
 {
-    public Guid Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string? Description { get; set; }
     public CIType Type { get; set; }

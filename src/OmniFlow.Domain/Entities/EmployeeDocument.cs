@@ -4,7 +4,6 @@ namespace OmniFlow.Domain.Entities;
 
 public class EmployeeDocument : AuditableEntity
 {
-    public Guid Id { get; set; }
     public Guid UserId { get; set; }
     
     // Using MultiLingualString for document types like "Identity Card" or "Employment Contract"

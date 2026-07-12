@@ -14,11 +14,16 @@ public class AssignAssetCommand : IRequest<bool>
 public class AssignAssetCommandHandler : IRequestHandler<AssignAssetCommand, bool>
 {
     private readonly IOmniFlowDbContext _context;
+    private readonly ITenantService _tenantService;
     private readonly MassTransit.IPublishEndpoint _publishEndpoint;
 
-    public AssignAssetCommandHandler(IOmniFlowDbContext context, MassTransit.IPublishEndpoint publishEndpoint)
+    public AssignAssetCommandHandler(
+        IOmniFlowDbContext context,
+        ITenantService tenantService,
+        MassTransit.IPublishEndpoint publishEndpoint)
     {
         _context = context;
+        _tenantService = tenantService;
         _publishEndpoint = publishEndpoint;
     }
 
@@ -31,17 +36,19 @@ public class AssignAssetCommandHandler : IRequestHandler<AssignAssetCommand, boo
         asset.AssignedToUserId = request.UserId;
         asset.Status = AssetStatus.Assigned;
 
-        await _context.SaveChangesAsync(cancellationToken);
-
-        // Publish Event to MassTransit
+        // Publish BEFORE SaveChanges: the transactional outbox commits the
+        // message atomically with the assignment.
         await _publishEndpoint.Publish(new OmniFlow.Domain.Events.AssetAssignedEvent
         {
+            TenantId = _tenantService.TenantId,
             AssetId = asset.Id,
             AssetTag = asset.AssetTag,
             Model = asset.Model,
             AssignedToUserId = request.UserId,
             AssignedAt = DateTime.UtcNow
         }, cancellationToken);
+
+        await _context.SaveChangesAsync(cancellationToken);
 
         return true;
     }
