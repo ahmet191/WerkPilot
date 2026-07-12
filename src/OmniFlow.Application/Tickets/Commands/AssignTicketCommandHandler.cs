@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OmniFlow.Application.Common.Exceptions;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Domain.Entities;
 
@@ -17,12 +18,12 @@ public class AssignTicketCommandHandler : IRequestHandler<AssignTicketCommand, b
     public async Task<bool> Handle(AssignTicketCommand request, CancellationToken cancellationToken)
     {
         var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == request.TicketId, cancellationToken);
-        if (ticket == null) throw new Exception("Ticket not found.");
+        if (ticket == null) throw new NotFoundException(nameof(Ticket), request.TicketId);
 
         if (request.AssigneeId.HasValue)
         {
             var assignee = await _context.Set<User>().FirstOrDefaultAsync(u => u.Id == request.AssigneeId, cancellationToken);
-            if (assignee == null) throw new Exception("Assignee user not found.");
+            if (assignee == null) throw new NotFoundException(nameof(User), request.AssigneeId);
         }
 
         var oldAssignee = ticket.AssigneeId;

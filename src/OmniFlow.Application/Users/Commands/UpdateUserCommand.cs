@@ -1,5 +1,6 @@
 using MediatR;
 using OmniFlow.Domain.Enums;
+using OmniFlow.Application.Common.Exceptions;
 using OmniFlow.Application.Interfaces;
 
 namespace OmniFlow.Application.Users.Commands;
@@ -26,7 +27,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand>
     public async Task Handle(UpdateUserCommand request, CancellationToken cancellationToken)
     {
         var user = await _context.Users.FindAsync(new object[] { request.Id }, cancellationToken);
-        if (user == null) throw new Exception("User not found");
+        if (user == null) throw new NotFoundException("User", request.Id);
 
         user.Name = request.Name;
         user.Email = request.Email;

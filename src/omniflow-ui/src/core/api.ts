@@ -6,6 +6,18 @@ export const api = axios.create({
     timeout: 10000,
 });
 
+/**
+ * List endpoints migrated to server-side grids return PagedResponse
+ * ({ items, totalCount }); legacy ones still return raw arrays.
+ * Components that just need "the list" (pickers, portals) use this to
+ * accept both shapes.
+ */
+export function unwrapList<T = any>(data: any): T[] {
+    if (Array.isArray(data)) return data;
+    if (data && Array.isArray(data.items)) return data.items;
+    return [];
+}
+
 // Request Interceptor: Attach the selected language for dynamic Backend localization
 api.interceptors.request.use((config) => {
     // In a real app, this might come from localStorage or AuthContext
@@ -24,7 +36,9 @@ api.interceptors.request.use((config) => {
     return Promise.reject(error);
 });
 
-// Response Interceptor: Global error handling
+// Response Interceptor: Global error handling.
+// The API returns RFC 7807 ProblemDetails; `messageKey`, `traceId` and `errors`
+// are custom extensions serialized at the top level of the body.
 api.interceptors.response.use((response) => {
     return response;
 }, (error) => {
@@ -32,13 +46,16 @@ api.interceptors.response.use((response) => {
         window.dispatchEvent(new CustomEvent('auth-error'));
     }
 
-    const messageKey = error.response?.data?.messageKey || 'api.error.generic';
-    
+    const problem = error.response?.data;
+    const messageKey = problem?.messageKey || 'api.error.generic';
+    const traceId = problem?.traceId;
+    const errors = problem?.errors; // field-keyed validation errors, if any
+
     // Dispatch a custom event to the window so React components (like AppLayout) can listen and translate it
-    window.dispatchEvent(new CustomEvent('api-error', { 
-        detail: { messageKey }
+    window.dispatchEvent(new CustomEvent('api-error', {
+        detail: { messageKey, traceId, errors, detail: problem?.detail }
     }));
-    
-    console.error('API Error:', error.response?.status, error.response?.data);
+
+    console.error('API Error:', error.response?.status, problem);
     return Promise.reject(error);
 });

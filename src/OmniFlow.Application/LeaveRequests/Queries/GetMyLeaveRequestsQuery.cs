@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OmniFlow.Application.Common.Grid;
 using OmniFlow.Application.Common.Models;
 using OmniFlow.Application.Interfaces;
 
@@ -15,7 +16,7 @@ public class LeaveRequestDto
     public string? Reason { get; set; }
 }
 
-public record GetMyLeaveRequestsQuery(PagedRequest PagedRequest) : IRequest<PagedResponse<LeaveRequestDto>>;
+public record GetMyLeaveRequestsQuery(GridRequest Request) : IRequest<PagedResponse<LeaveRequestDto>>;
 
 public class GetMyLeaveRequestsQueryHandler : IRequestHandler<GetMyLeaveRequestsQuery, PagedResponse<LeaveRequestDto>>
 {
@@ -30,32 +31,16 @@ public class GetMyLeaveRequestsQueryHandler : IRequestHandler<GetMyLeaveRequests
 
     public async Task<PagedResponse<LeaveRequestDto>> Handle(GetMyLeaveRequestsQuery request, CancellationToken cancellationToken)
     {
-        var query = _context.LeaveRequests
+        if (string.IsNullOrEmpty(request.Request.SortBy))
+        {
+            request.Request.SortBy = nameof(LeaveRequestDto.StartDate);
+            request.Request.SortDesc = true;
+        }
+
+        // Fully SQL-translated grid over the DTO projection.
+        return await _context.LeaveRequests
             .AsNoTracking()
-            .Where(l => l.UserId == _userContext.UserId);
-
-        var totalCount = await query.CountAsync(cancellationToken);
-
-        // Sorting
-        if (!string.IsNullOrEmpty(request.PagedRequest.SortBy))
-        {
-            if (request.PagedRequest.SortBy.Equals("startDate", StringComparison.OrdinalIgnoreCase))
-                query = request.PagedRequest.SortDesc ? query.OrderByDescending(l => l.StartDate) : query.OrderBy(l => l.StartDate);
-            else if (request.PagedRequest.SortBy.Equals("type", StringComparison.OrdinalIgnoreCase))
-                query = request.PagedRequest.SortDesc ? query.OrderByDescending(l => l.Type) : query.OrderBy(l => l.Type);
-            else if (request.PagedRequest.SortBy.Equals("status", StringComparison.OrdinalIgnoreCase))
-                query = request.PagedRequest.SortDesc ? query.OrderByDescending(l => l.Status) : query.OrderBy(l => l.Status);
-            else
-                query = query.OrderByDescending(l => l.StartDate);
-        }
-        else
-        {
-            query = query.OrderByDescending(l => l.StartDate);
-        }
-
-        var items = await query
-            .Skip((request.PagedRequest.PageNumber - 1) * request.PagedRequest.PageSize)
-            .Take(request.PagedRequest.PageSize)
+            .Where(l => l.UserId == _userContext.UserId)
             .Select(l => new LeaveRequestDto
             {
                 Id = l.Id,
@@ -65,8 +50,6 @@ public class GetMyLeaveRequestsQueryHandler : IRequestHandler<GetMyLeaveRequests
                 Reason = l.Reason,
                 Status = l.Status.ToString()
             })
-            .ToListAsync(cancellationToken);
-
-        return new PagedResponse<LeaveRequestDto>(items, totalCount, request.PagedRequest.PageNumber, request.PagedRequest.PageSize);
+            .ToGridResultAsync(request.Request, [nameof(LeaveRequestDto.Type), nameof(LeaveRequestDto.Status), nameof(LeaveRequestDto.Reason)], cancellationToken);
     }
 }

@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OmniFlow.Application.Common.Exceptions;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Domain.Enums;
 
@@ -29,7 +30,7 @@ public class ApproveLeaveRequestCommandHandler : IRequestHandler<ApproveLeaveReq
         var leave = await _context.LeaveRequests.FirstOrDefaultAsync(l => l.Id == request.Id, cancellationToken);
         
         if (leave == null)
-            throw new Exception("Leave request not found");
+            throw new NotFoundException("LeaveRequest", request.Id);
 
         leave.Status = request.IsApproved ? LeaveStatus.Approved : LeaveStatus.Rejected;
         leave.ApproverId = _userContext.UserId;

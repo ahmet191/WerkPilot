@@ -42,10 +42,23 @@ export function AppLayout() {
 
   useEffect(() => {
     const handleApiError = (event: any) => {
-      const messageKey = event.detail?.messageKey;
-      if (messageKey) {
-        message.error(t(messageKey, 'An error occurred'));
-      }
+      const { messageKey, traceId, errors, detail } = event.detail ?? {};
+      if (!messageKey) return;
+
+      // Prefer field-level validation errors, then the ProblemDetails detail,
+      // then the translated message key. Show the traceId for supportability.
+      const firstFieldError = errors ? (Object.values(errors).flat()[0] as string) : undefined;
+      const text = firstFieldError ?? detail ?? t(messageKey, 'An error occurred');
+      message.error(
+        <span>
+          {text}
+          {traceId && (
+            <span style={{ display: 'block', fontSize: 11, opacity: 0.65 }}>
+              Trace: {traceId}
+            </span>
+          )}
+        </span>,
+      );
     };
     window.addEventListener('api-error', handleApiError);
     return () => window.removeEventListener('api-error', handleApiError);

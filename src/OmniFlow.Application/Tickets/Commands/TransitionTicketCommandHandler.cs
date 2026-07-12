@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using OmniFlow.Application.Common.Exceptions;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Domain.Entities;
 using OmniFlow.Domain.Enums;
@@ -27,7 +28,7 @@ public class TransitionTicketCommandHandler : IRequestHandler<TransitionTicketCo
 
         if (ticket == null)
         {
-            throw new Exception($"Ticket with ID {request.TicketId} not found.");
+            throw new NotFoundException(nameof(Ticket), request.TicketId);
         }
 
         var user = await _context.Set<User>()
@@ -35,7 +36,7 @@ public class TransitionTicketCommandHandler : IRequestHandler<TransitionTicketCo
 
         if (user == null)
         {
-            throw new Exception($"User with ID {request.ChangedById} not found. Operation unauthorized.");
+            throw new NotFoundException(nameof(User), request.ChangedById);
         }
 
         var previousState = ticket.CurrentState;
@@ -47,7 +48,7 @@ public class TransitionTicketCommandHandler : IRequestHandler<TransitionTicketCo
 
         if (ticket.Template.Workflow?.Transitions == null || ticket.Template.Workflow.Transitions.Count == 0)
         {
-            throw new Exception("The ticket template has no workflow transitions configured.");
+            throw new ConflictException("The ticket template has no workflow transitions configured.");
         }
 
         // Configure all dynamic transitions
@@ -63,12 +64,12 @@ public class TransitionTicketCommandHandler : IRequestHandler<TransitionTicketCo
 
         if (matchingTransition == null)
         {
-            throw new Exception($"Transition '{request.Trigger}' is not configured from state '{previousState}'.");
+            throw new ConflictException($"Transition '{request.Trigger}' is not configured from state '{previousState}'.");
         }
 
         if (matchingTransition.RequiredRole.HasValue && matchingTransition.RequiredRole.Value != user.Role && user.Role != UserRole.Administrator)
         {
-            throw new Exception($"Unauthorized: Trigger '{request.Trigger}' requires the '{matchingTransition.RequiredRole}' role. Your role is '{user.Role}'.");
+            throw new ForbiddenAccessException($"Trigger '{request.Trigger}' requires the '{matchingTransition.RequiredRole}' role. Your role is '{user.Role}'.");
         }
 
         // 3. Fire state machine transition
