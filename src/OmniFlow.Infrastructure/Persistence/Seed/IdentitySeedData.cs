@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using OpenIddict.Abstractions;
 using OmniFlow.Domain.Entities;
+using OmniFlow.Infrastructure.Identity;
 
 namespace OmniFlow.Infrastructure.Persistence.Seed;
 

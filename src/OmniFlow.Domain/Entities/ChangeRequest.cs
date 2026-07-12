@@ -5,7 +5,6 @@ namespace OmniFlow.Domain.Entities;
 
 public class ChangeRequest : AuditableEntity
 {
-    public Guid Id { get; set; }
     public string ChangeNumber { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
     public string? Description { get; set; }

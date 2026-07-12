@@ -5,7 +5,6 @@ namespace OmniFlow.Domain.Entities;
 
 public class Ticket : AuditableEntity
 {
-    public Guid Id { get; set; }
     public Guid TemplateId { get; set; }
     public Guid RequesterId { get; set; }
     public Guid? AssigneeId { get; set; }
@@ -37,6 +36,9 @@ public class Ticket : AuditableEntity
     // SLAs
     public DateTimeOffset? SlaDueDate { get; set; }
     public DateTimeOffset? ResolutionDate { get; set; }
+
+    /// <summary>Set once the breach alert has been sent — keeps the SLA sweep idempotent.</summary>
+    public DateTimeOffset? SlaBreachNotifiedAt { get; set; }
     
     // Dynamic properties mapped via JSON conversion
     public Dictionary<string, object> DynamicData { get; set; } = new();

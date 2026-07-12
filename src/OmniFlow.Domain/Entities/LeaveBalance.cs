@@ -5,7 +5,6 @@ namespace OmniFlow.Domain.Entities;
 
 public class LeaveBalance : AuditableEntity
 {
-    public Guid Id { get; set; }
     public Guid UserId { get; set; }
     public LeaveType Type { get; set; }
     public decimal TotalDaysAllocated { get; set; }

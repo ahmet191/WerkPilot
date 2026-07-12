@@ -49,6 +49,16 @@ public class AuditableEntityInterceptor : SaveChangesInterceptor
                 entry.Entity.ModifiedBy = userId;
                 entry.Entity.ModifiedAt = DateTimeOffset.UtcNow;
             }
+
+            // Hard deletes are forbidden: Remove() calls become soft deletes.
+            // The global query filter hides these rows from every query.
+            if (entry.State == EntityState.Deleted)
+            {
+                entry.State = EntityState.Modified;
+                entry.Entity.IsDeleted = true;
+                entry.Entity.DeletedAt = DateTimeOffset.UtcNow;
+                entry.Entity.DeletedBy = userId;
+            }
         }
     }
 }

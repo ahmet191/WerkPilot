@@ -5,7 +5,6 @@ namespace OmniFlow.Domain.Entities;
 
 public class ExpenseClaim : AuditableEntity
 {
-    public Guid Id { get; set; }
     public Guid UserId { get; set; }
     public string Title { get; set; } = string.Empty;
     public decimal Amount { get; set; }

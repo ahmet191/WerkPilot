@@ -5,7 +5,6 @@ namespace OmniFlow.Domain.Entities;
 
 public class LeaveRequest : AuditableEntity
 {
-    public Guid Id { get; set; }
     public Guid UserId { get; set; }
     public LeaveType Type { get; set; }
     public DateTime StartDate { get; set; }

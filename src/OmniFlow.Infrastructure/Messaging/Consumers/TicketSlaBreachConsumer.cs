@@ -11,21 +11,26 @@ public class TicketSlaBreachConsumer : IConsumer<CheckTicketSlaBreachEvent>
 {
     private readonly IOmniFlowDbContext _dbContext;
     private readonly IMessageGateway _messageGateway;
+    private readonly ITenantService _tenantService;
     private readonly ILogger<TicketSlaBreachConsumer> _logger;
 
     public TicketSlaBreachConsumer(
         IOmniFlowDbContext dbContext,
         IMessageGateway messageGateway,
+        ITenantService tenantService,
         ILogger<TicketSlaBreachConsumer> logger)
     {
         _dbContext = dbContext;
         _messageGateway = messageGateway;
+        _tenantService = tenantService;
         _logger = logger;
     }
 
     public async Task Consume(ConsumeContext<CheckTicketSlaBreachEvent> context)
     {
         var evt = context.Message;
+        // No HttpContext here: scope the DbContext to the event's tenant.
+        _tenantService.SetTenantId(evt.TenantId);
         _logger.LogInformation("Processing CheckTicketSlaBreachEvent for TicketId: {TicketId}", evt.TicketId);
 
         var ticket = await _dbContext.Tickets
@@ -42,6 +47,16 @@ public class TicketSlaBreachConsumer : IConsumer<CheckTicketSlaBreachEvent>
             _logger.LogInformation("Ticket {TicketId} is already resolved. Ignoring SLA Breach alert.", evt.TicketId);
             return;
         }
+
+        // Idempotency guard: the sweep service and the scheduler can both fire
+        // for the same ticket — only ever alert once.
+        if (ticket.SlaBreachNotifiedAt.HasValue)
+        {
+            return;
+        }
+
+        ticket.SlaBreachNotifiedAt = DateTimeOffset.UtcNow;
+        await _dbContext.SaveChangesAsync(context.CancellationToken);
 
         var alertChatId = ticket.Assignee?.TelegramChatId;
         if (string.IsNullOrEmpty(alertChatId))

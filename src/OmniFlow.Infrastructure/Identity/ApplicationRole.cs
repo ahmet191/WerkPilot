@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity;
-using System;
 
-namespace OmniFlow.Domain.Entities;
+namespace OmniFlow.Infrastructure.Identity;
 
 public class ApplicationRole : IdentityRole<Guid>
 {

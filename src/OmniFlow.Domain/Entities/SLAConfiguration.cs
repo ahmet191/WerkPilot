@@ -4,7 +4,6 @@ namespace OmniFlow.Domain.Entities;
 
 public class SLAConfiguration : AuditableEntity
 {
-    public Guid Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public Guid DepartmentId { get; set; }
     

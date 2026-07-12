@@ -5,7 +5,6 @@ namespace OmniFlow.Domain.Entities;
 
 public class AppMenu : OmniFlow.Domain.Common.AuditableEntity
 {
-    public Guid Id { get; set; }
     public Guid? ParentId { get; set; }
     
     [Required]

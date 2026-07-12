@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
-using OmniFlow.Domain.Entities;
+using OmniFlow.Infrastructure.Identity;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace OmniFlow.Api.Controllers;
