@@ -14,12 +14,18 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
 {
     private readonly IOmniFlowDbContext _context;
     private readonly IMediator _mediator;
+    private readonly ITenantService _tenantService;
     private readonly MassTransit.IMessageScheduler _messageScheduler;
 
-    public CreateTicketCommandHandler(IOmniFlowDbContext context, IMediator mediator, MassTransit.IMessageScheduler messageScheduler)
+    public CreateTicketCommandHandler(
+        IOmniFlowDbContext context,
+        IMediator mediator,
+        ITenantService tenantService,
+        MassTransit.IMessageScheduler messageScheduler)
     {
         _context = context;
         _mediator = mediator;
+        _tenantService = tenantService;
         _messageScheduler = messageScheduler;
     }
 
@@ -143,16 +149,18 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
         // 4. Publish Domain Event
         await _mediator.Publish(new TicketCreatedDomainEvent(ticket), cancellationToken);
 
-        // 5. Schedule SLA Breach Check
+        // 5. Schedule SLA Breach Check. The in-memory scheduler is best-effort
+        // (lost on restart) — the SlaSweepBackgroundService is the durable net.
         if (ticket.SlaDueDate.HasValue)
         {
             await _messageScheduler.SchedulePublish(
-                ticket.SlaDueDate.Value.UtcDateTime, 
+                ticket.SlaDueDate.Value.UtcDateTime,
                 new OmniFlow.Domain.Events.CheckTicketSlaBreachEvent
                 {
+                    TenantId = _tenantService.TenantId,
                     TicketId = ticket.Id,
                     ExpectedSlaResolutionTime = ticket.SlaDueDate.Value.UtcDateTime
-                }, 
+                },
                 cancellationToken);
         }
 

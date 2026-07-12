@@ -231,6 +231,17 @@ builder.Services.AddMassTransit(x =>
 {
     x.AddDelayedMessageScheduler();
 
+    // Transactional outbox: IPublishEndpoint.Publish() writes messages to the
+    // OutboxMessage table inside the SAME transaction as SaveChanges. A
+    // delivery service then moves them to the bus — a crash between "save" and
+    // "publish" can no longer lose events. Transport stays in-memory for dev;
+    // switching to RabbitMQ later only changes the Using* block.
+    x.AddEntityFrameworkOutbox<OmniFlowDbContext>(o =>
+    {
+        o.UsePostgres();
+        o.UseBusOutbox();
+    });
+
     // Register Consumers
     x.AddConsumer<OmniFlow.Infrastructure.Messaging.Consumers.LeaveRequestNotificationConsumer>();
     x.AddConsumer<OmniFlow.Infrastructure.Messaging.Consumers.TicketSlaBreachConsumer>();
@@ -242,6 +253,9 @@ builder.Services.AddMassTransit(x =>
         cfg.ConfigureEndpoints(context);
     });
 });
+
+// Durable SLA breach detection (the in-memory scheduler forgets on restart).
+builder.Services.AddHostedService<OmniFlow.Api.Services.SlaSweepBackgroundService>();
 
 // ═══════════════════════════════════════════════════════
 // 7. ASP.NET Core Services

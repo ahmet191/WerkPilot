@@ -4,7 +4,6 @@ namespace OmniFlow.Domain.Entities;
 
 public class AuthorityDelegation : AuditableEntity
 {
-    public Guid Id { get; set; }
     public Guid DelegatorId { get; set; }
     public Guid DelegateeId { get; set; }
     

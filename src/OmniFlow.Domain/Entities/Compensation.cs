@@ -4,7 +4,6 @@ namespace OmniFlow.Domain.Entities;
 
 public class Compensation : AuditableEntity
 {
-    public Guid Id { get; set; }
     public Guid EmployeeId { get; set; }
     public decimal BaseSalary { get; set; }
     public string Currency { get; set; } = "TRY";

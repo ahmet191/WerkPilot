@@ -5,7 +5,6 @@ namespace OmniFlow.Domain.Entities;
 
 public class Problem : AuditableEntity
 {
-    public Guid Id { get; set; }
     public string ProblemNumber { get; set; } = string.Empty;
     public string Title { get; set; } = string.Empty;
     public string? Description { get; set; }

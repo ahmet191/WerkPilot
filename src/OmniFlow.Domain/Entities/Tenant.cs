@@ -1,8 +1,14 @@
+using OmniFlow.Domain.Common;
+
 namespace OmniFlow.Domain.Entities;
 
-public class Tenant
+/// <summary>
+/// Tenant registry root. Deliberately NOT an AuditableEntity: it must stay
+/// outside the tenant global query filter, since it is the record the filter
+/// resolves against.
+/// </summary>
+public class Tenant : BaseEntity
 {
-    public Guid Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Domain { get; set; } = string.Empty; // e.g., acmecorp.omniflow.com
     public DateTime CreatedAt { get; set; }

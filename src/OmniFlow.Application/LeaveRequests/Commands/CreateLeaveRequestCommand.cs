@@ -17,12 +17,18 @@ public class CreateLeaveRequestCommandHandler : IRequestHandler<CreateLeaveReque
 {
     private readonly IOmniFlowDbContext _context;
     private readonly IUserContext _userContext;
+    private readonly ITenantService _tenantService;
     private readonly MassTransit.IPublishEndpoint _publishEndpoint;
 
-    public CreateLeaveRequestCommandHandler(IOmniFlowDbContext context, IUserContext userContext, MassTransit.IPublishEndpoint publishEndpoint)
+    public CreateLeaveRequestCommandHandler(
+        IOmniFlowDbContext context,
+        IUserContext userContext,
+        ITenantService tenantService,
+        MassTransit.IPublishEndpoint publishEndpoint)
     {
         _context = context;
         _userContext = userContext;
+        _tenantService = tenantService;
         _publishEndpoint = publishEndpoint;
     }
 
@@ -35,24 +41,29 @@ public class CreateLeaveRequestCommandHandler : IRequestHandler<CreateLeaveReque
             Id = Guid.NewGuid(),
             UserId = _userContext.UserId,
             Type = request.Type,
-            StartDate = request.StartDate,
-            EndDate = request.EndDate,
+            // Bare dates deserialize with Kind=Unspecified; Npgsql only accepts
+            // UTC for 'timestamp with time zone' columns.
+            StartDate = DateTime.SpecifyKind(request.StartDate, DateTimeKind.Utc),
+            EndDate = DateTime.SpecifyKind(request.EndDate, DateTimeKind.Utc),
             Status = LeaveStatus.Pending,
             Reason = request.Reason
         };
 
         _context.LeaveRequests.Add(leave);
-        await _context.SaveChangesAsync(cancellationToken);
 
-        // Publish Integration Event
+        // Publish BEFORE SaveChanges: the transactional outbox commits the
+        // message atomically with the entity — nothing is lost on a crash.
         await _publishEndpoint.Publish(new OmniFlow.Domain.Events.LeaveRequestCreatedEvent
         {
+            TenantId = _tenantService.TenantId,
             LeaveRequestId = leave.Id,
             RequesterId = leave.UserId,
             StartDate = leave.StartDate,
             EndDate = leave.EndDate,
             Type = leave.Type.ToString()
         }, cancellationToken);
+
+        await _context.SaveChangesAsync(cancellationToken);
 
         return leave.Id;
     }

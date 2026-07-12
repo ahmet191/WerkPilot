@@ -104,39 +104,23 @@ public class TicketsController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Ticket>> GetDetails(Guid id)
+    public async Task<ActionResult<TicketDetailsDto>> GetDetails(Guid id)
     {
-        var ticket = await _context.Tickets
-            .Include(t => t.Template)
-            .Include(t => t.Requester)
-            .Include(t => t.Assignee)
-            .Include(t => t.Comments).ThenInclude(c => c.Author)
-            .Include(t => t.AuditLogs).ThenInclude(a => a.ChangedBy)
-            .FirstOrDefaultAsync(t => t.Id == id);
-
-        if (ticket == null) return NotFound();
-        return Ok(ticket);
+        var details = await _mediator.Send(new GetTicketDetailsQuery(id));
+        return Ok(details);
     }
 
     [HttpGet("requester/{requesterId}")]
-    public async Task<ActionResult<List<Ticket>>> GetByRequester(Guid requesterId)
+    public async Task<ActionResult<List<TicketDto>>> GetByRequester(Guid requesterId)
     {
-        var query = new GetTicketsQuery(requesterId);
-        var tickets = await _mediator.Send(query);
+        var tickets = await _mediator.Send(new GetTicketsQuery(requesterId));
         return Ok(tickets);
     }
+
     [HttpGet("servicedesk/{serviceDeskId}")]
-    public async Task<ActionResult<List<Ticket>>> GetByServiceDesk(Guid serviceDeskId)
+    public async Task<ActionResult<List<TicketDto>>> GetByServiceDesk(Guid serviceDeskId)
     {
-        // For simplicity, directly using DbContext here.
-        // In real architecture, this should go through Mediator and enforce Security policies!
-        var tickets = await _context.Tickets
-            .Include(t => t.Requester)
-            .Include(t => t.Assignee)
-            .Where(t => t.ServiceDeskId == serviceDeskId)
-            .OrderByDescending(t => t.CreatedAt)
-            .ToListAsync();
-            
+        var tickets = await _mediator.Send(new GetTicketsByServiceDeskQuery(serviceDeskId));
         return Ok(tickets);
     }
 }

@@ -4,7 +4,6 @@ namespace OmniFlow.Domain.Entities;
 
 public class KnowledgeBaseArticle : AuditableEntity
 {
-    public Guid Id { get; set; }
     
     public MultiLingualString LocalizedTitle { get; set; } = new();
     public MultiLingualString LocalizedContent { get; set; } = new();

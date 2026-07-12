@@ -5,7 +5,6 @@ namespace OmniFlow.Domain.Entities;
 
 public class TicketTemplate : AuditableEntity
 {
-    public Guid Id { get; set; }
     
     // Multi-lingual name (e.g., {"en": "IT Support", "tr": "BT Destek"})
     public MultiLingualString LocalizedName { get; set; } = new();
