@@ -160,10 +160,21 @@ builder.Services.AddOpenIddict()
             // Allow HTTP locally only.
             aspNetCoreBuilder.DisableTransportSecurityRequirement();
 
-            // Development certificates are generated once and persisted in the
-            // user certificate store, so issued tokens survive API restarts.
-            options.AddDevelopmentEncryptionCertificate()
-                   .AddDevelopmentSigningCertificate();
+            // Encryption: use an in-memory SYMMETRIC key, NOT a development
+            // certificate. OpenIddict encrypts refresh tokens; validating a
+            // refresh token then DECRYPTS it, which with a cert requires the
+            // private key from the OS key store. On macOS that private-key
+            // access hangs a headless dev server, so the refresh_token grant
+            // (and thus silent token refresh) times out. A symmetric key lives
+            // in process memory — no keychain, no hang — and is stable across
+            // restarts so issued tokens keep validating. Dev-only literal key.
+            options.AddEncryptionKey(new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(
+                System.Text.Encoding.UTF8.GetBytes("omniflow-dev-encryption-key-32by")));
+
+            // Signing uses the public/private cert too, but only the signing
+            // (creation) path runs in dev and it works fine; keep it so access
+            // tokens remain standard RS256 JWTs.
+            options.AddDevelopmentSigningCertificate();
         }
         else
         {
