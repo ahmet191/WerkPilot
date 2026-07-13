@@ -107,12 +107,6 @@ export const LoginPage: React.FC = () => {
               {t('auth.signin', 'Sign In')}
             </Button>
           </Form.Item>
-          
-          <div style={{ textAlign: 'center' }}>
-            <Text type="secondary" style={{ fontSize: 12 }}>
-              Default admin: admin@werkpilot.com / Admin@123
-            </Text>
-          </div>
         </Form>
       </Card>
     </div>

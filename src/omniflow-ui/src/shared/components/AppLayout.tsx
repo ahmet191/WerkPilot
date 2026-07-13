@@ -70,6 +70,28 @@ export function AppLayout() {
     return IconComponent ? <IconComponent /> : <Icons.AppstoreOutlined />;
   };
 
+  // Admin-only destinations — mirrors the ADMIN_ROLES route guards in App.tsx.
+  // Hidden from the sidebar for non-admins so they never see a link that 403s.
+  const ADMIN_PATHS = new Set([
+    '/servicedesks', '/departments', '/auditlogs', '/templates',
+    '/categories', '/slas', '/users', '/menus',
+  ]);
+  const isAdmin = (user?.roles ?? []).some(r => r === 'Administrator' || r === 'HRAdmin');
+
+  // Drop admin leaves for non-admins, then drop parents left with no children.
+  const filterMenuByRole = (items: any[]): any[] => {
+    if (isAdmin) return items;
+    return items.reduce<any[]>((acc, item) => {
+      if (item.children && item.children.length > 0) {
+        const children = filterMenuByRole(item.children);
+        if (children.length > 0) acc.push({ ...item, children });
+      } else if (!ADMIN_PATHS.has(item.path)) {
+        acc.push(item);
+      }
+      return acc;
+    }, []);
+  };
+
   const generateMenuProps = (items: any[]): any[] => {
     return items.map(item => {
       if (item.children && item.children.length > 0) {
@@ -116,7 +138,7 @@ export function AppLayout() {
           borderBottom: '1px solid var(--border-color)',
           transition: 'all 0.2s'
         }}>
-          {collapsed ? <Icons.ApiOutlined /> : 'OmniFlow ESM'}
+          {collapsed ? <Icons.ApiOutlined /> : 'WerkPilot'}
         </div>
         
         {loading ? (
@@ -125,7 +147,7 @@ export function AppLayout() {
           <Menu
             mode="inline"
             selectedKeys={[location.pathname]}
-            items={generateMenuProps(menuData)}
+            items={generateMenuProps(filterMenuByRole(menuData))}
             onClick={handleMenuClick}
             style={{ borderRight: 0, background: 'transparent' }}
             theme={theme === 'light' ? 'light' : 'dark'}

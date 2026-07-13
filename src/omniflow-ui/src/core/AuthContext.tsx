@@ -2,6 +2,19 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
+import { CONNECT_URL, TOKEN_KEY, REFRESH_TOKEN_KEY } from './config';
+
+/**
+ * Identity may emit the role claim under the bare "role" name or the SOAP
+ * namespaced URI, and as a string or an array. Normalize all shapes to string[].
+ */
+const ROLE_CLAIM_URI = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role';
+function extractRoles(decoded: Record<string, unknown>): string[] {
+  const raw = decoded.role ?? decoded[ROLE_CLAIM_URI];
+  if (Array.isArray(raw)) return raw.filter(Boolean) as string[];
+  if (typeof raw === 'string') return [raw];
+  return [];
+}
 
 interface DecodedToken {
   sub: string;
@@ -36,27 +49,28 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   // Initial load
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem(TOKEN_KEY);
     if (token) {
       try {
         const decoded = jwtDecode<DecodedToken>(token);
-        // Check if expired
-        if (decoded.exp * 1000 < Date.now()) {
-          localStorage.removeItem('access_token');
-          localStorage.removeItem('refresh_token');
+        // An expired access token is fine if a refresh token exists — the api
+        // interceptor will silently refresh on the first 401. Only clear the
+        // session when there's no way to recover.
+        if (decoded.exp * 1000 < Date.now() && !localStorage.getItem(REFRESH_TOKEN_KEY)) {
+          localStorage.removeItem(TOKEN_KEY);
+          localStorage.removeItem(REFRESH_TOKEN_KEY);
         } else {
-          const roles = Array.isArray(decoded.role) ? decoded.role : [decoded.role].filter(Boolean);
           setUser({
             id: decoded.sub,
             email: decoded.email,
             name: decoded.name,
-            roles,
+            roles: extractRoles(decoded as unknown as Record<string, unknown>),
             tenantId: decoded.tenant_id
           });
         }
       } catch (err) {
         console.error("Invalid token", err);
-        localStorage.removeItem('access_token');
+        localStorage.removeItem(TOKEN_KEY);
       }
     }
     setIsLoading(false);
@@ -78,27 +92,26 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       params.append('scope', 'openid email profile roles offline_access');
 
       // Call token endpoint directly using axios (not the interceptor one to avoid looping on 401s)
-      const response = await axios.post('http://localhost:5226/connect/token', params, {
+      const response = await axios.post(`${CONNECT_URL}/token`, params, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       });
 
       const { access_token, refresh_token } = response.data;
-      
-      localStorage.setItem('access_token', access_token);
+
+      localStorage.setItem(TOKEN_KEY, access_token);
       if (refresh_token) {
-        localStorage.setItem('refresh_token', refresh_token);
+        localStorage.setItem(REFRESH_TOKEN_KEY, refresh_token);
       }
 
       const decoded = jwtDecode<DecodedToken>(access_token);
-      const roles = Array.isArray(decoded.role) ? decoded.role : [decoded.role].filter(Boolean);
-      
+
       setUser({
         id: decoded.sub,
         email: decoded.email,
         name: decoded.name,
-        roles,
+        roles: extractRoles(decoded as unknown as Record<string, unknown>),
         tenantId: decoded.tenant_id
       });
 
@@ -109,8 +122,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const logout = () => {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
     setUser(null);
   };
 
