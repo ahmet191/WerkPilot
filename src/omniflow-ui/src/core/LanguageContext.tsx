@@ -35,13 +35,10 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   const setLanguage = (lang: string) => {
     localStorage.setItem('app-lang', lang);
+    // The language-change effect refetches the dictionary and every t() call
+    // re-renders — no full page reload needed. Data grids pick up the new
+    // Accept-Language header on their next fetch (navigation / refresh).
     setLangState(lang);
-    
-    // Clean reload to ensure all Axios instances and active views fetch data fresh 
-    // using the new Accept-Language headers.
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
   };
 
   const t = (key: string, ...args: any[]) => {

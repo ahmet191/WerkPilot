@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as signalR from '@microsoft/signalr';
 import { Row, Col, Card, Statistic, Spin } from 'antd';
 import { ContainerOutlined, ExclamationCircleOutlined, FireOutlined, LaptopOutlined } from '@ant-design/icons';
@@ -6,6 +6,7 @@ import { SchemaService } from '../../../services/schema.service';
 import type { UiSchema } from '../../../core/schema.models';
 import { useTranslation } from '../../../core/LanguageContext';
 import { api } from '../../../core/api';
+import { HUBS_URL, TOKEN_KEY } from '../../../core/config';
 
 const IconMap: Record<string, React.ReactNode> = {
   ticket: <ContainerOutlined />,
@@ -19,45 +20,68 @@ export const DynamicDashboard: React.FC = () => {
   const [data, setData] = useState<Record<string, any>>({});
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
+  const connectionRef = useRef<signalR.HubConnection | null>(null);
 
   useEffect(() => {
-    loadSchema();
-  }, []);
+    let disposed = false;
 
-  const loadSchema = async () => {
-    setLoading(true);
-    try {
-      const s = await SchemaService.getSchema('dashboard');
-      setSchema(s);
-      
-      if (s.widgets && s.widgets.length > 0) {
-        const endpoint = s.widgets[0].endpoint;
-        const response = await api.get(endpoint);
-        setData(response.data);
+    const loadSchema = async () => {
+      setLoading(true);
+      try {
+        const s = await SchemaService.getSchema('dashboard');
+        if (disposed) return;
+        setSchema(s);
+
+        if (s.widgets && s.widgets.length > 0) {
+          const response = await api.get(s.widgets[0].endpoint);
+          if (!disposed) setData(response.data);
+        }
+      } catch (error) {
+        console.error('Failed to load dashboard schema', error);
+      } finally {
+        if (!disposed) setLoading(false);
       }
+    };
 
-      // Initialize SignalR Connection
+    const connectHub = async () => {
       const connection = new signalR.HubConnectionBuilder()
-          .withUrl('http://localhost:5226/hubs/dashboard')
-          .withAutomaticReconnect()
-          .build();
+        .withUrl(`${HUBS_URL}/dashboard`, {
+          // Supplies the JWT so the hub can require auth (Phase 5 backend follow-up).
+          accessTokenFactory: () => localStorage.getItem(TOKEN_KEY) ?? '',
+        })
+        .withAutomaticReconnect()
+        .build();
 
-      connection.on('ReceiveMetricUpdate', (update: { widgetId: string, incrementValue: number }) => {
-          setData(prev => ({
-              ...prev,
-              [update.widgetId]: (prev[update.widgetId] || 0) + update.incrementValue
-          }));
+      connection.on('ReceiveMetricUpdate', (update: { widgetId: string; incrementValue: number }) => {
+        setData(prev => ({
+          ...prev,
+          [update.widgetId]: (prev[update.widgetId] || 0) + update.incrementValue,
+        }));
       });
 
-      await connection.start();
-      console.log('SignalR Connected to DashboardHub');
+      try {
+        await connection.start();
+        if (disposed) {
+          // Unmounted mid-handshake — tear the socket down immediately.
+          await connection.stop();
+          return;
+        }
+        connectionRef.current = connection;
+      } catch (err) {
+        console.error('SignalR connection failed', err);
+      }
+    };
 
-    } catch (error) {
-      console.error('Failed to load dashboard schema', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    loadSchema();
+    connectHub();
+
+    // Cleanup: stop the hub on unmount so we never leak a live socket.
+    return () => {
+      disposed = true;
+      connectionRef.current?.stop();
+      connectionRef.current = null;
+    };
+  }, []);
 
   if (loading || !schema) {
     return <Spin style={{ margin: '50px auto', display: 'block' }} />;
