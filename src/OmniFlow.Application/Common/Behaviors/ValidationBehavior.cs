@@ -1,5 +1,6 @@
 using FluentValidation;
 using MediatR;
+using OmniFlow.Domain.Common.Exceptions;
 
 namespace OmniFlow.Application.Common.Behaviors;
 
@@ -37,7 +38,12 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
 
             if (failures.Count != 0)
             {
-                throw new Exceptions.ValidationException(failures);
+                // Adapt FluentValidation failures into the framework-agnostic
+                // Domain ValidationException (field -> messages).
+                var errors = failures
+                    .GroupBy(f => f.PropertyName, f => f.ErrorMessage)
+                    .ToDictionary(g => g.Key, g => g.ToArray());
+                throw new OmniFlow.Domain.Common.Exceptions.ValidationException(errors);
             }
         }
 

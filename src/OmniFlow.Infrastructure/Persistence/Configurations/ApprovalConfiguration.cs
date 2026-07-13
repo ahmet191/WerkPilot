@@ -22,6 +22,9 @@ public class ApprovalRequestConfiguration : IEntityTypeConfiguration<ApprovalReq
             .WithOne(s => s.ApprovalRequest)
             .HasForeignKey(s => s.ApprovalRequestId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        // Steps is a read-only collection backed by the private _steps field.
+        builder.Navigation(a => a.Steps).UsePropertyAccessMode(PropertyAccessMode.Field);
     }
 }
 

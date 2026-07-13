@@ -24,15 +24,7 @@ public class CreateAssetCommandHandler : IRequestHandler<CreateAssetCommand, Gui
 
     public async Task<Guid> Handle(CreateAssetCommand request, CancellationToken cancellationToken)
     {
-        var asset = new Asset
-        {
-            Id = Guid.NewGuid(),
-            AssetTag = request.AssetTag,
-            SerialNumber = request.SerialNumber,
-            Model = request.Model,
-            Category = request.Category,
-            Status = AssetStatus.InStock
-        };
+        var asset = Asset.Create(request.AssetTag, request.SerialNumber, request.Model, request.Category, AssetStatus.InStock);
 
         _context.Assets.Add(asset);
         await _context.SaveChangesAsync(cancellationToken);

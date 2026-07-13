@@ -31,10 +31,9 @@ public class AssignAssetCommandHandler : IRequestHandler<AssignAssetCommand, boo
     {
         var asset = await _context.Assets.FirstOrDefaultAsync(a => a.Id == request.AssetId, cancellationToken);
         if (asset == null)
-            throw new OmniFlow.Application.Common.Exceptions.NotFoundException(nameof(OmniFlow.Domain.Entities.Asset), request.AssetId);
+            throw new OmniFlow.Domain.Common.Exceptions.NotFoundException(nameof(OmniFlow.Domain.Entities.Asset), request.AssetId);
 
-        asset.AssignedToUserId = request.UserId;
-        asset.Status = AssetStatus.Assigned;
+        asset.AssignTo(request.UserId);
 
         // Publish BEFORE SaveChanges: the transactional outbox commits the
         // message atomically with the assignment.

@@ -1,6 +1,6 @@
 using FluentValidation;
 using OmniFlow.Application.Common.Behaviors;
-using ValidationException = OmniFlow.Application.Common.Exceptions.ValidationException;
+using ValidationException = OmniFlow.Domain.Common.Exceptions.ValidationException;
 
 namespace OmniFlow.Application.UnitTests.Behaviors;
 

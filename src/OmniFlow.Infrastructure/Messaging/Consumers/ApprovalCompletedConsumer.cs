@@ -89,8 +89,7 @@ public class ApprovalCompletedConsumer : IConsumer<ApprovalCompletedEvent>
             return;
         }
 
-        leave.Status = evt.IsApproved ? LeaveStatus.Approved : LeaveStatus.Rejected;
-        leave.ApproverId = evt.DecidedById;
+        leave.Resolve(evt.IsApproved ? LeaveStatus.Approved : LeaveStatus.Rejected, evt.DecidedById);
 
         // Reuses the existing notification chain (Telegram to the requester).
         await _publishEndpoint.Publish(new LeaveRequestResolvedEvent

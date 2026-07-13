@@ -10,10 +10,10 @@ namespace OmniFlow.Application.Approvals;
 
 /// <summary>
 /// Materializes an <see cref="ApprovalDefinition"/> template into a concrete
-/// <see cref="ApprovalRequest"/> with resolved approvers. Adds the request to
-/// the change tracker and publishes the first step's activation through the
-/// outbox — the caller owns SaveChanges, so everything commits atomically
-/// with the governed entity.
+/// <see cref="ApprovalRequest"/> aggregate with resolved approvers. Adds the
+/// request to the change tracker and publishes the first step's activation
+/// through the outbox — the caller owns SaveChanges, so everything commits
+/// atomically with the governed entity.
 /// </summary>
 public class ApprovalRequestBuilder
 {
@@ -39,29 +39,15 @@ public class ApprovalRequestBuilder
         ApprovalDefinition definition,
         CancellationToken cancellationToken)
     {
-        if (definition.Steps.Count == 0)
-        {
-            throw new Common.Exceptions.ConflictException(
-                $"The approval policy for {entityType} has no steps configured.");
-        }
-
-        var request = new ApprovalRequest
-        {
-            Id = Guid.NewGuid(),
-            EntityType = entityType,
-            EntityId = entityId,
-            EntityDisplay = entityDisplay,
-            RequestedById = requestedById,
-            Status = ApprovalStatus.Pending,
-            CurrentStepOrder = 1
-        };
-
         var order = 1;
+        var steps = new List<ApprovalStep>();
         foreach (var stepDefinition in definition.Steps.OrderBy(s => s.Order))
         {
-            request.Steps.Add(await ResolveStepAsync(stepDefinition, order++, request.Id, requestedById, cancellationToken));
+            steps.Add(await ResolveStepAsync(stepDefinition, order++, requestedById, cancellationToken));
         }
 
+        // The aggregate enforces "at least one step" and wires up the parent link.
+        var request = ApprovalRequest.Create(entityType, entityId, entityDisplay, requestedById, steps);
         _context.ApprovalRequests.Add(request);
 
         var firstStep = request.Steps.First(s => s.Order == 1);
@@ -83,20 +69,10 @@ public class ApprovalRequestBuilder
     private async Task<ApprovalStep> ResolveStepAsync(
         ApprovalStepDefinition definition,
         int order,
-        Guid requestId,
         Guid requestedById,
         CancellationToken cancellationToken)
     {
-        var step = new ApprovalStep
-        {
-            Id = Guid.NewGuid(),
-            ApprovalRequestId = requestId,
-            Order = order,
-            ApproverType = definition.ApproverType,
-            ApproverRole = definition.ApproverRole,
-            ApproverUserId = definition.ApproverUserId,
-            Status = ApprovalStatus.Pending
-        };
+        var step = ApprovalStep.Create(order, definition.ApproverType, definition.ApproverRole, definition.ApproverUserId);
 
         if (definition.ApproverType == ApproverType.ManagerOfRequester)
         {
@@ -107,14 +83,14 @@ public class ApprovalRequestBuilder
 
             if (managerId.HasValue)
             {
-                step.ApproverUserId = managerId;
+                // Resolve the manager into a concrete SpecificUser step.
+                step = ApprovalStep.Create(order, ApproverType.SpecificUser, null, managerId);
             }
             else
             {
                 // No manager on record: fall back to the HR admin role so the
                 // chain can never dead-lock on an unresolvable approver.
-                step.ApproverType = ApproverType.Role;
-                step.ApproverRole = "HRAdmin";
+                step.FallBackToRole("HRAdmin");
             }
         }
 
