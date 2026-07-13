@@ -564,5 +564,17 @@
   "562": "Task",
   "563": "IServiceProvider",
   "564": "Task",
-  "565": "Guid"
+  "565": "Guid",
+  "566": "GetArticlesQueryHandler",
+  "567": "ExpenseClaim",
+  "568": "UpdateAssetCommand.cs",
+  "569": "GetMetricsQuery.cs",
+  "570": "CreateDepartmentCommand.cs",
+  "571": "AssignTicketCommandHandler",
+  "572": "DeleteUserCommand.cs",
+  "573": "ApplicationUser.cs",
+  "574": "CorrelationIdMiddleware",
+  "575": "Asset",
+  "576": "LeaveRequest",
+  "577": "Problem"
 }
