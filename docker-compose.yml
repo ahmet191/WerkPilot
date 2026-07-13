@@ -1,0 +1,56 @@
+# WerkPilot (OmniFlow ESM) local stack.
+#   docker compose up --build
+#   UI  → http://localhost:5173   API → http://localhost:5226
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: OmniFlowDb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: src/OmniFlow.Api/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: "Host=postgres;Database=OmniFlowDb;Username=postgres;Password=postgres"
+    ports:
+      - "5226:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  ui:
+    build:
+      context: src/omniflow-ui
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+
+  # ── Opt-in infrastructure (uncomment when needed) ──────────────────────
+  # rabbitmq:
+  #   image: rabbitmq:3-management-alpine
+  #   ports: ["5672:5672", "15672:15672"]
+  #
+  # otel-collector:
+  #   image: otel/opentelemetry-collector:latest
+  #   command: ["--config=/etc/otel-collector.yaml"]
+  #   volumes: ["./otel-collector.yaml:/etc/otel-collector.yaml"]
+  #   ports: ["4317:4317"]
+
+volumes:
+  pgdata:

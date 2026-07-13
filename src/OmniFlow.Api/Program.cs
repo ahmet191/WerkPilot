@@ -360,7 +360,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// HTTPS redirection is skipped for the integration test host (no TLS listener),
+// where a 307 to https:// would break POST/PUT/DELETE round-trips.
+if (!builder.Configuration.GetValue("DisableHttpsRedirection", false))
+{
+    app.UseHttpsRedirection();
+}
 app.UseCors("AllowViteUI");
 app.UseRateLimiter();
 
@@ -396,3 +401,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
+
+// Exposes the top-level Program class to the integration test project so
+// WebApplicationFactory<Program> can boot the real host.
+public partial class Program;
