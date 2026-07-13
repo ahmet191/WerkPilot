@@ -1,16 +1,16 @@
 # Graph Report - laughing-cerf-bff590  (2026-07-13)
 
 ## Corpus Check
-- 270 files · ~77,451 words
+- 270 files · ~78,325 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1698 nodes · 2149 edges · 565 communities (66 shown, 499 thin omitted)
-- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
+- 1723 nodes · 2402 edges · 488 communities (82 shown, 406 thin omitted)
+- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 22 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `7671cbfb`
+- Built from commit: `1592ebaa`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -78,8 +78,10 @@
 - Community 60
 - Community 61
 - Community 62
+- .SaveChangesAsync
 - Community 64
 - Community 65
+- ExceptionHandlingMiddleware
 - Community 67
 - Community 68
 - Community 69
@@ -89,9 +91,11 @@
 - Community 73
 - React + TypeScript + Vite
 - AssignAssetCommandHandler
+- Asset
 - graphify reference: GitHub clone and cross-repo merge
 - graphify reference: transcribe video and audio
 - hr.models.ts
+- UpdateDepartmentCommand
 - tsconfig.json
 - CLAUDE.md
 - CLAUDE.md
@@ -257,7 +261,6 @@
 - CancellationToken
 - Guid
 - IPublishEndpoint
-- Task
 - CancellationToken
 - DateTimeOffset
 - Guid
@@ -267,19 +270,6 @@
 - DateTimeOffset
 - Guid
 - List
-- Task
-- CancellationToken
-- Guid
-- IPublishEndpoint
-- Task
-- CancellationToken
-- Guid
-- Task
-- CancellationToken
-- Guid
-- Task
-- CancellationToken
-- Guid
 - Task
 - CancellationToken
 - Guid
@@ -291,10 +281,6 @@
 - CancellationToken
 - ILogger
 - int
-- RequestHandlerDelegate
-- Task
-- CancellationToken
-- IEnumerable
 - RequestHandlerDelegate
 - Task
 - CancellationToken
@@ -310,12 +296,6 @@
 - List
 - CancellationToken
 - Dictionary
-- Task
-- CancellationToken
-- Guid
-- Task
-- CancellationToken
-- Guid
 - Task
 - CancellationToken
 - Guid
@@ -344,15 +324,6 @@
 - Guid
 - List
 - Task
-- CancellationToken
-- Guid
-- IPublishEndpoint
-- Task
-- CancellationToken
-- DateTime
-- Guid
-- IPublishEndpoint
-- Task
 - int
 - CancellationToken
 - DateTime
@@ -363,26 +334,8 @@
 - List
 - Task
 - Guid
-- CancellationToken
-- Guid
-- Task
-- CancellationToken
-- Task
 - Guid
 - CancellationToken
-- Guid
-- IMediator
-- Task
-- CancellationToken
-- IMediator
-- Task
-- CancellationToken
-- Task
-- CancellationToken
-- DateTimeOffset
-- Dictionary
-- Guid
-- List
 - Task
 - DateTimeOffset
 - Guid
@@ -392,12 +345,6 @@
 - List
 - Task
 - Guid
-- CancellationToken
-- Guid
-- Task
-- CancellationToken
-- Guid
-- Task
 - CancellationToken
 - Guid
 - Task
@@ -413,12 +360,6 @@
 - Dictionary
 - Guid
 - ICollection
-- DateTimeOffset
-- Guid
-- List
-- string
-- Guid
-- User
 - DateTime
 - Guid
 - DateTime
@@ -461,9 +402,6 @@
 - Guid
 - Guid
 - User
-- DateTime
-- Guid
-- User
 - Guid
 - ICollection
 - User
@@ -475,11 +413,6 @@
 - Guid
 - User
 - DateTime
-- DateTimeOffset
-- Dictionary
-- Guid
-- List
-- User
 - DateTimeOffset
 - Guid
 - User
@@ -505,13 +438,6 @@
 - IConfiguration
 - ILogger
 - IServiceProvider
-- Task
-- CancellationToken
-- ConsumeContext
-- ILogger
-- IMediator
-- IPublishEndpoint
-- string
 - Task
 - ConsumeContext
 - ILogger
@@ -562,8 +488,6 @@
 - EntityTypeBuilder
 - EntityTypeBuilder
 - EntityTypeBuilder
-- EntityTypeBuilder
-- EntityTypeBuilder
 - User
 - CancellationToken
 - DbSet
@@ -576,21 +500,20 @@
 - IServiceProvider
 - Task
 - Guid
-- ExpenseClaim
 - CreateDepartmentCommand.cs
 - CorrelationIdMiddleware
 
 ## God Nodes (most connected - your core abstractions)
 1. `OmniFlow.Domain.Entities` - 76 edges
 2. `OmniFlow.Application.Interfaces` - 67 edges
-3. `OmniFlow.Domain.Enums` - 56 edges
-4. `OmniFlow.Domain.Common` - 52 edges
-5. `IOmniFlowDbContext` - 51 edges
+3. `IOmniFlowDbContext` - 54 edges
+4. `OmniFlow.Domain.Enums` - 54 edges
+5. `OmniFlow.Domain.Common` - 52 edges
 6. `AuditableEntity` - 38 edges
-7. `useTranslation()` - 24 edges
-8. `OmniFlow.Api.Controllers` - 22 edges
-9. `IUserContext` - 21 edges
-10. `UiSchemaController` - 19 edges
+7. `Ticket` - 30 edges
+8. `useTranslation()` - 24 edges
+9. `OmniFlow.Domain.Common.Exceptions` - 23 edges
+10. `OmniFlow.Api.Controllers` - 22 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `CustomWebApplicationFactory` --references--> `Program`  [EXTRACTED]
@@ -601,13 +524,13 @@
   tests/OmniFlow.Application.UnitTests/Validators/CreateLeaveRequestCommandValidatorTests.cs → src/OmniFlow.Application/LeaveRequests/Commands/CreateLeaveRequestCommandValidator.cs
 - `CreateUserCommandValidatorTests` --references--> `CreateUserCommandValidator`  [EXTRACTED]
   tests/OmniFlow.Application.UnitTests/Validators/CreateUserCommandValidatorTests.cs → src/OmniFlow.Application/Users/Commands/CreateUserCommandValidator.cs
-- `AuditLog` --inherits--> `AuditableEntity`  [EXTRACTED]
-  src/OmniFlow.Domain/Entities/AuditLog.cs → src/OmniFlow.Domain/Common/AuditableEntity.cs
+- `Position` --inherits--> `AuditableEntity`  [EXTRACTED]
+  src/OmniFlow.Domain/Entities/HR/Position.cs → src/OmniFlow.Domain/Common/AuditableEntity.cs
 
 ## Import Cycles
 - None detected.
 
-## Communities (565 total, 499 thin omitted)
+## Communities (488 total, 406 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.24
@@ -618,8 +541,8 @@ Cohesion: 0.17
 Nodes (6): OmniFlow.Api.Hubs, Hub, IHubContext, DashboardHub, DashboardMetricsService, IDashboardMetricsService
 
 ### Community 2 - "Community 2"
-Cohesion: 0.07
-Nodes (16): OmniFlow.Domain.Common, OmniFlow.Infrastructure.Persistence.Configurations, OmniFlow.Domain.Entities, MultiLingualString, AuditLog, AuthorityDelegation, DirectoryProfile, EmployeeDocument (+8 more)
+Cohesion: 0.10
+Nodes (5): OmniFlow.Domain.Common, OmniFlow.Infrastructure.Persistence.Configurations, OmniFlow.Domain.Entities, ServiceDesk, AssetConfiguration
 
 ### Community 3 - "Community 3"
 Cohesion: 0.22
@@ -630,16 +553,16 @@ Cohesion: 0.05
 Nodes (41): @ant-design/icons, antd, axios, jwt-decode, @microsoft/signalr, oxlint, react, react-dom (+33 more)
 
 ### Community 5 - "Community 5"
-Cohesion: 0.04
-Nodes (30): OmniFlow.Application.LeaveRequests.Commands, OmniFlow.Domain.Enums, OmniFlow.Application.UnitTests.Validators, ApprovalDefinition, ApprovalStepDefinition, Asset, ChangeRequest, ConfigurationItem (+22 more)
+Cohesion: 0.07
+Nodes (15): OmniFlow.Domain.Enums, OmniFlow.Application.Users.Commands, ChangeRequest, EmploymentDetails, ExpenseClaim, Problem, ChangeRisk, ChangeState (+7 more)
 
 ### Community 6 - "Community 6"
 Cohesion: 0.17
-Nodes (5): ControllerBase, AnalyticsController, AuditLogsController, DirectoryController, LeaveRequestsController
+Nodes (6): ControllerBase, OmniFlow.Application.Dashboard.Queries, AnalyticsController, DashboardController, DirectoryController, MenuController
 
 ### Community 7 - "Community 7"
-Cohesion: 0.24
-Nodes (5): OmniFlow.Application.Departments.Queries, DepartmentsController, DepartmentDto, GetDepartmentsQuery, GetDepartmentsQueryHandler
+Cohesion: 0.67
+Nodes (4): OmniFlow.Application.Departments.Queries, DepartmentDto, GetDepartmentsQuery, GetDepartmentsQueryHandler
 
 ### Community 8 - "Community 8"
 Cohesion: 0.15
@@ -647,11 +570,11 @@ Nodes (21): api, FieldOption, FormField, FormSchema, GridAction, GridColumn, Gri
 
 ### Community 9 - "Community 9"
 Cohesion: 0.13
-Nodes (9): OmniFlow.Application.Tickets.Queries, OmniFlow.Application.Interfaces, OmniFlow.Api.Controllers, OmniFlow.Application.Users.Commands, OmniFlow.Application.Common.Models, OmniFlow.Application.Common.Grid, GridRequest, PagedRequest (+1 more)
+Nodes (9): OmniFlow.Application.Tickets.Queries, OmniFlow.Application.Interfaces, OmniFlow.Api.Controllers, OmniFlow.Application.Common.Models, OmniFlow.Application.Common.Grid, OmniFlow.Application.Assets.Commands, GridRequest, PagedRequest (+1 more)
 
 ### Community 10 - "Community 10"
-Cohesion: 0.13
-Nodes (16): OmniFlow.Api.IntegrationTests, HttpClient, HttpResponseMessage, IAsyncLifetime, IClassFixture, IWebHostBuilder, PostgreSqlContainer, Fact (+8 more)
+Cohesion: 0.12
+Nodes (17): OmniFlow.Api.IntegrationTests, HttpClient, HttpResponseMessage, IAsyncLifetime, IClassFixture, IWebHostBuilder, PostgreSqlContainer, Program (+9 more)
 
 ### Community 11 - "Community 11"
 Cohesion: 0.06
@@ -666,16 +589,16 @@ Cohesion: 0.18
 Nodes (11): OmniFlow.Application.Approvals.Queries, OmniFlow.Application.Approvals.Commands, ApprovalsController, DecideRequest, ApprovalTimelineDto, ApprovalTimelineStepDto, GetApprovalsForEntityQuery, GetApprovalsForEntityQueryHandler (+3 more)
 
 ### Community 14 - "Community 14"
-Cohesion: 0.05
-Nodes (20): OmniFlow.Infrastructure.Migrations, OmniFlow.Infrastructure.Persistence, OmniFlow.Api.Services, HealthCheckContext, HealthCheckResult, IHealthCheck, IHostedService, Migration (+12 more)
+Cohesion: 0.08
+Nodes (10): OmniFlow.Infrastructure.Migrations, Migration, ModelSnapshot, InitialBaseline, InitialBaseline, DomainHardening, DomainHardening, ApprovalEngine (+2 more)
 
 ### Community 15 - "Community 15"
 Cohesion: 0.19
 Nodes (9): UiSchemaController, FieldOption, FormField, FormSchema, GridAction, GridColumn, GridSchema, UiSchema (+1 more)
 
 ### Community 16 - "Community 16"
-Cohesion: 0.12
-Nodes (14): IMessageScheduler, IRequestHandler, GetMetricsQuery, GetMetricsQueryHandler, IOmniFlowDbContext, ApproveLeaveRequestCommand, ApproveLeaveRequestCommandHandler, CreateLeaveRequestCommand (+6 more)
+Cohesion: 0.19
+Nodes (9): IRequestHandler, IPublishEndpoint, AssignAssetCommandHandler, GetMetricsQuery, GetMetricsQueryHandler, CreateDepartmentCommand, CreateDepartmentCommandHandler, IOmniFlowDbContext (+1 more)
 
 ### Community 17 - "Community 17"
 Cohesion: 0.10
@@ -698,8 +621,8 @@ Cohesion: 0.19
 Nodes (12): useTranslation(), ApprovalTimeline(), STATUS_COLORS, stepDot(), TimelineEntry, TimelineStep, ENTITY_COLORS, MyApprovals() (+4 more)
 
 ### Community 22 - "Community 22"
-Cohesion: 0.14
-Nodes (6): OmniFlow.Api.Middleware, OmniFlow.Infrastructure.Persistence.Interceptors, OmniFlow.Infrastructure.Messaging, EntityEntry, Program, ChangeTrackerExtensions
+Cohesion: 0.10
+Nodes (9): OmniFlow.Api.Middleware, OmniFlow.Infrastructure.Persistence.Seed, OmniFlow.Infrastructure.Persistence.Interceptors, OmniFlow.Infrastructure.Messaging, OmniFlow.Infrastructure.Identity, OmniFlow.Infrastructure.Persistence, IdentityUser, ApplicationUser (+1 more)
 
 ### Community 23 - "Community 23"
 Cohesion: 0.08
@@ -714,44 +637,48 @@ Cohesion: 0.24
 Nodes (5): OmniFlow.Application.UnitTests.Grid, Fact, List, GridQueryExtensionsTests, Person
 
 ### Community 26 - "Community 26"
-Cohesion: 0.06
-Nodes (18): ClaimsPrincipal, OmniFlow.Infrastructure.Persistence.Seed, OmniFlow.Infrastructure.Identity, EnableRateLimiting, IdentityRole, IdentityUser, IgnoreAntiforgeryToken, OpenIddictRequest (+10 more)
+Cohesion: 0.22
+Nodes (8): ClaimsPrincipal, EnableRateLimiting, IgnoreAntiforgeryToken, OpenIddictRequest, Produces, SignInManager, UserManager, AuthorizationController
 
 ### Community 27 - "Community 27"
-Cohesion: 0.13
-Nodes (8): INotificationHandler, TelegramWebhookController, IMessageGateway, ITelegramIdentityService, TicketCreatedEventHandler, TicketStateTransitionedDomainEvent, TicketCreatedNotificationHandler, TicketStateTransitionedNotificationHandler
+Cohesion: 0.21
+Nodes (6): INotificationHandler, IMessageGateway, TicketCreatedEventHandler, TicketStateTransitionedDomainEvent, TicketCreatedNotificationHandler, TicketStateTransitionedNotificationHandler
 
 ### Community 28 - "Community 28"
-Cohesion: 0.05
-Nodes (22): IEntityTypeConfiguration, AppMenuConfiguration, ApprovalRequestConfiguration, ApprovalStepConfiguration, AssetConfiguration, DepartmentConfiguration, EmployeeDocumentConfiguration, EmploymentDetailsConfiguration (+14 more)
+Cohesion: 0.06
+Nodes (17): IEntityTypeConfiguration, AppMenuConfiguration, DepartmentConfiguration, EmployeeDocumentConfiguration, EmploymentDetailsConfiguration, EmployeeConfiguration, KnowledgeBaseArticleConfiguration, LeaveBalanceConfiguration (+9 more)
 
 ### Community 29 - "Community 29"
 Cohesion: 0.10
 Nodes (19): node, vite.config.ts, ES2023, compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module (+11 more)
 
 ### Community 30 - "Community 30"
-Cohesion: 0.16
-Nodes (8): AssignRequest, CommentRequest, TicketsController, TransitionRequest, GetTicketsByServiceDeskQuery, GetTicketsQuery, TicketDto, GetTicketsQueryHandler
+Cohesion: 0.11
+Nodes (15): CancellationToken, DateTimeOffset, Dictionary, Guid, List, Task, GetTicketDetailsQuery, GetTicketDetailsQueryHandler (+7 more)
 
 ### Community 31 - "Community 31"
-Cohesion: 0.36
-Nodes (5): OmniFlow.Application.Menus.Queries, MenuController, GetMenuQuery, GetMenuQueryHandler, MenuDto
+Cohesion: 0.50
+Nodes (4): OmniFlow.Application.Menus.Queries, GetMenuQuery, GetMenuQueryHandler, MenuDto
 
 ### Community 32 - "Community 32"
 Cohesion: 0.06
-Nodes (23): OmniFlow.Application.Common.Behaviors, OmniFlow.Application.UnitTests.Behaviors, OmniFlow.Application, Exception, IDictionary, IPipelineBehavior, IServiceCollection, JsonSerializerOptions (+15 more)
+Nodes (26): OmniFlow.Application.Common.Behaviors, OmniFlow.Application.UnitTests.Behaviors, OmniFlow.Application, Exception, IDictionary, IPipelineBehavior, IServiceCollection, Ping (+18 more)
 
 ### Community 33 - "Community 33"
-Cohesion: 0.62
-Nodes (5): GetTicketDetailsQuery, GetTicketDetailsQueryHandler, TicketCommentDto, TicketDetailsDto, TicketHistoryDto
+Cohesion: 0.07
+Nodes (32): CancellationToken, Guid, IPublishEndpoint, Task, ApprovalRequestBuilder, CancellationToken, DateTime, Guid (+24 more)
 
 ### Community 34 - "Community 34"
-Cohesion: 0.25
-Nodes (3): UsersController, UpdateUserCommand, UpdateUserCommandHandler
+Cohesion: 0.15
+Nodes (7): CancellationToken, Guid, Task, UpdateUserCommand, UpdateUserCommandHandler, UsersController, UserRole
 
 ### Community 35 - "Community 35"
-Cohesion: 0.18
-Nodes (7): IRequest, AddTicketCommentCommand, AddTicketCommentCommandHandler, AssignTicketCommand, AssignTicketCommandHandler, CreateTicketCommand, TransitionTicketCommand
+Cohesion: 0.24
+Nodes (8): IMessageScheduler, IRequest, CancellationToken, Guid, IMediator, Task, CreateTicketCommandHandler, CreateTicketCommand
+
+### Community 36 - "Community 36"
+Cohesion: 0.11
+Nodes (15): DateTimeOffset, Guid, IReadOnlyCollection, List, Ticket, EntityTypeBuilder, TicketConfiguration, TicketAuditLog (+7 more)
 
 ### Community 37 - "Community 37"
 Cohesion: 0.22
@@ -762,20 +689,24 @@ Cohesion: 0.28
 Nodes (5): RFC-7807, refreshWaiters, unwrapList(), ServiceDeskPortal(), DynamicSelect()
 
 ### Community 39 - "Community 39"
-Cohesion: 0.28
-Nodes (5): INotification, IReadOnlyCollection, BaseEntity, Tenant, TicketCreatedDomainEvent
+Cohesion: 0.32
+Nodes (4): INotification, BaseEntity, Tenant, TicketCreatedDomainEvent
 
 ### Community 40 - "Community 40"
-Cohesion: 0.67
-Nodes (4): OmniFlow.Application.LeaveRequests.Queries, GetMyLeaveRequestsQuery, GetMyLeaveRequestsQueryHandler, LeaveRequestDto
+Cohesion: 0.10
+Nodes (16): OmniFlow.Application.LeaveRequests.Queries, OmniFlow.Application.LeaveRequests.Commands, OmniFlow.Application.UnitTests.Validators, CancellationToken, Guid, IPublishEndpoint, Task, ApproveLeaveRequestCommand (+8 more)
 
 ### Community 41 - "Community 41"
-Cohesion: 0.11
-Nodes (8): OmniFlow.Infrastructure.Messaging.Consumers, OmniFlow.Domain.Events, OmniFlow.Application.Tickets.EventHandlers, OmniFlow.Application.Common.Exceptions, OmniFlow.Domain.Entities.Approvals, OmniFlow.Application.Tickets.Commands, OmniFlow.Application.Approvals, OmniFlow.Infrastructure.Notifications
+Cohesion: 0.14
+Nodes (6): OmniFlow.Infrastructure.Messaging.Consumers, OmniFlow.Domain.Events, OmniFlow.Application.Tickets.EventHandlers, OmniFlow.Domain.Entities.Approvals, OmniFlow.Application.Approvals, OmniFlow.Infrastructure.Notifications
 
 ### Community 42 - "Community 42"
-Cohesion: 0.43
-Nodes (4): OmniFlow.Application.AuditLogs.Queries, AuditLogDto, GetAuditLogsQuery, GetAuditLogsQueryHandler
+Cohesion: 0.31
+Nodes (5): OmniFlow.Application.AuditLogs.Queries, AuditLogsController, AuditLogDto, GetAuditLogsQuery, GetAuditLogsQueryHandler
+
+### Community 43 - "Community 43"
+Cohesion: 0.12
+Nodes (9): OmniFlow.Api.Services, HealthCheckContext, HealthCheckResult, IHealthCheck, IHostedService, DatabaseHealthCheck, TelegramWebhookRegistrationService, TenantService (+1 more)
 
 ### Community 44 - "Community 44"
 Cohesion: 0.33
@@ -786,20 +717,24 @@ Cohesion: 0.29
 Nodes (3): CreateServiceDeskRequest, ServiceDesksController, UpdateServiceDeskRequest
 
 ### Community 46 - "Community 46"
-Cohesion: 0.11
-Nodes (13): AbstractValidator, InlineData, Fact, CreateLeaveRequestCommandValidatorTests, Fact, CreateUserCommandValidatorTests, Theory, DecideApprovalStepCommandValidator (+5 more)
+Cohesion: 0.10
+Nodes (16): AbstractValidator, InlineData, CancellationToken, IPublishEndpoint, Task, DecideApprovalStepCommand, DecideApprovalStepCommandHandler, DecideApprovalStepCommandValidator (+8 more)
 
 ### Community 47 - "Community 47"
-Cohesion: 0.07
-Nodes (23): OmniFlow.Infrastructure.Persistence.Configurations.HR, OmniFlow.Domain.Entities.HR, DbContextOptionsBuilder, IdentityDbContext, AuditableEntity, ISoftDelete, AppMenu, ApprovalEntityTypes (+15 more)
+Cohesion: 0.09
+Nodes (14): OmniFlow.Infrastructure.Persistence.Configurations.HR, OmniFlow.Domain.Entities.HR, DbContextOptionsBuilder, IdentityDbContext, IdentityRole, Compensation, AttendanceRecord, Benefit (+6 more)
 
 ### Community 48 - "Community 48"
-Cohesion: 0.33
-Nodes (3): User, Gender, MaritalStatus
+Cohesion: 0.29
+Nodes (4): WorkflowTransition, User, Gender, MaritalStatus
 
 ### Community 49 - "Community 49"
 Cohesion: 0.33
 Nodes (6): DbContext, DbContextEventData, InterceptionResult, SaveChangesInterceptor, AuditableEntityInterceptor, ValueTask
+
+### Community 50 - "Community 50"
+Cohesion: 0.12
+Nodes (14): AuditableEntity, ISoftDelete, AppMenu, AuditLog, AuthorityDelegation, Department, DirectoryProfile, EmployeeDocument (+6 more)
 
 ### Community 52 - "Community 52"
 Cohesion: 0.33
@@ -810,12 +745,16 @@ Cohesion: 0.50
 Nodes (3): BackgroundService, IServiceScopeFactory, SlaSweepBackgroundService
 
 ### Community 54 - "Community 54"
-Cohesion: 0.14
-Nodes (9): OmniFlow.Application.Assets.Commands, OmniFlow.Application.Assets.Queries, AssetsController, AssignAssetCommand, AssignAssetCommandHandler, CreateAssetCommand, CreateAssetCommandHandler, UpdateAssetCommand (+1 more)
+Cohesion: 0.18
+Nodes (8): Guid, AssignAssetCommand, CancellationToken, Guid, Task, CreateAssetCommand, CreateAssetCommandHandler, AssetsController
 
 ### Community 55 - "Community 55"
-Cohesion: 0.17
+Cohesion: 0.20
 Nodes (8): IConsumer, ITenantService, ApprovalStepActivatedEvent, AssetAssignedEvent, CheckTicketSlaBreachEvent, ApprovalStepActivatedConsumer, AssetAssignedConsumer, TicketSlaBreachConsumer
+
+### Community 56 - "Community 56"
+Cohesion: 0.18
+Nodes (3): TelegramWebhookController, ITelegramIdentityService, TelegramIdentityService
 
 ### Community 57 - "Community 57"
 Cohesion: 0.33
@@ -829,13 +768,25 @@ Nodes (8): oxc, typescript, warn, plugins, rules, react/only-export-components, 
 Cohesion: 0.17
 Nodes (4): ExpenseClaimsController, LookupController, AuditLoggingMiddleware, IUserContext
 
+### Community 63 - ".SaveChangesAsync"
+Cohesion: 0.22
+Nodes (7): CancellationToken, Task, CancellationToken, Guid, Task, DeleteDepartmentCommand, DeleteDepartmentCommandHandler
+
 ### Community 65 - "Community 65"
-Cohesion: 0.90
-Nodes (3): AssetDto, GetAssetsQuery, GetAssetsQueryHandler
+Cohesion: 0.67
+Nodes (4): OmniFlow.Application.Assets.Queries, AssetDto, GetAssetsQuery, GetAssetsQueryHandler
+
+### Community 66 - "ExceptionHandlingMiddleware"
+Cohesion: 0.31
+Nodes (7): JsonSerializerOptions, Exception, HttpContext, ILogger, RequestDelegate, Task, ExceptionHandlingMiddleware
 
 ### Community 67 - "Community 67"
-Cohesion: 0.70
-Nodes (4): FieldDefinition, TicketTemplate, WorkflowDefinition, WorkflowTransition
+Cohesion: 0.39
+Nodes (4): Dictionary, FieldDefinition, TicketTemplate, WorkflowDefinition
+
+### Community 68 - "Community 68"
+Cohesion: 0.23
+Nodes (9): CancellationToken, ConsumeContext, ILogger, IMediator, IPublishEndpoint, string, Task, ApprovalCompletedConsumer (+1 more)
 
 ### Community 69 - "Community 69"
 Cohesion: 0.50
@@ -861,33 +812,69 @@ Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphif
 Cohesion: 0.50
 Nodes (3): Expanding the Oxlint configuration, React Compiler, React + TypeScript + Vite
 
-### Community 567 - "ExpenseClaim"
+### Community 76 - "Asset"
+Cohesion: 0.32
+Nodes (3): Guid, Asset, AssetStatus
+
+### Community 80 - "UpdateDepartmentCommand"
 Cohesion: 0.33
-Nodes (3): ExpenseClaim, ExpenseCategory, ExpenseStatus
+Nodes (5): CancellationToken, Guid, Task, UpdateDepartmentCommand, UpdateDepartmentCommandHandler
+
+### Community 218 - "Exception"
+Cohesion: 0.38
+Nodes (5): CancellationToken, Guid, Task, AddTicketCommentCommandHandler, AddTicketCommentCommand
+
+### Community 219 - "HttpContext"
+Cohesion: 0.33
+Nodes (5): CancellationToken, IMediator, Task, TransitionTicketCommandHandler, TransitionTicketCommand
+
+### Community 220 - "ILogger"
+Cohesion: 0.71
+Nodes (4): GetTicketsByServiceDeskQuery, GetTicketsQuery, TicketDto, GetTicketsQueryHandler
+
+### Community 221 - "RequestDelegate"
+Cohesion: 0.40
+Nodes (5): CancellationToken, Guid, Task, DeleteAssetCommand, DeleteAssetCommandHandler
+
+### Community 222 - "Task"
+Cohesion: 0.40
+Nodes (5): CancellationToken, Guid, Task, UpdateAssetCommand, UpdateAssetCommandHandler
+
+### Community 240 - "CancellationToken"
+Cohesion: 0.40
+Nodes (4): CancellationToken, Task, AssignTicketCommandHandler, AssignTicketCommand
+
+### Community 241 - "Guid"
+Cohesion: 0.40
+Nodes (5): CancellationToken, Guid, Task, DeleteUserCommand, DeleteUserCommandHandler
+
+### Community 242 - "IPublishEndpoint"
+Cohesion: 0.40
+Nodes (3): ConfigurationItem, CIStatus, CIType
 
 ### Community 570 - "CreateDepartmentCommand.cs"
-Cohesion: 0.25
-Nodes (6): OmniFlow.Application.Departments.Commands, CreateDepartmentCommand, CreateDepartmentCommandHandler, CreateDepartmentCommandValidator, UpdateDepartmentCommand, UpdateDepartmentCommandHandler
+Cohesion: 0.13
+Nodes (7): OmniFlow.Domain.Common.Exceptions, OmniFlow.Application.Departments.Commands, OmniFlow.Application.Tickets.Commands, string, ApprovalDecisionKind, ApprovalEntityTypes, LeaveRequestConfiguration
 
 ## Knowledge Gaps
-- **216 isolated node(s):** `OmniFlow.Domain`, `OmniFlow.Infrastructure`, `net10.0`, `Microsoft.AspNetCore.OpenApi (10.0.2)`, `Microsoft.EntityFrameworkCore.Design (10.0.9)` (+211 more)
+- **210 isolated node(s):** `OmniFlow.Domain`, `OmniFlow.Infrastructure`, `net10.0`, `Microsoft.AspNetCore.OpenApi (10.0.2)`, `Microsoft.EntityFrameworkCore.Design (10.0.9)` (+205 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **499 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **406 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `OmniFlow.Domain.Entities` connect `Community 2` to `Community 33`, `Community 67`, `Community 26`, `Community 5`, `ExpenseClaim`, `Community 9`, `Community 41`, `Community 47`, `Community 48`, `Community 19`, `Community 54`, `Community 22`, `CreateDepartmentCommand.cs`, `Community 31`?**
-  _High betweenness centrality (0.069) - this node is a cross-community bridge._
-- **Why does `OmniFlow.Application.Interfaces` connect `Community 9` to `Community 1`, `Community 2`, `Community 5`, `Community 7`, `Community 13`, `Community 14`, `Community 16`, `Community 19`, `Community 22`, `Community 26`, `Community 27`, `Community 31`, `Community 32`, `Community 33`, `Community 40`, `Community 41`, `Community 42`, `Community 50`, `Community 54`, `Community 55`, `Community 56`, `CreateDepartmentCommand.cs`, `Community 60`, `Community 65`?**
-  _High betweenness centrality (0.063) - this node is a cross-community bridge._
-- **Why does `IOmniFlowDbContext` connect `Community 16` to `Community 6`, `Community 7`, `Community 13`, `Community 19`, `Community 30`, `Community 31`, `Community 33`, `Community 34`, `Community 35`, `Community 36`, `Community 40`, `Community 41`, `Community 42`, `Community 45`, `Community 47`, `Community 50`, `Community 54`, `Community 55`, `Community 56`, `CreateDepartmentCommand.cs`, `Community 58`, `Community 60`, `Community 61`, `Community 64`, `Community 65`, `Community 68`, `Community 70`, `AssignAssetCommandHandler`?**
-  _High betweenness centrality (0.042) - this node is a cross-community bridge._
+- **Why does `OmniFlow.Application.Interfaces` connect `Community 9` to `Community 1`, `Community 5`, `Community 7`, `Community 13`, `Community 16`, `Community 19`, `Community 22`, `Community 27`, `Community 30`, `Community 31`, `Community 32`, `Community 40`, `Community 41`, `Community 42`, `Community 43`, `Community 46`, `Community 55`, `Community 56`, `CreateDepartmentCommand.cs`, `Community 60`, `Community 65`?**
+  _High betweenness centrality (0.072) - this node is a cross-community bridge._
+- **Why does `IOmniFlowDbContext` connect `Community 16` to `Community 2`, `Community 6`, `Community 7`, `Community 13`, `Community 19`, `Community 30`, `Community 31`, `Community 33`, `Community 34`, `Community 35`, `Community 40`, `Community 41`, `Community 42`, `Community 45`, `Community 46`, `Community 47`, `Community 54`, `Community 55`, `Community 58`, `CreateDepartmentCommand.cs`, `Community 60`, `Community 61`, `.SaveChangesAsync`, `Community 64`, `Community 65`, `Community 68`, `Community 70`, `UpdateDepartmentCommand`, `Exception`, `HttpContext`, `ILogger`, `RequestDelegate`, `Task`, `CancellationToken`, `Guid`?**
+  _High betweenness centrality (0.068) - this node is a cross-community bridge._
+- **Why does `OmniFlow.Domain.Entities` connect `Community 2` to `Community 67`, `Community 5`, `Community 9`, `Community 41`, `Community 50`, `Community 19`, `Community 22`, `CreateDepartmentCommand.cs`, `Community 30`, `Community 31`?**
+  _High betweenness centrality (0.066) - this node is a cross-community bridge._
 - **What connects `OmniFlow.Domain`, `OmniFlow.Infrastructure`, `net10.0` to the rest of the system?**
-  _216 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _210 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.06745098039215686 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.09523809523809523 - nodes in this community are weakly interconnected._
 - **Should `Community 4` be split into smaller, more focused modules?**
   _Cohesion score 0.047619047619047616 - nodes in this community are weakly interconnected._
 - **Should `Community 5` be split into smaller, more focused modules?**
-  _Cohesion score 0.0423728813559322 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07394957983193277 - nodes in this community are weakly interconnected._
