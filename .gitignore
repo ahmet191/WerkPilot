@@ -30,3 +30,6 @@ Thumbs.db
 logs/
 /src/OmniFlow.Api/bin
 /src/OmniFlow.Api/obj
+
+# Graphify AST cache artifact (created when cache_root points at src/)
+src/graphify-out/
