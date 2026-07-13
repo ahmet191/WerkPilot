@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using OmniFlow.Application.Common.Exceptions;
+using OmniFlow.Domain.Common.Exceptions;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Domain.Entities;
 
@@ -17,34 +17,19 @@ public class AssignTicketCommandHandler : IRequestHandler<AssignTicketCommand, b
 
     public async Task<bool> Handle(AssignTicketCommand request, CancellationToken cancellationToken)
     {
-        var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == request.TicketId, cancellationToken);
-        if (ticket == null) throw new NotFoundException(nameof(Ticket), request.TicketId);
+        var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == request.TicketId, cancellationToken)
+            ?? throw new NotFoundException(nameof(Ticket), request.TicketId);
 
         if (request.AssigneeId.HasValue)
         {
-            var assignee = await _context.Set<User>().FirstOrDefaultAsync(u => u.Id == request.AssigneeId, cancellationToken);
-            if (assignee == null) throw new NotFoundException(nameof(User), request.AssigneeId);
+            var assigneeExists = await _context.Set<User>().AnyAsync(u => u.Id == request.AssigneeId, cancellationToken);
+            if (!assigneeExists) throw new NotFoundException(nameof(User), request.AssigneeId);
         }
 
-        var oldAssignee = ticket.AssigneeId;
-        ticket.AssigneeId = request.AssigneeId;
+        // The aggregate updates the assignee and records the audit entry.
+        ticket.Assign(request.AssigneeId, request.ChangedById);
 
-        // Write audit log
-        var audit = new TicketAuditLog
-        {
-            Id = Guid.NewGuid(),
-            TicketId = request.TicketId,
-            ChangedById = request.ChangedById,
-            ChangedAt = DateTimeOffset.UtcNow,
-            Action = "Assign",
-            FieldName = "AssigneeId",
-            OldValue = oldAssignee?.ToString(),
-            NewValue = request.AssigneeId?.ToString()
-        };
-
-        _context.Set<TicketAuditLog>().Add(audit);
         await _context.SaveChangesAsync(cancellationToken);
-
         return true;
     }
 }

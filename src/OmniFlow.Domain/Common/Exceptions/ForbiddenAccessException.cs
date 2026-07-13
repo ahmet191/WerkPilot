@@ -1,9 +1,7 @@
-namespace OmniFlow.Application.Common.Exceptions;
+namespace OmniFlow.Domain.Common.Exceptions;
 
-/// <summary>
-/// Thrown when the authenticated user lacks the role/permission required for
-/// the requested operation. Maps to HTTP 403.
-/// </summary>
+/// <summary>Thrown when the acting user lacks the role/permission required for
+/// the operation. Maps to HTTP 403.</summary>
 public class ForbiddenAccessException : ApiException
 {
     public ForbiddenAccessException(string message = "You do not have permission to perform this action.")

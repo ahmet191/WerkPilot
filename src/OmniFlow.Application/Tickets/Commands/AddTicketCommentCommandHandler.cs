@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using OmniFlow.Application.Common.Exceptions;
+using OmniFlow.Domain.Common.Exceptions;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Domain.Entities;
 
@@ -17,37 +17,16 @@ public class AddTicketCommentCommandHandler : IRequestHandler<AddTicketCommentCo
 
     public async Task<Guid> Handle(AddTicketCommentCommand request, CancellationToken cancellationToken)
     {
-        var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == request.TicketId, cancellationToken);
-        if (ticket == null) throw new NotFoundException(nameof(Ticket), request.TicketId);
+        var ticket = await _context.Tickets.FirstOrDefaultAsync(t => t.Id == request.TicketId, cancellationToken)
+            ?? throw new NotFoundException(nameof(Ticket), request.TicketId);
 
-        var user = await _context.Set<User>().FirstOrDefaultAsync(u => u.Id == request.AuthorId, cancellationToken);
-        if (user == null) throw new NotFoundException(nameof(User), request.AuthorId);
+        var authorExists = await _context.Set<User>().AnyAsync(u => u.Id == request.AuthorId, cancellationToken);
+        if (!authorExists) throw new NotFoundException(nameof(User), request.AuthorId);
 
-        var comment = new TicketComment
-        {
-            Id = Guid.NewGuid(),
-            TicketId = request.TicketId,
-            AuthorId = request.AuthorId,
-            Content = request.Content
-        };
+        // The aggregate creates the comment and its audit entry.
+        var comment = ticket.AddComment(request.AuthorId, request.Content);
 
-        // Create an audit log record for this comment action
-        var audit = new TicketAuditLog
-        {
-            Id = Guid.NewGuid(),
-            TicketId = request.TicketId,
-            ChangedById = request.AuthorId,
-            ChangedAt = DateTimeOffset.UtcNow,
-            Action = "AddComment",
-            FieldName = "Comment",
-            NewValue = request.Content
-        };
-
-        _context.Set<TicketComment>().Add(comment);
-        _context.Set<TicketAuditLog>().Add(audit);
-        
         await _context.SaveChangesAsync(cancellationToken);
-
         return comment.Id;
     }
 }

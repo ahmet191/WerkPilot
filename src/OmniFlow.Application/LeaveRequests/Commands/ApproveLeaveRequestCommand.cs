@@ -1,6 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using OmniFlow.Application.Common.Exceptions;
+using OmniFlow.Domain.Common.Exceptions;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Domain.Enums;
 
@@ -49,8 +49,8 @@ public class ApproveLeaveRequestCommandHandler : IRequestHandler<ApproveLeaveReq
             throw new ConflictException(
                 "This leave request has a pending approval flow. Decide it from the Approvals screen.");
 
-        leave.Status = request.IsApproved ? LeaveStatus.Approved : LeaveStatus.Rejected;
-        leave.ApproverId = _userContext.UserId;
+        // The aggregate guards against re-deciding an already-resolved request.
+        leave.Resolve(request.IsApproved ? LeaveStatus.Approved : LeaveStatus.Rejected, _userContext.UserId);
 
         // Publish BEFORE SaveChanges: the transactional outbox commits the
         // message atomically with the status change.

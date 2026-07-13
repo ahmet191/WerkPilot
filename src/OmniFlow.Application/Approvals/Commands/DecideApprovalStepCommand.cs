@@ -2,9 +2,9 @@ using FluentValidation;
 using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using OmniFlow.Application.Common.Exceptions;
+using OmniFlow.Domain.Common.Exceptions;
 using OmniFlow.Application.Interfaces;
-using OmniFlow.Domain.Enums;
+using OmniFlow.Domain.Entities.Approvals;
 using OmniFlow.Domain.Events;
 
 namespace OmniFlow.Application.Approvals.Commands;
@@ -48,116 +48,58 @@ public class DecideApprovalStepCommandHandler : IRequestHandler<DecideApprovalSt
     {
         var approval = await _context.ApprovalRequests
             .Include(a => a.Steps)
-            .FirstOrDefaultAsync(a => a.Id == request.ApprovalRequestId, cancellationToken);
+            .FirstOrDefaultAsync(a => a.Id == request.ApprovalRequestId, cancellationToken)
+            ?? throw new NotFoundException("ApprovalRequest", request.ApprovalRequestId);
 
-        if (approval is null)
-        {
-            throw new NotFoundException("ApprovalRequest", request.ApprovalRequestId);
-        }
+        // The aggregate enforces the pending/current-step invariants.
+        var step = approval.CurrentStep();
 
-        if (approval.Status != ApprovalStatus.Pending)
-        {
-            throw new ConflictException($"This approval request has already been {approval.Status}.");
-        }
-
-        var step = approval.Steps.FirstOrDefault(s => s.Order == approval.CurrentStepOrder && s.Status == ApprovalStatus.Pending);
-        if (step is null)
-        {
-            throw new ConflictException("The approval request has no pending step to decide.");
-        }
-
-        await EnsureUserMayDecideAsync(step, cancellationToken);
-
+        // Authorization: which of my delegators granted me authority right now?
         var userId = _userContext.UserId;
-        step.Status = request.Approve ? ApprovalStatus.Approved : ApprovalStatus.Rejected;
-        step.ActedById = userId;
-        step.ActedAt = DateTimeOffset.UtcNow;
-        step.Comment = request.Comment;
+        var now = DateTime.UtcNow;
+        var delegatedApproverIds = await _context.AuthorityDelegations
+            .Where(d => d.DelegateeId == userId && d.StartDate <= now && d.EndDate >= now)
+            .Select(d => d.DelegatorId)
+            .ToListAsync(cancellationToken);
 
-        if (!request.Approve)
+        if (!ApprovalRequest.CanDecide(step, userId, _userContext.Role, delegatedApproverIds))
         {
-            // First rejection concludes the whole chain.
-            approval.Status = ApprovalStatus.Rejected;
-            approval.CompletedAt = DateTimeOffset.UtcNow;
-            foreach (var remaining in approval.Steps.Where(s => s.Status == ApprovalStatus.Pending))
-            {
-                remaining.Status = ApprovalStatus.Cancelled;
-            }
+            throw new ForbiddenAccessException("You are not the approver for the current step of this request.");
+        }
 
-            await PublishCompletedAsync(approval.Id, approval.EntityType, approval.EntityId, false, userId, request.Comment, cancellationToken);
+        var outcome = approval.Decide(userId, request.Approve, request.Comment);
+
+        if (outcome.Kind == ApprovalDecisionKind.Completed)
+        {
+            await _publishEndpoint.Publish(new ApprovalCompletedEvent
+            {
+                TenantId = _tenantService.TenantId,
+                ApprovalRequestId = approval.Id,
+                EntityType = approval.EntityType,
+                EntityId = approval.EntityId,
+                IsApproved = outcome.IsApproved,
+                DecidedById = userId,
+                Comment = request.Comment
+            }, cancellationToken);
         }
         else
         {
-            var nextStep = approval.Steps
-                .Where(s => s.Status == ApprovalStatus.Pending)
-                .OrderBy(s => s.Order)
-                .FirstOrDefault();
-
-            if (nextStep is null)
+            var next = outcome.NextStep!;
+            await _publishEndpoint.Publish(new ApprovalStepActivatedEvent
             {
-                approval.Status = ApprovalStatus.Approved;
-                approval.CompletedAt = DateTimeOffset.UtcNow;
-                await PublishCompletedAsync(approval.Id, approval.EntityType, approval.EntityId, true, userId, request.Comment, cancellationToken);
-            }
-            else
-            {
-                approval.CurrentStepOrder = nextStep.Order;
-                await _publishEndpoint.Publish(new ApprovalStepActivatedEvent
-                {
-                    TenantId = _tenantService.TenantId,
-                    ApprovalRequestId = approval.Id,
-                    EntityType = approval.EntityType,
-                    EntityId = approval.EntityId,
-                    EntityDisplay = approval.EntityDisplay,
-                    StepOrder = nextStep.Order,
-                    ApproverUserId = nextStep.ApproverUserId,
-                    ApproverRole = nextStep.ApproverRole
-                }, cancellationToken);
-            }
+                TenantId = _tenantService.TenantId,
+                ApprovalRequestId = approval.Id,
+                EntityType = approval.EntityType,
+                EntityId = approval.EntityId,
+                EntityDisplay = approval.EntityDisplay,
+                StepOrder = next.Order,
+                ApproverUserId = next.ApproverUserId,
+                ApproverRole = next.ApproverRole
+            }, cancellationToken);
         }
 
         // Outbox: the decision and its events commit atomically.
         await _context.SaveChangesAsync(cancellationToken);
         return true;
     }
-
-    private async Task EnsureUserMayDecideAsync(Domain.Entities.Approvals.ApprovalStep step, CancellationToken cancellationToken)
-    {
-        var userId = _userContext.UserId;
-        var role = _userContext.Role;
-
-        if (role == "Administrator") return;
-        if (step.ApproverUserId == userId) return;
-        if (step.ApproverRole is not null && step.ApproverRole == role) return;
-
-        // Active delegation: the resolved approver delegated their authority.
-        if (step.ApproverUserId.HasValue)
-        {
-            var now = DateTime.UtcNow;
-            var delegated = await _context.AuthorityDelegations.AnyAsync(d =>
-                d.DelegatorId == step.ApproverUserId.Value &&
-                d.DelegateeId == userId &&
-                d.StartDate <= now &&
-                d.EndDate >= now, cancellationToken);
-
-            if (delegated) return;
-        }
-
-        throw new ForbiddenAccessException("You are not the approver for the current step of this request.");
-    }
-
-    private Task PublishCompletedAsync(
-        Guid approvalRequestId, string entityType, Guid entityId,
-        bool isApproved, Guid decidedById, string? comment,
-        CancellationToken cancellationToken) =>
-        _publishEndpoint.Publish(new ApprovalCompletedEvent
-        {
-            TenantId = _tenantService.TenantId,
-            ApprovalRequestId = approvalRequestId,
-            EntityType = entityType,
-            EntityId = entityId,
-            IsApproved = isApproved,
-            DecidedById = decidedById,
-            Comment = comment
-        }, cancellationToken);
 }

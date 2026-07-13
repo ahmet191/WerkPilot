@@ -1,5 +1,5 @@
 using MediatR;
-using OmniFlow.Application.Common.Exceptions;
+using OmniFlow.Domain.Common.Exceptions;
 using OmniFlow.Application.Interfaces;
 
 namespace OmniFlow.Application.Assets.Commands;
@@ -27,10 +27,7 @@ public class UpdateAssetCommandHandler : IRequestHandler<UpdateAssetCommand>
         var asset = await _context.Assets.FindAsync(new object[] { request.Id }, cancellationToken);
         if (asset == null) throw new NotFoundException("Asset", request.Id);
 
-        asset.AssetTag = request.AssetTag;
-        asset.SerialNumber = request.SerialNumber;
-        asset.Model = request.Model;
-        asset.Category = request.Category;
+        asset.UpdateDetails(request.AssetTag, request.SerialNumber, request.Model, request.Category);
 
         await _context.SaveChangesAsync(cancellationToken);
     }

@@ -43,18 +43,8 @@ public class CreateLeaveRequestCommandHandler : IRequestHandler<CreateLeaveReque
     {
         // Input validation (incl. date ordering) is enforced by
         // CreateLeaveRequestCommandValidator via the MediatR ValidationBehavior.
-        var leave = new LeaveRequest
-        {
-            Id = Guid.NewGuid(),
-            UserId = _userContext.UserId,
-            Type = request.Type,
-            // Bare dates deserialize with Kind=Unspecified; Npgsql only accepts
-            // UTC for 'timestamp with time zone' columns.
-            StartDate = DateTime.SpecifyKind(request.StartDate, DateTimeKind.Utc),
-            EndDate = DateTime.SpecifyKind(request.EndDate, DateTimeKind.Utc),
-            Status = LeaveStatus.Pending,
-            Reason = request.Reason
-        };
+        var leave = LeaveRequest.Create(
+            _userContext.UserId, request.Type, request.StartDate, request.EndDate, request.Reason);
 
         _context.LeaveRequests.Add(leave);
 

@@ -1,6 +1,6 @@
 using MediatR;
 using OmniFlow.Domain.Enums;
-using OmniFlow.Application.Common.Exceptions;
+using OmniFlow.Domain.Common.Exceptions;
 using OmniFlow.Application.Interfaces;
 
 namespace OmniFlow.Application.Users.Commands;
