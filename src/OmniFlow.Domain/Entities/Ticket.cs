@@ -68,8 +68,15 @@ public class Ticket : AuditableEntity
     /// against the template's field definitions (presence, dropdown options,
     /// regex) and lifting the well-known fields (Title/Type/Priority/…) out of
     /// the payload. Starts in <see cref="TicketState.New"/> with a Create audit.
+    /// When <paramref name="slaResolutionTime"/> is provided (from the tenant's
+    /// SLA configuration for the ticket's priority) the resolution deadline is
+    /// stamped so breach detection can act on it.
     /// </summary>
-    public static Ticket Create(TicketTemplate template, Guid requesterId, Dictionary<string, object> dynamicData)
+    public static Ticket Create(
+        TicketTemplate template,
+        Guid requesterId,
+        Dictionary<string, object> dynamicData,
+        TimeSpan? slaResolutionTime = null)
     {
         ValidateDynamicFields(template, dynamicData);
 
@@ -86,6 +93,9 @@ public class Ticket : AuditableEntity
             Priority = ReadEnum(dynamicData, "Priority", TicketPriority.Medium),
             Impact = ReadEnum(dynamicData, "Impact", TicketImpact.Medium),
             Urgency = ReadEnum(dynamicData, "Urgency", TicketUrgency.Medium),
+            SlaDueDate = slaResolutionTime.HasValue
+                ? DateTimeOffset.UtcNow.Add(slaResolutionTime.Value)
+                : null,
         };
 
         ticket.AddAudit(requesterId, "Create", "Ticket",

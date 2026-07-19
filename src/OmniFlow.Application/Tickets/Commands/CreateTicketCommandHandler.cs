@@ -39,16 +39,29 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
             throw new NotFoundException(nameof(User), request.RequesterId);
         }
 
+        // Tenant SLA policy: the strictest configured resolution target for the
+        // submitted priority becomes the ticket's deadline. No config → no SLA.
+        TimeSpan? slaResolutionTime = null;
+        if (request.DynamicData.TryGetValue("Priority", out var priorityValue))
+        {
+            var priority = priorityValue?.ToString();
+            var resolutionMinutes = await _context.SLAConfigurations
+                .Where(s => s.PriorityLevel == priority)
+                .Select(s => (int?)s.ResolutionTimeMinutes)
+                .MinAsync(cancellationToken);
+            if (resolutionMinutes.HasValue)
+            {
+                slaResolutionTime = TimeSpan.FromMinutes(resolutionMinutes.Value);
+            }
+        }
+
         // The aggregate validates the dynamic fields and produces the Create audit.
-        var ticket = Ticket.Create(template, request.RequesterId, request.DynamicData);
+        var ticket = Ticket.Create(template, request.RequesterId, request.DynamicData, slaResolutionTime);
         _context.Tickets.Add(ticket);
 
-        await _context.SaveChangesAsync(cancellationToken);
-
-        await _mediator.Publish(new TicketCreatedDomainEvent(ticket), cancellationToken);
-
-        // Schedule the SLA breach check. The in-memory scheduler is best-effort
-        // (lost on restart) — the SlaSweepBackgroundService is the durable net.
+        // Schedule the SLA breach check BEFORE SaveChanges: the scheduler
+        // publishes through the transactional outbox, so the schedule commits
+        // atomically with the ticket and lands in the persistent Quartz store.
         if (ticket.SlaDueDate.HasValue)
         {
             await _messageScheduler.SchedulePublish(
@@ -61,6 +74,10 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
                 },
                 cancellationToken);
         }
+
+        await _context.SaveChangesAsync(cancellationToken);
+
+        await _mediator.Publish(new TicketCreatedDomainEvent(ticket), cancellationToken);
 
         return ticket.Id;
     }

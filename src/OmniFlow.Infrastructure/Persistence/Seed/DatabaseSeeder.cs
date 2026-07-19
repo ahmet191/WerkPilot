@@ -45,6 +45,7 @@ public static class DatabaseSeeder
         await SeedLegacyUsersAsync(context, cancellationToken);
         await SeedServiceDeskAsync(context, cancellationToken);
         await SeedTicketTemplateAsync(context, cancellationToken);
+        await SeedSlaConfigurationsAsync(context, cancellationToken);
         await SeedMenusAsync(context, cancellationToken);
         await SeedApprovalArtifactsAsync(context, cancellationToken);
 
@@ -167,6 +168,35 @@ public static class DatabaseSeeder
                 Role = UserRole.Administrator,
                 DepartmentId = department.Id
             });
+
+        await context.SaveChangesAsync(cancellationToken);
+    }
+
+    private static async Task SeedSlaConfigurationsAsync(OmniFlowDbContext context, CancellationToken cancellationToken)
+    {
+        if (await context.SLAConfigurations.AnyAsync(cancellationToken)) return;
+
+        // Default resolution/first-response targets per priority. Tenants can
+        // tune these via the SLA configuration admin screen.
+        (string Priority, int ResolutionMinutes, int FirstResponseMinutes)[] defaults =
+        [
+            ("Critical", 4 * 60, 30),
+            ("High", 8 * 60, 60),
+            ("Medium", 24 * 60, 4 * 60),
+            ("Low", 48 * 60, 8 * 60),
+        ];
+
+        foreach (var (priority, resolution, firstResponse) in defaults)
+        {
+            context.SLAConfigurations.Add(new SLAConfiguration
+            {
+                Name = $"{priority} priority SLA",
+                DepartmentId = SeedConstants.HqDepartmentId,
+                PriorityLevel = priority,
+                ResolutionTimeMinutes = resolution,
+                FirstResponseTimeMinutes = firstResponse
+            });
+        }
 
         await context.SaveChangesAsync(cancellationToken);
     }
