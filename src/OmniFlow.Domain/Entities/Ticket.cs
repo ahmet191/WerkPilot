@@ -154,9 +154,12 @@ public class Ticket : AuditableEntity
     /// <summary>Adds a comment authored by a user, with an accompanying audit entry.</summary>
     public TicketComment AddComment(Guid authorId, string content)
     {
+        // Id deliberately left unset: children appended to an already-tracked
+        // aggregate are discovered by EF's DetectChanges, which treats a SET key
+        // as "existing row" and issues an UPDATE (0 rows → concurrency error).
+        // An unset key marks them Added and EF generates the Guid.
         var comment = new TicketComment
         {
-            Id = Guid.NewGuid(),
             TicketId = Id,
             AuthorId = authorId,
             Content = content,
@@ -168,9 +171,9 @@ public class Ticket : AuditableEntity
 
     private void AddAudit(Guid changedById, string action, string fieldName, string? oldValue = null, string? newValue = null)
     {
+        // Id unset on purpose — see AddComment.
         _auditLogs.Add(new TicketAuditLog
         {
-            Id = Guid.NewGuid(),
             TicketId = Id,
             ChangedById = changedById,
             ChangedAt = DateTimeOffset.UtcNow,
