@@ -243,10 +243,7 @@
   "241": "Guid",
   "242": "IPublishEndpoint",
   "243": "Task",
-  "244": "CancellationToken",
-  "245": "Guid",
   "246": "IPublishEndpoint",
-  "247": "DashboardController.cs",
   "248": "CancellationToken",
   "249": "DateTimeOffset",
   "250": "Guid",
@@ -485,7 +482,5 @@
   "562": "Task",
   "563": "IServiceProvider",
   "564": "Task",
-  "565": "Guid",
-  "570": "CreateDepartmentCommand.cs",
-  "574": "CorrelationIdMiddleware"
+  "565": "Guid"
 }
