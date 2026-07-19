@@ -1,16 +1,16 @@
-# Graph Report - laughing-cerf-bff590  (2026-07-13)
+# Graph Report - laughing-cerf-bff590  (2026-07-19)
 
 ## Corpus Check
-- 270 files · ~78,325 words
+- 271 files · ~78,388 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1723 nodes · 2402 edges · 488 communities (82 shown, 406 thin omitted)
+- 1723 nodes · 2402 edges · 489 communities (83 shown, 406 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 22 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `1592ebaa`
+- Built from commit: `662ae1f6`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -261,6 +261,7 @@
 - CancellationToken
 - Guid
 - IPublishEndpoint
+- DashboardController.cs
 - CancellationToken
 - DateTimeOffset
 - Guid
@@ -530,7 +531,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (488 total, 406 thin omitted)
+## Communities (489 total, 406 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.24
@@ -558,7 +559,7 @@ Nodes (15): OmniFlow.Domain.Enums, OmniFlow.Application.Users.Commands, ChangeRe
 
 ### Community 6 - "Community 6"
 Cohesion: 0.17
-Nodes (6): ControllerBase, OmniFlow.Application.Dashboard.Queries, AnalyticsController, DashboardController, DirectoryController, MenuController
+Nodes (5): ControllerBase, AnalyticsController, DepartmentsController, DirectoryController, MenuController
 
 ### Community 7 - "Community 7"
 Cohesion: 0.67
@@ -697,8 +698,8 @@ Cohesion: 0.10
 Nodes (16): OmniFlow.Application.LeaveRequests.Queries, OmniFlow.Application.LeaveRequests.Commands, OmniFlow.Application.UnitTests.Validators, CancellationToken, Guid, IPublishEndpoint, Task, ApproveLeaveRequestCommand (+8 more)
 
 ### Community 41 - "Community 41"
-Cohesion: 0.14
-Nodes (6): OmniFlow.Infrastructure.Messaging.Consumers, OmniFlow.Domain.Events, OmniFlow.Application.Tickets.EventHandlers, OmniFlow.Domain.Entities.Approvals, OmniFlow.Application.Approvals, OmniFlow.Infrastructure.Notifications
+Cohesion: 0.20
+Nodes (4): OmniFlow.Infrastructure.Messaging.Consumers, OmniFlow.Domain.Events, OmniFlow.Application.Tickets.EventHandlers, OmniFlow.Infrastructure.Notifications
 
 ### Community 42 - "Community 42"
 Cohesion: 0.31
@@ -852,9 +853,13 @@ Nodes (5): CancellationToken, Guid, Task, DeleteUserCommand, DeleteUserCommandHa
 Cohesion: 0.40
 Nodes (3): ConfigurationItem, CIStatus, CIType
 
+### Community 243 - "Task"
+Cohesion: 0.22
+Nodes (5): OmniFlow.Domain.Entities.Approvals, OmniFlow.Application.Approvals, string, ApprovalDecisionKind, ApprovalEntityTypes
+
 ### Community 570 - "CreateDepartmentCommand.cs"
-Cohesion: 0.13
-Nodes (7): OmniFlow.Domain.Common.Exceptions, OmniFlow.Application.Departments.Commands, OmniFlow.Application.Tickets.Commands, string, ApprovalDecisionKind, ApprovalEntityTypes, LeaveRequestConfiguration
+Cohesion: 0.18
+Nodes (4): OmniFlow.Domain.Common.Exceptions, OmniFlow.Application.Departments.Commands, OmniFlow.Application.Tickets.Commands, LeaveRequestConfiguration
 
 ## Knowledge Gaps
 - **210 isolated node(s):** `OmniFlow.Domain`, `OmniFlow.Infrastructure`, `net10.0`, `Microsoft.AspNetCore.OpenApi (10.0.2)`, `Microsoft.EntityFrameworkCore.Design (10.0.9)` (+205 more)
@@ -864,11 +869,11 @@ Nodes (7): OmniFlow.Domain.Common.Exceptions, OmniFlow.Application.Departments.C
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `OmniFlow.Application.Interfaces` connect `Community 9` to `Community 1`, `Community 5`, `Community 7`, `Community 13`, `Community 16`, `Community 19`, `Community 22`, `Community 27`, `Community 30`, `Community 31`, `Community 32`, `Community 40`, `Community 41`, `Community 42`, `Community 43`, `Community 46`, `Community 55`, `Community 56`, `CreateDepartmentCommand.cs`, `Community 60`, `Community 65`?**
+- **Why does `OmniFlow.Application.Interfaces` connect `Community 9` to `Community 1`, `Community 5`, `Community 7`, `Community 13`, `Community 16`, `Community 19`, `Community 22`, `Community 27`, `Community 30`, `Community 31`, `Community 32`, `Community 40`, `Community 41`, `Community 42`, `Community 43`, `Community 46`, `Community 55`, `Community 56`, `CreateDepartmentCommand.cs`, `Community 60`, `Community 65`, `Task`?**
   _High betweenness centrality (0.072) - this node is a cross-community bridge._
-- **Why does `IOmniFlowDbContext` connect `Community 16` to `Community 2`, `Community 6`, `Community 7`, `Community 13`, `Community 19`, `Community 30`, `Community 31`, `Community 33`, `Community 34`, `Community 35`, `Community 40`, `Community 41`, `Community 42`, `Community 45`, `Community 46`, `Community 47`, `Community 54`, `Community 55`, `Community 58`, `CreateDepartmentCommand.cs`, `Community 60`, `Community 61`, `.SaveChangesAsync`, `Community 64`, `Community 65`, `Community 68`, `Community 70`, `UpdateDepartmentCommand`, `Exception`, `HttpContext`, `ILogger`, `RequestDelegate`, `Task`, `CancellationToken`, `Guid`?**
+- **Why does `IOmniFlowDbContext` connect `Community 16` to `Community 2`, `Community 6`, `Community 7`, `Community 13`, `Community 19`, `Community 30`, `Community 31`, `Community 33`, `Community 34`, `Community 35`, `Community 40`, `Community 42`, `Community 45`, `Community 46`, `Community 47`, `Community 54`, `Community 55`, `Community 58`, `CreateDepartmentCommand.cs`, `Community 60`, `Community 61`, `.SaveChangesAsync`, `Community 64`, `Community 65`, `Community 68`, `Community 70`, `UpdateDepartmentCommand`, `Exception`, `HttpContext`, `ILogger`, `RequestDelegate`, `Task`, `CancellationToken`, `Guid`, `Task`?**
   _High betweenness centrality (0.068) - this node is a cross-community bridge._
-- **Why does `OmniFlow.Domain.Entities` connect `Community 2` to `Community 67`, `Community 5`, `Community 9`, `Community 41`, `Community 50`, `Community 19`, `Community 22`, `CreateDepartmentCommand.cs`, `Community 30`, `Community 31`?**
+- **Why does `OmniFlow.Domain.Entities` connect `Community 2` to `Community 67`, `Community 5`, `Community 9`, `Community 41`, `Community 50`, `Task`, `Community 19`, `Community 22`, `CreateDepartmentCommand.cs`, `Community 30`, `Community 31`?**
   _High betweenness centrality (0.066) - this node is a cross-community bridge._
 - **What connects `OmniFlow.Domain`, `OmniFlow.Infrastructure`, `net10.0` to the rest of the system?**
   _210 weakly-connected nodes found - possible documentation gaps or missing edges._
@@ -877,4 +882,4 @@ _Questions this graph is uniquely positioned to answer:_
 - **Should `Community 4` be split into smaller, more focused modules?**
   _Cohesion score 0.047619047619047616 - nodes in this community are weakly interconnected._
 - **Should `Community 5` be split into smaller, more focused modules?**
-  _Cohesion score 0.07394957983193277 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07142857142857142 - nodes in this community are weakly interconnected._
