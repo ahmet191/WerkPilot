@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as signalR from '@microsoft/signalr';
-import { Row, Col, Card, Statistic, Spin } from 'antd';
+import { Row, Col, Statistic, Skeleton } from 'antd';
 import { ContainerOutlined, ExclamationCircleOutlined, FireOutlined, LaptopOutlined } from '@ant-design/icons';
 import { SchemaService } from '../../../services/schema.service';
 import type { UiSchema } from '../../../core/schema.models';
@@ -84,22 +84,63 @@ export const DynamicDashboard: React.FC = () => {
   }, []);
 
   if (loading || !schema) {
-    return <Spin style={{ margin: '50px auto', display: 'block' }} />;
+    // Skeleton stat cards: same geometry as the real ones, no layout shift.
+    return (
+      <div>
+        <Skeleton.Input active size="small" style={{ width: 260, marginBottom: 20 }} />
+        <Row gutter={[16, 16]}>
+          {[0, 1, 2, 3].map(i => (
+            <Col xs={24} sm={12} lg={6} key={i}>
+              <div className="stat-card">
+                <Skeleton active paragraph={{ rows: 1, width: '55%' }} title={{ width: '35%' }} />
+              </div>
+            </Col>
+          ))}
+        </Row>
+      </div>
+    );
   }
 
+  const hour = new Date().getHours();
+  const greetingKey = hour < 12 ? 'dashboard.goodMorning' : hour < 18 ? 'dashboard.goodAfternoon' : 'dashboard.goodEvening';
+  const greetingFallback = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+  const today = new Date().toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' });
+
   return (
-    <div style={{ padding: 24 }}>
+    <div>
+      {/* Greeting header */}
+      <div style={{ marginBottom: 20 }}>
+        <h2 style={{ margin: 0, fontSize: 20, fontWeight: 700, letterSpacing: 0.1 }}>
+          {t(greetingKey, greetingFallback)} 👋
+        </h2>
+        <span style={{ fontSize: 12.5, color: 'var(--text-tertiary)', textTransform: 'capitalize' }}>{today}</span>
+      </div>
+
       <Row gutter={[16, 16]}>
-        {schema.widgets?.map((widget) => (
-          <Col xs={24} sm={12} md={6} key={widget.dataKey}>
-            <Card variant="borderless">
-              <Statistic
-                title={t(widget.titleKey)}
-                value={data[widget.dataKey] || 0}
-                styles={{ content: { color: widget.color } }}
-                prefix={IconMap[widget.icon] || null}
-              />
-            </Card>
+        {schema.widgets?.map((widget, index) => (
+          <Col xs={24} sm={12} lg={6} key={widget.dataKey}>
+            <div
+              className="stat-card card-lift"
+              style={{ animation: `fadeInUp 0.3s ${0.05 * index}s cubic-bezier(0.4,0,0.2,1) both` }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                <span
+                  className="stat-icon-chip"
+                  style={{ background: `linear-gradient(135deg, ${widget.color}, ${widget.color}99)` }}
+                >
+                  {IconMap[widget.icon] || null}
+                </span>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 550, color: 'var(--text-secondary)', letterSpacing: 0.3 }}>
+                    {t(widget.titleKey)}
+                  </div>
+                  <Statistic
+                    value={data[widget.dataKey] || 0}
+                    styles={{ content: { fontSize: 26, fontWeight: 700, lineHeight: 1.2, color: 'var(--text-primary)' } }}
+                  />
+                </div>
+              </div>
+            </div>
           </Col>
         ))}
       </Row>
