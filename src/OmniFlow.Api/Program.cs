@@ -14,6 +14,7 @@ using OmniFlow.Infrastructure.Persistence.Seed;
 using OpenIddict.Abstractions;
 using OpenIddict.Validation.AspNetCore;
 using OpenTelemetry.Metrics;
+using Quartz;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
@@ -236,17 +237,54 @@ builder.Services.AddScoped<ITelegramIdentityService, TelegramIdentityService>();
 builder.Services.AddScoped<IDashboardMetricsService, OmniFlow.Api.Services.DashboardMetricsService>();
 
 // ═══════════════════════════════════════════════════════
-// 6. MassTransit (Event-Driven Design)
+// 6. Quartz (Durable Scheduling)
+// ═══════════════════════════════════════════════════════
+// Persistent job store in PostgreSQL: scheduled work (exact-time SLA breach
+// checks, recurring reconciliation) survives restarts and is cluster-safe —
+// with multiple API nodes only one fires each trigger. Tests can opt out via
+// Quartz:UseInMemoryStore.
+builder.Services.AddQuartz(q =>
+{
+    q.SchedulerName = "omniflow-scheduler";
+    q.SchedulerId = "AUTO"; // unique instance ids so clustering can tell nodes apart
+
+    if (!builder.Configuration.GetValue<bool>("Quartz:UseInMemoryStore"))
+    {
+        q.UsePersistentStore(s =>
+        {
+            s.UseProperties = true;
+            s.UsePostgres(connectionString!);
+            s.UseNewtonsoftJsonSerializer();
+            s.UseClustering();
+        });
+    }
+
+    q.AddJob<OmniFlow.Infrastructure.Scheduling.SlaReconciliationJob>(
+        OmniFlow.Infrastructure.Scheduling.SlaReconciliationJob.Key,
+        j => j.WithDescription("Safety-net sweep for overdue, unnotified SLA tickets"));
+    q.AddTrigger(t => t
+        .ForJob(OmniFlow.Infrastructure.Scheduling.SlaReconciliationJob.Key)
+        .WithIdentity("sla-reconciliation-trigger", "omniflow")
+        .StartAt(DateTimeOffset.UtcNow.AddMinutes(1))
+        .WithSimpleSchedule(s => s.WithIntervalInMinutes(5).RepeatForever()));
+});
+builder.Services.AddQuartzHostedService(o => o.WaitForJobsToComplete = false);
+
+// ═══════════════════════════════════════════════════════
+// 7. MassTransit (Event-Driven Design)
 // ═══════════════════════════════════════════════════════
 builder.Services.AddMassTransit(x =>
 {
-    x.AddDelayedMessageScheduler();
+    // IMessageScheduler.SchedulePublish() routes through the Quartz consumers
+    // below, so schedules land in the persistent Quartz store instead of the
+    // transport's in-memory delay buffer.
+    x.AddPublishMessageScheduler();
+    x.AddQuartzConsumers();
 
     // Transactional outbox: IPublishEndpoint.Publish() writes messages to the
     // OutboxMessage table inside the SAME transaction as SaveChanges. A
     // delivery service then moves them to the bus — a crash between "save" and
-    // "publish" can no longer lose events. Transport stays in-memory for dev;
-    // switching to RabbitMQ later only changes the Using* block.
+    // "publish" can no longer lose events.
     x.AddEntityFrameworkOutbox<OmniFlowDbContext>(o =>
     {
         o.UsePostgres();
@@ -260,18 +298,36 @@ builder.Services.AddMassTransit(x =>
     x.AddConsumer<OmniFlow.Infrastructure.Messaging.Consumers.ApprovalCompletedConsumer>();
     x.AddConsumer<OmniFlow.Infrastructure.Messaging.Consumers.ApprovalStepActivatedConsumer>();
 
-    x.UsingInMemory((context, cfg) =>
+    // Transport is config-selected: RabbitMQ for durable, competing-consumer
+    // delivery in real deployments; in-memory for broker-less local dev and
+    // integration tests (Messaging:Transport).
+    var transport = builder.Configuration["Messaging:Transport"] ?? "InMemory";
+    if (transport.Equals("RabbitMq", StringComparison.OrdinalIgnoreCase))
     {
-        cfg.UseDelayedMessageScheduler();
-        cfg.ConfigureEndpoints(context);
-    });
+        x.UsingRabbitMq((context, cfg) =>
+        {
+            var rmq = builder.Configuration.GetSection("RabbitMq");
+            cfg.Host(rmq["Host"] ?? "localhost", rmq["VirtualHost"] ?? "/", h =>
+            {
+                h.Username(rmq["Username"] ?? "guest");
+                h.Password(rmq["Password"] ?? "guest");
+            });
+            cfg.UsePublishMessageScheduler();
+            cfg.ConfigureEndpoints(context);
+        });
+    }
+    else
+    {
+        x.UsingInMemory((context, cfg) =>
+        {
+            cfg.UsePublishMessageScheduler();
+            cfg.ConfigureEndpoints(context);
+        });
+    }
 });
 
-// Durable SLA breach detection (the in-memory scheduler forgets on restart).
-builder.Services.AddHostedService<OmniFlow.Api.Services.SlaSweepBackgroundService>();
-
 // ═══════════════════════════════════════════════════════
-// 7. ASP.NET Core Services
+// 8. ASP.NET Core Services
 // ═══════════════════════════════════════════════════════
 builder.Services.AddControllers()
     .AddJsonOptions(options => 

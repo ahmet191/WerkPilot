@@ -18,6 +18,19 @@ services:
       timeout: 3s
       retries: 10
 
+  rabbitmq:
+    image: rabbitmq:4-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"   # management UI (guest/guest)
+    volumes:
+      - rabbitmqdata:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
   api:
     build:
       context: .
@@ -26,10 +39,14 @@ services:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: http://+:8080
       ConnectionStrings__DefaultConnection: "Host=postgres;Database=OmniFlowDb;Username=postgres;Password=postgres"
+      Messaging__Transport: RabbitMq
+      RabbitMq__Host: rabbitmq
     ports:
       - "5226:8080"
     depends_on:
       postgres:
+        condition: service_healthy
+      rabbitmq:
         condition: service_healthy
 
   ui:
@@ -42,10 +59,6 @@ services:
       - api
 
   # ── Opt-in infrastructure (uncomment when needed) ──────────────────────
-  # rabbitmq:
-  #   image: rabbitmq:3-management-alpine
-  #   ports: ["5672:5672", "15672:15672"]
-  #
   # otel-collector:
   #   image: otel/opentelemetry-collector:latest
   #   command: ["--config=/etc/otel-collector.yaml"]
@@ -54,3 +67,4 @@ services:
 
 volumes:
   pgdata:
+  rabbitmqdata:
