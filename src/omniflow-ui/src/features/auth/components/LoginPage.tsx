@@ -33,39 +33,19 @@ export const LoginPage: React.FC = () => {
   };
 
   return (
-    <div style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '100vh',
-      background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
-    }}>
-      <Card
-        style={{
-          width: 400,
-          boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
-          borderRadius: 12,
-          padding: '24px 12px'
-        }}
-      >
+    <div className="auth-bg">
+      <Card className="auth-card glass-panel" variant="borderless">
         <Space direction="vertical" style={{ width: '100%', textAlign: 'center', marginBottom: 24 }}>
-          <div style={{
-            width: 48,
-            height: 48,
-            borderRadius: 8,
-            background: 'linear-gradient(135deg, #1890ff 0%, #0050b3 100%)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            margin: '0 auto',
-            color: 'white',
-            fontSize: 24,
-            fontWeight: 'bold'
-          }}>
+          <span
+            className="brand-mark"
+            style={{ width: 52, height: 52, fontSize: 26, margin: '0 auto', borderRadius: 'var(--radius-md)' }}
+          >
             W
-          </div>
-          <Title level={3} style={{ margin: '16px 0 0 0' }}>WerkPilot</Title>
-          <Text type="secondary">Sign in to your workspace</Text>
+          </span>
+          <Title level={3} style={{ margin: '14px 0 0 0', letterSpacing: 0.2 }}>WerkPilot</Title>
+          <Text type="secondary" style={{ letterSpacing: 0.3 }}>
+            {t('auth.subtitle', 'Sign in to your workspace')}
+          </Text>
         </Space>
 
         {error && (

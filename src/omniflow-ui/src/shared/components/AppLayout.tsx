@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Menu, Select, Space, message, Button, Spin } from 'antd';
+import { Layout, Menu, Select, Space, message, Spin, Dropdown, Avatar, Tag, Divider } from 'antd';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import * as Icons from '@ant-design/icons';
 import { useAppTheme } from '../../core/ThemeContext';
@@ -16,11 +16,11 @@ export function AppLayout() {
   const { theme, setTheme } = useAppTheme();
   const { language, setLanguage, t } = useTranslation();
   const { user, logout } = useAuth();
-  
+
   const [collapsed, setCollapsed] = useState(() => {
     return localStorage.getItem('sidebar_collapsed') === 'true';
   });
-  
+
   const [menuData, setMenuData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -111,36 +111,77 @@ export function AppLayout() {
   };
 
   const handleMenuClick = ({ key }: any) => {
-    // If key looks like a path, navigate
     if (key.startsWith('/')) {
       navigate(key);
     }
   };
 
+  const displayName = user?.name && user.name !== user.email ? user.name : (user?.email?.split('@')[0] ?? 'User');
+  const initials = displayName.slice(0, 2).toUpperCase();
+  const primaryRole = (user?.roles ?? [])[0];
+
+  const userMenuItems = [
+    {
+      key: 'identity',
+      disabled: true,
+      label: (
+        <div style={{ padding: '4px 4px 6px', minWidth: 200, cursor: 'default' }}>
+          <div style={{ fontWeight: 650, fontSize: 13, color: 'var(--text-primary)' }}>{displayName}</div>
+          <div style={{ fontSize: 12, color: 'var(--text-secondary)', marginBottom: 6 }}>{user?.email}</div>
+          <Space size={4} wrap>
+            {(user?.roles ?? []).map(role => (
+              <Tag key={role} style={{ fontSize: 10, lineHeight: '16px', margin: 0 }}>{role}</Tag>
+            ))}
+          </Space>
+        </div>
+      ),
+    },
+    { type: 'divider' as const },
+    {
+      key: 'logout',
+      icon: <Icons.LogoutOutlined />,
+      danger: true,
+      label: t('auth.signout', 'Sign out'),
+      onClick: logout,
+    },
+  ];
+
   return (
     <Layout className="app-layout" style={{ minHeight: '100vh' }}>
-      <Sider 
-        width={250} 
+      <Sider
+        width={250}
         className="sidebar"
-        collapsible 
-        collapsed={collapsed} 
+        collapsible
+        collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
         theme={theme === 'light' ? 'light' : 'dark'}
       >
-        <div style={{ 
-          height: 64, 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center',
-          fontWeight: 'bold', 
-          fontSize: collapsed ? 24 : 20, 
-          color: 'var(--accent-color)', 
-          borderBottom: '1px solid var(--border-color)',
-          transition: 'all 0.2s'
-        }}>
-          {collapsed ? <Icons.ApiOutlined /> : 'WerkPilot'}
+        {/* Brand block */}
+        <div
+          style={{
+            height: 64,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: collapsed ? 'center' : 'flex-start',
+            gap: 10,
+            padding: collapsed ? 0 : '0 18px',
+            borderBottom: '1px solid var(--border-color)',
+            transition: 'all 0.2s',
+          }}
+        >
+          <span className="brand-mark" style={{ width: 30, height: 30, fontSize: 15 }}>W</span>
+          {!collapsed && (
+            <span style={{ lineHeight: 1.15 }}>
+              <span style={{ display: 'block', fontWeight: 750, fontSize: 16, letterSpacing: 0.2, color: 'var(--text-primary)' }}>
+                WerkPilot
+              </span>
+              <span style={{ display: 'block', fontSize: 10, letterSpacing: 1.6, textTransform: 'uppercase', color: 'var(--text-tertiary)' }}>
+                ESM Platform
+              </span>
+            </span>
+          )}
         </div>
-        
+
         {loading ? (
           <div style={{ textAlign: 'center', padding: '20px' }}><Spin /></div>
         ) : (
@@ -154,25 +195,29 @@ export function AppLayout() {
           />
         )}
       </Sider>
-      
+
       <Layout className="main-content">
-        <Header className="top-header" style={{ background: 'var(--bg-panel)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 24px' }}>
+        <Header
+          className="top-header"
+          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 20px', background: 'transparent' }}
+        >
           <div>
             {React.createElement(collapsed ? Icons.MenuUnfoldOutlined : Icons.MenuFoldOutlined, {
               className: 'trigger',
               onClick: () => setCollapsed(!collapsed),
-              style: { fontSize: '18px', cursor: 'pointer' }
+              style: { fontSize: '17px', cursor: 'pointer', color: 'var(--text-secondary)' }
             })}
           </div>
-          <Space size="middle">
+          <Space size="middle" align="center">
             {/* Theme Switcher */}
-            <Space size="small" style={{ fontSize: 12 }}>
-              <Icons.BgColorsOutlined style={{ color: 'var(--text-secondary)' }} />
+            <Space size={6} style={{ fontSize: 12 }}>
+              <Icons.BgColorsOutlined style={{ color: 'var(--text-tertiary)' }} />
               <Select
                 size="small"
+                variant="borderless"
                 value={theme}
                 onChange={(val) => setTheme(val as AppTheme)}
-                style={{ width: 110 }}
+                style={{ width: 108 }}
                 options={[
                   { value: 'light', label: 'Light' },
                   { value: 'dark', label: 'Dark' },
@@ -182,13 +227,14 @@ export function AppLayout() {
             </Space>
 
             {/* Language Switcher */}
-            <Space size="small" style={{ fontSize: 12 }}>
-              <Icons.TranslationOutlined style={{ color: 'var(--text-secondary)' }} />
+            <Space size={6} style={{ fontSize: 12 }}>
+              <Icons.GlobalOutlined style={{ color: 'var(--text-tertiary)' }} />
               <Select
                 size="small"
+                variant="borderless"
                 value={language}
                 onChange={setLanguage}
-                style={{ width: 90 }}
+                style={{ width: 92 }}
                 options={[
                   { value: 'en-US', label: 'English' },
                   { value: 'tr-TR', label: 'Türkçe' },
@@ -196,23 +242,36 @@ export function AppLayout() {
               />
             </Space>
 
-            {/* User Profile & Logout */}
-            <Space size="small" style={{ marginLeft: 16 }}>
-              <span style={{ fontSize: 13, color: 'var(--text-secondary)', marginRight: 8 }}>
-                {user?.email}
+            <Divider type="vertical" style={{ height: 22, margin: 0 }} />
+
+            {/* User chip → dropdown */}
+            <Dropdown menu={{ items: userMenuItems }} trigger={['click']} placement="bottomRight">
+              <span className="user-chip">
+                <Avatar size={28} style={{ background: 'var(--accent-gradient)', fontWeight: 650, fontSize: 12 }}>
+                  {initials}
+                </Avatar>
+                <span style={{ lineHeight: 1.1, textAlign: 'left' }}>
+                  <span style={{ display: 'block', fontSize: 12.5, fontWeight: 600, color: 'var(--text-primary)' }}>
+                    {displayName}
+                  </span>
+                  {primaryRole && (
+                    <span style={{ display: 'block', fontSize: 10.5, color: 'var(--text-tertiary)' }}>
+                      {primaryRole}
+                    </span>
+                  )}
+                </span>
+                <Icons.DownOutlined style={{ fontSize: 9, color: 'var(--text-tertiary)' }} />
               </span>
-              <Button 
-                type="text" 
-                size="small" 
-                icon={<Icons.LogoutOutlined />} 
-                onClick={logout}
-                title="Logout"
-              />
-            </Space>
+            </Dropdown>
           </Space>
         </Header>
-        <Content className="page-content" style={{ margin: '24px', background: 'var(--bg-panel)', borderRadius: '8px', overflow: 'hidden' }}>
-          <Outlet />
+
+        {/* Transparent shell: pages bring their own cards. The key re-triggers
+            the fade-in on every route change. */}
+        <Content className="page-content">
+          <div key={location.pathname} className="page-fade-in">
+            <Outlet />
+          </div>
         </Content>
       </Layout>
     </Layout>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { Table, Button, Input, Space, Tooltip, Select, Tag, Divider } from 'antd';
+import { Table, Button, Input, Space, Tooltip, Select, Tag, Divider, Empty } from 'antd';
 import type { ColumnsType, TableProps } from 'antd/es/table';
 import {
   ReloadOutlined,
@@ -284,28 +284,34 @@ export function EnterpriseDataGrid<T extends { id?: string | number }>({
 
   return (
     <div className="enterprise-grid">
-      {/* ── Toolbar: title, selection info, data actions, search ── */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: 8,
-          padding: '8px 12px',
-          borderBottom: '1px solid var(--border-color)',
-          background: 'var(--bg-dark)',
-        }}
-      >
+      {/* ── Toolbar: title, selection info, data actions, search ──
+           Every control here is functional (server-side sort/filter/search,
+           grouping, selection-aware actions) — styling must never remove one. */}
+      <div className="grid-toolbar">
         <Space size="small" wrap>
-          <h3 style={{ margin: 0, fontSize: 14, fontWeight: 600 }}>{title}</h3>
+          <h3 className="grid-title">{title}</h3>
           {selectedRowKeys.length > 0 && (
-            <Tag color="blue">{t('grid.selected', selectedRowKeys.length)}</Tag>
-          )}
-          {activeFilterCount > 0 && (
-            <Tag closable onClose={() => { setFilters({}); setPage(1); }}>
-              {activeFilterCount} {t('grid.activeFilters', 'filter(s)')}
+            <Tag color="blue" style={{ borderRadius: 999 }}>
+              {t('grid.selected', selectedRowKeys.length)}
             </Tag>
+          )}
+          {/* One chip per active column filter — visible, individually removable. */}
+          {Object.entries(filters).map(([field, value]) => (
+            <Tag
+              key={field}
+              closable
+              onClose={() => applyColumnFilter(field, '')}
+              icon={<FilterFilled style={{ fontSize: 10 }} />}
+              style={{ borderRadius: 999 }}
+            >
+              {field}: {value}
+            </Tag>
+          ))}
+          {activeFilterCount > 1 && (
+            <Button type="link" size="small" style={{ padding: 0, fontSize: 12 }}
+              onClick={() => { setFilters({}); setPage(1); }}>
+              {t('grid.clearFilters', 'Clear all')}
+            </Button>
           )}
         </Space>
 
@@ -364,10 +370,25 @@ export function EnterpriseDataGrid<T extends { id?: string | number }>({
       <Table<T>
         size="small"
         rowKey="id"
-        scroll={{ y: 'calc(100vh - 240px)' }}
+        scroll={{ x: 'max-content', y: 'calc(100vh - 240px)' }}
         dataSource={groupedData}
         columns={decoratedColumns}
         loading={loading}
+        locale={{
+          emptyText: (
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              styles={{ image: { height: 52 } }}
+              description={
+                <span style={{ color: 'var(--text-tertiary)' }}>
+                  {activeFilterCount > 0 || search
+                    ? t('grid.noMatches', 'No records match your filters')
+                    : t('grid.noData', 'No data')}
+                </span>
+              }
+            />
+          ),
+        }}
         expandable={groupBy ? {
           expandedRowKeys: expandedGroupKeys,
           onExpandedRowsChange: keys => setExpandedGroupKeys(keys),

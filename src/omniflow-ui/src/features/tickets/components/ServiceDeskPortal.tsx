@@ -25,27 +25,38 @@ export const ServiceDeskPortal: React.FC = () => {
     }
 
     return (
-        <div style={{ padding: '24px' }}>
-            <Title level={2}>Service Desk Portal</Title>
-            <Text type="secondary" style={{ display: 'block', marginBottom: '24px' }}>
-                Select a service desk to request help or services.
-            </Text>
-            
-            <Row gutter={[24, 24]}>
-                {desks.map((desk: any) => (
+        <div>
+            <div style={{ marginBottom: 22 }}>
+                <Title level={3} style={{ margin: 0, fontWeight: 700 }}>Service Desk Portal</Title>
+                <Text type="secondary">Select a service desk to request help or services.</Text>
+            </div>
+
+            <Row gutter={[20, 20]}>
+                {desks.map((desk: any, index: number) => (
                     <Col xs={24} sm={12} md={8} lg={6} key={desk.id}>
-                        <Card 
-                            hoverable
-                            style={{ height: '100%', borderRadius: '12px' }}
+                        <Card
+                            className="card-lift"
+                            style={{
+                                height: '100%',
+                                borderRadius: 'var(--radius-md)',
+                                animation: `fadeInUp 0.3s ${0.05 * index}s cubic-bezier(0.4,0,0.2,1) both`,
+                            }}
                             actions={[
                                 <Link to={`/servicedesk/${desk.id}/tickets`} key="enter">
                                     <Button type="primary" icon={<ArrowRightOutlined />}>Enter Desk</Button>
                                 </Link>
                             ]}
                         >
-                            <Card.Meta 
-                                avatar={<AppstoreOutlined style={{ fontSize: '24px', color: '#1890ff' }} />}
-                                title={desk.name}
+                            <Card.Meta
+                                avatar={
+                                    <span
+                                        className="stat-icon-chip"
+                                        style={{ width: 40, height: 40, fontSize: 18, background: 'var(--accent-gradient)' }}
+                                    >
+                                        <AppstoreOutlined />
+                                    </span>
+                                }
+                                title={<span style={{ fontWeight: 650 }}>{desk.name}</span>}
                                 description={desk.description || 'No description available.'}
                             />
                         </Card>

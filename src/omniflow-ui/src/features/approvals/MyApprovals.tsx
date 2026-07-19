@@ -121,22 +121,13 @@ export function MyApprovals() {
 
   return (
     <div className="enterprise-grid">
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          padding: '8px 12px',
-          borderBottom: '1px solid var(--border-color)',
-          background: 'var(--bg-dark)',
-        }}
-      >
+      <div className="grid-toolbar">
         <Space>
-          <AuditOutlined />
-          <h3 style={{ margin: 0, fontSize: 14, fontWeight: 600 }}>
+          <AuditOutlined style={{ color: 'var(--accent-color)' }} />
+          <h3 className="grid-title">
             {t('approvals.title', 'My Approvals')}
           </h3>
-          {items.length > 0 && <Tag color="gold">{items.length}</Tag>}
+          {items.length > 0 && <Tag color="gold" style={{ borderRadius: 999 }}>{items.length}</Tag>}
         </Space>
         <Tooltip title={t('grid.refresh', 'Refresh')}>
           <Button size="small" icon={<ReloadOutlined />} onClick={load} loading={loading} />
