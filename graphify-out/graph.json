@@ -44,14 +44,14 @@
       "norm_label": "omniflow.domain"
     },
     {
-      "label": "OmniFlow.Infrastructure",
+      "label": "OmniFlow.Infrastructure.csproj",
       "file_type": "code",
       "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
       "source_location": null,
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_omniflow_infrastructure",
       "community": 17,
-      "norm_label": "omniflow.infrastructure"
+      "norm_label": "omniflow.infrastructure.csproj"
     },
     {
       "label": "OmniFlow.Application.UnitTests.csproj",
@@ -441,7 +441,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_assetscontroller_omniflow_api_controllers_assetscontroller_assign",
-      "community": 50,
+      "community": 222,
       "norm_label": ".assign()"
     },
     {
@@ -997,7 +997,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_dashboardcontroller_cs",
-      "community": 16,
+      "community": 6,
       "norm_label": "dashboardcontroller.cs"
     },
     {
@@ -1095,7 +1095,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_departmentscontroller_omniflow_api_controllers_departmentscontroller",
-      "community": 80,
+      "community": 7,
       "norm_label": "departmentscontroller"
     },
     {
@@ -1121,7 +1121,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_departmentscontroller_omniflow_api_controllers_departmentscontroller_get",
-      "community": 80,
+      "community": 7,
       "norm_label": ".get()"
     },
     {
@@ -1167,7 +1167,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_departmentscontroller_omniflow_api_controllers_departmentscontroller_create",
-      "community": 80,
+      "community": 7,
       "norm_label": ".create()"
     },
     {
@@ -1229,7 +1229,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_departmentscontroller_omniflow_api_controllers_departmentscontroller_delete",
-      "community": 80,
+      "community": 7,
       "norm_label": ".delete()"
     },
     {
@@ -1337,7 +1337,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_expenseclaimscontroller_cs",
-      "community": 6,
+      "community": 9,
       "norm_label": "expenseclaimscontroller.cs"
     },
     {
@@ -1353,7 +1353,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_expenseclaimscontroller_omniflow_api_controllers_expenseclaimscontroller",
-      "community": 6,
+      "community": 9,
       "norm_label": "expenseclaimscontroller"
     },
     {
@@ -1369,7 +1369,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_expenseclaimscontroller_omniflow_api_controllers_expenseclaimscontroller_get",
-      "community": 6,
+      "community": 9,
       "norm_label": ".get()"
     },
     {
@@ -1517,7 +1517,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_leaverequestscontroller_cs",
-      "community": 40,
+      "community": 242,
       "norm_label": "leaverequestscontroller.cs"
     },
     {
@@ -1533,7 +1533,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_leaverequestscontroller_omniflow_api_controllers_leaverequestscontroller",
-      "community": 40,
+      "community": 242,
       "norm_label": "leaverequestscontroller"
     },
     {
@@ -1559,7 +1559,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_leaverequestscontroller_omniflow_api_controllers_leaverequestscontroller_getmyleaves",
-      "community": 40,
+      "community": 242,
       "norm_label": ".getmyleaves()"
     },
     {
@@ -1605,7 +1605,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_leaverequestscontroller_omniflow_api_controllers_leaverequestscontroller_create",
-      "community": 40,
+      "community": 242,
       "norm_label": ".create()"
     },
     {
@@ -1631,7 +1631,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_leaverequestscontroller_omniflow_api_controllers_leaverequestscontroller_approve",
-      "community": 40,
+      "community": 242,
       "norm_label": ".approve()"
     },
     {
@@ -1671,7 +1671,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_localizationcontroller",
-      "community": 57,
+      "community": 6,
       "norm_label": "localizationcontroller.cs"
     },
     {
@@ -1687,7 +1687,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_localizationcontroller_omniflow_api_controllers_localizationcontroller",
-      "community": 57,
+      "community": 6,
       "norm_label": "localizationcontroller"
     },
     {
@@ -1697,7 +1697,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_localizationcontroller_cs_dictionary",
-      "community": 57,
+      "community": 6,
       "norm_label": "dictionary"
     },
     {
@@ -1713,7 +1713,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_localizationcontroller_omniflow_api_controllers_localizationcontroller_gettranslations",
-      "community": 57,
+      "community": 6,
       "norm_label": ".gettranslations()"
     },
     {
@@ -1723,7 +1723,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_localizationcontroller_cs_iactionresult",
-      "community": 57,
+      "community": 6,
       "norm_label": "iactionresult"
     },
     {
@@ -1733,7 +1733,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_localizationcontroller_cs_httpget",
-      "community": 57,
+      "community": 6,
       "norm_label": "httpget"
     },
     {
@@ -1743,7 +1743,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_lookupcontroller_cs",
-      "community": 60,
+      "community": 48,
       "norm_label": "lookupcontroller.cs"
     },
     {
@@ -1759,7 +1759,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_lookupcontroller_omniflow_api_controllers_lookupcontroller",
-      "community": 60,
+      "community": 48,
       "norm_label": "lookupcontroller"
     },
     {
@@ -1775,7 +1775,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_lookupcontroller_omniflow_api_controllers_lookupcontroller_getusers",
-      "community": 60,
+      "community": 48,
       "norm_label": ".getusers()"
     },
     {
@@ -1821,7 +1821,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_lookupcontroller_omniflow_api_controllers_lookupcontroller_getdepartments",
-      "community": 60,
+      "community": 48,
       "norm_label": ".getdepartments()"
     },
     {
@@ -1837,7 +1837,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_lookupcontroller_omniflow_api_controllers_lookupcontroller_getcategories",
-      "community": 60,
+      "community": 48,
       "norm_label": ".getcategories()"
     },
     {
@@ -1853,7 +1853,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_lookupcontroller_omniflow_api_controllers_lookupcontroller_getmenus",
-      "community": 60,
+      "community": 48,
       "norm_label": ".getmenus()"
     },
     {
@@ -1869,7 +1869,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_lookupcontroller_omniflow_api_controllers_lookupcontroller_getleavetypes",
-      "community": 60,
+      "community": 48,
       "norm_label": ".getleavetypes()"
     },
     {
@@ -1879,7 +1879,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_menucontroller_cs",
-      "community": 31,
+      "community": 6,
       "norm_label": "menucontroller.cs"
     },
     {
@@ -1895,7 +1895,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_menucontroller_omniflow_api_controllers_menucontroller",
-      "community": 31,
+      "community": 6,
       "norm_label": "menucontroller"
     },
     {
@@ -1921,7 +1921,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_menucontroller_omniflow_api_controllers_menucontroller_getmenu",
-      "community": 31,
+      "community": 6,
       "norm_label": ".getmenu()"
     },
     {
@@ -2153,7 +2153,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_slaconfigurationscontroller_cs",
-      "community": 64,
+      "community": 48,
       "norm_label": "slaconfigurationscontroller.cs"
     },
     {
@@ -2169,7 +2169,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_slaconfigurationscontroller_omniflow_api_controllers_slaconfigurationscontroller",
-      "community": 64,
+      "community": 48,
       "norm_label": "slaconfigurationscontroller"
     },
     {
@@ -2185,7 +2185,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_slaconfigurationscontroller_omniflow_api_controllers_slaconfigurationscontroller_get",
-      "community": 64,
+      "community": 48,
       "norm_label": ".get()"
     },
     {
@@ -2231,7 +2231,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_slaconfigurationscontroller_omniflow_api_controllers_slaconfigurationscontroller_create",
-      "community": 64,
+      "community": 48,
       "norm_label": ".create()"
     },
     {
@@ -2267,7 +2267,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_slaconfigurationscontroller_omniflow_api_controllers_slaconfigurationscontroller_update",
-      "community": 64,
+      "community": 48,
       "norm_label": ".update()"
     },
     {
@@ -2303,7 +2303,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_slaconfigurationscontroller_omniflow_api_controllers_slaconfigurationscontroller_delete",
-      "community": 64,
+      "community": 48,
       "norm_label": ".delete()"
     },
     {
@@ -2323,7 +2323,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_telegramwebhookcontroller_cs",
-      "community": 27,
+      "community": 53,
       "norm_label": "telegramwebhookcontroller.cs"
     },
     {
@@ -2339,7 +2339,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_telegramwebhookcontroller_omniflow_api_controllers_telegramwebhookcontroller",
-      "community": 27,
+      "community": 53,
       "norm_label": "telegramwebhookcontroller"
     },
     {
@@ -2365,7 +2365,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_telegramwebhookcontroller_omniflow_api_controllers_telegramwebhookcontroller_handleupdate",
-      "community": 27,
+      "community": 53,
       "norm_label": ".handleupdate()"
     },
     {
@@ -2431,7 +2431,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_templatescontroller_omniflow_api_controllers_templatescontroller",
-      "community": 61,
+      "community": 48,
       "norm_label": "templatescontroller"
     },
     {
@@ -2447,7 +2447,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_templatescontroller_omniflow_api_controllers_templatescontroller_create",
-      "community": 61,
+      "community": 48,
       "norm_label": ".create()"
     },
     {
@@ -2503,7 +2503,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_templatescontroller_omniflow_api_controllers_templatescontroller_getall",
-      "community": 61,
+      "community": 48,
       "norm_label": ".getall()"
     },
     {
@@ -2529,7 +2529,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_templatescontroller_omniflow_api_controllers_templatescontroller_getbyid",
-      "community": 61,
+      "community": 48,
       "norm_label": ".getbyid()"
     },
     {
@@ -2565,7 +2565,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_templatescontroller_omniflow_api_controllers_templatescontroller_update",
-      "community": 61,
+      "community": 48,
       "norm_label": ".update()"
     },
     {
@@ -2591,7 +2591,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_templatescontroller_omniflow_api_controllers_templatescontroller_delete",
-      "community": 61,
+      "community": 48,
       "norm_label": ".delete()"
     },
     {
@@ -2611,7 +2611,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_ticketscontroller_cs",
-      "community": 30,
+      "community": 54,
       "norm_label": "ticketscontroller.cs"
     },
     {
@@ -2627,7 +2627,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_ticketscontroller_omniflow_api_controllers_ticketscontroller",
-      "community": 30,
+      "community": 54,
       "norm_label": "ticketscontroller"
     },
     {
@@ -2653,7 +2653,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_ticketscontroller_omniflow_api_controllers_ticketscontroller_getlist",
-      "community": 30,
+      "community": 54,
       "norm_label": ".getlist()"
     },
     {
@@ -2699,7 +2699,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_ticketscontroller_omniflow_api_controllers_ticketscontroller_create",
-      "community": 30,
+      "community": 54,
       "norm_label": ".create()"
     },
     {
@@ -2725,7 +2725,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_ticketscontroller_omniflow_api_controllers_ticketscontroller_transition",
-      "community": 30,
+      "community": 54,
       "norm_label": ".transition()"
     },
     {
@@ -2751,7 +2751,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_ticketscontroller_omniflow_api_controllers_ticketscontroller_assign",
-      "community": 30,
+      "community": 54,
       "norm_label": ".assign()"
     },
     {
@@ -2767,7 +2767,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_ticketscontroller_omniflow_api_controllers_ticketscontroller_addcomment",
-      "community": 30,
+      "community": 54,
       "norm_label": ".addcomment()"
     },
     {
@@ -2783,7 +2783,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_ticketscontroller_omniflow_api_controllers_ticketscontroller_getdetails",
-      "community": 30,
+      "community": 54,
       "norm_label": ".getdetails()"
     },
     {
@@ -2809,7 +2809,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_ticketscontroller_omniflow_api_controllers_ticketscontroller_getbyrequester",
-      "community": 30,
+      "community": 54,
       "norm_label": ".getbyrequester()"
     },
     {
@@ -2835,7 +2835,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_ticketscontroller_omniflow_api_controllers_ticketscontroller_getbyservicedesk",
-      "community": 30,
+      "community": 54,
       "norm_label": ".getbyservicedesk()"
     },
     {
@@ -2851,7 +2851,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_ticketscontroller_omniflow_api_controllers_transitionrequest",
-      "community": 30,
+      "community": 54,
       "norm_label": "transitionrequest"
     },
     {
@@ -2867,7 +2867,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_ticketscontroller_omniflow_api_controllers_assignrequest",
-      "community": 30,
+      "community": 54,
       "norm_label": "assignrequest"
     },
     {
@@ -2883,7 +2883,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_ticketscontroller_omniflow_api_controllers_commentrequest",
-      "community": 30,
+      "community": 54,
       "norm_label": "commentrequest"
     },
     {
@@ -2893,7 +2893,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_uischemacontroller_cs",
-      "community": 6,
+      "community": 9,
       "norm_label": "uischemacontroller.cs"
     },
     {
@@ -3821,7 +3821,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_omniflow_api_csproj",
-      "community": 11,
+      "community": 22,
       "norm_label": "omniflow.api.csproj"
     },
     {
@@ -3831,7 +3831,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "src_omniflow_api_omniflow_api_csproj_framework_net10_0",
-      "community": 11,
+      "community": 22,
       "norm_label": "net10.0"
     },
     {
@@ -3841,7 +3841,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_microsoft_aspnetcore_openapi",
-      "community": 11,
+      "community": 22,
       "norm_label": "microsoft.aspnetcore.openapi (10.0.2)"
     },
     {
@@ -3851,7 +3851,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_microsoft_entityframeworkcore_design",
-      "community": 11,
+      "community": 22,
       "norm_label": "microsoft.entityframeworkcore.design (10.0.9)"
     },
     {
@@ -3861,7 +3861,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_opentelemetry_exporter_opentelemetryprotocol",
-      "community": 11,
+      "community": 22,
       "norm_label": "opentelemetry.exporter.opentelemetryprotocol (1.16.0)"
     },
     {
@@ -3871,7 +3871,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_opentelemetry_extensions_hosting",
-      "community": 11,
+      "community": 22,
       "norm_label": "opentelemetry.extensions.hosting (1.16.0)"
     },
     {
@@ -3881,7 +3881,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_opentelemetry_instrumentation_aspnetcore",
-      "community": 11,
+      "community": 22,
       "norm_label": "opentelemetry.instrumentation.aspnetcore (1.16.0)"
     },
     {
@@ -3891,7 +3891,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_opentelemetry_instrumentation_entityframeworkcore",
-      "community": 11,
+      "community": 22,
       "norm_label": "opentelemetry.instrumentation.entityframeworkcore (1.16.0-beta.1)"
     },
     {
@@ -3901,7 +3901,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_opentelemetry_instrumentation_http",
-      "community": 11,
+      "community": 22,
       "norm_label": "opentelemetry.instrumentation.http (1.16.0)"
     },
     {
@@ -3911,7 +3911,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_serilog_aspnetcore",
-      "community": 11,
+      "community": 22,
       "norm_label": "serilog.aspnetcore (10.0.0)"
     },
     {
@@ -3921,7 +3921,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_swashbuckle_aspnetcore",
-      "community": 11,
+      "community": 22,
       "norm_label": "swashbuckle.aspnetcore (10.2.3)"
     },
     {
@@ -3931,7 +3931,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_omniflow_infrastructure_csproj",
-      "community": 11,
+      "community": 22,
       "norm_label": "omniflow.infrastructure.csproj"
     },
     {
@@ -3941,7 +3941,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "sdk_microsoft_net_sdk_web",
-      "community": 11,
+      "community": 22,
       "norm_label": "microsoft.net.sdk.web"
     },
     {
@@ -3951,17 +3951,17 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_api_program",
-      "community": 22,
+      "community": 49,
       "norm_label": "program.cs"
     },
     {
       "label": "Program",
       "file_type": "code",
       "source_file": "src/OmniFlow.Api/Program.cs",
-      "source_location": "L407",
+      "source_location": "L463",
       "_origin": "ast",
       "id": "src_omniflow_api_program_program",
-      "community": 22,
+      "community": 10,
       "norm_label": "program"
     },
     {
@@ -4162,7 +4162,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_dashboardmetricsservice_omniflow_api_services_dashboardmetricsservice",
-      "community": 69,
+      "community": 1,
       "norm_label": "dashboardmetricsservice"
     },
     {
@@ -4172,7 +4172,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "ihubcontext",
-      "community": 69,
+      "community": 1,
       "norm_label": "ihubcontext"
     },
     {
@@ -4188,7 +4188,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_dashboardmetricsservice_omniflow_api_services_dashboardmetricsservice_broadcastmetricupdateasync",
-      "community": 69,
+      "community": 1,
       "norm_label": ".broadcastmetricupdateasync()"
     },
     {
@@ -4302,124 +4302,6 @@
       "id": "healthcheckresult",
       "community": 67,
       "norm_label": "healthcheckresult"
-    },
-    {
-      "label": "SlaSweepBackgroundService.cs",
-      "file_type": "code",
-      "source_file": "src/OmniFlow.Api/Services/SlaSweepBackgroundService.cs",
-      "source_location": "L1",
-      "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_cs",
-      "community": 56,
-      "norm_label": "slasweepbackgroundservice.cs"
-    },
-    {
-      "label": "SlaSweepBackgroundService",
-      "file_type": "code",
-      "source_file": "src/OmniFlow.Api/Services/SlaSweepBackgroundService.cs",
-      "source_location": "L16",
-      "metadata": {
-        "namespace": "OmniFlow.Api.Services",
-        "scope_chain": [
-          "s159"
-        ]
-      },
-      "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_omniflow_api_services_slasweepbackgroundservice",
-      "community": 53,
-      "norm_label": "slasweepbackgroundservice"
-    },
-    {
-      "label": "BackgroundService",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "backgroundservice",
-      "community": 53,
-      "norm_label": "backgroundservice"
-    },
-    {
-      "label": "TimeSpan",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_cs_timespan",
-      "community": 62,
-      "norm_label": "timespan"
-    },
-    {
-      "label": "IServiceScopeFactory",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "iservicescopefactory",
-      "community": 53,
-      "norm_label": "iservicescopefactory"
-    },
-    {
-      "label": "ILogger",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_cs_ilogger",
-      "community": 228,
-      "norm_label": "ilogger"
-    },
-    {
-      "label": ".ExecuteAsync()",
-      "file_type": "code",
-      "source_file": "src/OmniFlow.Api/Services/SlaSweepBackgroundService.cs",
-      "source_location": "L29",
-      "metadata": {
-        "namespace": "OmniFlow.Api.Services",
-        "scope_chain": [
-          "s159"
-        ]
-      },
-      "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_omniflow_api_services_slasweepbackgroundservice_executeasync",
-      "community": 53,
-      "norm_label": ".executeasync()"
-    },
-    {
-      "label": "CancellationToken",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_cs_cancellationtoken",
-      "community": 227,
-      "norm_label": "cancellationtoken"
-    },
-    {
-      "label": "Task",
-      "file_type": "code",
-      "source_file": "",
-      "source_location": "",
-      "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_cs_task",
-      "community": 229,
-      "norm_label": "task"
-    },
-    {
-      "label": ".SweepAsync()",
-      "file_type": "code",
-      "source_file": "src/OmniFlow.Api/Services/SlaSweepBackgroundService.cs",
-      "source_location": "L50",
-      "metadata": {
-        "namespace": "OmniFlow.Api.Services",
-        "scope_chain": [
-          "s159"
-        ]
-      },
-      "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_omniflow_api_services_slasweepbackgroundservice_sweepasync",
-      "community": 53,
-      "norm_label": ".sweepasync()"
     },
     {
       "label": "TelegramWebhookRegistrationService.cs",
@@ -4546,7 +4428,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_tenantservice_cs",
-      "community": 55,
+      "community": 43,
       "norm_label": "tenantservice.cs"
     },
     {
@@ -4562,7 +4444,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_tenantservice_omniflow_api_services_tenantservice",
-      "community": 55,
+      "community": 43,
       "norm_label": "tenantservice"
     },
     {
@@ -4608,7 +4490,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_tenantservice_omniflow_api_services_tenantservice_settenantid",
-      "community": 55,
+      "community": 43,
       "norm_label": ".settenantid()"
     },
     {
@@ -4664,7 +4546,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_approvals_approvalrequestbuilder",
-      "community": 41,
+      "community": 16,
       "norm_label": "approvalrequestbuilder.cs"
     },
     {
@@ -4679,7 +4561,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:a5df101b5726436f",
-      "community": 41,
+      "community": 16,
       "norm_label": "omniflow.application.approvals"
     },
     {
@@ -4818,7 +4700,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "irequest",
-      "community": 35,
+      "community": 220,
       "norm_label": "irequest"
     },
     {
@@ -4844,7 +4726,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "abstractvalidator",
-      "community": 40,
+      "community": 240,
       "norm_label": "abstractvalidator"
     },
     {
@@ -4870,7 +4752,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "irequesthandler",
-      "community": 240,
+      "community": 241,
       "norm_label": "irequesthandler"
     },
     {
@@ -5081,7 +4963,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_approvals_queries_getmypendingapprovalsquery_cs",
-      "community": 219,
+      "community": 13,
       "norm_label": "getmypendingapprovalsquery.cs"
     },
     {
@@ -5097,7 +4979,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_approvals_queries_getmypendingapprovalsquery_omniflow_application_approvals_queries_pendingapprovaldto",
-      "community": 219,
+      "community": 13,
       "norm_label": "pendingapprovaldto"
     },
     {
@@ -5133,7 +5015,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_approvals_queries_getmypendingapprovalsquery_omniflow_application_approvals_queries_getmypendingapprovalsquery",
-      "community": 219,
+      "community": 13,
       "norm_label": "getmypendingapprovalsquery"
     },
     {
@@ -5159,7 +5041,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_approvals_queries_getmypendingapprovalsquery_omniflow_application_approvals_queries_getmypendingapprovalsqueryhandler",
-      "community": 219,
+      "community": 13,
       "norm_label": "getmypendingapprovalsqueryhandler"
     },
     {
@@ -5175,7 +5057,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_approvals_queries_getmypendingapprovalsquery_omniflow_application_approvals_queries_getmypendingapprovalsqueryhandler_handle",
-      "community": 219,
+      "community": 13,
       "norm_label": ".handle()"
     },
     {
@@ -5318,7 +5200,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_createassetcommand",
-      "community": 54,
+      "community": 222,
       "norm_label": "createassetcommand.cs"
     },
     {
@@ -5334,7 +5216,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_createassetcommand_omniflow_application_assets_commands_createassetcommand",
-      "community": 54,
+      "community": 222,
       "norm_label": "createassetcommand"
     },
     {
@@ -5344,7 +5226,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_createassetcommand_cs_guid",
-      "community": 54,
+      "community": 222,
       "norm_label": "guid"
     },
     {
@@ -5360,7 +5242,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_createassetcommand_omniflow_application_assets_commands_createassetcommandhandler",
-      "community": 54,
+      "community": 222,
       "norm_label": "createassetcommandhandler"
     },
     {
@@ -5376,7 +5258,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_createassetcommand_omniflow_application_assets_commands_createassetcommandhandler_handle",
-      "community": 54,
+      "community": 222,
       "norm_label": ".handle()"
     },
     {
@@ -5386,7 +5268,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_createassetcommand_cs_cancellationtoken",
-      "community": 54,
+      "community": 222,
       "norm_label": "cancellationtoken"
     },
     {
@@ -5396,7 +5278,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_createassetcommand_cs_task",
-      "community": 54,
+      "community": 222,
       "norm_label": "task"
     },
     {
@@ -5582,7 +5464,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_assets_queries_getassetsquery_cs",
-      "community": 65,
+      "community": 222,
       "norm_label": "getassetsquery.cs"
     },
     {
@@ -5613,7 +5495,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_assets_queries_getassetsquery_omniflow_application_assets_queries_assetdto",
-      "community": 65,
+      "community": 222,
       "norm_label": "assetdto"
     },
     {
@@ -5639,7 +5521,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_assets_queries_getassetsquery_omniflow_application_assets_queries_getassetsquery",
-      "community": 65,
+      "community": 222,
       "norm_label": "getassetsquery"
     },
     {
@@ -5655,7 +5537,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_assets_queries_getassetsquery_omniflow_application_assets_queries_getassetsqueryhandler",
-      "community": 65,
+      "community": 222,
       "norm_label": "getassetsqueryhandler"
     },
     {
@@ -5671,7 +5553,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_assets_queries_getassetsquery_omniflow_application_assets_queries_getassetsqueryhandler_handle",
-      "community": 65,
+      "community": 222,
       "norm_label": ".handle()"
     },
     {
@@ -6664,7 +6546,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_dashboard_queries_getmetricsquery_cs",
-      "community": 16,
+      "community": 241,
       "norm_label": "getmetricsquery.cs"
     },
     {
@@ -6679,7 +6561,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:bc0e6b6a4e7e198f",
-      "community": 16,
+      "community": 6,
       "norm_label": "omniflow.application.dashboard.queries"
     },
     {
@@ -6695,7 +6577,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_dashboard_queries_getmetricsquery_omniflow_application_dashboard_queries_getmetricsquery",
-      "community": 16,
+      "community": 241,
       "norm_label": "getmetricsquery"
     },
     {
@@ -6721,7 +6603,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_dashboard_queries_getmetricsquery_omniflow_application_dashboard_queries_getmetricsqueryhandler",
-      "community": 16,
+      "community": 241,
       "norm_label": "getmetricsqueryhandler"
     },
     {
@@ -6737,7 +6619,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_dashboard_queries_getmetricsquery_omniflow_application_dashboard_queries_getmetricsqueryhandler_handle",
-      "community": 16,
+      "community": 241,
       "norm_label": ".handle()"
     },
     {
@@ -6896,7 +6778,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_departments_commands_deletedepartmentcommand",
-      "community": 63,
+      "community": 62,
       "norm_label": "deletedepartmentcommand.cs"
     },
     {
@@ -6912,7 +6794,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_departments_commands_deletedepartmentcommand_omniflow_application_departments_commands_deletedepartmentcommand",
-      "community": 63,
+      "community": 62,
       "norm_label": "deletedepartmentcommand"
     },
     {
@@ -6922,7 +6804,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_departments_commands_deletedepartmentcommand_cs_guid",
-      "community": 63,
+      "community": 62,
       "norm_label": "guid"
     },
     {
@@ -6938,7 +6820,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_departments_commands_deletedepartmentcommand_omniflow_application_departments_commands_deletedepartmentcommandhandler",
-      "community": 63,
+      "community": 62,
       "norm_label": "deletedepartmentcommandhandler"
     },
     {
@@ -6954,7 +6836,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_departments_commands_deletedepartmentcommand_omniflow_application_departments_commands_deletedepartmentcommandhandler_handle",
-      "community": 63,
+      "community": 62,
       "norm_label": ".handle()"
     },
     {
@@ -6964,7 +6846,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_departments_commands_deletedepartmentcommand_cs_cancellationtoken",
-      "community": 63,
+      "community": 62,
       "norm_label": "cancellationtoken"
     },
     {
@@ -6974,7 +6856,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_departments_commands_deletedepartmentcommand_cs_task",
-      "community": 63,
+      "community": 62,
       "norm_label": "task"
     },
     {
@@ -7258,7 +7140,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_interfaces_idashboardmetricsservice_cs",
-      "community": 69,
+      "community": 1,
       "norm_label": "idashboardmetricsservice.cs"
     },
     {
@@ -7289,7 +7171,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_interfaces_idashboardmetricsservice_omniflow_application_interfaces_idashboardmetricsservice",
-      "community": 69,
+      "community": 1,
       "norm_label": "idashboardmetricsservice"
     },
     {
@@ -7305,7 +7187,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_interfaces_idashboardmetricsservice_omniflow_application_interfaces_idashboardmetricsservice_broadcastmetricupdateasync",
-      "community": 69,
+      "community": 1,
       "norm_label": ".broadcastmetricupdateasync()"
     },
     {
@@ -7413,7 +7295,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_interfaces_iomniflowdbcontext_cs",
-      "community": 41,
+      "community": 16,
       "norm_label": "iomniflowdbcontext.cs"
     },
     {
@@ -7511,7 +7393,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_interfaces_itelegramidentityservice_cs",
-      "community": 27,
+      "community": 53,
       "norm_label": "itelegramidentityservice.cs"
     },
     {
@@ -7527,7 +7409,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_interfaces_itelegramidentityservice_omniflow_application_interfaces_itelegramidentityservice",
-      "community": 27,
+      "community": 53,
       "norm_label": "itelegramidentityservice"
     },
     {
@@ -7543,7 +7425,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_interfaces_itelegramidentityservice_omniflow_application_interfaces_itelegramidentityservice_getuseridbytelegramchatidasync",
-      "community": 27,
+      "community": 53,
       "norm_label": ".getuseridbytelegramchatidasync()"
     },
     {
@@ -7589,7 +7471,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_interfaces_itelegramidentityservice_omniflow_application_interfaces_itelegramidentityservice_gettelegramchatidbyuseridasync",
-      "community": 27,
+      "community": 53,
       "norm_label": ".gettelegramchatidbyuseridasync()"
     },
     {
@@ -7605,7 +7487,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_interfaces_itelegramidentityservice_omniflow_application_interfaces_itelegramidentityservice_validatewebhookpayloadasync",
-      "community": 27,
+      "community": 53,
       "norm_label": ".validatewebhookpayloadasync()"
     },
     {
@@ -7816,7 +7698,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_knowledgebase_queries_getarticlesquery_cs",
-      "community": 48,
+      "community": 19,
       "norm_label": "getarticlesquery.cs"
     },
     {
@@ -7847,7 +7729,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_knowledgebase_queries_getarticlesquery_omniflow_application_knowledgebase_queries_knowledgebasearticledto",
-      "community": 48,
+      "community": 19,
       "norm_label": "knowledgebasearticledto"
     },
     {
@@ -7873,7 +7755,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_knowledgebase_queries_getarticlesquery_omniflow_application_knowledgebase_queries_getarticlesquery",
-      "community": 48,
+      "community": 19,
       "norm_label": "getarticlesquery"
     },
     {
@@ -7899,7 +7781,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_knowledgebase_queries_getarticlesquery_omniflow_application_knowledgebase_queries_getarticlesqueryhandler",
-      "community": 48,
+      "community": 19,
       "norm_label": "getarticlesqueryhandler"
     },
     {
@@ -7915,7 +7797,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_knowledgebase_queries_getarticlesquery_omniflow_application_knowledgebase_queries_getarticlesqueryhandler_handle",
-      "community": 48,
+      "community": 19,
       "norm_label": ".handle()"
     },
     {
@@ -8058,7 +7940,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_leaverequests_commands_createleaverequestcommand",
-      "community": 41,
+      "community": 16,
       "norm_label": "createleaverequestcommand.cs"
     },
     {
@@ -8217,7 +8099,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:7003eecce4b2b734",
-      "community": 40,
+      "community": 242,
       "norm_label": "omniflow.application.leaverequests.queries"
     },
     {
@@ -8346,7 +8228,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:2fa606de1847576c",
-      "community": 31,
+      "community": 6,
       "norm_label": "omniflow.application.menus.queries"
     },
     {
@@ -8576,7 +8458,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_tickets_commands_addticketcommentcommand_cs",
-      "community": 41,
+      "community": 240,
       "norm_label": "addticketcommentcommand.cs"
     },
     {
@@ -8591,7 +8473,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:98fadfb01e22eace",
-      "community": 41,
+      "community": 240,
       "norm_label": "omniflow.application.tickets.commands"
     },
     {
@@ -8607,7 +8489,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_tickets_commands_addticketcommentcommand_omniflow_application_tickets_commands_addticketcommentcommand",
-      "community": 218,
+      "community": 50,
       "norm_label": "addticketcommentcommand"
     },
     {
@@ -8627,7 +8509,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_commands_addticketcommentcommandhandler",
-      "community": 41,
+      "community": 16,
       "norm_label": "addticketcommentcommandhandler.cs"
     },
     {
@@ -8643,7 +8525,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_commands_addticketcommentcommandhandler_omniflow_application_tickets_commands_addticketcommentcommandhandler",
-      "community": 218,
+      "community": 50,
       "norm_label": "addticketcommentcommandhandler"
     },
     {
@@ -8653,7 +8535,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_commands_addticketcommentcommandhandler_cs_guid",
-      "community": 218,
+      "community": 50,
       "norm_label": "guid"
     },
     {
@@ -8669,7 +8551,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_commands_addticketcommentcommandhandler_omniflow_application_tickets_commands_addticketcommentcommandhandler_handle",
-      "community": 218,
+      "community": 50,
       "norm_label": ".handle()"
     },
     {
@@ -8679,7 +8561,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_commands_addticketcommentcommandhandler_cs_cancellationtoken",
-      "community": 218,
+      "community": 50,
       "norm_label": "cancellationtoken"
     },
     {
@@ -8689,7 +8571,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_commands_addticketcommentcommandhandler_cs_task",
-      "community": 218,
+      "community": 50,
       "norm_label": "task"
     },
     {
@@ -8699,7 +8581,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_tickets_commands_assignticketcommand_cs",
-      "community": 41,
+      "community": 240,
       "norm_label": "assignticketcommand.cs"
     },
     {
@@ -8725,7 +8607,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_commands_assignticketcommandhandler",
-      "community": 240,
+      "community": 16,
       "norm_label": "assignticketcommandhandler.cs"
     },
     {
@@ -8787,7 +8669,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_tickets_commands_createticketcommand_cs",
-      "community": 35,
+      "community": 240,
       "norm_label": "createticketcommand.cs"
     },
     {
@@ -8915,7 +8797,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_tickets_commands_createticketcommandvalidator_cs",
-      "community": 40,
+      "community": 240,
       "norm_label": "createticketcommandvalidator.cs"
     },
     {
@@ -8931,7 +8813,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_tickets_commands_createticketcommandvalidator_omniflow_application_tickets_commands_createticketcommandvalidator",
-      "community": 40,
+      "community": 240,
       "norm_label": "createticketcommandvalidator"
     },
     {
@@ -8941,7 +8823,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_tickets_commands_transitionticketcommand_cs",
-      "community": 33,
+      "community": 240,
       "norm_label": "transitionticketcommand.cs"
     },
     {
@@ -8957,7 +8839,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_tickets_commands_transitionticketcommand_omniflow_application_tickets_commands_transitionticketcommand",
-      "community": 33,
+      "community": 65,
       "norm_label": "transitionticketcommand"
     },
     {
@@ -8967,7 +8849,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_commands_transitionticketcommandhandler",
-      "community": 41,
+      "community": 16,
       "norm_label": "transitionticketcommandhandler.cs"
     },
     {
@@ -8983,7 +8865,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_commands_transitionticketcommandhandler_omniflow_application_tickets_commands_transitionticketcommandhandler",
-      "community": 33,
+      "community": 65,
       "norm_label": "transitionticketcommandhandler"
     },
     {
@@ -8993,7 +8875,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_commands_transitionticketcommandhandler_cs_imediator",
-      "community": 33,
+      "community": 65,
       "norm_label": "imediator"
     },
     {
@@ -9009,7 +8891,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_commands_transitionticketcommandhandler_omniflow_application_tickets_commands_transitionticketcommandhandler_handle",
-      "community": 33,
+      "community": 65,
       "norm_label": ".handle()"
     },
     {
@@ -9019,7 +8901,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_commands_transitionticketcommandhandler_cs_cancellationtoken",
-      "community": 33,
+      "community": 65,
       "norm_label": "cancellationtoken"
     },
     {
@@ -9029,7 +8911,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_commands_transitionticketcommandhandler_cs_task",
-      "community": 33,
+      "community": 65,
       "norm_label": "task"
     },
     {
@@ -9039,7 +8921,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_tickets_commands_transitionticketcommandvalidator_cs",
-      "community": 40,
+      "community": 240,
       "norm_label": "transitionticketcommandvalidator.cs"
     },
     {
@@ -9055,7 +8937,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_tickets_commands_transitionticketcommandvalidator_omniflow_application_tickets_commands_transitionticketcommandvalidator",
-      "community": 40,
+      "community": 240,
       "norm_label": "transitionticketcommandvalidator"
     },
     {
@@ -9167,7 +9049,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:02d39b8eec61d2a6",
-      "community": 30,
+      "community": 220,
       "norm_label": "omniflow.application.tickets.queries"
     },
     {
@@ -9421,7 +9303,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_tickets_queries_getticketsqueryhandler_cs",
-      "community": 30,
+      "community": 220,
       "norm_label": "getticketsqueryhandler.cs"
     },
     {
@@ -9586,7 +9468,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_users_commands_createusercommandhandler_omniflow_application_users_commands_createusercommandhandler",
-      "community": 240,
+      "community": 34,
       "norm_label": "createusercommandhandler"
     },
     {
@@ -9612,7 +9494,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_users_commands_createusercommandhandler_omniflow_application_users_commands_createusercommandhandler_handle",
-      "community": 240,
+      "community": 34,
       "norm_label": ".handle()"
     },
     {
@@ -9642,7 +9524,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_users_commands_createusercommandvalidator_cs",
-      "community": 40,
+      "community": 240,
       "norm_label": "createusercommandvalidator.cs"
     },
     {
@@ -9658,7 +9540,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_users_commands_createusercommandvalidator_omniflow_application_users_commands_createusercommandvalidator",
-      "community": 40,
+      "community": 240,
       "norm_label": "createusercommandvalidator"
     },
     {
@@ -9756,7 +9638,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_users_commands_updateusercommand",
-      "community": 34,
+      "community": 60,
       "norm_label": "updateusercommand.cs"
     },
     {
@@ -9772,7 +9654,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_users_commands_updateusercommand_omniflow_application_users_commands_updateusercommand",
-      "community": 34,
+      "community": 60,
       "norm_label": "updateusercommand"
     },
     {
@@ -9782,7 +9664,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_users_commands_updateusercommand_cs_guid",
-      "community": 34,
+      "community": 60,
       "norm_label": "guid"
     },
     {
@@ -9798,7 +9680,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_users_commands_updateusercommand_omniflow_application_users_commands_updateusercommandhandler",
-      "community": 34,
+      "community": 60,
       "norm_label": "updateusercommandhandler"
     },
     {
@@ -9814,7 +9696,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_users_commands_updateusercommand_omniflow_application_users_commands_updateusercommandhandler_handle",
-      "community": 34,
+      "community": 60,
       "norm_label": ".handle()"
     },
     {
@@ -9824,7 +9706,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_users_commands_updateusercommand_cs_cancellationtoken",
-      "community": 34,
+      "community": 60,
       "norm_label": "cancellationtoken"
     },
     {
@@ -9834,7 +9716,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_users_commands_updateusercommand_cs_task",
-      "community": 34,
+      "community": 60,
       "norm_label": "task"
     },
     {
@@ -10096,7 +9978,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:32abf7318bdcbee5",
-      "community": 32,
+      "community": 16,
       "norm_label": "omniflow.domain.common.exceptions"
     },
     {
@@ -10308,7 +10190,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_common_multilingualstring_cs",
-      "community": 2,
+      "community": 76,
       "norm_label": "multilingualstring.cs"
     },
     {
@@ -10324,7 +10206,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_common_multilingualstring_omniflow_domain_common_multilingualstring",
-      "community": 2,
+      "community": 76,
       "norm_label": "multilingualstring"
     },
     {
@@ -10350,7 +10232,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_common_multilingualstring_omniflow_domain_common_multilingualstring_getvalueordefault",
-      "community": 2,
+      "community": 76,
       "norm_label": ".getvalueordefault()"
     },
     {
@@ -10360,7 +10242,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_entities_appmenu_cs",
-      "community": 2,
+      "community": 16,
       "norm_label": "appmenu.cs"
     },
     {
@@ -10375,7 +10257,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:564d789e13902d4a",
-      "community": 28,
+      "community": 16,
       "norm_label": "omniflow.domain.entities"
     },
     {
@@ -10391,7 +10273,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_entities_appmenu_omniflow_domain_entities_appmenu",
-      "community": 2,
+      "community": 16,
       "norm_label": "appmenu"
     },
     {
@@ -10421,7 +10303,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_approvals_approvalrequest",
-      "community": 33,
+      "community": 16,
       "norm_label": "approvalrequest.cs"
     },
     {
@@ -10436,7 +10318,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:8b91e538e1160c0e",
-      "community": 41,
+      "community": 16,
       "norm_label": "omniflow.domain.entities.approvals"
     },
     {
@@ -10452,7 +10334,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_approvals_approvalrequest_omniflow_domain_entities_approvals_approvalentitytypes",
-      "community": 33,
+      "community": 16,
       "norm_label": "approvalentitytypes"
     },
     {
@@ -10462,7 +10344,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_approvals_approvalrequest_cs_string",
-      "community": 33,
+      "community": 16,
       "norm_label": "string"
     },
     {
@@ -10478,7 +10360,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_approvals_approvalrequest_omniflow_domain_entities_approvals_approvaldecisionkind",
-      "community": 33,
+      "community": 16,
       "norm_label": "approvaldecisionkind"
     },
     {
@@ -10746,7 +10628,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_asset_omniflow_domain_entities_asset",
-      "community": 76,
+      "community": 222,
       "norm_label": "asset"
     },
     {
@@ -10756,7 +10638,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_asset_cs_guid",
-      "community": 76,
+      "community": 222,
       "norm_label": "guid"
     },
     {
@@ -10772,7 +10654,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_asset_omniflow_domain_entities_asset_create",
-      "community": 76,
+      "community": 222,
       "norm_label": ".create()"
     },
     {
@@ -10788,7 +10670,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_asset_omniflow_domain_entities_asset_updatedetails",
-      "community": 76,
+      "community": 222,
       "norm_label": ".updatedetails()"
     },
     {
@@ -10804,7 +10686,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_asset_omniflow_domain_entities_asset_assignto",
-      "community": 76,
+      "community": 222,
       "norm_label": ".assignto()"
     },
     {
@@ -10820,7 +10702,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_asset_omniflow_domain_entities_asset_unassign",
-      "community": 76,
+      "community": 222,
       "norm_label": ".unassign()"
     },
     {
@@ -11324,7 +11206,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_entities_expenseclaim_cs",
-      "community": 75,
+      "community": 5,
       "norm_label": "expenseclaim.cs"
     },
     {
@@ -11340,7 +11222,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_entities_expenseclaim_omniflow_domain_entities_expenseclaim",
-      "community": 75,
+      "community": 5,
       "norm_label": "expenseclaim"
     },
     {
@@ -11713,7 +11595,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_entities_leavebalance_cs",
-      "community": 5,
+      "community": 2,
       "norm_label": "leavebalance.cs"
     },
     {
@@ -11729,7 +11611,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_entities_leavebalance_omniflow_domain_entities_leavebalance",
-      "community": 5,
+      "community": 2,
       "norm_label": "leavebalance"
     },
     {
@@ -11759,7 +11641,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_leaverequest",
-      "community": 28,
+      "community": 16,
       "norm_label": "leaverequest.cs"
     },
     {
@@ -11987,7 +11869,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_entities_servicedesk_cs",
-      "community": 2,
+      "community": 16,
       "norm_label": "servicedesk.cs"
     },
     {
@@ -12003,7 +11885,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_entities_servicedesk_omniflow_domain_entities_servicedesk",
-      "community": 2,
+      "community": 16,
       "norm_label": "servicedesk"
     },
     {
@@ -12099,7 +11981,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_entities_tenant_cs",
-      "community": 2,
+      "community": 39,
       "norm_label": "tenant.cs"
     },
     {
@@ -12135,7 +12017,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_ticket",
-      "community": 2,
+      "community": 16,
       "norm_label": "ticket.cs"
     },
     {
@@ -12208,7 +12090,7 @@
       "label": ".Create()",
       "file_type": "code",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L72",
+      "source_location": "L75",
       "metadata": {
         "namespace": "OmniFlow.Domain.Entities",
         "scope_chain": [
@@ -12221,10 +12103,20 @@
       "norm_label": ".create()"
     },
     {
+      "label": "TimeSpan",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "src_omniflow_domain_entities_ticket_cs_timespan",
+      "community": 36,
+      "norm_label": "timespan"
+    },
+    {
       "label": ".Transition()",
       "file_type": "code",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L106",
+      "source_location": "L116",
       "metadata": {
         "namespace": "OmniFlow.Domain.Entities",
         "scope_chain": [
@@ -12240,7 +12132,7 @@
       "label": ".Assign()",
       "file_type": "code",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L146",
+      "source_location": "L156",
       "metadata": {
         "namespace": "OmniFlow.Domain.Entities",
         "scope_chain": [
@@ -12256,7 +12148,7 @@
       "label": ".AddComment()",
       "file_type": "code",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L155",
+      "source_location": "L165",
       "metadata": {
         "namespace": "OmniFlow.Domain.Entities",
         "scope_chain": [
@@ -12272,7 +12164,7 @@
       "label": ".AddAudit()",
       "file_type": "code",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L172",
+      "source_location": "L182",
       "metadata": {
         "namespace": "OmniFlow.Domain.Entities",
         "scope_chain": [
@@ -12288,7 +12180,7 @@
       "label": ".ValidateDynamicFields()",
       "file_type": "code",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L189",
+      "source_location": "L199",
       "metadata": {
         "namespace": "OmniFlow.Domain.Entities",
         "scope_chain": [
@@ -12304,7 +12196,7 @@
       "label": ".ReadString()",
       "file_type": "code",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L218",
+      "source_location": "L228",
       "metadata": {
         "namespace": "OmniFlow.Domain.Entities",
         "scope_chain": [
@@ -12320,7 +12212,7 @@
       "label": ".ReadEnum()",
       "file_type": "code",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L221",
+      "source_location": "L231",
       "metadata": {
         "namespace": "OmniFlow.Domain.Entities",
         "scope_chain": [
@@ -12441,7 +12333,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_entities_ticketcomment_cs",
-      "community": 36,
+      "community": 2,
       "norm_label": "ticketcomment.cs"
     },
     {
@@ -12597,7 +12489,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_entities_user_omniflow_domain_entities_user",
-      "community": 5,
+      "community": 36,
       "norm_label": "user"
     },
     {
@@ -12684,7 +12576,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_assetstatus_cs",
-      "community": 76,
+      "community": 222,
       "norm_label": "assetstatus.cs"
     },
     {
@@ -12700,7 +12592,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_assetstatus_omniflow_domain_enums_assetstatus",
-      "community": 76,
+      "community": 222,
       "norm_label": "assetstatus"
     },
     {
@@ -12918,7 +12810,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_expensecategory_cs",
-      "community": 75,
+      "community": 5,
       "norm_label": "expensecategory.cs"
     },
     {
@@ -12934,7 +12826,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_expensecategory_omniflow_domain_enums_expensecategory",
-      "community": 75,
+      "community": 5,
       "norm_label": "expensecategory"
     },
     {
@@ -12944,7 +12836,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_expensestatus_cs",
-      "community": 75,
+      "community": 5,
       "norm_label": "expensestatus.cs"
     },
     {
@@ -12960,7 +12852,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_expensestatus_omniflow_domain_enums_expensestatus",
-      "community": 75,
+      "community": 5,
       "norm_label": "expensestatus"
     },
     {
@@ -12970,7 +12862,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_gender_cs",
-      "community": 5,
+      "community": 36,
       "norm_label": "gender.cs"
     },
     {
@@ -12986,7 +12878,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_gender_omniflow_domain_enums_gender",
-      "community": 5,
+      "community": 36,
       "norm_label": "gender"
     },
     {
@@ -13048,7 +12940,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_maritalstatus_cs",
-      "community": 5,
+      "community": 36,
       "norm_label": "maritalstatus.cs"
     },
     {
@@ -13064,7 +12956,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_maritalstatus_omniflow_domain_enums_maritalstatus",
-      "community": 5,
+      "community": 36,
       "norm_label": "maritalstatus"
     },
     {
@@ -13100,7 +12992,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_ticketimpact_cs",
-      "community": 5,
+      "community": 36,
       "norm_label": "ticketimpact.cs"
     },
     {
@@ -13116,7 +13008,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_ticketimpact_omniflow_domain_enums_ticketimpact",
-      "community": 5,
+      "community": 36,
       "norm_label": "ticketimpact"
     },
     {
@@ -13126,7 +13018,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_ticketpriority_cs",
-      "community": 5,
+      "community": 36,
       "norm_label": "ticketpriority.cs"
     },
     {
@@ -13142,7 +13034,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_ticketpriority_omniflow_domain_enums_ticketpriority",
-      "community": 5,
+      "community": 36,
       "norm_label": "ticketpriority"
     },
     {
@@ -13152,7 +13044,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_ticketstate_cs",
-      "community": 5,
+      "community": 36,
       "norm_label": "ticketstate.cs"
     },
     {
@@ -13168,7 +13060,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_ticketstate_omniflow_domain_enums_ticketstate",
-      "community": 5,
+      "community": 36,
       "norm_label": "ticketstate"
     },
     {
@@ -13178,7 +13070,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_tickettype_cs",
-      "community": 5,
+      "community": 36,
       "norm_label": "tickettype.cs"
     },
     {
@@ -13194,7 +13086,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_tickettype_omniflow_domain_enums_tickettype",
-      "community": 5,
+      "community": 36,
       "norm_label": "tickettype"
     },
     {
@@ -13204,7 +13096,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_ticketurgency_cs",
-      "community": 5,
+      "community": 36,
       "norm_label": "ticketurgency.cs"
     },
     {
@@ -13220,7 +13112,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_ticketurgency_omniflow_domain_enums_ticketurgency",
-      "community": 5,
+      "community": 36,
       "norm_label": "ticketurgency"
     },
     {
@@ -13230,7 +13122,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_userrole_cs",
-      "community": 34,
+      "community": 60,
       "norm_label": "userrole.cs"
     },
     {
@@ -13246,7 +13138,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_userrole_omniflow_domain_enums_userrole",
-      "community": 34,
+      "community": 60,
       "norm_label": "userrole"
     },
     {
@@ -13569,7 +13461,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_identity_applicationrole_cs",
-      "community": 26,
+      "community": 49,
       "norm_label": "applicationrole.cs"
     },
     {
@@ -13584,7 +13476,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:b2e97cd0c0817406",
-      "community": 26,
+      "community": 49,
       "norm_label": "omniflow.infrastructure.identity"
     },
     {
@@ -13600,7 +13492,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_identity_applicationrole_omniflow_infrastructure_identity_applicationrole",
-      "community": 26,
+      "community": 49,
       "norm_label": "applicationrole"
     },
     {
@@ -13610,7 +13502,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "identityrole",
-      "community": 26,
+      "community": 49,
       "norm_label": "identityrole"
     },
     {
@@ -13630,7 +13522,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_identity_applicationuser_cs",
-      "community": 26,
+      "community": 49,
       "norm_label": "applicationuser.cs"
     },
     {
@@ -13646,7 +13538,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_identity_applicationuser_omniflow_infrastructure_identity_applicationuser",
-      "community": 26,
+      "community": 49,
       "norm_label": "applicationuser"
     },
     {
@@ -13656,7 +13548,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "identityuser",
-      "community": 26,
+      "community": 49,
       "norm_label": "identityuser"
     },
     {
@@ -13676,7 +13568,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_identity_telegramidentityservice_cs",
-      "community": 26,
+      "community": 53,
       "norm_label": "telegramidentityservice.cs"
     },
     {
@@ -13692,7 +13584,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_identity_telegramidentityservice_omniflow_infrastructure_identity_telegramidentityservice",
-      "community": 26,
+      "community": 53,
       "norm_label": "telegramidentityservice"
     },
     {
@@ -13738,7 +13630,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_identity_telegramidentityservice_omniflow_infrastructure_identity_telegramidentityservice_getuseridbytelegramchatidasync",
-      "community": 26,
+      "community": 53,
       "norm_label": ".getuseridbytelegramchatidasync()"
     },
     {
@@ -13784,7 +13676,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_identity_telegramidentityservice_omniflow_infrastructure_identity_telegramidentityservice_gettelegramchatidbyuseridasync",
-      "community": 26,
+      "community": 53,
       "norm_label": ".gettelegramchatidbyuseridasync()"
     },
     {
@@ -13800,7 +13692,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_identity_telegramidentityservice_omniflow_infrastructure_identity_telegramidentityservice_validatewebhookpayloadasync",
-      "community": 26,
+      "community": 53,
       "norm_label": ".validatewebhookpayloadasync()"
     },
     {
@@ -14267,7 +14159,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_messaging_telegramgateway_cs",
-      "community": 22,
+      "community": 51,
       "norm_label": "telegramgateway.cs"
     },
     {
@@ -14282,7 +14174,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:ac553aa9623a9f08",
-      "community": 22,
+      "community": 51,
       "norm_label": "omniflow.infrastructure.messaging"
     },
     {
@@ -14479,7 +14371,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:801ba72911cbcb29",
-      "community": 14,
+      "community": 56,
       "norm_label": "omniflow.infrastructure.migrations"
     },
     {
@@ -14557,7 +14449,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "migration",
-      "community": 14,
+      "community": 64,
       "norm_label": "migration"
     },
     {
@@ -14661,7 +14553,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712110702_domainhardening_cs",
-      "community": 14,
+      "community": 69,
       "norm_label": "20260712110702_domainhardening.cs"
     },
     {
@@ -14677,7 +14569,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712110702_domainhardening_omniflow_infrastructure_migrations_domainhardening",
-      "community": 14,
+      "community": 69,
       "norm_label": "domainhardening"
     },
     {
@@ -14693,7 +14585,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712110702_domainhardening_omniflow_infrastructure_migrations_domainhardening_up",
-      "community": 14,
+      "community": 69,
       "norm_label": ".up()"
     },
     {
@@ -14719,7 +14611,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712110702_domainhardening_omniflow_infrastructure_migrations_domainhardening_down",
-      "community": 14,
+      "community": 69,
       "norm_label": ".down()"
     },
     {
@@ -14729,7 +14621,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712161700_approvalengine_designer_cs",
-      "community": 14,
+      "community": 57,
       "norm_label": "20260712161700_approvalengine.designer.cs"
     },
     {
@@ -14745,7 +14637,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712161700_approvalengine_designer_omniflow_infrastructure_migrations_approvalengine",
-      "community": 14,
+      "community": 57,
       "norm_label": "approvalengine"
     },
     {
@@ -14761,7 +14653,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712161700_approvalengine_designer_omniflow_infrastructure_migrations_approvalengine_buildtargetmodel",
-      "community": 14,
+      "community": 57,
       "norm_label": ".buildtargetmodel()"
     },
     {
@@ -14781,7 +14673,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712161700_approvalengine_cs",
-      "community": 14,
+      "community": 75,
       "norm_label": "20260712161700_approvalengine.cs"
     },
     {
@@ -14797,7 +14689,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712161700_approvalengine_omniflow_infrastructure_migrations_approvalengine",
-      "community": 14,
+      "community": 75,
       "norm_label": "approvalengine"
     },
     {
@@ -14813,7 +14705,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712161700_approvalengine_omniflow_infrastructure_migrations_approvalengine_up",
-      "community": 14,
+      "community": 75,
       "norm_label": ".up()"
     },
     {
@@ -14839,7 +14731,127 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712161700_approvalengine_omniflow_infrastructure_migrations_approvalengine_down",
-      "community": 14,
+      "community": 75,
+      "norm_label": ".down()"
+    },
+    {
+      "label": "20260719193907_QuartzJobStore.Designer.cs",
+      "file_type": "code",
+      "source_file": "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.Designer.cs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_designer",
+      "community": 57,
+      "norm_label": "20260719193907_quartzjobstore.designer.cs"
+    },
+    {
+      "label": "QuartzJobStore",
+      "file_type": "code",
+      "source_file": "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.Designer.cs",
+      "source_location": "L15",
+      "metadata": {
+        "namespace": "OmniFlow.Infrastructure.Migrations",
+        "scope_chain": [
+          "s388"
+        ]
+      },
+      "_origin": "ast",
+      "id": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_designer_omniflow_infrastructure_migrations_quartzjobstore",
+      "community": 57,
+      "norm_label": "quartzjobstore"
+    },
+    {
+      "label": ".BuildTargetModel()",
+      "file_type": "code",
+      "source_file": "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.Designer.cs",
+      "source_location": "L20",
+      "metadata": {
+        "namespace": "OmniFlow.Infrastructure.Migrations",
+        "scope_chain": [
+          "s388"
+        ]
+      },
+      "_origin": "ast",
+      "id": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_designer_omniflow_infrastructure_migrations_quartzjobstore_buildtargetmodel",
+      "community": 57,
+      "norm_label": ".buildtargetmodel()"
+    },
+    {
+      "label": "ModelBuilder",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_designer_cs_modelbuilder",
+      "community": 57,
+      "norm_label": "modelbuilder"
+    },
+    {
+      "label": "20260719193907_QuartzJobStore.cs",
+      "file_type": "code",
+      "source_file": "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.cs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore",
+      "community": 64,
+      "norm_label": "20260719193907_quartzjobstore.cs"
+    },
+    {
+      "label": "QuartzJobStore",
+      "file_type": "code",
+      "source_file": "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.cs",
+      "source_location": "L12",
+      "metadata": {
+        "namespace": "OmniFlow.Infrastructure.Migrations",
+        "scope_chain": [
+          "s68"
+        ]
+      },
+      "_origin": "ast",
+      "id": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_omniflow_infrastructure_migrations_quartzjobstore",
+      "community": 64,
+      "norm_label": "quartzjobstore"
+    },
+    {
+      "label": ".Up()",
+      "file_type": "code",
+      "source_file": "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.cs",
+      "source_location": "L15",
+      "metadata": {
+        "namespace": "OmniFlow.Infrastructure.Migrations",
+        "scope_chain": [
+          "s68"
+        ]
+      },
+      "_origin": "ast",
+      "id": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_omniflow_infrastructure_migrations_quartzjobstore_up",
+      "community": 64,
+      "norm_label": ".up()"
+    },
+    {
+      "label": "MigrationBuilder",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_cs_migrationbuilder",
+      "community": 64,
+      "norm_label": "migrationbuilder"
+    },
+    {
+      "label": ".Down()",
+      "file_type": "code",
+      "source_file": "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.cs",
+      "source_location": "L168",
+      "metadata": {
+        "namespace": "OmniFlow.Infrastructure.Migrations",
+        "scope_chain": [
+          "s68"
+        ]
+      },
+      "_origin": "ast",
+      "id": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_omniflow_infrastructure_migrations_quartzjobstore_down",
+      "community": 64,
       "norm_label": ".down()"
     },
     {
@@ -15070,7 +15082,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_omniflow_infrastructure_csproj_framework_net10_0",
-      "community": 11,
+      "community": 17,
       "norm_label": "net10.0"
     },
     {
@@ -15080,7 +15092,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_masstransit",
-      "community": 11,
+      "community": 17,
       "norm_label": "masstransit (8.3.4)"
     },
     {
@@ -15090,8 +15102,28 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_masstransit_entityframeworkcore",
-      "community": 11,
+      "community": 17,
       "norm_label": "masstransit.entityframeworkcore (8.3.4)"
+    },
+    {
+      "label": "MassTransit.Quartz (8.3.4)",
+      "file_type": "code",
+      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "nuget_masstransit_quartz",
+      "community": 17,
+      "norm_label": "masstransit.quartz (8.3.4)"
+    },
+    {
+      "label": "MassTransit.RabbitMQ (8.3.4)",
+      "file_type": "code",
+      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "nuget_masstransit_rabbitmq",
+      "community": 17,
+      "norm_label": "masstransit.rabbitmq (8.3.4)"
     },
     {
       "label": "Microsoft.AspNetCore.Identity.EntityFrameworkCore (10.0.3)",
@@ -15100,7 +15132,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_microsoft_aspnetcore_identity_entityframeworkcore",
-      "community": 11,
+      "community": 17,
       "norm_label": "microsoft.aspnetcore.identity.entityframeworkcore (10.0.3)"
     },
     {
@@ -15110,7 +15142,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_omniflow_infrastructure_csproj_nuget_microsoft_entityframeworkcore",
-      "community": 11,
+      "community": 17,
       "norm_label": "microsoft.entityframeworkcore (10.0.9)"
     },
     {
@@ -15120,7 +15152,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_npgsql_entityframeworkcore_postgresql",
-      "community": 11,
+      "community": 17,
       "norm_label": "npgsql.entityframeworkcore.postgresql (10.0.3)"
     },
     {
@@ -15130,7 +15162,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_openiddict_aspnetcore",
-      "community": 11,
+      "community": 17,
       "norm_label": "openiddict.aspnetcore (6.4.0)"
     },
     {
@@ -15140,8 +15172,28 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_openiddict_entityframeworkcore",
-      "community": 11,
+      "community": 17,
       "norm_label": "openiddict.entityframeworkcore (6.4.0)"
+    },
+    {
+      "label": "Quartz.Extensions.Hosting (3.18.2)",
+      "file_type": "code",
+      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "nuget_quartz_extensions_hosting",
+      "community": 17,
+      "norm_label": "quartz.extensions.hosting (3.18.2)"
+    },
+    {
+      "label": "Quartz.Serialization.Json (3.18.2)",
+      "file_type": "code",
+      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "nuget_quartz_serialization_json",
+      "community": 17,
+      "norm_label": "quartz.serialization.json (3.18.2)"
     },
     {
       "label": "Telegram.Bot (22.10.1.1)",
@@ -15150,7 +15202,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_telegram_bot",
-      "community": 11,
+      "community": 17,
       "norm_label": "telegram.bot (22.10.1.1)"
     },
     {
@@ -15160,7 +15212,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_omniflow_infrastructure_csproj_sdk_microsoft_net_sdk",
-      "community": 11,
+      "community": 17,
       "norm_label": "microsoft.net.sdk"
     },
     {
@@ -15247,7 +15299,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_persistence_configurations_approvalconfiguration",
-      "community": 33,
+      "community": 28,
       "norm_label": "approvalconfiguration.cs"
     },
     {
@@ -15263,7 +15315,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_persistence_configurations_approvalconfiguration_omniflow_infrastructure_persistence_configurations_approvalrequestconfiguration",
-      "community": 33,
+      "community": 28,
       "norm_label": "approvalrequestconfiguration"
     },
     {
@@ -15305,7 +15357,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_persistence_configurations_approvalconfiguration_omniflow_infrastructure_persistence_configurations_approvalstepconfiguration",
-      "community": 33,
+      "community": 28,
       "norm_label": "approvalstepconfiguration"
     },
     {
@@ -15570,7 +15622,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_configurations_hr_employeeconfiguration_omniflow_infrastructure_persistence_configurations_hr_employeeconfiguration",
-      "community": 28,
+      "community": 2,
       "norm_label": "employeeconfiguration"
     },
     {
@@ -15586,7 +15638,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_configurations_hr_employeeconfiguration_omniflow_infrastructure_persistence_configurations_hr_employeeconfiguration_configure",
-      "community": 28,
+      "community": 2,
       "norm_label": ".configure()"
     },
     {
@@ -15710,7 +15762,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_configurations_leaverequestconfiguration_cs",
-      "community": 28,
+      "community": 16,
       "norm_label": "leaverequestconfiguration.cs"
     },
     {
@@ -15726,7 +15778,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_configurations_leaverequestconfiguration_omniflow_infrastructure_persistence_configurations_leaverequestconfiguration",
-      "community": 28,
+      "community": 16,
       "norm_label": "leaverequestconfiguration"
     },
     {
@@ -15742,7 +15794,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_configurations_leaverequestconfiguration_omniflow_infrastructure_persistence_configurations_leaverequestconfiguration_configure",
-      "community": 28,
+      "community": 16,
       "norm_label": ".configure()"
     },
     {
@@ -16126,7 +16178,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_persistence_configurations_ticketconfiguration",
-      "community": 36,
+      "community": 28,
       "norm_label": "ticketconfiguration.cs"
     },
     {
@@ -16292,7 +16344,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_interceptors_auditableentityinterceptor_cs",
-      "community": 22,
+      "community": 49,
       "norm_label": "auditableentityinterceptor.cs"
     },
     {
@@ -16307,7 +16359,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:296e54a28241a577",
-      "community": 22,
+      "community": 49,
       "norm_label": "omniflow.infrastructure.persistence.interceptors"
     },
     {
@@ -16447,7 +16499,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_interceptors_auditableentityinterceptor_omniflow_infrastructure_persistence_interceptors_changetrackerextensions",
-      "community": 22,
+      "community": 49,
       "norm_label": "changetrackerextensions"
     },
     {
@@ -16463,7 +16515,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_interceptors_auditableentityinterceptor_omniflow_infrastructure_persistence_interceptors_changetrackerextensions_haschangedownedentities",
-      "community": 22,
+      "community": 49,
       "norm_label": ".haschangedownedentities()"
     },
     {
@@ -16473,7 +16525,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "entityentry",
-      "community": 22,
+      "community": 49,
       "norm_label": "entityentry"
     },
     {
@@ -16483,7 +16535,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_omniflowdbcontext_cs",
-      "community": 22,
+      "community": 49,
       "norm_label": "omniflowdbcontext.cs"
     },
     {
@@ -16498,7 +16550,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:efb972b9a8c23bd2",
-      "community": 56,
+      "community": 57,
       "norm_label": "omniflow.infrastructure.persistence"
     },
     {
@@ -16631,7 +16683,7 @@
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_cs",
+      "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder",
       "community": 5,
       "norm_label": "databaseseeder.cs"
     },
@@ -16647,7 +16699,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:15928d5fdf4644c1",
-      "community": 26,
+      "community": 49,
       "norm_label": "omniflow.infrastructure.persistence.seed"
     },
     {
@@ -16662,8 +16714,8 @@
         ]
       },
       "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder",
-      "community": 26,
+      "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder",
+      "community": 49,
       "norm_label": "databaseseeder"
     },
     {
@@ -16678,8 +16730,8 @@
         ]
       },
       "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
-      "community": 26,
+      "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
+      "community": 49,
       "norm_label": ".seedasync()"
     },
     {
@@ -16688,8 +16740,8 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_iserviceprovider",
-      "community": 561,
+      "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_iserviceprovider",
+      "community": 49,
       "norm_label": "iserviceprovider"
     },
     {
@@ -16698,8 +16750,8 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_cancellationtoken",
-      "community": 560,
+      "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_cancellationtoken",
+      "community": 49,
       "norm_label": "cancellationtoken"
     },
     {
@@ -16708,15 +16760,15 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_task",
-      "community": 562,
+      "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_task",
+      "community": 49,
       "norm_label": "task"
     },
     {
       "label": ".SeedApprovalArtifactsAsync()",
       "file_type": "code",
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
-      "source_location": "L60",
+      "source_location": "L61",
       "metadata": {
         "namespace": "OmniFlow.Infrastructure.Persistence.Seed",
         "scope_chain": [
@@ -16724,15 +16776,25 @@
         ]
       },
       "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedapprovalartifactsasync",
-      "community": 26,
+      "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedapprovalartifactsasync",
+      "community": 49,
       "norm_label": ".seedapprovalartifactsasync()"
+    },
+    {
+      "label": "OmniFlowDbContext",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_omniflowdbcontext",
+      "community": 49,
+      "norm_label": "omniflowdbcontext"
     },
     {
       "label": ".SeedLegacyUsersAsync()",
       "file_type": "code",
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
-      "source_location": "L126",
+      "source_location": "L127",
       "metadata": {
         "namespace": "OmniFlow.Infrastructure.Persistence.Seed",
         "scope_chain": [
@@ -16740,15 +16802,31 @@
         ]
       },
       "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedlegacyusersasync",
-      "community": 26,
+      "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedlegacyusersasync",
+      "community": 49,
       "norm_label": ".seedlegacyusersasync()"
+    },
+    {
+      "label": ".SeedSlaConfigurationsAsync()",
+      "file_type": "code",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L175",
+      "metadata": {
+        "namespace": "OmniFlow.Infrastructure.Persistence.Seed",
+        "scope_chain": [
+          "s252"
+        ]
+      },
+      "_origin": "ast",
+      "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedslaconfigurationsasync",
+      "community": 49,
+      "norm_label": ".seedslaconfigurationsasync()"
     },
     {
       "label": ".SeedServiceDeskAsync()",
       "file_type": "code",
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
-      "source_location": "L174",
+      "source_location": "L204",
       "metadata": {
         "namespace": "OmniFlow.Infrastructure.Persistence.Seed",
         "scope_chain": [
@@ -16756,15 +16834,15 @@
         ]
       },
       "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedservicedeskasync",
-      "community": 26,
+      "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedservicedeskasync",
+      "community": 49,
       "norm_label": ".seedservicedeskasync()"
     },
     {
       "label": ".SeedTicketTemplateAsync()",
       "file_type": "code",
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
-      "source_location": "L190",
+      "source_location": "L220",
       "metadata": {
         "namespace": "OmniFlow.Infrastructure.Persistence.Seed",
         "scope_chain": [
@@ -16772,15 +16850,15 @@
         ]
       },
       "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedtickettemplateasync",
-      "community": 26,
+      "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedtickettemplateasync",
+      "community": 49,
       "norm_label": ".seedtickettemplateasync()"
     },
     {
       "label": ".SeedMenusAsync()",
       "file_type": "code",
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
-      "source_location": "L226",
+      "source_location": "L256",
       "metadata": {
         "namespace": "OmniFlow.Infrastructure.Persistence.Seed",
         "scope_chain": [
@@ -16788,8 +16866,8 @@
         ]
       },
       "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedmenusasync",
-      "community": 26,
+      "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedmenusasync",
+      "community": 49,
       "norm_label": ".seedmenusasync()"
     },
     {
@@ -16799,7 +16877,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_identityseeddata_cs",
-      "community": 26,
+      "community": 49,
       "norm_label": "identityseeddata.cs"
     },
     {
@@ -16815,7 +16893,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_identityseeddata_omniflow_infrastructure_persistence_seed_identityseeddata",
-      "community": 26,
+      "community": 49,
       "norm_label": "identityseeddata"
     },
     {
@@ -16831,7 +16909,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_identityseeddata_omniflow_infrastructure_persistence_seed_identityseeddata_seedasync",
-      "community": 26,
+      "community": 49,
       "norm_label": ".seedasync()"
     },
     {
@@ -16861,7 +16939,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_seedconstants_cs",
-      "community": 26,
+      "community": 49,
       "norm_label": "seedconstants.cs"
     },
     {
@@ -16877,7 +16955,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_seedconstants_omniflow_infrastructure_persistence_seed_seedconstants",
-      "community": 26,
+      "community": 49,
       "norm_label": "seedconstants"
     },
     {
@@ -16889,6 +16967,123 @@
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_seedconstants_cs_guid",
       "community": 565,
       "norm_label": "guid"
+    },
+    {
+      "label": "SlaReconciliationJob.cs",
+      "file_type": "code",
+      "source_file": "src/OmniFlow.Infrastructure/Scheduling/SlaReconciliationJob.cs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_omniflow_infrastructure_scheduling_slareconciliationjob",
+      "community": 57,
+      "norm_label": "slareconciliationjob.cs"
+    },
+    {
+      "label": "OmniFlow.Infrastructure.Scheduling",
+      "file_type": "code",
+      "source_file": "src/OmniFlow.Infrastructure/Scheduling/SlaReconciliationJob.cs",
+      "source_location": "L9",
+      "type": "namespace",
+      "metadata": {
+        "kind": "csharp_namespace",
+        "namespace": "OmniFlow.Infrastructure.Scheduling"
+      },
+      "_origin": "ast",
+      "id": "csharp_namespace:0447592ef8c01a4e",
+      "community": 57,
+      "norm_label": "omniflow.infrastructure.scheduling"
+    },
+    {
+      "label": "SlaReconciliationJob",
+      "file_type": "code",
+      "source_file": "src/OmniFlow.Infrastructure/Scheduling/SlaReconciliationJob.cs",
+      "source_location": "L19",
+      "metadata": {
+        "namespace": "OmniFlow.Infrastructure.Scheduling",
+        "scope_chain": [
+          "s209"
+        ]
+      },
+      "_origin": "ast",
+      "id": "src_omniflow_infrastructure_scheduling_slareconciliationjob_omniflow_infrastructure_scheduling_slareconciliationjob",
+      "community": 61,
+      "norm_label": "slareconciliationjob"
+    },
+    {
+      "label": "IJob",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "ijob",
+      "community": 61,
+      "norm_label": "ijob"
+    },
+    {
+      "label": "JobKey",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "jobkey",
+      "community": 61,
+      "norm_label": "jobkey"
+    },
+    {
+      "label": "IPublishEndpoint",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "src_omniflow_infrastructure_scheduling_slareconciliationjob_cs_ipublishendpoint",
+      "community": 61,
+      "norm_label": "ipublishendpoint"
+    },
+    {
+      "label": "ILogger",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "src_omniflow_infrastructure_scheduling_slareconciliationjob_cs_ilogger",
+      "community": 61,
+      "norm_label": "ilogger"
+    },
+    {
+      "label": ".Execute()",
+      "file_type": "code",
+      "source_file": "src/OmniFlow.Infrastructure/Scheduling/SlaReconciliationJob.cs",
+      "source_location": "L38",
+      "metadata": {
+        "namespace": "OmniFlow.Infrastructure.Scheduling",
+        "scope_chain": [
+          "s209"
+        ]
+      },
+      "_origin": "ast",
+      "id": "src_omniflow_infrastructure_scheduling_slareconciliationjob_omniflow_infrastructure_scheduling_slareconciliationjob_execute",
+      "community": 61,
+      "norm_label": ".execute()"
+    },
+    {
+      "label": "IJobExecutionContext",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "ijobexecutioncontext",
+      "community": 61,
+      "norm_label": "ijobexecutioncontext"
+    },
+    {
+      "label": "Task",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "src_omniflow_infrastructure_scheduling_slareconciliationjob_cs_task",
+      "community": 61,
+      "norm_label": "task"
     },
     {
       "label": ".oxlintrc.json",
@@ -20925,10 +21120,145 @@
     {
       "relation": "imports",
       "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_omniflow_infrastructure",
+      "target": "src_omniflow_application_omniflow_application",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
       "source_file": "tests/OmniFlow.Application.UnitTests/OmniFlow.Application.UnitTests.csproj",
       "weight": 1.0,
       "source": "tests_omniflow_application_unittests_omniflow_application_unittests",
       "target": "src_omniflow_application_omniflow_application",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_omniflow_infrastructure",
+      "target": "nuget_masstransit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_omniflow_infrastructure",
+      "target": "nuget_masstransit_entityframeworkcore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_omniflow_infrastructure",
+      "target": "nuget_masstransit_quartz",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_omniflow_infrastructure",
+      "target": "nuget_masstransit_rabbitmq",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_omniflow_infrastructure",
+      "target": "nuget_microsoft_aspnetcore_identity_entityframeworkcore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_omniflow_infrastructure",
+      "target": "nuget_npgsql_entityframeworkcore_postgresql",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_omniflow_infrastructure",
+      "target": "nuget_openiddict_aspnetcore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_omniflow_infrastructure",
+      "target": "nuget_openiddict_entityframeworkcore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_omniflow_infrastructure",
+      "target": "nuget_quartz_extensions_hosting",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_omniflow_infrastructure",
+      "target": "nuget_quartz_serialization_json",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_omniflow_infrastructure",
+      "target": "nuget_telegram_bot",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_omniflow_infrastructure",
+      "target": "src_omniflow_infrastructure_omniflow_infrastructure_csproj_framework_net10_0",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_omniflow_infrastructure",
+      "target": "src_omniflow_infrastructure_omniflow_infrastructure_csproj_nuget_microsoft_entityframeworkcore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_omniflow_infrastructure",
+      "target": "src_omniflow_infrastructure_omniflow_infrastructure_csproj_sdk_microsoft_net_sdk",
       "confidence_score": 1.0
     },
     {
@@ -24746,7 +25076,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Api/Program.cs",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0,
       "metadata": {
         "using_kind": "namespace",
@@ -25129,105 +25459,6 @@
     },
     {
       "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_omniflow_infrastructure_csproj",
-      "target": "nuget_masstransit",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_omniflow_infrastructure_csproj",
-      "target": "nuget_masstransit_entityframeworkcore",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_omniflow_infrastructure_csproj",
-      "target": "nuget_microsoft_aspnetcore_identity_entityframeworkcore",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_omniflow_infrastructure_csproj",
-      "target": "nuget_npgsql_entityframeworkcore_postgresql",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_omniflow_infrastructure_csproj",
-      "target": "nuget_openiddict_aspnetcore",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_omniflow_infrastructure_csproj",
-      "target": "nuget_openiddict_entityframeworkcore",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_omniflow_infrastructure_csproj",
-      "target": "nuget_telegram_bot",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_omniflow_infrastructure_csproj",
-      "target": "src_omniflow_infrastructure_omniflow_infrastructure_csproj_framework_net10_0",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_omniflow_infrastructure_csproj",
-      "target": "src_omniflow_infrastructure_omniflow_infrastructure_csproj_nuget_microsoft_entityframeworkcore",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_omniflow_infrastructure_csproj",
-      "target": "src_omniflow_infrastructure_omniflow_infrastructure_csproj_sdk_microsoft_net_sdk",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_omniflow_infrastructure_csproj",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_omniflow_application_csproj",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Api/Program.cs",
@@ -25358,7 +25589,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Api/Program.cs",
-      "source_location": "L407",
+      "source_location": "L463",
       "weight": 1.0,
       "source": "src_omniflow_api_program",
       "target": "src_omniflow_api_program_program",
@@ -25587,16 +25818,6 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Api/Services/SlaSweepBackgroundService.cs",
-      "source_location": "L7",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_cs",
-      "target": "csharp_namespace:f07a9b2d86376f80",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Api/Services/TelegramWebhookRegistrationService.cs",
       "source_location": "L6",
       "weight": 1.0,
@@ -25736,122 +25957,6 @@
       },
       "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_databasehealthcheck_omniflow_api_services_databasehealthcheck_checkhealthasync",
       "target": "healthcheckresult",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Api/Services/SlaSweepBackgroundService.cs",
-      "source_location": "L4",
-      "weight": 1.0,
-      "metadata": {
-        "using_kind": "namespace",
-        "target_fqn": "OmniFlow.Domain.Events",
-        "scope_kind": "file"
-      },
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_cs",
-      "target": "csharp_namespace:2a96f44642d5898c",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Api/Services/SlaSweepBackgroundService.cs",
-      "source_location": "L3",
-      "weight": 1.0,
-      "metadata": {
-        "using_kind": "namespace",
-        "target_fqn": "OmniFlow.Domain.Enums",
-        "scope_kind": "file"
-      },
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_cs",
-      "target": "csharp_namespace:a48ad78b95a51519",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Api/Services/SlaSweepBackgroundService.cs",
-      "source_location": "L5",
-      "weight": 1.0,
-      "metadata": {
-        "using_kind": "namespace",
-        "target_fqn": "OmniFlow.Infrastructure.Persistence",
-        "scope_kind": "file"
-      },
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_cs",
-      "target": "csharp_namespace:efb972b9a8c23bd2",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Api/Services/SlaSweepBackgroundService.cs",
-      "source_location": "L16",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_cs",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_omniflow_api_services_slasweepbackgroundservice",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "inherits",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Api/Services/SlaSweepBackgroundService.cs",
-      "source_location": "L16",
-      "weight": 1.0,
-      "metadata": {
-        "ref_token": "BackgroundService"
-      },
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_omniflow_api_services_slasweepbackgroundservice",
-      "target": "backgroundservice",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Api/Services/SlaSweepBackgroundService.cs",
-      "source_location": "L20",
-      "weight": 1.0,
-      "context": "field",
-      "metadata": {
-        "ref_token": "IServiceScopeFactory"
-      },
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_omniflow_api_services_slasweepbackgroundservice",
-      "target": "iservicescopefactory",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Api/Services/SlaSweepBackgroundService.cs",
-      "source_location": "L29",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_omniflow_api_services_slasweepbackgroundservice",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_omniflow_api_services_slasweepbackgroundservice_executeasync",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Api/Services/SlaSweepBackgroundService.cs",
-      "source_location": "L50",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_omniflow_api_services_slasweepbackgroundservice",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_omniflow_api_services_slasweepbackgroundservice_sweepasync",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Api/Services/SlaSweepBackgroundService.cs",
-      "source_location": "L37",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_omniflow_api_services_slasweepbackgroundservice_executeasync",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_slasweepbackgroundservice_omniflow_api_services_slasweepbackgroundservice_sweepasync",
       "confidence_score": 1.0
     },
     {
@@ -30950,6 +31055,22 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L4",
+      "weight": 1.0,
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "OmniFlow.Application.Interfaces",
+        "scope_kind": "file"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder",
+      "target": "csharp_namespace:2816fdb477e759e6",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Application/Interfaces/IMessageGateway.cs",
@@ -31268,22 +31389,6 @@
         "scope_kind": "file"
       },
       "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_omniflowdbcontext_cs",
-      "target": "csharp_namespace:2816fdb477e759e6",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
-      "source_location": "L4",
-      "weight": 1.0,
-      "metadata": {
-        "using_kind": "namespace",
-        "target_fqn": "OmniFlow.Application.Interfaces",
-        "scope_kind": "file"
-      },
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_cs",
       "target": "csharp_namespace:2816fdb477e759e6",
       "confidence_score": 1.0
     },
@@ -31899,7 +32004,7 @@
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/OmniFlow.Application/Tickets/Commands/CreateTicketCommandHandler.cs",
-      "source_location": "L46",
+      "source_location": "L78",
       "weight": 1.0,
       "source": "src_omniflow_application_tickets_commands_createticketcommandhandler_omniflow_application_tickets_commands_createticketcommandhandler_handle",
       "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_interfaces_iomniflowdbcontext_omniflow_application_interfaces_iomniflowdbcontext_savechangesasync"
@@ -34000,7 +34105,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "src/OmniFlow.Application/Tickets/Commands/CreateTicketCommandHandler.cs",
-      "source_location": "L43",
+      "source_location": "L59",
       "weight": 1.0,
       "source": "src_omniflow_application_tickets_commands_createticketcommandhandler_omniflow_application_tickets_commands_createticketcommandhandler_handle",
       "target": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_create"
@@ -35417,6 +35522,22 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L5",
+      "weight": 1.0,
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "OmniFlow.Domain.Common",
+        "scope_kind": "file"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder",
+      "target": "csharp_namespace:18d04e29459392e3",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Common/AuditableEntity.cs",
@@ -36045,22 +36166,6 @@
         "scope_kind": "file"
       },
       "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_interceptors_auditableentityinterceptor_cs",
-      "target": "csharp_namespace:18d04e29459392e3",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
-      "source_location": "L5",
-      "weight": 1.0,
-      "metadata": {
-        "using_kind": "namespace",
-        "target_fqn": "OmniFlow.Domain.Common",
-        "scope_kind": "file"
-      },
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_cs",
       "target": "csharp_namespace:18d04e29459392e3",
       "confidence_score": 1.0
     },
@@ -37016,6 +37121,22 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L6",
+      "weight": 1.0,
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "OmniFlow.Domain.Entities",
+        "scope_kind": "file"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder",
+      "target": "csharp_namespace:564d789e13902d4a",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/AuditLog.cs",
@@ -37604,22 +37725,6 @@
         "scope_kind": "file"
       },
       "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_omniflowdbcontext_cs",
-      "target": "csharp_namespace:564d789e13902d4a",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
-      "source_location": "L6",
-      "weight": 1.0,
-      "metadata": {
-        "using_kind": "namespace",
-        "target_fqn": "OmniFlow.Domain.Entities",
-        "scope_kind": "file"
-      },
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_cs",
       "target": "csharp_namespace:564d789e13902d4a",
       "confidence_score": 1.0
     },
@@ -39624,7 +39729,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L172",
+      "source_location": "L182",
       "weight": 1.0,
       "source": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket",
       "target": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_addaudit",
@@ -39634,7 +39739,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L155",
+      "source_location": "L165",
       "weight": 1.0,
       "source": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket",
       "target": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_addcomment",
@@ -39644,7 +39749,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L146",
+      "source_location": "L156",
       "weight": 1.0,
       "source": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket",
       "target": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_assign",
@@ -39654,7 +39759,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L72",
+      "source_location": "L75",
       "weight": 1.0,
       "context": "return_type",
       "metadata": {
@@ -39668,7 +39773,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L221",
+      "source_location": "L231",
       "weight": 1.0,
       "source": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket",
       "target": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_readenum",
@@ -39678,7 +39783,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L218",
+      "source_location": "L228",
       "weight": 1.0,
       "source": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket",
       "target": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_readstring",
@@ -39688,7 +39793,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L106",
+      "source_location": "L116",
       "weight": 1.0,
       "source": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket",
       "target": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_transition",
@@ -39698,7 +39803,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L189",
+      "source_location": "L199",
       "weight": 1.0,
       "source": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket",
       "target": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_validatedynamicfields",
@@ -39876,7 +39981,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L172",
+      "source_location": "L182",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -39890,7 +39995,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L155",
+      "source_location": "L165",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -39904,7 +40009,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L146",
+      "source_location": "L156",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -39918,7 +40023,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L72",
+      "source_location": "L75",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -39932,7 +40037,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L72",
+      "source_location": "L75",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -39946,7 +40051,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L221",
+      "source_location": "L231",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -39960,7 +40065,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L218",
+      "source_location": "L228",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -39974,7 +40079,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L189",
+      "source_location": "L199",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -39985,12 +40090,26 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
+      "source_location": "L75",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "TimeSpan"
+      },
+      "source": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_create",
+      "target": "src_omniflow_domain_entities_ticket_cs_timespan",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "context": "call",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L91",
+      "source_location": "L101",
       "weight": 1.0,
       "source": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_create",
       "target": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_addaudit"
@@ -40000,7 +40119,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L85",
+      "source_location": "L92",
       "weight": 1.0,
       "source": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_create",
       "target": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_readenum",
@@ -40011,7 +40130,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L83",
+      "source_location": "L90",
       "weight": 1.0,
       "source": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_create",
       "target": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_readstring",
@@ -40022,7 +40141,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L74",
+      "source_location": "L81",
       "weight": 1.0,
       "source": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_create",
       "target": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_validatedynamicfields",
@@ -40032,7 +40151,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L72",
+      "source_location": "L75",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -40047,7 +40166,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L139",
+      "source_location": "L149",
       "weight": 1.0,
       "source": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_transition",
       "target": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_addaudit",
@@ -40057,7 +40176,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L106",
+      "source_location": "L116",
       "weight": 1.0,
       "context": "return_type",
       "metadata": {
@@ -40071,7 +40190,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L106",
+      "source_location": "L116",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -40086,7 +40205,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L150",
+      "source_location": "L160",
       "weight": 1.0,
       "source": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_assign",
       "target": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_addaudit",
@@ -40097,7 +40216,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L168",
+      "source_location": "L178",
       "weight": 1.0,
       "source": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_addcomment",
       "target": "src_omniflow_domain_entities_ticket_omniflow_domain_entities_ticket_addaudit",
@@ -40107,7 +40226,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L155",
+      "source_location": "L165",
       "weight": 1.0,
       "context": "return_type",
       "metadata": {
@@ -40121,7 +40240,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Entities/Ticket.cs",
-      "source_location": "L189",
+      "source_location": "L199",
       "weight": 1.0,
       "context": "parameter_type",
       "metadata": {
@@ -40342,6 +40461,38 @@
         "scope_kind": "file"
       },
       "source": "src_omniflow_infrastructure_messaging_consumers_approvalcompletedconsumer",
+      "target": "csharp_namespace:a48ad78b95a51519",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L7",
+      "weight": 1.0,
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "OmniFlow.Domain.Enums",
+        "scope_kind": "file"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder",
+      "target": "csharp_namespace:a48ad78b95a51519",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Scheduling/SlaReconciliationJob.cs",
+      "source_location": "L4",
+      "weight": 1.0,
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "OmniFlow.Domain.Enums",
+        "scope_kind": "file"
+      },
+      "source": "src_omniflow_infrastructure_scheduling_slareconciliationjob",
       "target": "csharp_namespace:a48ad78b95a51519",
       "confidence_score": 1.0
     },
@@ -40630,22 +40781,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
-      "source_location": "L7",
-      "weight": 1.0,
-      "metadata": {
-        "using_kind": "namespace",
-        "target_fqn": "OmniFlow.Domain.Enums",
-        "scope_kind": "file"
-      },
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_cs",
-      "target": "csharp_namespace:a48ad78b95a51519",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Domain/Enums/AssetStatus.cs",
@@ -40908,6 +41043,22 @@
         "scope_kind": "file"
       },
       "source": "src_omniflow_infrastructure_messaging_consumers_approvalcompletedconsumer",
+      "target": "csharp_namespace:2a96f44642d5898c",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Scheduling/SlaReconciliationJob.cs",
+      "source_location": "L5",
+      "weight": 1.0,
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "OmniFlow.Domain.Events",
+        "scope_kind": "file"
+      },
+      "source": "src_omniflow_infrastructure_scheduling_slareconciliationjob",
       "target": "csharp_namespace:2a96f44642d5898c",
       "confidence_score": 1.0
     },
@@ -42144,6 +42295,26 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.cs",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore",
+      "target": "csharp_namespace:801ba72911cbcb29",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.Designer.cs",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_designer",
+      "target": "csharp_namespace:801ba72911cbcb29",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Infrastructure/Migrations/20260711165333_InitialBaseline.cs",
       "source_location": "L8",
       "weight": 1.0,
@@ -42252,6 +42423,19 @@
       "weight": 1.0,
       "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260711165333_initialbaseline_omniflow_infrastructure_migrations_initialbaseline",
       "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260711165333_initialbaseline_omniflow_infrastructure_migrations_initialbaseline_up",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.cs",
+      "source_location": "L12",
+      "weight": 1.0,
+      "metadata": {
+        "ref_token": "Migration"
+      },
+      "source": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_omniflow_infrastructure_migrations_quartzjobstore",
+      "target": "migration",
       "confidence_score": 1.0
     },
     {
@@ -42410,6 +42594,114 @@
       "weight": 1.0,
       "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712161700_approvalengine_omniflow_infrastructure_migrations_approvalengine",
       "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712161700_approvalengine_omniflow_infrastructure_migrations_approvalengine_up",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.Designer.cs",
+      "source_location": "L9",
+      "weight": 1.0,
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "OmniFlow.Infrastructure.Persistence",
+        "scope_kind": "file"
+      },
+      "source": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_designer",
+      "target": "csharp_namespace:efb972b9a8c23bd2",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.Designer.cs",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_designer",
+      "target": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_designer_omniflow_infrastructure_migrations_quartzjobstore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.Designer.cs",
+      "source_location": "L20",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_designer_omniflow_infrastructure_migrations_quartzjobstore",
+      "target": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_designer_omniflow_infrastructure_migrations_quartzjobstore_buildtargetmodel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.Designer.cs",
+      "source_location": "L20",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "ModelBuilder"
+      },
+      "source": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_designer_omniflow_infrastructure_migrations_quartzjobstore_buildtargetmodel",
+      "target": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_designer_cs_modelbuilder",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.cs",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore",
+      "target": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_omniflow_infrastructure_migrations_quartzjobstore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.cs",
+      "source_location": "L168",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_omniflow_infrastructure_migrations_quartzjobstore",
+      "target": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_omniflow_infrastructure_migrations_quartzjobstore_down",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.cs",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_omniflow_infrastructure_migrations_quartzjobstore",
+      "target": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_omniflow_infrastructure_migrations_quartzjobstore_up",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.cs",
+      "source_location": "L15",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "MigrationBuilder"
+      },
+      "source": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_omniflow_infrastructure_migrations_quartzjobstore_up",
+      "target": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_cs_migrationbuilder",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.cs",
+      "source_location": "L168",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "MigrationBuilder"
+      },
+      "source": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_omniflow_infrastructure_migrations_quartzjobstore_down",
+      "target": "src_omniflow_infrastructure_migrations_20260719193907_quartzjobstore_cs_migrationbuilder",
       "confidence_score": 1.0
     },
     {
@@ -43712,6 +44004,36 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Scheduling/SlaReconciliationJob.cs",
+      "source_location": "L6",
+      "weight": 1.0,
+      "metadata": {
+        "using_kind": "namespace",
+        "target_fqn": "OmniFlow.Infrastructure.Persistence",
+        "scope_kind": "file"
+      },
+      "source": "src_omniflow_infrastructure_scheduling_slareconciliationjob",
+      "target": "csharp_namespace:efb972b9a8c23bd2",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Scheduling/SlaReconciliationJob.cs",
+      "source_location": "L24",
+      "weight": 1.0,
+      "context": "field",
+      "metadata": {
+        "ref_token": "OmniFlowDbContext"
+      },
+      "source": "src_omniflow_infrastructure_scheduling_slareconciliationjob_omniflow_infrastructure_scheduling_slareconciliationjob",
+      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_omniflowdbcontext_omniflow_infrastructure_persistence_omniflowdbcontext",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Infrastructure/Persistence/OmniFlowDbContext.cs",
@@ -43774,7 +44096,7 @@
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
       "source_location": "L9",
       "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_cs",
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder",
       "target": "csharp_namespace:15928d5fdf4644c1",
       "confidence_score": 1.0
     },
@@ -43784,8 +44106,8 @@
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
       "source_location": "L15",
       "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_cs",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder",
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder",
       "confidence_score": 1.0
     },
     {
@@ -43812,10 +44134,10 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
-      "source_location": "L60",
+      "source_location": "L61",
       "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedapprovalartifactsasync",
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedapprovalartifactsasync",
       "confidence_score": 1.0
     },
     {
@@ -43824,48 +44146,100 @@
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
       "source_location": "L17",
       "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
       "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
-      "source_location": "L126",
+      "source_location": "L127",
       "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedlegacyusersasync",
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedlegacyusersasync",
       "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
-      "source_location": "L226",
+      "source_location": "L256",
       "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedmenusasync",
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedmenusasync",
       "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
-      "source_location": "L174",
+      "source_location": "L204",
       "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedservicedeskasync",
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedservicedeskasync",
       "confidence_score": 1.0
     },
     {
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
-      "source_location": "L190",
+      "source_location": "L175",
       "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedtickettemplateasync",
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedslaconfigurationsasync",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L220",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedtickettemplateasync",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "CancellationToken"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_cancellationtoken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "IServiceProvider"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_iserviceprovider",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "return_type",
+      "metadata": {
+        "ref_token": "Task"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_task",
       "confidence_score": 1.0
     },
     {
@@ -43873,10 +44247,10 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
-      "source_location": "L49",
+      "source_location": "L50",
       "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedapprovalartifactsasync",
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedapprovalartifactsasync",
       "confidence_score": 1.0
     },
     {
@@ -43886,8 +44260,8 @@
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
       "source_location": "L45",
       "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedlegacyusersasync",
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedlegacyusersasync",
       "confidence_score": 1.0
     },
     {
@@ -43895,10 +44269,10 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
-      "source_location": "L48",
+      "source_location": "L49",
       "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedmenusasync",
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedmenusasync",
       "confidence_score": 1.0
     },
     {
@@ -43908,8 +44282,19 @@
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
       "source_location": "L46",
       "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedservicedeskasync",
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedservicedeskasync",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L48",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedslaconfigurationsasync",
       "confidence_score": 1.0
     },
     {
@@ -43919,8 +44304,8 @@
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
       "source_location": "L47",
       "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedtickettemplateasync",
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedtickettemplateasync",
       "confidence_score": 1.0
     },
     {
@@ -43931,8 +44316,260 @@
       "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
       "source_location": "L43",
       "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
       "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_identityseeddata_omniflow_infrastructure_persistence_seed_identityseeddata_seedasync"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L61",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "CancellationToken"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedapprovalartifactsasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_cancellationtoken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L127",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "CancellationToken"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedlegacyusersasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_cancellationtoken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L256",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "CancellationToken"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedmenusasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_cancellationtoken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L204",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "CancellationToken"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedservicedeskasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_cancellationtoken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L175",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "CancellationToken"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedslaconfigurationsasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_cancellationtoken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L220",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "CancellationToken"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedtickettemplateasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_cancellationtoken",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L61",
+      "weight": 1.0,
+      "context": "return_type",
+      "metadata": {
+        "ref_token": "Task"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedapprovalartifactsasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_task",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L127",
+      "weight": 1.0,
+      "context": "return_type",
+      "metadata": {
+        "ref_token": "Task"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedlegacyusersasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_task",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L256",
+      "weight": 1.0,
+      "context": "return_type",
+      "metadata": {
+        "ref_token": "Task"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedmenusasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_task",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L204",
+      "weight": 1.0,
+      "context": "return_type",
+      "metadata": {
+        "ref_token": "Task"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedservicedeskasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_task",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L175",
+      "weight": 1.0,
+      "context": "return_type",
+      "metadata": {
+        "ref_token": "Task"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedslaconfigurationsasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_task",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L220",
+      "weight": 1.0,
+      "context": "return_type",
+      "metadata": {
+        "ref_token": "Task"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedtickettemplateasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_task",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L61",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "OmniFlowDbContext"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedapprovalartifactsasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_omniflowdbcontext",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L127",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "OmniFlowDbContext"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedlegacyusersasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_omniflowdbcontext",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L256",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "OmniFlowDbContext"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedmenusasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_omniflowdbcontext",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L204",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "OmniFlowDbContext"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedservicedeskasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_omniflowdbcontext",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L175",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "OmniFlowDbContext"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedslaconfigurationsasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_omniflowdbcontext",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs",
+      "source_location": "L220",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "OmniFlowDbContext"
+      },
+      "source": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedtickettemplateasync",
+      "target": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_omniflowdbcontext",
+      "confidence_score": 1.0
     },
     {
       "relation": "contains",
@@ -43962,6 +44599,119 @@
       "weight": 1.0,
       "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_seedconstants_cs",
       "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_seed_seedconstants_omniflow_infrastructure_persistence_seed_seedconstants",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Scheduling/SlaReconciliationJob.cs",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_scheduling_slareconciliationjob",
+      "target": "csharp_namespace:0447592ef8c01a4e",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Scheduling/SlaReconciliationJob.cs",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_scheduling_slareconciliationjob",
+      "target": "src_omniflow_infrastructure_scheduling_slareconciliationjob_omniflow_infrastructure_scheduling_slareconciliationjob",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Scheduling/SlaReconciliationJob.cs",
+      "source_location": "L19",
+      "weight": 1.0,
+      "metadata": {
+        "ref_token": "IJob"
+      },
+      "source": "src_omniflow_infrastructure_scheduling_slareconciliationjob_omniflow_infrastructure_scheduling_slareconciliationjob",
+      "target": "ijob",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Scheduling/SlaReconciliationJob.cs",
+      "source_location": "L22",
+      "weight": 1.0,
+      "context": "field",
+      "metadata": {
+        "ref_token": "JobKey"
+      },
+      "source": "src_omniflow_infrastructure_scheduling_slareconciliationjob_omniflow_infrastructure_scheduling_slareconciliationjob",
+      "target": "jobkey",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Scheduling/SlaReconciliationJob.cs",
+      "source_location": "L26",
+      "weight": 1.0,
+      "context": "field",
+      "metadata": {
+        "ref_token": "ILogger"
+      },
+      "source": "src_omniflow_infrastructure_scheduling_slareconciliationjob_omniflow_infrastructure_scheduling_slareconciliationjob",
+      "target": "src_omniflow_infrastructure_scheduling_slareconciliationjob_cs_ilogger",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Scheduling/SlaReconciliationJob.cs",
+      "source_location": "L25",
+      "weight": 1.0,
+      "context": "field",
+      "metadata": {
+        "ref_token": "IPublishEndpoint"
+      },
+      "source": "src_omniflow_infrastructure_scheduling_slareconciliationjob_omniflow_infrastructure_scheduling_slareconciliationjob",
+      "target": "src_omniflow_infrastructure_scheduling_slareconciliationjob_cs_ipublishendpoint",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Scheduling/SlaReconciliationJob.cs",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "src_omniflow_infrastructure_scheduling_slareconciliationjob_omniflow_infrastructure_scheduling_slareconciliationjob",
+      "target": "src_omniflow_infrastructure_scheduling_slareconciliationjob_omniflow_infrastructure_scheduling_slareconciliationjob_execute",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Scheduling/SlaReconciliationJob.cs",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "metadata": {
+        "ref_token": "IJobExecutionContext"
+      },
+      "source": "src_omniflow_infrastructure_scheduling_slareconciliationjob_omniflow_infrastructure_scheduling_slareconciliationjob_execute",
+      "target": "ijobexecutioncontext",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Infrastructure/Scheduling/SlaReconciliationJob.cs",
+      "source_location": "L38",
+      "weight": 1.0,
+      "context": "return_type",
+      "metadata": {
+        "ref_token": "Task"
+      },
+      "source": "src_omniflow_infrastructure_scheduling_slareconciliationjob_omniflow_infrastructure_scheduling_slareconciliationjob_execute",
+      "target": "src_omniflow_infrastructure_scheduling_slareconciliationjob_cs_task",
       "confidence_score": 1.0
     },
     {
@@ -49797,5 +50547,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "60a541e3e76fa1e0fcf152c8eb64b666d83a7c06"
+  "built_at_commit": "a3b77fceca718348bc5ada977664716c8b0f344a"
 }

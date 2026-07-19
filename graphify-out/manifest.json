@@ -155,8 +155,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Program.cs": {
-    "mtime": 1783935486.8152835,
-    "ast_hash": "83cf54f34123f695b7ead44d378ef4cc",
+    "mtime": 1784490950.3842275,
+    "ast_hash": "73525ca9e079d0f1b0fd26d80c1ff240",
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Properties/launchSettings.json": {
@@ -172,11 +172,6 @@
   "src/OmniFlow.Api/Services/DatabaseHealthCheck.cs": {
     "mtime": 1783806865.6585808,
     "ast_hash": "f7c0b29e742417c2eba268ee212ea1fb",
-    "semantic_hash": ""
-  },
-  "src/OmniFlow.Api/Services/SlaSweepBackgroundService.cs": {
-    "mtime": 1783854117.4007266,
-    "ast_hash": "89dec3d8be316ddb696bcd7f9731923e",
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Services/TelegramWebhookRegistrationService.cs": {
@@ -195,13 +190,13 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/appsettings.Development.json": {
-    "mtime": 1783788659.4321258,
-    "ast_hash": "a28d6be150f772af6679c991edd413e0",
+    "mtime": 1784489881.494499,
+    "ast_hash": "8a0acb465c452cabc29d9ea3b8a5d8e0",
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/appsettings.json": {
-    "mtime": 1783806939.23794,
-    "ast_hash": "b993af9761ae622d8338276f4ba40969",
+    "mtime": 1784489866.0620656,
+    "ast_hash": "620a3ea6adcdf7b01b45dec935f0c4f4",
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Approvals/ApprovalRequestBuilder.cs": {
@@ -425,8 +420,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Tickets/Commands/CreateTicketCommandHandler.cs": {
-    "mtime": 1783936585.363052,
-    "ast_hash": "9f49d211d0682c02756e2cf7d2991067",
+    "mtime": 1784490934.3564093,
+    "ast_hash": "52e76011233f39db25792e157ad7e72e",
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Tickets/Commands/CreateTicketCommandValidator.cs": {
@@ -665,8 +660,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Domain/Entities/Ticket.cs": {
-    "mtime": 1784462291.547621,
-    "ast_hash": "7bea1109b0ac82b8a473197494674ec7",
+    "mtime": 1784490664.541123,
+    "ast_hash": "6d1356fa1c7e4cf4614c85fdc95a68f9",
     "semantic_hash": ""
   },
   "src/OmniFlow.Domain/Entities/TicketAuditLog.cs": {
@@ -920,7 +915,7 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Migrations/OmniFlowDbContextModelSnapshot.cs": {
-    "mtime": 1783873020.816243,
+    "mtime": 1784489947.5683753,
     "ast_hash": "71d736ae3420e856cd299ea4e70a36d4",
     "semantic_hash": ""
   },
@@ -935,8 +930,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj": {
-    "mtime": 1783854135.9995778,
-    "ast_hash": "20f6a4c95d72e7ebc4e4ff59660a1e16",
+    "mtime": 1784489761.3557615,
+    "ast_hash": "3da62716359d51a26542465ae8a4dc2b",
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Persistence/Configurations/AppMenuConfiguration.cs": {
@@ -1050,8 +1045,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs": {
-    "mtime": 1783872967.9475546,
-    "ast_hash": "32078389b74539389e2e2305c2320e9e",
+    "mtime": 1784490722.7140357,
+    "ast_hash": "f328a742128f5baa445297e4cb4bd524",
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Persistence/Seed/IdentitySeedData.cs": {
@@ -1360,8 +1355,8 @@
     "semantic_hash": ""
   },
   "docker-compose.yml": {
-    "mtime": 1783935000.7610333,
-    "ast_hash": "b6da631559d2c541ff844370e07939b3",
+    "mtime": 1784489909.8803756,
+    "ast_hash": "f1e8f56502bb576c28cfe8dc2c15ad8b",
     "semantic_hash": ""
   },
   "src/OmniFlow.Domain/Common/Exceptions/ConflictException.cs": {
@@ -1392,6 +1387,21 @@
   ".claude/settings.local.json": {
     "mtime": 1784461898.2788825,
     "ast_hash": "304678d80ffc9d46fdc305e43667bc18",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.Designer.cs": {
+    "mtime": 1784489947.5677106,
+    "ast_hash": "27a970cce9c964d9d7b33441695f20a2",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Infrastructure/Migrations/20260719193907_QuartzJobStore.cs": {
+    "mtime": 1784490943.133561,
+    "ast_hash": "9b73b1807602e0f32eb50ae160703e3e",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Infrastructure/Scheduling/SlaReconciliationJob.cs": {
+    "mtime": 1784489785.6777034,
+    "ast_hash": "e9dad11544c09be03994855a274c01f7",
     "semantic_hash": ""
   }
 }
