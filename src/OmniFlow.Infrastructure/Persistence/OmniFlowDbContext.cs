@@ -73,6 +73,9 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
     public DbSet<Domain.Entities.Approvals.ApprovalRequest> ApprovalRequests => Set<Domain.Entities.Approvals.ApprovalRequest>();
     public DbSet<Domain.Entities.Approvals.ApprovalStep> ApprovalSteps => Set<Domain.Entities.Approvals.ApprovalStep>();
 
+    // Pre-auth SSO exchange tickets: infrastructure-only, outside the tenant filter.
+    public DbSet<Identity.SsoTicket> SsoTickets => Set<Identity.SsoTicket>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         // Must call base first to configure Identity tables
@@ -87,6 +90,14 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
         builder.AddOutboxStateEntity();
 
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        builder.Entity<Identity.SsoTicket>(entity =>
+        {
+            entity.ToTable("SsoTickets");
+            entity.Property(t => t.CodeHash).HasMaxLength(64).IsRequired();
+            entity.HasIndex(t => t.CodeHash).IsUnique();
+            entity.Property(t => t.Provider).HasMaxLength(64);
+        });
 
         // Global Query Filter for Multi-Tenancy
         foreach (var entityType in builder.Model.GetEntityTypes())

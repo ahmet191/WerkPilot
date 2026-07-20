@@ -138,6 +138,13 @@ export function AppLayout() {
     },
     { type: 'divider' as const },
     {
+      key: 'security',
+      icon: <Icons.SafetyCertificateOutlined />,
+      label: t('security.title', 'Security'),
+      onClick: () => navigate('/settings/security'),
+    },
+    { type: 'divider' as const },
+    {
       key: 'logout',
       icon: <Icons.LogoutOutlined />,
       danger: true,

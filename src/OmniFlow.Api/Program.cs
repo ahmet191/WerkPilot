@@ -122,6 +122,48 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
 .AddEntityFrameworkStores<OmniFlowDbContext>()
 .AddDefaultTokenProviders();
 
+// ── External identity: LDAP (optional), corporate OIDC SSO (optional) ──
+builder.Services.Configure<OmniFlow.Infrastructure.Identity.Ldap.LdapOptions>(
+    builder.Configuration.GetSection("Ldap"));
+builder.Services.AddScoped<OmniFlow.Infrastructure.Identity.Ldap.ILdapAuthenticator,
+    OmniFlow.Infrastructure.Identity.Ldap.LdapAuthenticator>();
+builder.Services.AddScoped<OmniFlow.Infrastructure.Identity.ExternalUserProvisioner>();
+builder.Services.AddScoped<OmniFlow.Infrastructure.Identity.SsoTicketService>();
+
+// Short-lived cookie that only carries the external IdP round-trip; the SPA
+// never sees it — it exchanges the SSO ticket for real tokens instead.
+builder.Services.AddAuthentication()
+    .AddCookie(OmniFlow.Api.Controllers.SsoController.ExternalCookieScheme, options =>
+    {
+        options.Cookie.Name = "WerkPilot.External";
+        options.Cookie.SameSite = SameSiteMode.Lax;
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+    });
+
+var oidcConfig = builder.Configuration.GetSection("Sso:Oidc");
+if (oidcConfig.GetValue<bool>("Enabled") && !string.IsNullOrWhiteSpace(oidcConfig["Authority"]))
+{
+    builder.Services.AddAuthentication()
+        .AddOpenIdConnect(OmniFlow.Api.Controllers.SsoController.OidcScheme,
+            oidcConfig["DisplayName"] ?? "Corporate SSO",
+            options =>
+            {
+                options.SignInScheme = OmniFlow.Api.Controllers.SsoController.ExternalCookieScheme;
+                options.Authority = oidcConfig["Authority"];
+                options.ClientId = oidcConfig["ClientId"];
+                options.ClientSecret = oidcConfig["ClientSecret"];
+                options.ResponseType = "code";
+                options.UsePkce = true;
+                options.CallbackPath = "/signin-oidc-external";
+                options.GetClaimsFromUserInfoEndpoint = true;
+                options.SaveTokens = false;
+                options.Scope.Clear();
+                options.Scope.Add("openid");
+                options.Scope.Add("profile");
+                options.Scope.Add("email");
+            });
+}
+
 // OpenIddict
 builder.Services.AddOpenIddict()
     // Core: use EF Core stores
@@ -138,7 +180,10 @@ builder.Services.AddOpenIddict()
                .SetUserInfoEndpointUris("/connect/userinfo");
 
         options.AllowPasswordFlow()
-               .AllowRefreshTokenFlow();
+               .AllowRefreshTokenFlow()
+               // SPA redeems one-time SSO exchange tickets minted by the
+               // external-IdP callback (see SsoController / AuthorizationController).
+               .AllowCustomFlow(OmniFlow.Api.Controllers.AuthorizationController.SsoGrantType);
 
         // Register scopes
         options.RegisterScopes(
