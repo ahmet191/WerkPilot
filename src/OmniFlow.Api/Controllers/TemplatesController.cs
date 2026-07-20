@@ -89,6 +89,58 @@ public class TemplatesController : ControllerBase
         return NoContent();
     }
 
+    /// <summary>
+    /// Just the template's workflow, with the palette of states and roles the
+    /// visual designer needs so it never hardcodes the domain enums.
+    /// </summary>
+    [HttpGet("{id}/workflow")]
+    [Authorize(Policy = PermissionPolicyNames.TemplatesManage)]
+    public async Task<IActionResult> GetWorkflow(Guid id)
+    {
+        var template = await _context.TicketTemplates.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id);
+        if (template == null) return NotFound();
+
+        return Ok(new
+        {
+            templateId = template.Id,
+            name = template.LocalizedName.GetValueOrDefault(_userContext.Language),
+            workflow = template.Workflow,
+            states = Enum.GetNames<Domain.Enums.TicketState>(),
+            roles = Enum.GetNames<Domain.Enums.UserRole>(),
+            // Identity roles that approval steps can address (distinct from the
+            // domain UserRole used for a transition's RequiredRole).
+            approverRoles = new[] { "Administrator", "HRAdmin", "ITAgent", "Requester" },
+        });
+    }
+
+    /// <summary>
+    /// Replaces the template's workflow only (Fields untouched). The workflow is
+    /// validated first: a broken workflow would break every ticket on this
+    /// template, so an invalid one is rejected with the specific errors.
+    /// </summary>
+    [HttpPut("{id}/workflow")]
+    [Authorize(Policy = PermissionPolicyNames.TemplatesManage)]
+    public async Task<IActionResult> UpdateWorkflow(Guid id, [FromBody] WorkflowDefinition workflow)
+    {
+        var template = await _context.TicketTemplates.FirstOrDefaultAsync(t => t.Id == id);
+        if (template == null) return NotFound();
+
+        var errors = OmniFlow.Application.Tickets.Workflow.WorkflowValidator.Validate(workflow);
+        if (errors.Count > 0)
+        {
+            throw new OmniFlow.Domain.Common.Exceptions.ValidationException(
+                new Dictionary<string, string[]> { ["workflow"] = errors.ToArray() });
+        }
+
+        // A fresh reference from the request body: DetectChanges sees the new
+        // object vs the tracked snapshot and marks the JSONB column modified.
+        // (Unlike the seeder, which mutates the existing reference in place and
+        // therefore has to flag IsModified by hand.)
+        template.Workflow = workflow;
+        await _context.SaveChangesAsync(default);
+        return NoContent();
+    }
+
     [HttpDelete("{id}")]
     [Authorize(Policy = PermissionPolicyNames.TemplatesManage)]
     public async Task<IActionResult> Delete(Guid id)

@@ -20,6 +20,8 @@ interface DynamicPageProps {
    * a full detail page (tickets). All other grid behaviour is unchanged.
    */
   detailRoute?: (record: any) => string;
+  /** Extra toolbar buttons appended after the schema-driven actions. */
+  extraActions?: GridToolbarAction[];
 }
 
 /** UI entity types whose detail view embeds the approval timeline. */
@@ -28,7 +30,7 @@ const APPROVAL_ENTITY_TYPES: Record<string, string> = {
   leaves: 'LeaveRequest',
 };
 
-export function DynamicPage({ entityType, detailRoute }: DynamicPageProps) {
+export function DynamicPage({ entityType, detailRoute, extraActions }: DynamicPageProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const openView = useCallback((record: any) => {
@@ -186,8 +188,9 @@ export function DynamicPage({ entityType, detailRoute }: DynamicPageProps) {
       }
     }
 
+    if (extraActions) actions.push(...extraActions);
     return actions;
-  }, [grid, t, openEdit, handleDelete, handleCustomAction, openView]);
+  }, [grid, t, openEdit, handleDelete, handleCustomAction, openView, extraActions]);
 
   if (loading || !schema || !grid) {
     return <div style={{ padding: 50, textAlign: 'center' }}><Spin size="large" /></div>;

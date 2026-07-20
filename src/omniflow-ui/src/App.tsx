@@ -14,6 +14,8 @@ import { AuthProvider } from './core/AuthContext';
 import { PermissionProvider, Perm } from './core/PermissionContext';
 import { PermissionMatrixPage } from './features/admin/PermissionMatrixPage';
 import { PlatformTenantsPage } from './features/platform/PlatformTenantsPage';
+import { TemplatesAdminPage } from './features/admin/TemplatesAdminPage';
+import { WorkflowDesignerPage } from './features/admin/WorkflowDesignerPage';
 import { ProtectedRoute } from './core/ProtectedRoute';
 import { LoginPage } from './features/auth/components/LoginPage';
 import { SsoCallback } from './features/auth/components/SsoCallback';
@@ -66,7 +68,8 @@ function App() {
                   <Route path="auditlogs" element={<DynamicPage entityType="auditlogs" />} />
                 </Route>
                 <Route element={<ProtectedRoute requiredPermission={Perm.TemplatesManage} />}>
-                  <Route path="templates" element={<DynamicPage entityType="templates" />} />
+                  <Route path="templates" element={<TemplatesAdminPage />} />
+                  <Route path="templates/:id/workflow" element={<WorkflowDesignerPage />} />
                   <Route path="menus" element={<DynamicPage entityType="menus" />} />
                 </Route>
                 <Route element={<ProtectedRoute requiredPermission={Perm.CategoriesManage} />}>
