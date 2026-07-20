@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
+using Microsoft.EntityFrameworkCore;
 using OmniFlow.Infrastructure.Identity;
 using OmniFlow.Infrastructure.Identity.Ldap;
+using OmniFlow.Infrastructure.Persistence;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace OmniFlow.Api.Controllers;
@@ -26,19 +28,22 @@ public class AuthorizationController : ControllerBase
     private readonly ILdapAuthenticator _ldapAuthenticator;
     private readonly ExternalUserProvisioner _provisioner;
     private readonly SsoTicketService _ssoTickets;
+    private readonly OmniFlowDbContext _dbContext;
 
     public AuthorizationController(
         SignInManager<ApplicationUser> signInManager,
         UserManager<ApplicationUser> userManager,
         ILdapAuthenticator ldapAuthenticator,
         ExternalUserProvisioner provisioner,
-        SsoTicketService ssoTickets)
+        SsoTicketService ssoTickets,
+        OmniFlowDbContext dbContext)
     {
         _signInManager = signInManager;
         _userManager = userManager;
         _ldapAuthenticator = ldapAuthenticator;
         _provisioner = provisioner;
         _ssoTickets = ssoTickets;
+        _dbContext = dbContext;
     }
 
     /// <summary>
@@ -170,6 +175,11 @@ public class AuthorizationController : ControllerBase
             return TokenError(Errors.InvalidGrant, "The username/password couple is invalid.");
         }
 
+        if (!await IsTenantActiveAsync(user))
+        {
+            return TokenError(Errors.InvalidGrant, "This workspace is suspended. Contact your administrator.");
+        }
+
         // MFA step-up: TOTP (or a recovery code) is required once enabled.
         if (user.TwoFactorEnabled)
         {
@@ -225,6 +235,19 @@ public class AuthorizationController : ControllerBase
         // produced the ticket is responsible for its own factor policy.
         var principal = await CreateClaimsPrincipalAsync(user);
         return SignIn(principal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
+    }
+
+    /// <summary>
+    /// A suspended tenant must not be able to obtain tokens — checked on every
+    /// grant, so deactivating a workspace takes effect immediately.
+    /// </summary>
+    private async Task<bool> IsTenantActiveAsync(ApplicationUser user)
+    {
+        if (user.TenantId == Guid.Empty) return true;
+        var tenant = await _dbContext.Tenants
+            .AsNoTracking()
+            .FirstOrDefaultAsync(t => t.Id == user.TenantId, HttpContext.RequestAborted);
+        return tenant is null || tenant.IsActive;
     }
 
     private IActionResult TokenError(string error, string description)

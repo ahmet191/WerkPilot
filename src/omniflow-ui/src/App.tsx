@@ -12,6 +12,7 @@ import { MyApprovals } from './features/approvals/MyApprovals';
 import { AuthProvider } from './core/AuthContext';
 import { PermissionProvider, Perm } from './core/PermissionContext';
 import { PermissionMatrixPage } from './features/admin/PermissionMatrixPage';
+import { PlatformTenantsPage } from './features/platform/PlatformTenantsPage';
 import { ProtectedRoute } from './core/ProtectedRoute';
 import { LoginPage } from './features/auth/components/LoginPage';
 import { SsoCallback } from './features/auth/components/SsoCallback';
@@ -74,6 +75,11 @@ function App() {
                 </Route>
                 <Route element={<ProtectedRoute requiredPermission={Perm.PermissionsManage} />}>
                   <Route path="settings/permissions" element={<PermissionMatrixPage />} />
+                </Route>
+
+                {/* Platform operator surface — above the tenant boundary. */}
+                <Route element={<ProtectedRoute requiredRoles={['PlatformAdmin']} />}>
+                  <Route path="platform/tenants" element={<PlatformTenantsPage />} />
                 </Route>
 
                 <Route path="*" element={<NotFound />} />

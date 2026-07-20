@@ -148,6 +148,10 @@ builder.Services.AddSingleton<Microsoft.AspNetCore.Authorization.IAuthorizationP
 builder.Services.AddScoped<Microsoft.AspNetCore.Authorization.IAuthorizationHandler,
     OmniFlow.Infrastructure.Authorization.PermissionAuthorizationHandler>();
 
+// Tenant lifecycle (platform operators).
+builder.Services.AddScoped<OmniFlow.Application.Interfaces.ITenantProvisioningService,
+    OmniFlow.Infrastructure.Identity.TenantProvisioningService>();
+
 // Short-lived cookie that only carries the external IdP round-trip; the SPA
 // never sees it — it exchanges the SSO ticket for real tokens instead.
 builder.Services.AddAuthentication()
@@ -284,6 +288,11 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("HRAdmin", policy => policy.RequireRole("HRAdmin", "Administrator"));
     options.AddPolicy("ITAgent", policy => policy.RequireRole("ITAgent", "Administrator"));
     options.AddPolicy("Requester", policy => policy.RequireRole("Requester", "Administrator", "HRAdmin", "ITAgent"));
+
+    // Platform operations (tenant provisioning) sit above the tenant boundary,
+    // so they are gated on a plain Identity role rather than the matrix.
+    options.AddPolicy(OmniFlow.Domain.Common.PlatformRoles.PlatformAdminPolicy,
+        policy => policy.RequireRole(OmniFlow.Domain.Common.PlatformRoles.PlatformAdmin));
 
     // Secure by default: every endpoint requires an authenticated user unless
     // it explicitly opts out with [AllowAnonymous].

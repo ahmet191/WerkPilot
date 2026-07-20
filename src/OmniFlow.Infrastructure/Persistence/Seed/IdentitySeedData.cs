@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using OpenIddict.Abstractions;
+using OmniFlow.Domain.Common;
 using OmniFlow.Domain.Entities;
 using OmniFlow.Infrastructure.Identity;
 
@@ -15,7 +16,9 @@ public static class IdentitySeedData
         var applicationManager = serviceProvider.GetRequiredService<IOpenIddictApplicationManager>();
 
         // ── 1. Seed Roles ──
-        var roles = new[] { "Administrator", "HRAdmin", "ITAgent", "Requester" };
+        // PlatformAdmin transcends tenants (it provisions them), so it is a plain
+        // Identity role rather than an entry in any tenant's permission matrix.
+        var roles = new[] { "Administrator", "HRAdmin", "ITAgent", "Requester", PlatformRoles.PlatformAdmin };
         foreach (var roleName in roles)
         {
             if (!await roleManager.RoleExistsAsync(roleName))
@@ -39,12 +42,22 @@ public static class IdentitySeedData
             };
 
             var result = await userManager.CreateAsync(adminUser, "Admin@123");
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
-                foreach (var roleName in roles)
-                {
-                    await userManager.AddToRoleAsync(adminUser, roleName);
-                }
+                adminUser = null;
+            }
+        }
+
+        // Reconcile the seed admin's roles on every boot, not just at creation:
+        // an existing database must pick up roles introduced by a later release
+        // (this is how PlatformAdmin reaches already-provisioned installs).
+        if (adminUser is not null)
+        {
+            var current = await userManager.GetRolesAsync(adminUser);
+            var missing = roles.Except(current, StringComparer.Ordinal).ToList();
+            if (missing.Count > 0)
+            {
+                await userManager.AddToRolesAsync(adminUser, missing);
             }
         }
 

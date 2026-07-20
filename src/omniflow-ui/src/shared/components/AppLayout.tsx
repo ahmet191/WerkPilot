@@ -151,6 +151,12 @@ export function AppLayout() {
       label: t('permissions.title', 'Roles & Permissions'),
       onClick: () => navigate('/settings/permissions'),
     }] : []),
+    ...((user?.roles ?? []).includes('PlatformAdmin') ? [{
+      key: 'platform',
+      icon: <Icons.CloudServerOutlined />,
+      label: t('platform.title', 'Workspaces'),
+      onClick: () => navigate('/platform/tenants'),
+    }] : []),
     { type: 'divider' as const },
     {
       key: 'logout',
