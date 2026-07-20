@@ -5,6 +5,7 @@ import { DynamicPage } from './shared/components/dynamic/DynamicPage';
 import { DynamicDashboard } from './shared/components/dynamic/DynamicDashboard';
 import { ServiceDeskPortal } from './features/tickets/components/ServiceDeskPortal';
 import { IsolatedServiceDesk } from './features/tickets/components/IsolatedServiceDesk';
+import { TicketDetailPage } from './features/tickets/components/TicketDetailPage';
 import { EmployeeDirectory } from './features/hr/components/EmployeeDirectory';
 import { OrgChart } from './features/hr/components/OrgChart';
 import { MyApprovals } from './features/approvals/MyApprovals';
@@ -44,7 +45,8 @@ function App() {
                 <Route path="settings/security" element={<SecuritySettings />} />
                 <Route path="servicedeskportal" element={<ServiceDeskPortal />} />
                 <Route path="servicedesk/:id/tickets" element={<IsolatedServiceDesk />} />
-                <Route path="tickets" element={<DynamicPage entityType="tickets" />} />
+                <Route path="tickets" element={<DynamicPage entityType="tickets" detailRoute={r => `/tickets/${r.id}`} />} />
+                <Route path="tickets/:id" element={<TicketDetailPage />} />
                 <Route path="assets" element={<DynamicPage entityType="assets" />} />
                 <Route path="directory" element={<EmployeeDirectory />} />
                 <Route path="orgchart" element={<OrgChart />} />

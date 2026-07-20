@@ -36,6 +36,7 @@ public interface IOmniFlowDbContext
     DbSet<SLAConfiguration> SLAConfigurations { get; }
     DbSet<RolePermission> RolePermissions { get; }
     DbSet<Notification> Notifications { get; }
+    DbSet<TicketAttachment> TicketAttachments { get; }
     DbSet<KnowledgeBaseArticle> KnowledgeBaseArticles { get; }
     DbSet<AuditLog> AuditLogs { get; set; }
 
