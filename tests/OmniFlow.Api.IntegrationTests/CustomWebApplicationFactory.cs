@@ -38,6 +38,10 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>, IAsyn
         // Keep scheduling/messaging local to the test host.
         builder.UseSetting("Messaging:Transport", "InMemory");
         builder.UseSetting("Quartz:UseInMemoryStore", "true");
+        // Test classes issue many token calls back-to-back; don't trip the
+        // brute-force guards that protect production.
+        builder.UseSetting("RateLimiting:TokenPermitLimit", "1000");
+        builder.UseSetting("RateLimiting:RecoveryPermitLimit", "1000");
     }
 
     public async Task InitializeAsync() => await _db.StartAsync();

@@ -142,6 +142,14 @@ export const LoginPage: React.FC = () => {
             </Button>
           </Form.Item>
 
+          {!mfaStep && (
+            <div style={{ textAlign: 'right', marginTop: -8, marginBottom: 8 }}>
+              <Button type="link" size="small" onClick={() => navigate('/forgot-password')}>
+                {t('auth.forgotLink', 'Forgot password?')}
+              </Button>
+            </div>
+          )}
+
           {mfaStep && (
             <Button type="link" block onClick={() => { setMfaStep(false); setError(null); }}>
               {t('auth.backToLogin', 'Back to sign in')}

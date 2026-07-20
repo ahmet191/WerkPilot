@@ -13,7 +13,10 @@ import { AuthProvider } from './core/AuthContext';
 import { ProtectedRoute } from './core/ProtectedRoute';
 import { LoginPage } from './features/auth/components/LoginPage';
 import { SsoCallback } from './features/auth/components/SsoCallback';
+import { ForgotPassword } from './features/auth/components/ForgotPassword';
+import { ResetPassword } from './features/auth/components/ResetPassword';
 import { SecuritySettings } from './features/account/SecuritySettings';
+import { UserAdminPage } from './features/admin/UserAdminPage';
 import { ErrorBoundary } from './shared/components/ErrorBoundary';
 import { NotFound } from './shared/components/NotFound';
 
@@ -28,6 +31,8 @@ function App() {
           <Routes>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/login/sso" element={<SsoCallback />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
 
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<AppLayout />}>
@@ -52,7 +57,7 @@ function App() {
                   <Route path="templates" element={<DynamicPage entityType="templates" />} />
                   <Route path="categories" element={<DynamicPage entityType="categories" />} />
                   <Route path="slas" element={<DynamicPage entityType="slas" />} />
-                  <Route path="users" element={<DynamicPage entityType="users" />} />
+                  <Route path="users" element={<UserAdminPage />} />
                   <Route path="menus" element={<DynamicPage entityType="menus" />} />
                 </Route>
 

@@ -130,6 +130,14 @@ builder.Services.AddScoped<OmniFlow.Infrastructure.Identity.Ldap.ILdapAuthentica
 builder.Services.AddScoped<OmniFlow.Infrastructure.Identity.ExternalUserProvisioner>();
 builder.Services.AddScoped<OmniFlow.Infrastructure.Identity.SsoTicketService>();
 
+// Outbound email + login-account lifecycle (admin console, password recovery).
+builder.Services.Configure<OmniFlow.Infrastructure.Email.EmailOptions>(
+    builder.Configuration.GetSection("Email"));
+builder.Services.AddScoped<OmniFlow.Application.Interfaces.IEmailSender,
+    OmniFlow.Infrastructure.Email.SmtpEmailSender>();
+builder.Services.AddScoped<OmniFlow.Application.Interfaces.IIdentityAccountService,
+    OmniFlow.Infrastructure.Identity.IdentityAccountService>();
+
 // Short-lived cookie that only carries the external IdP round-trip; the SPA
 // never sees it — it exchanges the SSO ticket for real tokens instead.
 builder.Services.AddAuthentication()
@@ -407,13 +415,30 @@ builder.Services.AddRateLimiter(options =>
 {
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 
+    // Limits are config-tunable (RateLimiting section); integration tests
+    // raise them so multi-login test classes don't trip the guard.
+    var tokenPermits = builder.Configuration.GetValue("RateLimiting:TokenPermitLimit", 10);
+    var recoveryPermits = builder.Configuration.GetValue("RateLimiting:RecoveryPermitLimit", 5);
+
     options.AddPolicy("token-endpoint", httpContext =>
         RateLimitPartition.GetFixedWindowLimiter(
             httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
             _ => new FixedWindowRateLimiterOptions
             {
-                PermitLimit = 10,
+                PermitLimit = tokenPermits,
                 Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0
+            }));
+
+    // Account recovery (forgot/reset password): slow enumeration + token
+    // brute-force without hindering legitimate retries.
+    options.AddPolicy("account-recovery", httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = recoveryPermits,
+                Window = TimeSpan.FromMinutes(5),
                 QueueLimit = 0
             }));
 });
