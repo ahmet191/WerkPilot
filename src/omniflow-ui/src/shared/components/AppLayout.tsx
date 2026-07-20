@@ -8,6 +8,7 @@ import { useTranslation } from '../../core/LanguageContext';
 import { useAuth } from '../../core/AuthContext';
 import { usePermissions, Perm } from '../../core/PermissionContext';
 import { api } from '../../core/api';
+import { NotificationBell } from './NotificationBell';
 
 const { Header, Sider, Content } = Layout;
 
@@ -262,6 +263,8 @@ export function AppLayout() {
                 ]}
               />
             </Space>
+
+            <NotificationBell />
 
             <Divider type="vertical" style={{ height: 22, margin: 0 }} />
 

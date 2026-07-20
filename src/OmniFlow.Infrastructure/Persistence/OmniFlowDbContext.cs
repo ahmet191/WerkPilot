@@ -78,6 +78,8 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
 
     public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
 
+    public DbSet<Notification> Notifications => Set<Notification>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         // Must call base first to configure Identity tables
@@ -92,6 +94,15 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
         builder.AddOutboxStateEntity();
 
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        builder.Entity<Notification>(entity =>
+        {
+            entity.Property(n => n.Title).HasMaxLength(200).IsRequired();
+            entity.Property(n => n.Body).HasMaxLength(2000);
+            entity.Property(n => n.Link).HasMaxLength(500);
+            // The centre reads "my unread, newest first" on every page load.
+            entity.HasIndex(n => new { n.TenantId, n.RecipientUserId, n.ReadAt });
+        });
 
         builder.Entity<RolePermission>(entity =>
         {

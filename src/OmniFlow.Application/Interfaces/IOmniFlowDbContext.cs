@@ -35,6 +35,7 @@ public interface IOmniFlowDbContext
     
     DbSet<SLAConfiguration> SLAConfigurations { get; }
     DbSet<RolePermission> RolePermissions { get; }
+    DbSet<Notification> Notifications { get; }
     DbSet<KnowledgeBaseArticle> KnowledgeBaseArticles { get; }
     DbSet<AuditLog> AuditLogs { get; set; }
 
