@@ -4,6 +4,9 @@ import { useAuth } from './AuthContext';
 import { usePermissions } from './PermissionContext';
 import { Spin, Result, Button } from 'antd';
 
+/** Roles that transcend the tenant boundary (see Domain.Common.PlatformRoles). */
+const PLATFORM_ROLES = ['PlatformAdmin'];
+
 interface ProtectedRouteProps {
   /** If set, the user must hold at least one of these roles (Administrator always passes). */
   requiredRoles?: string[];
@@ -41,7 +44,11 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRoles, r
 
   if (requiredRoles && requiredRoles.length > 0) {
     const roles = user?.roles ?? [];
-    const allowed = roles.includes('Administrator') || requiredRoles.some(r => roles.includes(r));
+    // A tenant Administrator outranks tenant roles, but never platform ones —
+    // those sit above the tenant boundary and the API enforces them strictly.
+    const platformRequired = requiredRoles.some(r => PLATFORM_ROLES.includes(r));
+    const allowed = requiredRoles.some(r => roles.includes(r))
+      || (!platformRequired && roles.includes('Administrator'));
     if (!allowed) return forbidden;
   }
 

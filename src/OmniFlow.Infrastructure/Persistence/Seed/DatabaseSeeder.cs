@@ -42,13 +42,14 @@ public static class DatabaseSeeder
         // Identity (roles, admin user, OpenIddict scopes/client) is idempotent internally.
         await IdentitySeedData.SeedAsync(serviceProvider);
 
+        // Baseline workspace — the same code path a runtime-provisioned tenant
+        // takes, pinned to the demo tenant's well-known ids.
+        await TenantBaseline.SeedAsync(
+            context, SeedConstants.DefaultTenantId, TenantBaselineIds.Demo, "HQ", cancellationToken);
+
+        // Demo-only extras layered on top of the baseline.
         await SeedLegacyUsersAsync(context, cancellationToken);
-        await SeedServiceDeskAsync(context, cancellationToken);
-        await SeedTicketTemplateAsync(context, cancellationToken);
-        await SeedSlaConfigurationsAsync(context, cancellationToken);
-        await SeedMenusAsync(context, cancellationToken);
         await SeedApprovalArtifactsAsync(context, cancellationToken);
-        await SeedPermissionMatrixAsync(context, cancellationToken);
 
         logger.LogInformation("Database seeding completed");
     }
@@ -129,12 +130,8 @@ public static class DatabaseSeeder
     {
         if (await context.Users.AnyAsync(cancellationToken)) return;
 
-        var department = new Department
-        {
-            Id = SeedConstants.HqDepartmentId,
-            LocalizedName = new MultiLingualString { Translations = new Dictionary<string, string> { { "en", "HQ" }, { "tr", "Merkez" } } }
-        };
-        context.Departments.Add(department);
+        // The department itself comes from TenantBaseline.
+        var department = new { Id = SeedConstants.HqDepartmentId };
 
         context.Users.AddRange(
             new User
@@ -173,145 +170,4 @@ public static class DatabaseSeeder
         await context.SaveChangesAsync(cancellationToken);
     }
 
-    /// <summary>
-    /// Lays down the tenant's default role → permission matrix. Administrator is
-    /// deliberately absent: it always holds every permission (see Permissions.SuperRole).
-    /// </summary>
-    private static async Task SeedPermissionMatrixAsync(OmniFlowDbContext context, CancellationToken cancellationToken)
-    {
-        if (await context.RolePermissions.AnyAsync(cancellationToken)) return;
-
-        foreach (var (roleName, permissions) in Permissions.DefaultMatrix)
-        {
-            foreach (var permission in permissions)
-            {
-                context.RolePermissions.Add(new RolePermission
-                {
-                    RoleName = roleName,
-                    Permission = permission
-                });
-            }
-        }
-
-        await context.SaveChangesAsync(cancellationToken);
-    }
-
-    private static async Task SeedSlaConfigurationsAsync(OmniFlowDbContext context, CancellationToken cancellationToken)
-    {
-        if (await context.SLAConfigurations.AnyAsync(cancellationToken)) return;
-
-        // Default resolution/first-response targets per priority. Tenants can
-        // tune these via the SLA configuration admin screen.
-        (string Priority, int ResolutionMinutes, int FirstResponseMinutes)[] defaults =
-        [
-            ("Critical", 4 * 60, 30),
-            ("High", 8 * 60, 60),
-            ("Medium", 24 * 60, 4 * 60),
-            ("Low", 48 * 60, 8 * 60),
-        ];
-
-        foreach (var (priority, resolution, firstResponse) in defaults)
-        {
-            context.SLAConfigurations.Add(new SLAConfiguration
-            {
-                Name = $"{priority} priority SLA",
-                DepartmentId = SeedConstants.HqDepartmentId,
-                PriorityLevel = priority,
-                ResolutionTimeMinutes = resolution,
-                FirstResponseTimeMinutes = firstResponse
-            });
-        }
-
-        await context.SaveChangesAsync(cancellationToken);
-    }
-
-    private static async Task SeedServiceDeskAsync(OmniFlowDbContext context, CancellationToken cancellationToken)
-    {
-        if (await context.ServiceDesks.AnyAsync(cancellationToken)) return;
-
-        context.ServiceDesks.Add(new ServiceDesk
-        {
-            Id = SeedConstants.ItServiceDeskId,
-            Name = "IT Service Desk",
-            Description = "Global IT Support",
-            DepartmentId = SeedConstants.HqDepartmentId,
-            IsPublicToAllEmployees = true
-        });
-
-        await context.SaveChangesAsync(cancellationToken);
-    }
-
-    private static async Task SeedTicketTemplateAsync(OmniFlowDbContext context, CancellationToken cancellationToken)
-    {
-        if (await context.TicketTemplates.AnyAsync(cancellationToken)) return;
-
-        var template = new TicketTemplate
-        {
-            Id = SeedConstants.ItSupportTemplateId,
-            LocalizedName = new MultiLingualString { Translations = new Dictionary<string, string> { { "en", "IT Support Request" }, { "tr", "BT Destek Talebi" } } },
-            ServiceDeskId = SeedConstants.ItServiceDeskId,
-            Fields = new List<FieldDefinition>
-            {
-                new() { Key = "Title", LocalizedName = new MultiLingualString("en", "Title"), Type = "Text", IsRequired = true, ValidationRegex = "^.{5,150}$", LocalizedDescription = new MultiLingualString("en", "Short description of the issue") },
-                new() { Key = "Type", LocalizedName = new MultiLingualString("en", "Type"), Type = "Dropdown", IsRequired = true, DropdownOptions = new List<string> { "Incident", "ServiceRequest", "Problem", "Change" } },
-                new() { Key = "Priority", LocalizedName = new MultiLingualString("en", "Priority"), Type = "Dropdown", IsRequired = true, DropdownOptions = new List<string> { "Low", "Medium", "High", "Critical" }, LocalizedDescription = new MultiLingualString("en", "Urgency levels") },
-                new() { Key = "Impact", LocalizedName = new MultiLingualString("en", "Impact"), Type = "Dropdown", IsRequired = true, DropdownOptions = new List<string> { "Low", "Medium", "High" } },
-                new() { Key = "Urgency", LocalizedName = new MultiLingualString("en", "Urgency"), Type = "Dropdown", IsRequired = true, DropdownOptions = new List<string> { "Low", "Medium", "High" } },
-                new() { Key = "Description", LocalizedName = new MultiLingualString("en", "Description"), Type = "Text", IsRequired = false, LocalizedDescription = new MultiLingualString("en", "Detailed logs or explanation") },
-                new() { Key = "AssetTag", LocalizedName = new MultiLingualString("en", "Asset Tag"), Type = "Text", IsRequired = false, ValidationRegex = @"^[A-Z]{3}-\d{4}$", LocalizedDescription = new MultiLingualString("en", "Device asset tag in ABC-1234 format") }
-            },
-            Workflow = new WorkflowDefinition
-            {
-                Transitions = new List<WorkflowTransition>
-                {
-                    new() { FromState = TicketState.New, ToState = TicketState.InProgress, Trigger = "StartWork", RequiredRole = UserRole.Agent },
-                    new() { FromState = TicketState.InProgress, ToState = TicketState.WaitingForApproval, Trigger = "RequestApproval", RequiredRole = UserRole.Agent },
-                    new() { FromState = TicketState.WaitingForApproval, ToState = TicketState.Resolved, Trigger = "Approve", RequiredRole = UserRole.Approver },
-                    new() { FromState = TicketState.WaitingForApproval, ToState = TicketState.InProgress, Trigger = "Reject", RequiredRole = UserRole.Approver },
-                    new() { FromState = TicketState.Resolved, ToState = TicketState.Closed, Trigger = "Close", RequiredRole = UserRole.Requester }
-                }
-            }
-        };
-
-        context.TicketTemplates.Add(template);
-        await context.SaveChangesAsync(cancellationToken);
-    }
-
-    private static async Task SeedMenusAsync(OmniFlowDbContext context, CancellationToken cancellationToken)
-    {
-        if (await context.AppMenus.AnyAsync(cancellationToken)) return;
-
-        var dashboard = new AppMenu { Id = Guid.NewGuid(), TitleKey = "sidebar.dashboard", Path = "/", Icon = "DashboardOutlined", OrderIndex = 10 };
-        var itsmParent = new AppMenu { Id = Guid.NewGuid(), TitleKey = "sidebar.itsm", Icon = "AppstoreOutlined", OrderIndex = 20 };
-        var hrParent = new AppMenu { Id = Guid.NewGuid(), TitleKey = "sidebar.hr", Icon = "TeamOutlined", OrderIndex = 30 };
-        var adminParent = new AppMenu { Id = Guid.NewGuid(), TitleKey = "sidebar.admin", Icon = "SettingOutlined", OrderIndex = 40 };
-
-        var menus = new List<AppMenu>
-        {
-            dashboard,
-            itsmParent,
-            new() { Id = Guid.NewGuid(), ParentId = itsmParent.Id, TitleKey = "sidebar.servicedeskportal", Path = "/servicedeskportal", Icon = "AppstoreOutlined", OrderIndex = 10 },
-            new() { Id = Guid.NewGuid(), ParentId = itsmParent.Id, TitleKey = "sidebar.tickets", Path = "/tickets", Icon = "ContainerOutlined", OrderIndex = 20 },
-            new() { Id = Guid.NewGuid(), ParentId = itsmParent.Id, TitleKey = "sidebar.assets", Path = "/assets", Icon = "LaptopOutlined", OrderIndex = 30 },
-
-            hrParent,
-            new() { Id = Guid.NewGuid(), ParentId = hrParent.Id, TitleKey = "sidebar.directory", Path = "/directory", Icon = "TeamOutlined", OrderIndex = 10 },
-            new() { Id = Guid.NewGuid(), ParentId = hrParent.Id, TitleKey = "sidebar.orgchart", Path = "/orgchart", Icon = "DashboardOutlined", OrderIndex = 20 },
-            new() { Id = Guid.NewGuid(), ParentId = hrParent.Id, TitleKey = "sidebar.leaves", Path = "/leaves", Icon = "CalendarOutlined", OrderIndex = 30 },
-            new() { Id = Guid.NewGuid(), ParentId = hrParent.Id, TitleKey = "sidebar.expenses", Path = "/expenses", Icon = "DollarOutlined", OrderIndex = 40 },
-
-            adminParent,
-            new() { Id = Guid.NewGuid(), ParentId = adminParent.Id, TitleKey = "sidebar.departments", Path = "/departments", Icon = "TeamOutlined", OrderIndex = 10 },
-            new() { Id = Guid.NewGuid(), ParentId = adminParent.Id, TitleKey = "sidebar.servicedesks", Path = "/servicedesks", Icon = "ContainerOutlined", OrderIndex = 20 },
-            new() { Id = Guid.NewGuid(), ParentId = adminParent.Id, TitleKey = "sidebar.auditlogs", Path = "/auditlogs", Icon = "SafetyCertificateOutlined", OrderIndex = 30 },
-            new() { Id = Guid.NewGuid(), ParentId = adminParent.Id, TitleKey = "sidebar.users", Path = "/users", Icon = "UserOutlined", OrderIndex = 40 },
-            new() { Id = Guid.NewGuid(), ParentId = adminParent.Id, TitleKey = "sidebar.templates", Path = "/templates", Icon = "FileTextOutlined", OrderIndex = 50 },
-            new() { Id = Guid.NewGuid(), ParentId = adminParent.Id, TitleKey = "sidebar.categories", Path = "/categories", Icon = "AppstoreAddOutlined", OrderIndex = 60 },
-            new() { Id = Guid.NewGuid(), ParentId = adminParent.Id, TitleKey = "sidebar.slas", Path = "/slas", Icon = "FieldTimeOutlined", OrderIndex = 70 },
-            new() { Id = Guid.NewGuid(), ParentId = adminParent.Id, TitleKey = "sidebar.menus", Path = "/menus", Icon = "MenuOutlined", OrderIndex = 80 }
-        };
-
-        context.AppMenus.AddRange(menus);
-        await context.SaveChangesAsync(cancellationToken);
-    }
 }
