@@ -8,4 +8,6 @@ public record CreateUserCommand(
     string Email,
     UserRole Role,
     Guid DepartmentId,
-    string? TelegramChatId = null) : IRequest<Guid>;
+    string? TelegramChatId = null,
+    string? InitialPassword = null,
+    bool SendInvite = true) : IRequest<Guid>;

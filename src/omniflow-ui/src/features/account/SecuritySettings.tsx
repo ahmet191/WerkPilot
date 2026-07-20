@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
-  Alert, Button, Card, Input, List, message, Modal, Space, Steps, Tag, Typography,
+  Alert, Button, Card, Form, Input, List, message, Modal, Space, Steps, Tag, Typography,
 } from 'antd';
 import {
   SafetyCertificateOutlined, QrcodeOutlined, KeyOutlined, CopyOutlined, WarningOutlined,
@@ -20,6 +20,56 @@ interface MfaSetup {
   sharedKey: string;
   otpauthUri: string;
 }
+
+/** Change the signed-in user's password (requires the current one). */
+const ChangePasswordForm: React.FC = () => {
+  const { t } = useTranslation();
+  const [form] = Form.useForm();
+  const [saving, setSaving] = useState(false);
+
+  const submit = async (values: { currentPassword: string; newPassword: string }) => {
+    setSaving(true);
+    try {
+      await api.post('/account/change-password', values);
+      form.resetFields();
+      message.success(t('security.passwordChanged', 'Password updated'));
+    } catch {
+      // toast handled globally
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <Form form={form} layout="vertical" onFinish={submit} style={{ maxWidth: 380 }}>
+      <Form.Item name="currentPassword" label={t('security.currentPassword', 'Current password')} rules={[{ required: true }]}>
+        <Input.Password autoComplete="current-password" />
+      </Form.Item>
+      <Form.Item name="newPassword" label={t('auth.newPassword', 'New password')} rules={[{ required: true, min: 8 }]}>
+        <Input.Password autoComplete="new-password" />
+      </Form.Item>
+      <Form.Item
+        name="confirm"
+        label={t('auth.confirmPassword', 'Confirm password')}
+        dependencies={['newPassword']}
+        rules={[
+          { required: true },
+          ({ getFieldValue }) => ({
+            validator: (_, value) =>
+              value === getFieldValue('newPassword')
+                ? Promise.resolve()
+                : Promise.reject(new Error(t('auth.passwordMismatch', 'Passwords do not match'))),
+          }),
+        ]}
+      >
+        <Input.Password autoComplete="new-password" />
+      </Form.Item>
+      <Button type="primary" htmlType="submit" loading={saving}>
+        {t('security.changePassword', 'Change password')}
+      </Button>
+    </Form>
+  );
+};
 
 /** Account security page: authenticator-app MFA enrollment and management. */
 export const SecuritySettings: React.FC = () => {
@@ -190,6 +240,14 @@ export const SecuritySettings: React.FC = () => {
             </Card>
           </Space>
         )}
+      </Card>
+
+      <Card
+        className="card-lift"
+        title={t('security.changePassword', 'Change password')}
+        style={{ marginTop: 18 }}
+      >
+        <ChangePasswordForm />
       </Card>
 
       <Modal

@@ -31,6 +31,17 @@ services:
       timeout: 5s
       retries: 10
 
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # web UI
+    healthcheck:
+      test: ["CMD", "/mailpit", "readyz"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   api:
     build:
       context: .
@@ -41,6 +52,9 @@ services:
       ConnectionStrings__DefaultConnection: "Host=postgres;Database=OmniFlowDb;Username=postgres;Password=postgres"
       Messaging__Transport: RabbitMq
       RabbitMq__Host: rabbitmq
+      Email__Host: mailpit
+      Email__Port: "1025"
+      Email__UseStartTls: "false"
     ports:
       - "5226:8080"
     depends_on:

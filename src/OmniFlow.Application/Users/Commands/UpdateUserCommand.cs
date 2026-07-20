@@ -18,10 +18,12 @@ public class UpdateUserCommand : IRequest
 public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand>
 {
     private readonly IOmniFlowDbContext _context;
+    private readonly IIdentityAccountService _accounts;
 
-    public UpdateUserCommandHandler(IOmniFlowDbContext context)
+    public UpdateUserCommandHandler(IOmniFlowDbContext context, IIdentityAccountService accounts)
     {
         _context = context;
+        _accounts = accounts;
     }
 
     public async Task Handle(UpdateUserCommand request, CancellationToken cancellationToken)
@@ -36,5 +38,8 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand>
         user.TelegramChatId = request.TelegramChatId;
 
         await _context.SaveChangesAsync(cancellationToken);
+
+        // Keep the login identity's email/username aligned (no-op if none).
+        await _accounts.UpdateEmailAsync(user.Id, request.Email, cancellationToken);
     }
 }
