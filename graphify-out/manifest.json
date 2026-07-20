@@ -40,8 +40,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Controllers/AuthorizationController.cs": {
-    "mtime": 1784531638.7707162,
-    "ast_hash": "7b3525f27644cea37bb33df2736f099a",
+    "mtime": 1784565790.9874554,
+    "ast_hash": "154928b74b5aa7606d194c25309570ac",
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Controllers/CategoriesController.cs": {
@@ -80,8 +80,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Controllers/LocalizationController.cs": {
-    "mtime": 1784564422.996039,
-    "ast_hash": "af82c1396b804e80e4da5715952f158d",
+    "mtime": 1784565952.1612306,
+    "ast_hash": "2b7d07a3808e03b7bddec3053da8f816",
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Controllers/LookupController.cs": {
@@ -155,8 +155,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Program.cs": {
-    "mtime": 1784564152.861337,
-    "ast_hash": "d9201460f55818b968458446f1cc8989",
+    "mtime": 1784565828.9543374,
+    "ast_hash": "b5cd99bd24d826175310b6d82ea16100",
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Properties/launchSettings.json": {
@@ -1045,13 +1045,13 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs": {
-    "mtime": 1784564069.4136052,
-    "ast_hash": "af401aad1211742e00fcadb5a4e6dbfd",
+    "mtime": 1784565635.1699436,
+    "ast_hash": "72fdad66474d075ba38a382275d86f02",
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Persistence/Seed/IdentitySeedData.cs": {
-    "mtime": 1784564103.4040923,
-    "ast_hash": "d0394e577e3d24bce0510322d38a1f27",
+    "mtime": 1784566181.879501,
+    "ast_hash": "f741ce7742ec120eeabbae92d54cb561",
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Persistence/Seed/SeedConstants.cs": {
@@ -1070,8 +1070,8 @@
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/App.tsx": {
-    "mtime": 1784564325.1099684,
-    "ast_hash": "9fd78dec449172ba895c2e9374d69f51",
+    "mtime": 1784565886.697091,
+    "ast_hash": "bcaba6d580a78ab4857fb36349a9974b",
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/core/AuthContext.tsx": {
@@ -1085,8 +1085,8 @@
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/core/ProtectedRoute.tsx": {
-    "mtime": 1784564363.0493522,
-    "ast_hash": "a52edf35e7696d86acd9fefc3030d7c5",
+    "mtime": 1784565919.0855348,
+    "ast_hash": "bd6cc2f5468e53fd5f02bf60ec1fa946",
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/core/ThemeContext.tsx": {
@@ -1160,8 +1160,8 @@
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/shared/components/AppLayout.tsx": {
-    "mtime": 1784564401.9065886,
-    "ast_hash": "a41f36af992a8863909a170cc71a711b",
+    "mtime": 1784565930.3632102,
+    "ast_hash": "d4d8e181c40bf043ed5ce5c303ac22e5",
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/shared/components/ErrorBoundary.tsx": {
@@ -1567,6 +1567,41 @@
   "tests/OmniFlow.Api.IntegrationTests/PermissionMatrixTests.cs": {
     "mtime": 1784564495.4862657,
     "ast_hash": "d291dfef1c9f8cba00240dccecda789d",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Api/Controllers/PlatformTenantsController.cs": {
+    "mtime": 1784565807.5193756,
+    "ast_hash": "ef330e810c544f886783afa590484c22",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Application/Interfaces/ITenantProvisioningService.cs": {
+    "mtime": 1784565672.3188422,
+    "ast_hash": "0b78ecef31ff55b5b6371e427a17f346",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Domain/Common/PlatformRoles.cs": {
+    "mtime": 1784565721.318193,
+    "ast_hash": "751765cf8883dab8621e7b3bf168ef4a",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Infrastructure/Identity/TenantProvisioningService.cs": {
+    "mtime": 1784565696.8411963,
+    "ast_hash": "973552534122d666fe4ac4a705f6c4bc",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Infrastructure/Persistence/Seed/TenantBaseline.cs": {
+    "mtime": 1784565587.4906847,
+    "ast_hash": "8d5e77776aeb2ec9055f5ae756eb7271",
+    "semantic_hash": ""
+  },
+  "src/omniflow-ui/src/features/platform/PlatformTenantsPage.tsx": {
+    "mtime": 1784565981.2496526,
+    "ast_hash": "da915fef589866d7e932401c8c36ea39",
+    "semantic_hash": ""
+  },
+  "tests/OmniFlow.Api.IntegrationTests/TenantProvisioningTests.cs": {
+    "mtime": 1784566024.9092088,
+    "ast_hash": "809dc2ec6622916223b8e7b1d93afe76",
     "semantic_hash": ""
   }
 }
