@@ -2,12 +2,13 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OmniFlow.Application.AuditLogs.Queries;
+using OmniFlow.Infrastructure.Authorization;
 
 namespace OmniFlow.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Policy = "Administrator")]
+[Authorize(Policy = PermissionPolicyNames.AuditLogsView)]
 public class AuditLogsController : ControllerBase
 {
     private readonly IMediator _mediator;

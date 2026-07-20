@@ -48,6 +48,7 @@ public static class DatabaseSeeder
         await SeedSlaConfigurationsAsync(context, cancellationToken);
         await SeedMenusAsync(context, cancellationToken);
         await SeedApprovalArtifactsAsync(context, cancellationToken);
+        await SeedPermissionMatrixAsync(context, cancellationToken);
 
         logger.LogInformation("Database seeding completed");
     }
@@ -168,6 +169,29 @@ public static class DatabaseSeeder
                 Role = UserRole.Administrator,
                 DepartmentId = department.Id
             });
+
+        await context.SaveChangesAsync(cancellationToken);
+    }
+
+    /// <summary>
+    /// Lays down the tenant's default role → permission matrix. Administrator is
+    /// deliberately absent: it always holds every permission (see Permissions.SuperRole).
+    /// </summary>
+    private static async Task SeedPermissionMatrixAsync(OmniFlowDbContext context, CancellationToken cancellationToken)
+    {
+        if (await context.RolePermissions.AnyAsync(cancellationToken)) return;
+
+        foreach (var (roleName, permissions) in Permissions.DefaultMatrix)
+        {
+            foreach (var permission in permissions)
+            {
+                context.RolePermissions.Add(new RolePermission
+                {
+                    RoleName = roleName,
+                    Permission = permission
+                });
+            }
+        }
 
         await context.SaveChangesAsync(cancellationToken);
     }

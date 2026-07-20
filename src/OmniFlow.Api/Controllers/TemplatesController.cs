@@ -5,6 +5,7 @@ using OmniFlow.Application.Common.Grid;
 using OmniFlow.Application.Common.Models;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Domain.Entities;
+using OmniFlow.Infrastructure.Authorization;
 
 namespace OmniFlow.Api.Controllers;
 
@@ -22,7 +23,7 @@ public class TemplatesController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Policy = "Administrator")]
+    [Authorize(Policy = PermissionPolicyNames.TemplatesManage)]
     public async Task<IActionResult> Create(TicketTemplate template)
     {
         if (template.Id == Guid.Empty)
@@ -73,7 +74,7 @@ public class TemplatesController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [Authorize(Policy = "Administrator")]
+    [Authorize(Policy = PermissionPolicyNames.TemplatesManage)]
     public async Task<IActionResult> Update(Guid id, [FromBody] TicketTemplate template)
     {
         var existing = await _context.TicketTemplates.FindAsync(id);
@@ -89,7 +90,7 @@ public class TemplatesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [Authorize(Policy = "Administrator")]
+    [Authorize(Policy = PermissionPolicyNames.TemplatesManage)]
     public async Task<IActionResult> Delete(Guid id)
     {
         var existing = await _context.TicketTemplates.FindAsync(id);

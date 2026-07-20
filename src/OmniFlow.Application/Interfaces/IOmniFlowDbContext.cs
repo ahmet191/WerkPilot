@@ -34,6 +34,7 @@ public interface IOmniFlowDbContext
     DbSet<AppMenu> AppMenus { get; }
     
     DbSet<SLAConfiguration> SLAConfigurations { get; }
+    DbSet<RolePermission> RolePermissions { get; }
     DbSet<KnowledgeBaseArticle> KnowledgeBaseArticles { get; }
     DbSet<AuditLog> AuditLogs { get; set; }
 

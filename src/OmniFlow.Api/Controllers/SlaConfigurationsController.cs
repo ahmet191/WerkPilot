@@ -5,6 +5,7 @@ using OmniFlow.Application.Common.Grid;
 using OmniFlow.Application.Common.Models;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Domain.Entities;
+using OmniFlow.Infrastructure.Authorization;
 
 namespace OmniFlow.Api.Controllers;
 
@@ -46,7 +47,7 @@ public class SlaConfigurationsController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Policy = "Administrator")]
+    [Authorize(Policy = PermissionPolicyNames.SlaManage)]
     public async Task<IActionResult> Create(SLAConfiguration sla)
     {
         if (sla.Id == Guid.Empty)
@@ -59,7 +60,7 @@ public class SlaConfigurationsController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [Authorize(Policy = "Administrator")]
+    [Authorize(Policy = PermissionPolicyNames.SlaManage)]
     public async Task<IActionResult> Update(Guid id, [FromBody] SLAConfiguration sla)
     {
         var existing = await _context.SLAConfigurations.FindAsync(id);
@@ -76,7 +77,7 @@ public class SlaConfigurationsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [Authorize(Policy = "Administrator")]
+    [Authorize(Policy = PermissionPolicyNames.SlaManage)]
     public async Task<IActionResult> Delete(Guid id)
     {
         var existing = await _context.SLAConfigurations.FindAsync(id);

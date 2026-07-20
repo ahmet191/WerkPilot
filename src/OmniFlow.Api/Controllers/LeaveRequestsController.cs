@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OmniFlow.Application.LeaveRequests.Commands;
 using OmniFlow.Application.LeaveRequests.Queries;
+using OmniFlow.Infrastructure.Authorization;
 
 namespace OmniFlow.Api.Controllers;
 
@@ -32,7 +33,7 @@ public class LeaveRequestsController : ControllerBase
     }
 
     [HttpPut("{id:guid}/approve")]
-    [Authorize(Policy = "HRAdmin")]
+    [Authorize(Policy = PermissionPolicyNames.LeavesApprove)]
     public async Task<IActionResult> Approve(Guid id, [FromBody] ApproveLeaveRequestCommand command)
     {
         command.Id = id;
