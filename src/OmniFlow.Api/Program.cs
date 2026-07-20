@@ -152,6 +152,12 @@ builder.Services.AddScoped<Microsoft.AspNetCore.Authorization.IAuthorizationHand
 builder.Services.AddScoped<OmniFlow.Application.Interfaces.ITenantProvisioningService,
     OmniFlow.Infrastructure.Identity.TenantProvisioningService>();
 
+// Notification centre: in-app records fanned out to email/Telegram/SignalR.
+builder.Services.AddScoped<OmniFlow.Application.Interfaces.INotificationPusher,
+    OmniFlow.Api.Hubs.SignalRNotificationPusher>();
+builder.Services.AddScoped<OmniFlow.Application.Interfaces.INotificationService,
+    OmniFlow.Infrastructure.Notifications.NotificationService>();
+
 // Short-lived cookie that only carries the external IdP round-trip; the SPA
 // never sees it — it exchanges the SSO ticket for real tokens instead.
 builder.Services.AddAuthentication()
@@ -526,6 +532,7 @@ app.MapControllers();
 // TODO(Phase 5): require auth on the hub once the SPA sends access tokens on the
 // SignalR connection (accessTokenFactory) and query-string token extraction is wired.
 app.MapHub<OmniFlow.Api.Hubs.DashboardHub>("/hubs/dashboard").AllowAnonymous();
+app.MapHub<OmniFlow.Api.Hubs.NotificationHub>("/hubs/notifications");
 
 // Liveness: the process is up. Readiness: dependencies (database) are reachable.
 app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = _ => false })

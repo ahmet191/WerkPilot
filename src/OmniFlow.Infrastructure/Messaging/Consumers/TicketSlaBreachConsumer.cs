@@ -10,18 +10,18 @@ namespace OmniFlow.Infrastructure.Messaging.Consumers;
 public class TicketSlaBreachConsumer : IConsumer<CheckTicketSlaBreachEvent>
 {
     private readonly IOmniFlowDbContext _dbContext;
-    private readonly IMessageGateway _messageGateway;
+    private readonly INotificationService _notifications;
     private readonly ITenantService _tenantService;
     private readonly ILogger<TicketSlaBreachConsumer> _logger;
 
     public TicketSlaBreachConsumer(
         IOmniFlowDbContext dbContext,
-        IMessageGateway messageGateway,
+        INotificationService notifications,
         ITenantService tenantService,
         ILogger<TicketSlaBreachConsumer> logger)
     {
         _dbContext = dbContext;
-        _messageGateway = messageGateway;
+        _notifications = notifications;
         _tenantService = tenantService;
         _logger = logger;
     }
@@ -58,15 +58,18 @@ public class TicketSlaBreachConsumer : IConsumer<CheckTicketSlaBreachEvent>
         ticket.SlaBreachNotifiedAt = DateTimeOffset.UtcNow;
         await _dbContext.SaveChangesAsync(context.CancellationToken);
 
-        var alertChatId = ticket.Assignee?.TelegramChatId;
-        if (string.IsNullOrEmpty(alertChatId))
+        if (ticket.AssigneeId is null)
         {
-            _logger.LogWarning("SLA breach on ticket {TicketId} but no assignee with a linked Telegram chat; skipping notification.", ticket.Id);
+            _logger.LogWarning("SLA breach on ticket {TicketId} but it is unassigned; nobody to notify.", ticket.Id);
             return;
         }
 
-        var msg = $"🚨 SLA BREACH ALERT 🚨\nTicket '{ticket.Title}' (ID: {ticket.Id}) has breached its resolution SLA!\nCurrent State: {ticket.CurrentState}\nAssignee: {ticket.Assignee?.Name ?? "Unassigned"}";
-
-        await _messageGateway.SendMessageAsync(alertChatId, msg, context.CancellationToken);
+        await _notifications.NotifyUserAsync(
+            ticket.AssigneeId.Value,
+            NotificationKind.SlaBreached,
+            "SLA breached",
+            $"Ticket '{ticket.Title}' has passed its resolution SLA (state: {ticket.CurrentState}).",
+            "/tickets",
+            context.CancellationToken);
     }
 }

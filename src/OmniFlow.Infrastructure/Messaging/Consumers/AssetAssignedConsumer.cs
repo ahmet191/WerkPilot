@@ -3,6 +3,7 @@ using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using OmniFlow.Application.Interfaces;
+using OmniFlow.Domain.Enums;
 using OmniFlow.Domain.Events;
 
 namespace OmniFlow.Infrastructure.Messaging.Consumers;
@@ -10,18 +11,18 @@ namespace OmniFlow.Infrastructure.Messaging.Consumers;
 public class AssetAssignedConsumer : IConsumer<AssetAssignedEvent>
 {
     private readonly ILogger<AssetAssignedConsumer> _logger;
-    private readonly IMessageGateway _messageGateway;
+    private readonly INotificationService _notifications;
     private readonly IOmniFlowDbContext _context;
     private readonly ITenantService _tenantService;
 
     public AssetAssignedConsumer(
         ILogger<AssetAssignedConsumer> logger,
-        IMessageGateway messageGateway,
+        INotificationService notifications,
         IOmniFlowDbContext context,
         ITenantService tenantService)
     {
         _logger = logger;
-        _messageGateway = messageGateway;
+        _notifications = notifications;
         _context = context;
         _tenantService = tenantService;
     }
@@ -33,16 +34,12 @@ public class AssetAssignedConsumer : IConsumer<AssetAssignedEvent>
         _tenantService.SetTenantId(ev.TenantId);
         _logger.LogInformation("Processing AssetAssignedEvent for Asset {AssetId}", ev.AssetId);
 
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == ev.AssignedToUserId);
-        if (user != null && !string.IsNullOrEmpty(user.TelegramChatId))
-        {
-            var message = $"🚀 *New Asset Assigned*\n" +
-                          $"You have been assigned a new IT Asset.\n" +
-                          $"Model: {ev.Model}\n" +
-                          $"Asset Tag: {ev.AssetTag}\n" +
-                          $"Date: {ev.AssignedAt:yyyy-MM-dd HH:mm}";
-
-            await _messageGateway.SendMessageAsync(user.TelegramChatId, message);
-        }
+        await _notifications.NotifyUserAsync(
+            ev.AssignedToUserId,
+            NotificationKind.AssetAssigned,
+            "Asset assigned to you",
+            $"{ev.Model} (tag {ev.AssetTag}) was assigned to you on {ev.AssignedAt:yyyy-MM-dd HH:mm}.",
+            "/assets",
+            context.CancellationToken);
     }
 }
