@@ -48,6 +48,36 @@ public static class IdentitySeedData
             }
         }
 
+        // ── 2b. Seed non-admin demo logins ──
+        // The demo tenant ships one login per role so RBAC is exercisable
+        // (and demoable) without hand-provisioning accounts first.
+        (Guid Id, string Email, string Role)[] demoAccounts =
+        [
+            (SeedConstants.AgentUserId, "bob@omniflow.com", "ITAgent"),
+            (SeedConstants.ApproverUserId, "charlie@omniflow.com", "HRAdmin"),
+            (SeedConstants.RequesterUserId, "alice@omniflow.com", "Requester"),
+        ];
+
+        foreach (var (id, email, role) in demoAccounts)
+        {
+            if (await userManager.FindByEmailAsync(email) != null) continue;
+
+            var account = new ApplicationUser
+            {
+                Id = id,
+                UserName = email,
+                Email = email,
+                EmailConfirmed = true,
+                TenantId = SeedConstants.DefaultTenantId
+            };
+
+            var created = await userManager.CreateAsync(account, "Demo@12345");
+            if (created.Succeeded)
+            {
+                await userManager.AddToRoleAsync(account, role);
+            }
+        }
+
         // ── 3. Seed OpenIddict Scopes ──
         var scopeManager = serviceProvider.GetRequiredService<IOpenIddictScopeManager>();
         

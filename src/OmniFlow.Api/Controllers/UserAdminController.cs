@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Domain.Common.Exceptions;
 using static OpenIddict.Abstractions.OpenIddictConstants;
+using OmniFlow.Infrastructure.Authorization;
 
 namespace OmniFlow.Api.Controllers;
 
@@ -16,7 +17,7 @@ namespace OmniFlow.Api.Controllers;
 /// </summary>
 [ApiController]
 [Route("api/admin/users")]
-[Authorize(Policy = "Administrator")]
+[Authorize(Policy = PermissionPolicyNames.AccountsManage)]
 public class UserAdminController : ControllerBase
 {
     private readonly IIdentityAccountService _accounts;

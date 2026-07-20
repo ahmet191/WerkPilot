@@ -76,6 +76,8 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
     // Pre-auth SSO exchange tickets: infrastructure-only, outside the tenant filter.
     public DbSet<Identity.SsoTicket> SsoTickets => Set<Identity.SsoTicket>();
 
+    public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         // Must call base first to configure Identity tables
@@ -90,6 +92,13 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
         builder.AddOutboxStateEntity();
 
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        builder.Entity<RolePermission>(entity =>
+        {
+            entity.Property(p => p.RoleName).HasMaxLength(64).IsRequired();
+            entity.Property(p => p.Permission).HasMaxLength(128).IsRequired();
+            entity.HasIndex(p => new { p.TenantId, p.RoleName, p.Permission }).IsUnique();
+        });
 
         builder.Entity<Identity.SsoTicket>(entity =>
         {

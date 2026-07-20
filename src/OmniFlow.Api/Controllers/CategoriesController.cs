@@ -5,6 +5,7 @@ using OmniFlow.Application.Common.Grid;
 using OmniFlow.Application.Common.Models;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Domain.Entities;
+using OmniFlow.Infrastructure.Authorization;
 
 namespace OmniFlow.Api.Controllers;
 
@@ -44,7 +45,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Policy = "Administrator")]
+    [Authorize(Policy = PermissionPolicyNames.CategoriesManage)]
     public async Task<IActionResult> Create([FromBody] CategoryRequest request)
     {
         var category = new TicketCategory
@@ -68,7 +69,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [Authorize(Policy = "Administrator")]
+    [Authorize(Policy = PermissionPolicyNames.CategoriesManage)]
     public async Task<IActionResult> Update(Guid id, [FromBody] CategoryRequest request)
     {
         var category = await _context.TicketCategories.FindAsync(id);
@@ -98,7 +99,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [Authorize(Policy = "Administrator")]
+    [Authorize(Policy = PermissionPolicyNames.CategoriesManage)]
     public async Task<IActionResult> Delete(Guid id)
     {
         var category = await _context.TicketCategories.FindAsync(id);

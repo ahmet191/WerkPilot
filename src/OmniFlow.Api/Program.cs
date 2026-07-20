@@ -138,6 +138,16 @@ builder.Services.AddScoped<OmniFlow.Application.Interfaces.IEmailSender,
 builder.Services.AddScoped<OmniFlow.Application.Interfaces.IIdentityAccountService,
     OmniFlow.Infrastructure.Identity.IdentityAccountService>();
 
+// Per-tenant permission matrix: endpoints are gated by permission keys that a
+// tenant admin can re-map to roles at runtime (see PermissionsController).
+builder.Services.AddMemoryCache();
+builder.Services.AddScoped<OmniFlow.Application.Interfaces.IPermissionService,
+    OmniFlow.Infrastructure.Authorization.PermissionService>();
+builder.Services.AddSingleton<Microsoft.AspNetCore.Authorization.IAuthorizationPolicyProvider,
+    OmniFlow.Infrastructure.Authorization.PermissionPolicyProvider>();
+builder.Services.AddScoped<Microsoft.AspNetCore.Authorization.IAuthorizationHandler,
+    OmniFlow.Infrastructure.Authorization.PermissionAuthorizationHandler>();
+
 // Short-lived cookie that only carries the external IdP round-trip; the SPA
 // never sees it — it exchanges the SSO ticket for real tokens instead.
 builder.Services.AddAuthentication()

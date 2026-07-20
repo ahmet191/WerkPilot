@@ -7,6 +7,7 @@ using OmniFlow.Application.Common.Models;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Application.Users.Commands;
 using OmniFlow.Domain.Entities;
+using OmniFlow.Infrastructure.Authorization;
 
 namespace OmniFlow.Api.Controllers;
 
@@ -26,7 +27,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Policy = "Administrator")]
+    [Authorize(Policy = PermissionPolicyNames.UsersManage)]
     public async Task<IActionResult> Create(CreateUserCommand command)
     {
         var id = await _mediator.Send(command);
@@ -68,7 +69,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    [Authorize(Policy = "Administrator")]
+    [Authorize(Policy = PermissionPolicyNames.UsersManage)]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateUserCommand command)
     {
         if (id != command.Id)
@@ -80,7 +81,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    [Authorize(Policy = "Administrator")]
+    [Authorize(Policy = PermissionPolicyNames.UsersManage)]
     public async Task<IActionResult> Delete(Guid id)
     {
         await _mediator.Send(new DeleteUserCommand { Id = id });

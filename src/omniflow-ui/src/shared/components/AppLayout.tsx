@@ -6,6 +6,7 @@ import { useAppTheme } from '../../core/ThemeContext';
 import type { AppTheme } from '../../core/ThemeContext';
 import { useTranslation } from '../../core/LanguageContext';
 import { useAuth } from '../../core/AuthContext';
+import { usePermissions, Perm } from '../../core/PermissionContext';
 import { api } from '../../core/api';
 
 const { Header, Sider, Content } = Layout;
@@ -16,6 +17,7 @@ export function AppLayout() {
   const { theme, setTheme } = useAppTheme();
   const { language, setLanguage, t } = useTranslation();
   const { user, logout } = useAuth();
+  const { has } = usePermissions();
 
   const [collapsed, setCollapsed] = useState(() => {
     return localStorage.getItem('sidebar_collapsed') === 'true';
@@ -143,6 +145,12 @@ export function AppLayout() {
       label: t('security.title', 'Security'),
       onClick: () => navigate('/settings/security'),
     },
+    ...(has(Perm.PermissionsManage) ? [{
+      key: 'permissions',
+      icon: <Icons.TeamOutlined />,
+      label: t('permissions.title', 'Roles & Permissions'),
+      onClick: () => navigate('/settings/permissions'),
+    }] : []),
     { type: 'divider' as const },
     {
       key: 'logout',
