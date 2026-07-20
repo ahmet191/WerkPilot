@@ -12,6 +12,8 @@ import { MyApprovals } from './features/approvals/MyApprovals';
 import { AuthProvider } from './core/AuthContext';
 import { ProtectedRoute } from './core/ProtectedRoute';
 import { LoginPage } from './features/auth/components/LoginPage';
+import { SsoCallback } from './features/auth/components/SsoCallback';
+import { SecuritySettings } from './features/account/SecuritySettings';
 import { ErrorBoundary } from './shared/components/ErrorBoundary';
 import { NotFound } from './shared/components/NotFound';
 
@@ -25,12 +27,14 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/login/sso" element={<SsoCallback />} />
 
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<AppLayout />}>
                 {/* Available to any authenticated user */}
                 <Route index element={<DynamicDashboard />} />
                 <Route path="approvals" element={<MyApprovals />} />
+                <Route path="settings/security" element={<SecuritySettings />} />
                 <Route path="servicedeskportal" element={<ServiceDeskPortal />} />
                 <Route path="servicedesk/:id/tickets" element={<IsolatedServiceDesk />} />
                 <Route path="tickets" element={<DynamicPage entityType="tickets" />} />

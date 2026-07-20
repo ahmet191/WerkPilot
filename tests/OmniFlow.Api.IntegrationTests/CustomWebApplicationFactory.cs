@@ -24,21 +24,20 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>, IAsyn
     {
         builder.UseEnvironment("Development");
 
-        // Override the connection string BEFORE the host builds, so the app's
-        // AddDbContext + startup migration/seed target the test container.
-        builder.ConfigureAppConfiguration((_, config) =>
-        {
-            config.AddInMemoryCollection(new Dictionary<string, string?>
-            {
-                ["ConnectionStrings:DefaultConnection"] = _db.GetConnectionString(),
-                // No Telegram, no OTLP exporter in tests.
-                ["Telegram:BotToken"] = "",
-                ["Otlp:Endpoint"] = "",
-                // The test host has no TLS listener; a 307 to https:// would
-                // break POST/PUT/DELETE round-trips through the test client.
-                ["DisableHttpsRedirection"] = "true",
-            });
-        });
+        // UseSetting is applied as the LAST configuration source, so it beats
+        // appsettings.Development.json. (ConfigureAppConfiguration's in-memory
+        // source lands BEFORE the json files under minimal hosting — the dev
+        // connection string silently won and tests wrote to the developer DB.)
+        builder.UseSetting("ConnectionStrings:DefaultConnection", _db.GetConnectionString());
+        // No Telegram, no OTLP exporter in tests.
+        builder.UseSetting("Telegram:BotToken", "");
+        builder.UseSetting("Otlp:Endpoint", "");
+        // The test host has no TLS listener; a 307 to https:// would break
+        // POST/PUT/DELETE round-trips through the test client.
+        builder.UseSetting("DisableHttpsRedirection", "true");
+        // Keep scheduling/messaging local to the test host.
+        builder.UseSetting("Messaging:Transport", "InMemory");
+        builder.UseSetting("Quartz:UseInMemoryStore", "true");
     }
 
     public async Task InitializeAsync() => await _db.StartAsync();

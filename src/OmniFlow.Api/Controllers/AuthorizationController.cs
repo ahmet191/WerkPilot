@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
 using OmniFlow.Infrastructure.Identity;
+using OmniFlow.Infrastructure.Identity.Ldap;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace OmniFlow.Api.Controllers;
@@ -17,15 +18,27 @@ namespace OmniFlow.Api.Controllers;
 [Microsoft.AspNetCore.Authorization.AllowAnonymous]
 public class AuthorizationController : ControllerBase
 {
+    /// <summary>Custom grant redeeming a one-time SSO exchange ticket.</summary>
+    public const string SsoGrantType = "urn:werkpilot:sso";
+
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly ILdapAuthenticator _ldapAuthenticator;
+    private readonly ExternalUserProvisioner _provisioner;
+    private readonly SsoTicketService _ssoTickets;
 
     public AuthorizationController(
         SignInManager<ApplicationUser> signInManager,
-        UserManager<ApplicationUser> userManager)
+        UserManager<ApplicationUser> userManager,
+        ILdapAuthenticator ldapAuthenticator,
+        ExternalUserProvisioner provisioner,
+        SsoTicketService ssoTickets)
     {
         _signInManager = signInManager;
         _userManager = userManager;
+        _ldapAuthenticator = ldapAuthenticator;
+        _provisioner = provisioner;
+        _ssoTickets = ssoTickets;
     }
 
     /// <summary>
@@ -48,6 +61,11 @@ public class AuthorizationController : ControllerBase
         if (request.IsRefreshTokenGrantType())
         {
             return await HandleRefreshTokenGrant();
+        }
+
+        if (request.GrantType == SsoGrantType)
+        {
+            return await HandleSsoTicketGrant(request);
         }
 
         return Forbid(
@@ -114,33 +132,109 @@ public class AuthorizationController : ControllerBase
         var user = await _userManager.FindByNameAsync(request.Username!)
                    ?? await _userManager.FindByEmailAsync(request.Username!);
 
-        if (user == null)
+        var credentialsValid = false;
+
+        if (user != null && await _userManager.HasPasswordAsync(user))
         {
-            return Forbid(
-                authenticationSchemes: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme,
-                properties: new AuthenticationProperties(new Dictionary<string, string?>
-                {
-                    [OpenIddictServerAspNetCoreConstants.Properties.Error] = Errors.InvalidGrant,
-                    [OpenIddictServerAspNetCoreConstants.Properties.ErrorDescription] = "The username/password couple is invalid."
-                }));
+            var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password!, lockoutOnFailure: true);
+            if (result.IsLockedOut)
+            {
+                return TokenError(Errors.InvalidGrant, "The account is temporarily locked. Try again later.");
+            }
+            credentialsValid = result.Succeeded;
         }
 
-        // Validate the password
-        var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password!, lockoutOnFailure: true);
-        if (!result.Succeeded)
+        // Optional directory fallback: local password auth failed (or the user
+        // has no local password), so let the corporate LDAP verify the
+        // credentials and map/provision the local account.
+        if (!credentialsValid && _ldapAuthenticator.Enabled)
         {
-            return Forbid(
-                authenticationSchemes: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme,
-                properties: new AuthenticationProperties(new Dictionary<string, string?>
+            var directoryUser = await _ldapAuthenticator.ValidateAsync(request.Username!, request.Password!, HttpContext.RequestAborted);
+            if (directoryUser != null)
+            {
+                var ldapOptions = _ldapAuthenticator.Options;
+                var email = directoryUser.Email ?? $"{directoryUser.Username}@{ldapOptions.FallbackEmailDomain}";
+                user = await _provisioner.FindOrProvisionAsync(
+                    email, directoryUser.DisplayName, "ldap",
+                    ldapOptions.AutoProvision, ldapOptions.DefaultRole, HttpContext.RequestAborted);
+                if (user == null)
                 {
-                    [OpenIddictServerAspNetCoreConstants.Properties.Error] = Errors.InvalidGrant,
-                    [OpenIddictServerAspNetCoreConstants.Properties.ErrorDescription] = "The username/password couple is invalid."
-                }));
+                    return TokenError(Errors.InvalidGrant, "The directory account has no matching local account.");
+                }
+                credentialsValid = true;
+            }
+        }
+
+        if (user == null || !credentialsValid)
+        {
+            return TokenError(Errors.InvalidGrant, "The username/password couple is invalid.");
+        }
+
+        // MFA step-up: TOTP (or a recovery code) is required once enabled.
+        if (user.TwoFactorEnabled)
+        {
+            var rawCode = ((string?)request.GetParameter("mfa_code"))?.Trim();
+            if (string.IsNullOrWhiteSpace(rawCode))
+            {
+                return TokenError("mfa_required", "A multi-factor authentication code is required.");
+            }
+
+            // TOTP input tolerates cosmetic grouping; recovery codes must keep
+            // their canonical xxxxx-xxxxx shape (Identity compares literally).
+            var totpCode = rawCode.Replace(" ", string.Empty).Replace("-", string.Empty);
+            var totpValid = await _userManager.VerifyTwoFactorTokenAsync(
+                user, _userManager.Options.Tokens.AuthenticatorTokenProvider, totpCode);
+
+            if (!totpValid)
+            {
+                var recovery = await _userManager.RedeemTwoFactorRecoveryCodeAsync(user, rawCode);
+                if (!recovery.Succeeded)
+                {
+                    // Failed second factors feed the same lockout as passwords.
+                    await _userManager.AccessFailedAsync(user);
+                    return TokenError(Errors.InvalidGrant, "The multi-factor authentication code is invalid.");
+                }
+            }
         }
 
         var principal = await CreateClaimsPrincipalAsync(user);
         return SignIn(principal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
     }
+
+    private async Task<IActionResult> HandleSsoTicketGrant(OpenIddictRequest request)
+    {
+        var ticket = (string?)request.GetParameter("ticket");
+        if (string.IsNullOrWhiteSpace(ticket))
+        {
+            return TokenError(Errors.InvalidRequest, "The 'ticket' parameter is required.");
+        }
+
+        var userId = await _ssoTickets.RedeemAsync(ticket, HttpContext.RequestAborted);
+        if (userId == null)
+        {
+            return TokenError(Errors.InvalidGrant, "The SSO ticket is invalid, expired, or already used.");
+        }
+
+        var user = await _userManager.FindByIdAsync(userId.Value.ToString());
+        if (user == null || !await _signInManager.CanSignInAsync(user))
+        {
+            return TokenError(Errors.InvalidGrant, "The user is not allowed to sign in.");
+        }
+
+        // MFA is intentionally not re-challenged here: the corporate IdP that
+        // produced the ticket is responsible for its own factor policy.
+        var principal = await CreateClaimsPrincipalAsync(user);
+        return SignIn(principal, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
+    }
+
+    private IActionResult TokenError(string error, string description)
+        => Forbid(
+            authenticationSchemes: OpenIddictServerAspNetCoreDefaults.AuthenticationScheme,
+            properties: new AuthenticationProperties(new Dictionary<string, string?>
+            {
+                [OpenIddictServerAspNetCoreConstants.Properties.Error] = error,
+                [OpenIddictServerAspNetCoreConstants.Properties.ErrorDescription] = description
+            }));
 
     private async Task<IActionResult> HandleRefreshTokenGrant()
     {
