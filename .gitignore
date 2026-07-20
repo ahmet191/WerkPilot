@@ -33,3 +33,6 @@ logs/
 
 # Graphify AST cache artifact (created when cache_root points at src/)
 src/graphify-out/
+
+# Uploaded file store (local dev)
+storage/

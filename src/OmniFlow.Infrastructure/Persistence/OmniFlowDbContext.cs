@@ -49,6 +49,7 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
     public DbSet<TicketTemplate> TicketTemplates => Set<TicketTemplate>();
     public DbSet<TicketComment> TicketComments => Set<TicketComment>();
     public DbSet<TicketAuditLog> TicketAuditLogs => Set<TicketAuditLog>();
+    public DbSet<TicketAttachment> TicketAttachments => Set<TicketAttachment>();
     public DbSet<TicketCategory> TicketCategories => Set<TicketCategory>();
     
     public DbSet<ConfigurationItem> ConfigurationItems => Set<ConfigurationItem>();
@@ -94,6 +95,16 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
         builder.AddOutboxStateEntity();
 
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        builder.Entity<TicketAttachment>(entity =>
+        {
+            entity.Property(a => a.FileName).HasMaxLength(260).IsRequired();
+            entity.Property(a => a.ContentType).HasMaxLength(128);
+            entity.Property(a => a.StorageKey).HasMaxLength(200).IsRequired();
+            entity.HasIndex(a => a.TicketId);
+            entity.HasOne(a => a.UploadedBy).WithMany().HasForeignKey(a => a.UploadedById).OnDelete(DeleteBehavior.NoAction);
+            entity.HasOne<Ticket>().WithMany(t => t.Attachments).HasForeignKey(a => a.TicketId).OnDelete(DeleteBehavior.Cascade);
+        });
 
         builder.Entity<Notification>(entity =>
         {

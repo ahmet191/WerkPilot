@@ -10,9 +10,16 @@ import { SchemaService } from '../../../services/schema.service';
 import { api } from '../../../core/api';
 import type { UiSchema, GridAction } from '../../../core/schema.models';
 import { useTranslation } from '../../../core/LanguageContext';
+import { useNavigate } from 'react-router-dom';
 
 interface DynamicPageProps {
   entityType: string;
+  /**
+   * When set, viewing a row (toolbar View / double-click) navigates to this
+   * route instead of opening the read-only modal — used for entities that have
+   * a full detail page (tickets). All other grid behaviour is unchanged.
+   */
+  detailRoute?: (record: any) => string;
 }
 
 /** UI entity types whose detail view embeds the approval timeline. */
@@ -21,8 +28,13 @@ const APPROVAL_ENTITY_TYPES: Record<string, string> = {
   leaves: 'LeaveRequest',
 };
 
-export function DynamicPage({ entityType }: DynamicPageProps) {
+export function DynamicPage({ entityType, detailRoute }: DynamicPageProps) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const openView = useCallback((record: any) => {
+    if (detailRoute) navigate(detailRoute(record));
+    else setViewRecord(record);
+  }, [detailRoute, navigate]);
   const [schema, setSchema] = useState<UiSchema | null>(null);
   const [loading, setLoading] = useState(true);
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -141,7 +153,7 @@ export function DynamicPage({ entityType }: DynamicPageProps) {
         label: t('grid.view', 'View'),
         icon: <EyeOutlined />,
         requiresSelection: 'single',
-        onClick: rows => setViewRecord(rows[0]),
+        onClick: rows => openView(rows[0]),
       },
     ];
 
@@ -175,7 +187,7 @@ export function DynamicPage({ entityType }: DynamicPageProps) {
     }
 
     return actions;
-  }, [grid, t, openEdit, handleDelete, handleCustomAction]);
+  }, [grid, t, openEdit, handleDelete, handleCustomAction, openView]);
 
   if (loading || !schema || !grid) {
     return <div style={{ padding: 50, textAlign: 'center' }}><Spin size="large" /></div>;
@@ -208,7 +220,7 @@ export function DynamicPage({ entityType }: DynamicPageProps) {
         fetchData={handleFetchData}
         toolbarActions={toolbarActions}
         exportable={grid.actions.includes('export')}
-        onRowDoubleClick={record => setViewRecord(record)}
+        onRowDoubleClick={record => openView(record)}
         onAdd={grid.actions.includes('add') ? () => {
           setEditRecord(null);
           setEditEndpoint(null);

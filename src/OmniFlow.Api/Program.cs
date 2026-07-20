@@ -158,6 +158,10 @@ builder.Services.AddScoped<OmniFlow.Application.Interfaces.INotificationPusher,
 builder.Services.AddScoped<OmniFlow.Application.Interfaces.INotificationService,
     OmniFlow.Infrastructure.Notifications.NotificationService>();
 
+// Ticket attachments: file bytes on disk (swappable for S3/Blob), metadata in the DB.
+builder.Services.AddSingleton<OmniFlow.Application.Interfaces.IFileStorage,
+    OmniFlow.Infrastructure.Storage.LocalFileStorage>();
+
 // Short-lived cookie that only carries the external IdP round-trip; the SPA
 // never sees it — it exchanges the SSO ticket for real tokens instead.
 builder.Services.AddAuthentication()

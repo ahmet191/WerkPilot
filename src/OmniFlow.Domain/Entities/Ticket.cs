@@ -63,6 +63,9 @@ public class Ticket : AuditableEntity
     private readonly List<TicketAuditLog> _auditLogs = new();
     public IReadOnlyCollection<TicketAuditLog> AuditLogs => _auditLogs.AsReadOnly();
 
+    private readonly List<TicketAttachment> _attachments = new();
+    public IReadOnlyCollection<TicketAttachment> Attachments => _attachments.AsReadOnly();
+
     /// <summary>
     /// Creates a ticket from a template, validating the submitted dynamic data
     /// against the template's field definitions (presence, dropdown options,
@@ -177,6 +180,23 @@ public class Ticket : AuditableEntity
         _comments.Add(comment);
         AddAudit(authorId, "AddComment", "Comment", newValue: content);
         return comment;
+    }
+
+    public TicketAttachment AddAttachment(Guid uploadedById, string fileName, string contentType, long sizeBytes, string storageKey)
+    {
+        // Id unset on purpose — see AddComment.
+        var attachment = new TicketAttachment
+        {
+            TicketId = Id,
+            UploadedById = uploadedById,
+            FileName = fileName,
+            ContentType = contentType,
+            SizeBytes = sizeBytes,
+            StorageKey = storageKey,
+        };
+        _attachments.Add(attachment);
+        AddAudit(uploadedById, "AddAttachment", "Attachment", newValue: fileName);
+        return attachment;
     }
 
     private void AddAudit(Guid changedById, string action, string fieldName, string? oldValue = null, string? newValue = null)

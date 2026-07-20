@@ -19,6 +19,17 @@ public class TicketDetailsDto : TicketDto
 
     public List<TicketCommentDto> Comments { get; set; } = new();
     public List<TicketHistoryDto> History { get; set; } = new();
+    public List<TicketAttachmentDto> Attachments { get; set; } = new();
+}
+
+public class TicketAttachmentDto
+{
+    public Guid Id { get; set; }
+    public string FileName { get; set; } = string.Empty;
+    public string ContentType { get; set; } = string.Empty;
+    public long SizeBytes { get; set; }
+    public string UploadedByName { get; set; } = string.Empty;
+    public DateTimeOffset CreatedAt { get; set; }
 }
 
 public class TicketCommentDto
@@ -60,6 +71,7 @@ public class GetTicketDetailsQueryHandler : IRequestHandler<GetTicketDetailsQuer
             .Include(t => t.Assignee)
             .Include(t => t.Comments).ThenInclude(c => c.Author)
             .Include(t => t.AuditLogs).ThenInclude(a => a.ChangedBy)
+            .Include(t => t.Attachments).ThenInclude(a => a.UploadedBy)
             .FirstOrDefaultAsync(t => t.Id == request.TicketId, cancellationToken);
 
         if (ticket == null)
@@ -109,6 +121,17 @@ public class GetTicketDetailsQueryHandler : IRequestHandler<GetTicketDetailsQuer
                     NewValue = a.NewValue,
                     ChangedByName = a.ChangedBy?.Name ?? string.Empty,
                     ChangedAt = a.ChangedAt
+                }).ToList(),
+            Attachments = ticket.Attachments
+                .OrderByDescending(a => a.CreatedAt)
+                .Select(a => new TicketAttachmentDto
+                {
+                    Id = a.Id,
+                    FileName = a.FileName,
+                    ContentType = a.ContentType,
+                    SizeBytes = a.SizeBytes,
+                    UploadedByName = a.UploadedBy?.Name ?? string.Empty,
+                    CreatedAt = a.CreatedAt
                 }).ToList()
         };
     }
