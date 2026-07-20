@@ -80,8 +80,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Controllers/LocalizationController.cs": {
-    "mtime": 1784567778.0550308,
-    "ast_hash": "b15c3752de9337eca3a6cbcb1fe3a335",
+    "mtime": 1784582258.7931418,
+    "ast_hash": "b0ef8f1b0f01b1d7c4d957b00b07e196",
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Controllers/LookupController.cs": {
@@ -155,8 +155,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Program.cs": {
-    "mtime": 1784567609.6891918,
-    "ast_hash": "885dfd157393d4dc59f85c4367e33a6f",
+    "mtime": 1784581763.7401025,
+    "ast_hash": "30ca0b32e90efeee2280ceababefdc37",
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Properties/launchSettings.json": {
@@ -195,8 +195,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/appsettings.json": {
-    "mtime": 1784544905.6457074,
-    "ast_hash": "ad38c51875b623b6fdeb843104a8bf08",
+    "mtime": 1784581807.1694908,
+    "ast_hash": "fcc8fa67a08272edbfbf978b6a321d89",
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Approvals/ApprovalRequestBuilder.cs": {
@@ -335,8 +335,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Interfaces/IOmniFlowDbContext.cs": {
-    "mtime": 1784567532.272276,
-    "ast_hash": "467486edc3382b760f51f4caf3a15c17",
+    "mtime": 1784581749.236917,
+    "ast_hash": "8238b1f0232027d4a7efb90f8abebca4",
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Interfaces/ITelegramIdentityService.cs": {
@@ -450,8 +450,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Tickets/Queries/GetTicketDetailsQuery.cs": {
-    "mtime": 1783936338.6151621,
-    "ast_hash": "1b11aa5f9454936fe350ed41b842c588",
+    "mtime": 1784581926.7439697,
+    "ast_hash": "ef788787fd6495abefc82712b1357b12",
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Tickets/Queries/GetTicketsQuery.cs": {
@@ -660,8 +660,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Domain/Entities/Ticket.cs": {
-    "mtime": 1784490664.541123,
-    "ast_hash": "6d1356fa1c7e4cf4614c85fdc95a68f9",
+    "mtime": 1784581710.4850273,
+    "ast_hash": "5abc1e789a27ac90991b06c834fa2655",
     "semantic_hash": ""
   },
   "src/OmniFlow.Domain/Entities/TicketAuditLog.cs": {
@@ -915,8 +915,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Migrations/OmniFlowDbContextModelSnapshot.cs": {
-    "mtime": 1784567635.9703898,
-    "ast_hash": "a3da6345144d1770267353717c3c7a32",
+    "mtime": 1784581797.464086,
+    "ast_hash": "ba6ec6fef0e6a424e1338d15db1cd037",
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Notifications/TicketCreatedNotificationHandler.cs": {
@@ -1040,8 +1040,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Persistence/OmniFlowDbContext.cs": {
-    "mtime": 1784567532.2719307,
-    "ast_hash": "c5de900b8a8d8998bc9caa2d32d40a7c",
+    "mtime": 1784581737.4892077,
+    "ast_hash": "547985a5a0632f955ff76fb705ccd481",
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs": {
@@ -1070,8 +1070,8 @@
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/App.tsx": {
-    "mtime": 1784565886.697091,
-    "ast_hash": "bcaba6d580a78ab4857fb36349a9974b",
+    "mtime": 1784582228.058208,
+    "ast_hash": "472d1587fbbe394f8f681228c08d2597",
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/core/AuthContext.tsx": {
@@ -1190,8 +1190,8 @@
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/shared/components/dynamic/DynamicPage.tsx": {
-    "mtime": 1783872852.5744908,
-    "ast_hash": "e0aa919b78e8a776b2ee1ac543738726",
+    "mtime": 1784582204.5179837,
+    "ast_hash": "1546b955b50abb36a9d0205f50af8123",
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/shared/components/dynamic/DynamicViewModal.tsx": {
@@ -1652,6 +1652,46 @@
   "tests/OmniFlow.Api.IntegrationTests/NotificationTests.cs": {
     "mtime": 1784567820.7292874,
     "ast_hash": "f1ba28b1f1679aae46c0fc4261b558c4",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Api/Controllers/TicketAttachmentsController.cs": {
+    "mtime": 1784581890.9560626,
+    "ast_hash": "38f9efa2b627cffb4b97d19bd0fd8b31",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Application/Interfaces/IFileStorage.cs": {
+    "mtime": 1784581627.8000388,
+    "ast_hash": "7f5d4e080031308f1d7cd69cfad539cc",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Domain/Entities/TicketAttachment.cs": {
+    "mtime": 1784581617.2260246,
+    "ast_hash": "a93ed3589ef8ca67ca38963e0e06a7cc",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Infrastructure/Migrations/20260720210957_TicketAttachments.Designer.cs": {
+    "mtime": 1784581797.4637568,
+    "ast_hash": "f41a1ff9745d900badb95778b36eb5d3",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Infrastructure/Migrations/20260720210957_TicketAttachments.cs": {
+    "mtime": 1784581797.4626882,
+    "ast_hash": "3611a47b920a995e78a1394884007b3f",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Infrastructure/Storage/LocalFileStorage.cs": {
+    "mtime": 1784581648.651955,
+    "ast_hash": "ec36c57cc41fcf2601afb4d477818cb2",
+    "semantic_hash": ""
+  },
+  "src/omniflow-ui/src/features/tickets/components/TicketDetailPage.tsx": {
+    "mtime": 1784582271.627062,
+    "ast_hash": "e725b31ed7a1bcf0e77ad2ee55c9a1ae",
+    "semantic_hash": ""
+  },
+  "tests/OmniFlow.Api.IntegrationTests/TicketAttachmentTests.cs": {
+    "mtime": 1784582417.3075228,
+    "ast_hash": "fa8fdf889f15de63d60b1532205b1aac",
     "semantic_hash": ""
   }
 }

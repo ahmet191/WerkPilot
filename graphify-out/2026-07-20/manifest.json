@@ -80,8 +80,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Controllers/LocalizationController.cs": {
-    "mtime": 1784565952.1612306,
-    "ast_hash": "2b7d07a3808e03b7bddec3053da8f816",
+    "mtime": 1784567778.0550308,
+    "ast_hash": "b15c3752de9337eca3a6cbcb1fe3a335",
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Controllers/LookupController.cs": {
@@ -155,8 +155,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Program.cs": {
-    "mtime": 1784565828.9543374,
-    "ast_hash": "b5cd99bd24d826175310b6d82ea16100",
+    "mtime": 1784567609.6891918,
+    "ast_hash": "885dfd157393d4dc59f85c4367e33a6f",
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Properties/launchSettings.json": {
@@ -335,8 +335,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Interfaces/IOmniFlowDbContext.cs": {
-    "mtime": 1784562547.4610243,
-    "ast_hash": "242272de74ef15eac0bc4d13bc2b7826",
+    "mtime": 1784567532.272276,
+    "ast_hash": "467486edc3382b760f51f4caf3a15c17",
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Interfaces/ITelegramIdentityService.cs": {
@@ -860,13 +860,13 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Messaging/Consumers/ApprovalStepActivatedConsumer.cs": {
-    "mtime": 1783872698.5482514,
-    "ast_hash": "1828b8e8d855c71267728671c0e494b7",
+    "mtime": 1784567658.978018,
+    "ast_hash": "7101a47f39aee66319efeaaadb1a1610",
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Messaging/Consumers/AssetAssignedConsumer.cs": {
-    "mtime": 1783854080.7483776,
-    "ast_hash": "c95ff014add2f9c5f2526bc4a451bcef",
+    "mtime": 1784567695.283802,
+    "ast_hash": "4ec24c63452443687961742eaa4030a6",
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Messaging/Consumers/LeaveRequestNotificationConsumer.cs": {
@@ -875,8 +875,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Messaging/Consumers/TicketSlaBreachConsumer.cs": {
-    "mtime": 1783854097.178611,
-    "ast_hash": "3bc1cbbc5ad86cf4655386ed451948b2",
+    "mtime": 1784567695.2835224,
+    "ast_hash": "25c578a4c9a2d5e1259bb8c5501afaeb",
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Messaging/TelegramGateway.cs": {
@@ -915,8 +915,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Migrations/OmniFlowDbContextModelSnapshot.cs": {
-    "mtime": 1784564202.2301621,
-    "ast_hash": "c3e27484a5a2c378796c73a7f2c82ca8",
+    "mtime": 1784567635.9703898,
+    "ast_hash": "a3da6345144d1770267353717c3c7a32",
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Notifications/TicketCreatedNotificationHandler.cs": {
@@ -1040,8 +1040,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Persistence/OmniFlowDbContext.cs": {
-    "mtime": 1784562525.0489285,
-    "ast_hash": "de9dc59aed083460a86199d420cf700f",
+    "mtime": 1784567532.2719307,
+    "ast_hash": "c5de900b8a8d8998bc9caa2d32d40a7c",
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs": {
@@ -1160,8 +1160,8 @@
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/shared/components/AppLayout.tsx": {
-    "mtime": 1784565930.3632102,
-    "ast_hash": "d4d8e181c40bf043ed5ce5c303ac22e5",
+    "mtime": 1784567778.0542908,
+    "ast_hash": "8cb748370e219bfd1623051ee4225770",
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/shared/components/ErrorBoundary.tsx": {
@@ -1602,6 +1602,56 @@
   "tests/OmniFlow.Api.IntegrationTests/TenantProvisioningTests.cs": {
     "mtime": 1784566024.9092088,
     "ast_hash": "809dc2ec6622916223b8e7b1d93afe76",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Api/Controllers/NotificationsController.cs": {
+    "mtime": 1784567582.002386,
+    "ast_hash": "e3238ee8f88afc3dcdd00b79e3efcb92",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Api/Hubs/NotificationHub.cs": {
+    "mtime": 1784567565.2308888,
+    "ast_hash": "f81cfcde10a84dbd97b49169bbd9d69e",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Application/Interfaces/INotificationService.cs": {
+    "mtime": 1784567427.65326,
+    "ast_hash": "0cf0da7d542b256cdb0eec0b4ca4d851",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Domain/Entities/Notification.cs": {
+    "mtime": 1784567406.025169,
+    "ast_hash": "61bf856fafa7a4df377eea93eab47946",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Domain/Enums/NotificationKind.cs": {
+    "mtime": 1784567415.5056055,
+    "ast_hash": "d82ecac91936aa41b6b966b91c623404",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Infrastructure/Migrations/20260720171355_NotificationCentre.Designer.cs": {
+    "mtime": 1784567635.969747,
+    "ast_hash": "5af1642b2cb4cc78adec14309dd38ff4",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Infrastructure/Migrations/20260720171355_NotificationCentre.cs": {
+    "mtime": 1784567635.9695115,
+    "ast_hash": "51510d135a3ba8cdb8371988e55363fe",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Infrastructure/Notifications/NotificationService.cs": {
+    "mtime": 1784567546.6662326,
+    "ast_hash": "f67562ab5b1192c32d7b0231af5c7d7d",
+    "semantic_hash": ""
+  },
+  "src/omniflow-ui/src/shared/components/NotificationBell.tsx": {
+    "mtime": 1784567738.905185,
+    "ast_hash": "9ffad984889d4e87d5410ee5d88d0bb9",
+    "semantic_hash": ""
+  },
+  "tests/OmniFlow.Api.IntegrationTests/NotificationTests.cs": {
+    "mtime": 1784567820.7292874,
+    "ast_hash": "f1ba28b1f1679aae46c0fc4261b558c4",
     "semantic_hash": ""
   }
 }
