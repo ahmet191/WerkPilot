@@ -80,8 +80,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Controllers/LocalizationController.cs": {
-    "mtime": 1784582258.7931418,
-    "ast_hash": "b0ef8f1b0f01b1d7c4d957b00b07e196",
+    "mtime": 1784583473.9814236,
+    "ast_hash": "d79657e41567700228dce540e447a66d",
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Controllers/LookupController.cs": {
@@ -110,8 +110,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Controllers/TemplatesController.cs": {
-    "mtime": 1784564171.372869,
-    "ast_hash": "d03d28b012bcd0fca0360269992a0da3",
+    "mtime": 1784583287.184172,
+    "ast_hash": "73ca11f7f4d618c714048019a55f83bb",
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Controllers/TicketsController.cs": {
@@ -1065,13 +1065,13 @@
     "semantic_hash": ""
   },
   "src/omniflow-ui/package.json": {
-    "mtime": 1784530798.8027403,
-    "ast_hash": "c5244eca029796a98aeb0bcba263be95",
+    "mtime": 1784583255.6063976,
+    "ast_hash": "c8deffc10b450db562f7428b845dabff",
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/App.tsx": {
-    "mtime": 1784582228.058208,
-    "ast_hash": "472d1587fbbe394f8f681228c08d2597",
+    "mtime": 1784583419.652698,
+    "ast_hash": "cc582e69b7f1941be99a44520798cd5f",
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/core/AuthContext.tsx": {
@@ -1190,8 +1190,8 @@
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/shared/components/dynamic/DynamicPage.tsx": {
-    "mtime": 1784582204.5179837,
-    "ast_hash": "1546b955b50abb36a9d0205f50af8123",
+    "mtime": 1784583383.1173816,
+    "ast_hash": "c09a04c278ba278c572486519e161603",
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/shared/components/dynamic/DynamicViewModal.tsx": {
@@ -1692,6 +1692,31 @@
   "tests/OmniFlow.Api.IntegrationTests/TicketAttachmentTests.cs": {
     "mtime": 1784582417.3075228,
     "ast_hash": "fa8fdf889f15de63d60b1532205b1aac",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Application/Tickets/Workflow/WorkflowValidator.cs": {
+    "mtime": 1784583156.845991,
+    "ast_hash": "3df2a9bec5172794b9a4c9ed698730d3",
+    "semantic_hash": ""
+  },
+  "src/omniflow-ui/src/features/admin/TemplatesAdminPage.tsx": {
+    "mtime": 1784583395.4136539,
+    "ast_hash": "bf3c7f5209f1372799f45f15782face3",
+    "semantic_hash": ""
+  },
+  "src/omniflow-ui/src/features/admin/WorkflowDesignerPage.tsx": {
+    "mtime": 1784583967.3954964,
+    "ast_hash": "6ac6ccc014d7634709ffd8a7a3129769",
+    "semantic_hash": ""
+  },
+  "tests/OmniFlow.Api.IntegrationTests/WorkflowDesignerTests.cs": {
+    "mtime": 1784583566.0252333,
+    "ast_hash": "207568786f23ec1b6e5cfa44d79e3d0d",
+    "semantic_hash": ""
+  },
+  "tests/OmniFlow.Application.UnitTests/Workflow/WorkflowValidatorTests.cs": {
+    "mtime": 1784583672.1784937,
+    "ast_hash": "3e0178f8aa8948848164bbdf9185fa9c",
     "semantic_hash": ""
   }
 }
