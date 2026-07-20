@@ -80,8 +80,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Controllers/LocalizationController.cs": {
-    "mtime": 1784530971.1933353,
-    "ast_hash": "521da4aeaf2275208840657409a0e956",
+    "mtime": 1784545285.725412,
+    "ast_hash": "2ccf0bf4a500ce933f030436db8d7c42",
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Controllers/LookupController.cs": {
@@ -155,8 +155,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Program.cs": {
-    "mtime": 1784530585.7640698,
-    "ast_hash": "cac186e6270814f018193c6d7732138c",
+    "mtime": 1784545538.8019345,
+    "ast_hash": "5380374736076243c62e34c9f4c2f49e",
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Properties/launchSettings.json": {
@@ -195,8 +195,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/appsettings.json": {
-    "mtime": 1784530596.491273,
-    "ast_hash": "d2e0c375f0789057e5f4543ecc5eac5d",
+    "mtime": 1784544905.6457074,
+    "ast_hash": "ad38c51875b623b6fdeb843104a8bf08",
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Approvals/ApprovalRequestBuilder.cs": {
@@ -465,13 +465,13 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Users/Commands/CreateUserCommand.cs": {
-    "mtime": 1783786889.5560474,
-    "ast_hash": "80b7970ae1908daa404a7642681f2518",
+    "mtime": 1784544699.0136929,
+    "ast_hash": "fcf2f09a1de313d82bf574b9d09f2feb",
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Users/Commands/CreateUserCommandHandler.cs": {
-    "mtime": 1783786889.5562017,
-    "ast_hash": "1c23b507097ecaf9ad5b161e56429461",
+    "mtime": 1784544728.4987986,
+    "ast_hash": "bbc659850fd6d6140c93378188c19a3d",
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Users/Commands/CreateUserCommandValidator.cs": {
@@ -480,13 +480,13 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Users/Commands/DeleteUserCommand.cs": {
-    "mtime": 1783936338.6404088,
-    "ast_hash": "f095bffe5d73e456d9c2c7fbc4223fbe",
+    "mtime": 1784544761.481356,
+    "ast_hash": "e9b59b0cce45af1141ad20c3402f5a76",
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Users/Commands/UpdateUserCommand.cs": {
-    "mtime": 1783936338.6375082,
-    "ast_hash": "4ca06ebdaca503b23048ae5c70933a76",
+    "mtime": 1784544745.6894457,
+    "ast_hash": "6cd5c07f4682d825eed5f307402ccad6",
     "semantic_hash": ""
   },
   "src/OmniFlow.Domain/Common/ApprovalDefinition.cs": {
@@ -930,8 +930,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj": {
-    "mtime": 1784530636.7198772,
-    "ast_hash": "8fba6a66a2a57d3e45629db1ed76f1c4",
+    "mtime": 1784544559.4190373,
+    "ast_hash": "60ff5b0d43e1535e21b21c15b711ddaf",
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Persistence/Configurations/AppMenuConfiguration.cs": {
@@ -1070,8 +1070,8 @@
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/App.tsx": {
-    "mtime": 1784530891.5424101,
-    "ast_hash": "e40e39d444793ee2e0f5ab43ad27dfa3",
+    "mtime": 1784545176.4329154,
+    "ast_hash": "f0ab197879dd36daf6b22f0314db2909",
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/core/AuthContext.tsx": {
@@ -1120,8 +1120,8 @@
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/features/auth/components/LoginPage.tsx": {
-    "mtime": 1784530770.5589018,
-    "ast_hash": "57ead157737526e8987f7bdae2105d85",
+    "mtime": 1784545189.5996146,
+    "ast_hash": "0b672017baf406a59e7bfd8b2817f1b9",
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/features/hr/components/EmployeeDirectory.tsx": {
@@ -1315,8 +1315,8 @@
     "semantic_hash": ""
   },
   "tests/OmniFlow.Api.IntegrationTests/CustomWebApplicationFactory.cs": {
-    "mtime": 1784531545.9079683,
-    "ast_hash": "a291e178df31108155b48692a3316d2f",
+    "mtime": 1784545553.9999297,
+    "ast_hash": "9596222f90c194f314758f85681307e3",
     "semantic_hash": ""
   },
   "tests/OmniFlow.Api.IntegrationTests/OmniFlow.Api.IntegrationTests.csproj": {
@@ -1355,8 +1355,8 @@
     "semantic_hash": ""
   },
   "docker-compose.yml": {
-    "mtime": 1784489909.8803756,
-    "ast_hash": "f1e8f56502bb576c28cfe8dc2c15ad8b",
+    "mtime": 1784544921.3674757,
+    "ast_hash": "d6bb2ba8230f3f4d0b936ea867f06a7e",
     "semantic_hash": ""
   },
   "src/OmniFlow.Domain/Common/Exceptions/ConflictException.cs": {
@@ -1445,8 +1445,8 @@
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/features/account/SecuritySettings.tsx": {
-    "mtime": 1784530838.0506468,
-    "ast_hash": "ea88e17dc83d927aa0a3908c4a6e4d25",
+    "mtime": 1784545225.2113235,
+    "ast_hash": "bf41d182957d80d3c1d274849f5bf64a",
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/features/auth/components/SsoCallback.tsx": {
@@ -1457,6 +1457,56 @@
   "tests/OmniFlow.Api.IntegrationTests/AuthMfaSsoTests.cs": {
     "mtime": 1784531557.0052545,
     "ast_hash": "9eff3a40e779c857bf025bdecbeb7712",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Api/Controllers/AccountController.cs": {
+    "mtime": 1784544951.1757584,
+    "ast_hash": "ced48291693015c56c4a23317619654d",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Api/Controllers/UserAdminController.cs": {
+    "mtime": 1784544812.8070521,
+    "ast_hash": "82fe129255d2a622f784e58262e4c9a6",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Application/Interfaces/IEmailSender.cs": {
+    "mtime": 1784544569.9311097,
+    "ast_hash": "e693b7690cd6eca38d819d866d98c9f7",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Application/Interfaces/IIdentityAccountService.cs": {
+    "mtime": 1784544831.8025773,
+    "ast_hash": "a42cc673acb57c2d331e91efd4ecd275",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Infrastructure/Email/SmtpEmailSender.cs": {
+    "mtime": 1784544584.0578775,
+    "ast_hash": "b1be5d7d879341d38b6406c3f4684872",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Infrastructure/Identity/IdentityAccountService.cs": {
+    "mtime": 1784546873.5984354,
+    "ast_hash": "e6d671262b10513c84f32e8ea491119b",
+    "semantic_hash": ""
+  },
+  "src/omniflow-ui/src/features/admin/UserAdminPage.tsx": {
+    "mtime": 1784545085.0371957,
+    "ast_hash": "1a8c58680ffacd366efca3c47ee28f3b",
+    "semantic_hash": ""
+  },
+  "src/omniflow-ui/src/features/auth/components/ForgotPassword.tsx": {
+    "mtime": 1784545108.5827193,
+    "ast_hash": "f4bd34d9757d2e178e1f6d89b64eb385",
+    "semantic_hash": ""
+  },
+  "src/omniflow-ui/src/features/auth/components/ResetPassword.tsx": {
+    "mtime": 1784545134.6461084,
+    "ast_hash": "00fb8f412001f922a9b0c2fa86bda391",
+    "semantic_hash": ""
+  },
+  "tests/OmniFlow.Api.IntegrationTests/UserAdminAccountTests.cs": {
+    "mtime": 1784545445.0398376,
+    "ast_hash": "6f62e50c3ee4db4fc5ece3b33e19d94a",
     "semantic_hash": ""
   }
 }
