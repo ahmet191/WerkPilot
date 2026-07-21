@@ -16,6 +16,7 @@ import { PermissionMatrixPage } from './features/admin/PermissionMatrixPage';
 import { PlatformTenantsPage } from './features/platform/PlatformTenantsPage';
 import { TemplatesAdminPage } from './features/admin/TemplatesAdminPage';
 import { WorkflowDesignerPage } from './features/admin/WorkflowDesignerPage';
+import { TranslationsAdminPage } from './features/admin/TranslationsAdminPage';
 import { ProtectedRoute } from './core/ProtectedRoute';
 import { LoginPage } from './features/auth/components/LoginPage';
 import { SsoCallback } from './features/auth/components/SsoCallback';
@@ -80,6 +81,9 @@ function App() {
                 </Route>
                 <Route element={<ProtectedRoute requiredPermission={Perm.PermissionsManage} />}>
                   <Route path="settings/permissions" element={<PermissionMatrixPage />} />
+                </Route>
+                <Route element={<ProtectedRoute requiredPermission={Perm.TranslationsManage} />}>
+                  <Route path="settings/translations" element={<TranslationsAdminPage />} />
                 </Route>
 
                 {/* Platform operator surface — above the tenant boundary. */}

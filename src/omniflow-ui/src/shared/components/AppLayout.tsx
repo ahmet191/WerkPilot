@@ -152,6 +152,12 @@ export function AppLayout() {
       label: t('permissions.title', 'Roles & Permissions'),
       onClick: () => navigate('/settings/permissions'),
     }] : []),
+    ...(has(Perm.TranslationsManage) ? [{
+      key: 'translations',
+      icon: <Icons.TranslationOutlined />,
+      label: t('translations.title', 'Interface text'),
+      onClick: () => navigate('/settings/translations'),
+    }] : []),
     ...((user?.roles ?? []).includes('PlatformAdmin') ? [{
       key: 'platform',
       icon: <Icons.CloudServerOutlined />,

@@ -6,6 +6,8 @@ interface LanguageContextType {
   setLanguage: (lang: string) => void;
   t: (key: string, ...args: any[]) => string;
   loading: boolean;
+  /** Refetches the dictionary — used after a tenant customizes a string. */
+  reloadTranslations: () => void;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -33,6 +35,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     fetchDictionary(language);
   }, [language]);
 
+  const reloadTranslations = () => { fetchDictionary(language); };
+
   const setLanguage = (lang: string) => {
     localStorage.setItem('app-lang', lang);
     // The language-change effect refetches the dictionary and every t() call
@@ -55,7 +59,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t, loading }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t, loading, reloadTranslations }}>
       {children}
     </LanguageContext.Provider>
   );

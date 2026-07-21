@@ -87,4 +87,5 @@ export const Perm = {
   ServiceDesksManage: 'servicedesks.manage',
   AuditLogsView: 'auditlogs.view',
   PermissionsManage: 'permissions.manage',
+  TranslationsManage: 'translations.manage',
 } as const;
