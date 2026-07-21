@@ -5,6 +5,27 @@ using OmniFlow.Domain.Entities;
 
 namespace OmniFlow.Api.Controllers;
 
+/// <summary>
+/// One row of the employee directory. A named shape rather than two anonymous
+/// ones: the directory is stitched together from a profile query and a
+/// profile-less user query, and anonymous types only unify when every member's
+/// type *and* nullability match exactly — a trap that is easy to reintroduce.
+/// </summary>
+public sealed record EmployeeDirectoryEntry
+{
+    public Guid UserId { get; init; }
+    public string Name { get; init; } = string.Empty;
+    public string? Title { get; init; }
+    public string Department { get; init; } = "Unknown";
+    public string? Bio { get; init; }
+    public List<string> Skills { get; init; } = new();
+    /// <summary>Work address, or the personal one when the profile opts in — either may be absent.</summary>
+    public string? Email { get; init; }
+    public string? Phone { get; init; }
+    public DateTime? DateOfBirth { get; init; }
+    public string? ProfilePictureUrl { get; init; }
+}
+
 [ApiController]
 [Route("api/[controller]")]
 public class DirectoryController : ControllerBase
@@ -23,18 +44,18 @@ public class DirectoryController : ControllerBase
         var profiles = await _context.DirectoryProfiles
             .Include(dp => dp.User)
             .ThenInclude(u => u.Department)
-            .Select(dp => new
+            .Select(dp => new EmployeeDirectoryEntry
             {
-                dp.UserId,
+                UserId = dp.UserId,
                 Name = dp.User.Name,
                 Title = dp.User.Title,
                 Department = dp.User.Department != null ? dp.User.Department.LocalizedName.GetValueOrDefault("en") : "Unknown",
-                dp.Bio,
-                dp.Skills,
+                Bio = dp.Bio,
+                Skills = dp.Skills,
                 Email = dp.ShowPersonalEmail ? dp.User.PersonalEmail : dp.User.Email,
                 Phone = dp.ShowPhoneNumber ? dp.User.PhoneNumber : null,
                 DateOfBirth = dp.ShowDateOfBirth ? dp.User.DateOfBirth : null,
-                dp.User.ProfilePictureUrl
+                ProfilePictureUrl = dp.User.ProfilePictureUrl
             })
             .ToListAsync();
 
@@ -42,18 +63,14 @@ public class DirectoryController : ControllerBase
         var allUsers = await _context.Users
             .Include(u => u.Department)
             .Where(u => !profiles.Select(p => p.UserId).Contains(u.Id))
-            .Select(u => new
+            .Select(u => new EmployeeDirectoryEntry
             {
                 UserId = u.Id,
                 Name = u.Name,
                 Title = u.Title,
                 Department = u.Department != null ? u.Department.LocalizedName.GetValueOrDefault("en") : "Unknown",
-                Bio = (string?)null,
-                Skills = new List<string>(),
                 Email = u.Email,
-                Phone = (string?)null,
-                DateOfBirth = (DateTime?)null,
-                u.ProfilePictureUrl
+                ProfilePictureUrl = u.ProfilePictureUrl
             })
             .ToListAsync();
 
