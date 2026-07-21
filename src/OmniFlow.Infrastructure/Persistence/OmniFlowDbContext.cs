@@ -81,6 +81,8 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
 
     public DbSet<Notification> Notifications => Set<Notification>();
 
+    public DbSet<TranslationOverride> TranslationOverrides => Set<TranslationOverride>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         // Must call base first to configure Identity tables
@@ -104,6 +106,14 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
             entity.HasIndex(a => a.TicketId);
             entity.HasOne(a => a.UploadedBy).WithMany().HasForeignKey(a => a.UploadedById).OnDelete(DeleteBehavior.NoAction);
             entity.HasOne<Ticket>().WithMany(t => t.Attachments).HasForeignKey(a => a.TicketId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        builder.Entity<TranslationOverride>(entity =>
+        {
+            entity.Property(t => t.Language).HasMaxLength(8).IsRequired();
+            entity.Property(t => t.Key).HasMaxLength(200).IsRequired();
+            entity.Property(t => t.Value).HasMaxLength(2000).IsRequired();
+            entity.HasIndex(t => new { t.TenantId, t.Language, t.Key }).IsUnique();
         });
 
         builder.Entity<Notification>(entity =>

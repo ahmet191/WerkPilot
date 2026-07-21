@@ -42,6 +42,7 @@ public static class Permissions
     public const string ServiceDesksManage = "servicedesks.manage";
     public const string AuditLogsView = "auditlogs.view";
     public const string PermissionsManage = "permissions.manage";
+    public const string TranslationsManage = "translations.manage";
 
     public const string ModuleTickets = "Tickets";
     public const string ModuleHr = "Human Resources";
@@ -79,6 +80,7 @@ public static class Permissions
         new(ServiceDesksManage, ModuleAdministration, "Manage service desks"),
         new(AuditLogsView, ModuleAdministration, "View audit logs"),
         new(PermissionsManage, ModuleAdministration, "Manage the permission matrix"),
+        new(TranslationsManage, ModuleAdministration, "Customize interface text"),
     ];
 
     private static readonly HashSet<string> Keys = All.Select(p => p.Key).ToHashSet(StringComparer.Ordinal);

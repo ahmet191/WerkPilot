@@ -158,6 +158,10 @@ builder.Services.AddScoped<OmniFlow.Application.Interfaces.INotificationPusher,
 builder.Services.AddScoped<OmniFlow.Application.Interfaces.INotificationService,
     OmniFlow.Infrastructure.Notifications.NotificationService>();
 
+// Tenant-customizable UI strings: shipped defaults merged with DB overrides.
+builder.Services.AddScoped<OmniFlow.Application.Interfaces.ITranslationService,
+    OmniFlow.Infrastructure.Localization.TranslationService>();
+
 // Ticket attachments: file bytes on disk (swappable for S3/Blob), metadata in the DB.
 builder.Services.AddSingleton<OmniFlow.Application.Interfaces.IFileStorage,
     OmniFlow.Infrastructure.Storage.LocalFileStorage>();
