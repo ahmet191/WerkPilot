@@ -80,8 +80,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Controllers/LocalizationController.cs": {
-    "mtime": 1784583473.9814236,
-    "ast_hash": "d79657e41567700228dce540e447a66d",
+    "mtime": 1784621636.0060635,
+    "ast_hash": "f083b0c8db6e8ac09fe46cb2ebe3affc",
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Controllers/LookupController.cs": {
@@ -155,8 +155,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Program.cs": {
-    "mtime": 1784581763.7401025,
-    "ast_hash": "30ca0b32e90efeee2280ceababefdc37",
+    "mtime": 1784621651.529579,
+    "ast_hash": "04729446a703c92d24eb416478436b98",
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Properties/launchSettings.json": {
@@ -335,8 +335,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Interfaces/IOmniFlowDbContext.cs": {
-    "mtime": 1784581749.236917,
-    "ast_hash": "8238b1f0232027d4a7efb90f8abebca4",
+    "mtime": 1784621559.562745,
+    "ast_hash": "cf9439400628bf27081834569f79a78b",
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Interfaces/ITelegramIdentityService.cs": {
@@ -915,8 +915,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Migrations/OmniFlowDbContextModelSnapshot.cs": {
-    "mtime": 1784581797.464086,
-    "ast_hash": "ba6ec6fef0e6a424e1338d15db1cd037",
+    "mtime": 1784621585.835937,
+    "ast_hash": "9ec1a9ea085aefbd645946b6962bcd73",
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Notifications/TicketCreatedNotificationHandler.cs": {
@@ -1040,8 +1040,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Persistence/OmniFlowDbContext.cs": {
-    "mtime": 1784581737.4892077,
-    "ast_hash": "547985a5a0632f955ff76fb705ccd481",
+    "mtime": 1784621559.562256,
+    "ast_hash": "b93c5f40e1a1017ca21461dcf3838d3b",
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs": {
@@ -1070,8 +1070,8 @@
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/App.tsx": {
-    "mtime": 1784583419.652698,
-    "ast_hash": "cc582e69b7f1941be99a44520798cd5f",
+    "mtime": 1784621789.8927343,
+    "ast_hash": "3e0bfeab663efde3d4f97c40eab1845d",
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/core/AuthContext.tsx": {
@@ -1080,8 +1080,8 @@
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/core/LanguageContext.tsx": {
-    "mtime": 1783922406.8676155,
-    "ast_hash": "3eefc4c3551f64dced7391cdd0abff46",
+    "mtime": 1784621741.9166179,
+    "ast_hash": "e4cd8b2e623e793134c5ac992efde013",
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/core/ProtectedRoute.tsx": {
@@ -1160,8 +1160,8 @@
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/shared/components/AppLayout.tsx": {
-    "mtime": 1784567778.0542908,
-    "ast_hash": "8cb748370e219bfd1623051ee4225770",
+    "mtime": 1784621789.8940485,
+    "ast_hash": "9434efccaa2faa7a5b04470626b82095",
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/shared/components/ErrorBoundary.tsx": {
@@ -1520,8 +1520,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Domain/Common/Permissions.cs": {
-    "mtime": 1784562492.929968,
-    "ast_hash": "473796f7decc01527638de89ad183962",
+    "mtime": 1784621559.563334,
+    "ast_hash": "ded90186d2bae03da90ff11003221ae0",
     "semantic_hash": ""
   },
   "src/OmniFlow.Domain/Entities/RolePermission.cs": {
@@ -1535,8 +1535,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Authorization/PermissionPolicy.cs": {
-    "mtime": 1784564140.4222376,
-    "ast_hash": "6a12a9dc4fbacb76d25e7b13b0fbaed7",
+    "mtime": 1784621559.563804,
+    "ast_hash": "00ed1f882576db8e6b2e7e84f3273503",
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Authorization/PermissionService.cs": {
@@ -1555,8 +1555,8 @@
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/core/PermissionContext.tsx": {
-    "mtime": 1784564232.266218,
-    "ast_hash": "d652aca0a063ed86c590044d3edd33e2",
+    "mtime": 1784621789.8933287,
+    "ast_hash": "4d02a108a207b74475e7498f2462a19c",
     "semantic_hash": ""
   },
   "src/omniflow-ui/src/features/admin/PermissionMatrixPage.tsx": {
@@ -1717,6 +1717,46 @@
   "tests/OmniFlow.Application.UnitTests/Workflow/WorkflowValidatorTests.cs": {
     "mtime": 1784583672.1784937,
     "ast_hash": "3e0178f8aa8948848164bbdf9185fa9c",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Api/Localization/BuiltInTranslations.cs": {
+    "mtime": 1784621789.894503,
+    "ast_hash": "41a209b71993d36b92ef95711f535cbc",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Application/Interfaces/ITranslationService.cs": {
+    "mtime": 1784621518.392699,
+    "ast_hash": "ea63b771e9546cbde4ba989720efab77",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Domain/Entities/TranslationOverride.cs": {
+    "mtime": 1784621505.3650565,
+    "ast_hash": "51bebeb6b7219d08bc5ab417fcb431f8",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Infrastructure/Localization/TranslationService.cs": {
+    "mtime": 1784621984.894903,
+    "ast_hash": "e008e2f7691edbcfb3c59248da18039d",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Infrastructure/Migrations/20260721081305_TranslationOverrides.Designer.cs": {
+    "mtime": 1784621585.8354945,
+    "ast_hash": "c53c65c2b00e788fbbecd9a52e4fd828",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Infrastructure/Migrations/20260721081305_TranslationOverrides.cs": {
+    "mtime": 1784621585.8350446,
+    "ast_hash": "74e8a74ea8918570c5390e98506a1516",
+    "semantic_hash": ""
+  },
+  "src/omniflow-ui/src/features/admin/TranslationsAdminPage.tsx": {
+    "mtime": 1784622214.8493907,
+    "ast_hash": "835900d129dcd9a005e541091cb76575",
+    "semantic_hash": ""
+  },
+  "tests/OmniFlow.Api.IntegrationTests/TranslationOverrideTests.cs": {
+    "mtime": 1784621855.841143,
+    "ast_hash": "8e3a7c369290ec2dc10e1095014b431f",
     "semantic_hash": ""
   }
 }
