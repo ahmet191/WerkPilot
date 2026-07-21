@@ -86,8 +86,8 @@ public class WorkflowDesignerTests : IClassFixture<CustomWebApplicationFactory>
         {
             transitions = new[]
             {
-                new { fromState = "New", toState = "InProgress", trigger = "Begin", requiredRole = "Agent", approvalPolicy = (object?)null },
-                new { fromState = "InProgress", toState = "Resolved", trigger = "Finish", requiredRole = "Agent", approvalPolicy = (object?)null },
+                new { fromState = "New", toState = "InProgress", trigger = "Begin", requiredRole = (string?)"Agent", approvalPolicy = (object?)null },
+                new { fromState = "InProgress", toState = "Resolved", trigger = "Finish", requiredRole = (string?)"Agent", approvalPolicy = (object?)null },
                 new { fromState = "Resolved", toState = "Closed", trigger = "Archive", requiredRole = (string?)null, approvalPolicy = (object?)null },
             }
         });
