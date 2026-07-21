@@ -10,7 +10,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "omniflow",
-      "community": 17,
+      "community": 11,
       "norm_label": "omniflow.slnx"
     },
     {
@@ -20,7 +20,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "src_omniflow_api_omniflow_api",
-      "community": 17,
+      "community": 1,
       "norm_label": "omniflow.api.csproj"
     },
     {
@@ -30,18 +30,18 @@
       "source_location": null,
       "_origin": "ast",
       "id": "src_omniflow_application_omniflow_application",
-      "community": 17,
+      "community": 11,
       "norm_label": "omniflow.application.csproj"
     },
     {
-      "label": "OmniFlow.Domain",
+      "label": "OmniFlow.Domain.csproj",
       "file_type": "code",
       "source_file": "src/OmniFlow.Domain/OmniFlow.Domain.csproj",
       "source_location": null,
       "_origin": "ast",
       "id": "src_omniflow_domain_omniflow_domain",
-      "community": 17,
-      "norm_label": "omniflow.domain"
+      "community": 11,
+      "norm_label": "omniflow.domain.csproj"
     },
     {
       "label": "OmniFlow.Infrastructure.csproj",
@@ -60,7 +60,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_omniflow_application_unittests",
-      "community": 17,
+      "community": 80,
       "norm_label": "omniflow.application.unittests.csproj"
     },
     {
@@ -70,7 +70,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "tests_omniflow_api_integrationtests_omniflow_api_integrationtests",
-      "community": 17,
+      "community": 39,
       "norm_label": "omniflow.api.integrationtests.csproj"
     },
     {
@@ -80,7 +80,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_accountcontroller",
-      "community": 8,
+      "community": 6,
       "norm_label": "accountcontroller.cs"
     },
     {
@@ -148,7 +148,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_accountcontroller_omniflow_api_controllers_forgotpasswordrequest",
-      "community": 8,
+      "community": 6,
       "norm_label": "forgotpasswordrequest"
     },
     {
@@ -231,7 +231,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_accountcontroller_omniflow_api_controllers_resetpasswordrequest",
-      "community": 8,
+      "community": 6,
       "norm_label": "resetpasswordrequest"
     },
     {
@@ -264,7 +264,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_accountcontroller_omniflow_api_controllers_changepasswordrequest",
-      "community": 8,
+      "community": 6,
       "norm_label": "changepasswordrequest"
     },
     {
@@ -300,7 +300,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_analyticscontroller_cs",
-      "community": 41,
+      "community": 6,
       "norm_label": "analyticscontroller.cs"
     },
     {
@@ -522,7 +522,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_assetscontroller_cs",
-      "community": 198,
+      "community": 6,
       "norm_label": "assetscontroller.cs"
     },
     {
@@ -672,7 +672,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_assetscontroller_omniflow_api_controllers_assetscontroller_update",
-      "community": 222,
+      "community": 49,
       "norm_label": ".update()"
     },
     {
@@ -1080,7 +1080,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_categoriescontroller_omniflow_api_controllers_categoriescontroller",
-      "community": 114,
+      "community": 34,
       "norm_label": "categoriescontroller"
     },
     {
@@ -1096,7 +1096,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_categoriescontroller_omniflow_api_controllers_categoriescontroller_get",
-      "community": 114,
+      "community": 34,
       "norm_label": ".get()"
     },
     {
@@ -1106,7 +1106,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_categoriescontroller_cs_task",
-      "community": 114,
+      "community": 34,
       "norm_label": "task"
     },
     {
@@ -1116,7 +1116,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_categoriescontroller_cs_iactionresult",
-      "community": 114,
+      "community": 34,
       "norm_label": "iactionresult"
     },
     {
@@ -1126,7 +1126,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_categoriescontroller_cs_httpget",
-      "community": 114,
+      "community": 34,
       "norm_label": "httpget"
     },
     {
@@ -1142,7 +1142,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_categoriescontroller_omniflow_api_controllers_categoriescontroller_create",
-      "community": 114,
+      "community": 34,
       "norm_label": ".create()"
     },
     {
@@ -1152,7 +1152,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_categoriescontroller_cs_httppost",
-      "community": 114,
+      "community": 34,
       "norm_label": "httppost"
     },
     {
@@ -1162,7 +1162,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_categoriescontroller_cs_authorize",
-      "community": 114,
+      "community": 34,
       "norm_label": "authorize"
     },
     {
@@ -1178,7 +1178,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_categoriescontroller_omniflow_api_controllers_categoriescontroller_update",
-      "community": 114,
+      "community": 34,
       "norm_label": ".update()"
     },
     {
@@ -1188,7 +1188,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_categoriescontroller_cs_guid",
-      "community": 114,
+      "community": 34,
       "norm_label": "guid"
     },
     {
@@ -1198,7 +1198,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_categoriescontroller_cs_httpput",
-      "community": 114,
+      "community": 34,
       "norm_label": "httpput"
     },
     {
@@ -1214,7 +1214,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_categoriescontroller_omniflow_api_controllers_categoriescontroller_delete",
-      "community": 114,
+      "community": 34,
       "norm_label": ".delete()"
     },
     {
@@ -1224,7 +1224,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_categoriescontroller_cs_httpdelete",
-      "community": 114,
+      "community": 34,
       "norm_label": "httpdelete"
     },
     {
@@ -1240,7 +1240,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_categoriescontroller_omniflow_api_controllers_categoryrequest",
-      "community": 114,
+      "community": 34,
       "norm_label": "categoryrequest"
     },
     {
@@ -1250,7 +1250,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_dashboardcontroller_cs",
-      "community": 171,
+      "community": 106,
       "norm_label": "dashboardcontroller.cs"
     },
     {
@@ -1332,7 +1332,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_departmentscontroller_cs",
-      "community": 7,
+      "community": 181,
       "norm_label": "departmentscontroller.cs"
     },
     {
@@ -1501,15 +1501,15 @@
       "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_directorycontroller_cs",
-      "community": 41,
+      "id": "src_omniflow_api_controllers_directorycontroller",
+      "community": 6,
       "norm_label": "directorycontroller.cs"
     },
     {
-      "label": "DirectoryController",
+      "label": "EmployeeDirectoryEntry",
       "file_type": "code",
       "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
-      "source_location": "L8",
+      "source_location": "L14",
       "metadata": {
         "namespace": "OmniFlow.Api.Controllers",
         "scope_chain": [
@@ -1517,15 +1517,61 @@
         ]
       },
       "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller",
-      "community": 106,
+      "id": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_employeedirectoryentry",
+      "community": 115,
+      "norm_label": "employeedirectoryentry"
+    },
+    {
+      "label": "Guid",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "src_omniflow_api_controllers_directorycontroller_cs_guid",
+      "community": 115,
+      "norm_label": "guid"
+    },
+    {
+      "label": "List",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "src_omniflow_api_controllers_directorycontroller_cs_list",
+      "community": 115,
+      "norm_label": "list"
+    },
+    {
+      "label": "DateTime",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "src_omniflow_api_controllers_directorycontroller_cs_datetime",
+      "community": 115,
+      "norm_label": "datetime"
+    },
+    {
+      "label": "DirectoryController",
+      "file_type": "code",
+      "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
+      "source_location": "L29",
+      "metadata": {
+        "namespace": "OmniFlow.Api.Controllers",
+        "scope_chain": [
+          "s141"
+        ]
+      },
+      "_origin": "ast",
+      "id": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller",
+      "community": 110,
       "norm_label": "directorycontroller"
     },
     {
       "label": ".GetEmployees()",
       "file_type": "code",
       "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
-      "source_location": "L19",
+      "source_location": "L40",
       "metadata": {
         "namespace": "OmniFlow.Api.Controllers",
         "scope_chain": [
@@ -1533,8 +1579,8 @@
         ]
       },
       "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller_getemployees",
-      "community": 106,
+      "id": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller_getemployees",
+      "community": 110,
       "norm_label": ".getemployees()"
     },
     {
@@ -1543,8 +1589,8 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_directorycontroller_cs_task",
-      "community": 133,
+      "id": "src_omniflow_api_controllers_directorycontroller_cs_task",
+      "community": 110,
       "norm_label": "task"
     },
     {
@@ -1553,8 +1599,8 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_directorycontroller_cs_iactionresult",
-      "community": 132,
+      "id": "src_omniflow_api_controllers_directorycontroller_cs_iactionresult",
+      "community": 110,
       "norm_label": "iactionresult"
     },
     {
@@ -1563,15 +1609,15 @@
       "source_file": "",
       "source_location": "",
       "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_directorycontroller_cs_httpget",
-      "community": 131,
+      "id": "src_omniflow_api_controllers_directorycontroller_cs_httpget",
+      "community": 110,
       "norm_label": "httpget"
     },
     {
       "label": ".GetOrgChart()",
       "file_type": "code",
       "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
-      "source_location": "L63",
+      "source_location": "L80",
       "metadata": {
         "namespace": "OmniFlow.Api.Controllers",
         "scope_chain": [
@@ -1579,8 +1625,8 @@
         ]
       },
       "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller_getorgchart",
-      "community": 106,
+      "id": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller_getorgchart",
+      "community": 110,
       "norm_label": ".getorgchart()"
     },
     {
@@ -1770,7 +1816,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_leaverequestscontroller",
-      "community": 6,
+      "community": 41,
       "norm_label": "leaverequestscontroller.cs"
     },
     {
@@ -1924,7 +1970,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_localizationcontroller",
-      "community": 111,
+      "community": 6,
       "norm_label": "localizationcontroller.cs"
     },
     {
@@ -2039,7 +2085,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_localizationcontroller_omniflow_api_controllers_settranslationrequest",
-      "community": 111,
+      "community": 6,
       "norm_label": "settranslationrequest"
     },
     {
@@ -2101,7 +2147,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_lookupcontroller_cs",
-      "community": 200,
+      "community": 6,
       "norm_label": "lookupcontroller.cs"
     },
     {
@@ -2117,7 +2163,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_lookupcontroller_omniflow_api_controllers_lookupcontroller",
-      "community": 200,
+      "community": 75,
       "norm_label": "lookupcontroller"
     },
     {
@@ -2133,7 +2179,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_lookupcontroller_omniflow_api_controllers_lookupcontroller_getusers",
-      "community": 200,
+      "community": 75,
       "norm_label": ".getusers()"
     },
     {
@@ -2179,7 +2225,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_lookupcontroller_omniflow_api_controllers_lookupcontroller_getdepartments",
-      "community": 200,
+      "community": 75,
       "norm_label": ".getdepartments()"
     },
     {
@@ -2195,7 +2241,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_lookupcontroller_omniflow_api_controllers_lookupcontroller_getcategories",
-      "community": 200,
+      "community": 75,
       "norm_label": ".getcategories()"
     },
     {
@@ -2211,7 +2257,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_lookupcontroller_omniflow_api_controllers_lookupcontroller_getmenus",
-      "community": 200,
+      "community": 75,
       "norm_label": ".getmenus()"
     },
     {
@@ -2227,7 +2273,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_lookupcontroller_omniflow_api_controllers_lookupcontroller_getleavetypes",
-      "community": 200,
+      "community": 75,
       "norm_label": ".getleavetypes()"
     },
     {
@@ -2237,7 +2283,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_menucontroller_cs",
-      "community": 31,
+      "community": 106,
       "norm_label": "menucontroller.cs"
     },
     {
@@ -2253,7 +2299,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_menucontroller_omniflow_api_controllers_menucontroller",
-      "community": 31,
+      "community": 106,
       "norm_label": "menucontroller"
     },
     {
@@ -2279,7 +2325,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_menucontroller_omniflow_api_controllers_menucontroller_getmenu",
-      "community": 31,
+      "community": 106,
       "norm_label": ".getmenu()"
     },
     {
@@ -2319,7 +2365,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_mfacontroller",
-      "community": 53,
+      "community": 6,
       "norm_label": "mfacontroller.cs"
     },
     {
@@ -2444,7 +2490,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_mfacontroller_omniflow_api_controllers_verifycoderequest",
-      "community": 53,
+      "community": 6,
       "norm_label": "verifycoderequest"
     },
     {
@@ -2550,7 +2596,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_notificationscontroller",
-      "community": 41,
+      "community": 6,
       "norm_label": "notificationscontroller.cs"
     },
     {
@@ -2566,7 +2612,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_notificationscontroller_omniflow_api_controllers_notificationscontroller",
-      "community": 165,
+      "community": 34,
       "norm_label": "notificationscontroller"
     },
     {
@@ -2576,7 +2622,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_notificationscontroller_cs_guid",
-      "community": 165,
+      "community": 34,
       "norm_label": "guid"
     },
     {
@@ -2592,7 +2638,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_notificationscontroller_omniflow_api_controllers_notificationscontroller_list",
-      "community": 165,
+      "community": 34,
       "norm_label": ".list()"
     },
     {
@@ -2602,7 +2648,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_notificationscontroller_cs_task",
-      "community": 165,
+      "community": 34,
       "norm_label": "task"
     },
     {
@@ -2612,7 +2658,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_notificationscontroller_cs_iactionresult",
-      "community": 165,
+      "community": 34,
       "norm_label": "iactionresult"
     },
     {
@@ -2622,7 +2668,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_notificationscontroller_cs_httpget",
-      "community": 165,
+      "community": 34,
       "norm_label": "httpget"
     },
     {
@@ -2638,7 +2684,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_notificationscontroller_omniflow_api_controllers_notificationscontroller_unreadcount",
-      "community": 165,
+      "community": 34,
       "norm_label": ".unreadcount()"
     },
     {
@@ -2654,7 +2700,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_notificationscontroller_omniflow_api_controllers_notificationscontroller_markread",
-      "community": 165,
+      "community": 34,
       "norm_label": ".markread()"
     },
     {
@@ -2664,7 +2710,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_notificationscontroller_cs_httppost",
-      "community": 165,
+      "community": 34,
       "norm_label": "httppost"
     },
     {
@@ -2680,7 +2726,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_notificationscontroller_omniflow_api_controllers_notificationscontroller_markallread",
-      "community": 165,
+      "community": 34,
       "norm_label": ".markallread()"
     },
     {
@@ -2857,7 +2903,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_platformtenantscontroller",
-      "community": 41,
+      "community": 6,
       "norm_label": "platformtenantscontroller.cs"
     },
     {
@@ -2936,7 +2982,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_platformtenantscontroller_omniflow_api_controllers_createtenantrequest",
-      "community": 41,
+      "community": 6,
       "norm_label": "createtenantrequest"
     },
     {
@@ -3222,7 +3268,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_slaconfigurationscontroller_omniflow_api_controllers_slaconfigurationscontroller",
-      "community": 80,
+      "community": 34,
       "norm_label": "slaconfigurationscontroller"
     },
     {
@@ -3238,7 +3284,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_slaconfigurationscontroller_omniflow_api_controllers_slaconfigurationscontroller_get",
-      "community": 80,
+      "community": 34,
       "norm_label": ".get()"
     },
     {
@@ -3248,7 +3294,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_slaconfigurationscontroller_cs_task",
-      "community": 80,
+      "community": 34,
       "norm_label": "task"
     },
     {
@@ -3258,7 +3304,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_slaconfigurationscontroller_cs_iactionresult",
-      "community": 80,
+      "community": 34,
       "norm_label": "iactionresult"
     },
     {
@@ -3268,7 +3314,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_slaconfigurationscontroller_cs_httpget",
-      "community": 80,
+      "community": 34,
       "norm_label": "httpget"
     },
     {
@@ -3284,7 +3330,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_slaconfigurationscontroller_omniflow_api_controllers_slaconfigurationscontroller_create",
-      "community": 80,
+      "community": 34,
       "norm_label": ".create()"
     },
     {
@@ -3294,7 +3340,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_slaconfigurationscontroller_cs_httppost",
-      "community": 80,
+      "community": 34,
       "norm_label": "httppost"
     },
     {
@@ -3304,7 +3350,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_slaconfigurationscontroller_cs_authorize",
-      "community": 80,
+      "community": 34,
       "norm_label": "authorize"
     },
     {
@@ -3320,7 +3366,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_slaconfigurationscontroller_omniflow_api_controllers_slaconfigurationscontroller_update",
-      "community": 80,
+      "community": 34,
       "norm_label": ".update()"
     },
     {
@@ -3330,7 +3376,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_slaconfigurationscontroller_cs_guid",
-      "community": 80,
+      "community": 34,
       "norm_label": "guid"
     },
     {
@@ -3340,7 +3386,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_slaconfigurationscontroller_cs_httpput",
-      "community": 80,
+      "community": 34,
       "norm_label": "httpput"
     },
     {
@@ -3356,7 +3402,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_slaconfigurationscontroller_omniflow_api_controllers_slaconfigurationscontroller_delete",
-      "community": 80,
+      "community": 34,
       "norm_label": ".delete()"
     },
     {
@@ -3366,7 +3412,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_slaconfigurationscontroller_cs_httpdelete",
-      "community": 80,
+      "community": 34,
       "norm_label": "httpdelete"
     },
     {
@@ -3376,7 +3422,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_ssocontroller",
-      "community": 144,
+      "community": 53,
       "norm_label": "ssocontroller.cs"
     },
     {
@@ -3510,7 +3556,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_telegramwebhookcontroller_cs",
-      "community": 105,
+      "community": 6,
       "norm_label": "telegramwebhookcontroller.cs"
     },
     {
@@ -3526,7 +3572,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_telegramwebhookcontroller_omniflow_api_controllers_telegramwebhookcontroller",
-      "community": 105,
+      "community": 55,
       "norm_label": "telegramwebhookcontroller"
     },
     {
@@ -3552,7 +3598,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_telegramwebhookcontroller_omniflow_api_controllers_telegramwebhookcontroller_handleupdate",
-      "community": 105,
+      "community": 55,
       "norm_label": ".handleupdate()"
     },
     {
@@ -3830,7 +3876,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_ticketattachmentscontroller",
-      "community": 8,
+      "community": 6,
       "norm_label": "ticketattachmentscontroller.cs"
     },
     {
@@ -4650,7 +4696,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_useradmincontroller",
-      "community": 218,
+      "community": 6,
       "norm_label": "useradmincontroller.cs"
     },
     {
@@ -4739,7 +4785,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_useradmincontroller_omniflow_api_controllers_provisionaccountrequest",
-      "community": 218,
+      "community": 6,
       "norm_label": "provisionaccountrequest"
     },
     {
@@ -4830,7 +4876,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_useradmincontroller_omniflow_api_controllers_setpasswordrequest",
-      "community": 218,
+      "community": 6,
       "norm_label": "setpasswordrequest"
     },
     {
@@ -4895,7 +4941,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_useradmincontroller_omniflow_api_controllers_setrolesrequest",
-      "community": 218,
+      "community": 6,
       "norm_label": "setrolesrequest"
     },
     {
@@ -5298,7 +5344,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_api_hubs_notificationhub_omniflow_api_hubs_signalrnotificationpusher",
-      "community": 9,
+      "community": 104,
       "norm_label": "signalrnotificationpusher"
     },
     {
@@ -5308,7 +5354,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_api_hubs_notificationhub_cs_ihubcontext",
-      "community": 9,
+      "community": 104,
       "norm_label": "ihubcontext"
     },
     {
@@ -5447,7 +5493,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_middleware_auditloggingmiddleware_cs",
-      "community": 145,
+      "community": 53,
       "norm_label": "auditloggingmiddleware.cs"
     },
     {
@@ -5462,7 +5508,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:0ae3029ede258879",
-      "community": 145,
+      "community": 53,
       "norm_label": "omniflow.api.middleware"
     },
     {
@@ -5642,7 +5688,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_api_middleware_exceptionhandlingmiddleware",
-      "community": 145,
+      "community": 53,
       "norm_label": "exceptionhandlingmiddleware.cs"
     },
     {
@@ -5760,7 +5806,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "src_omniflow_api_omniflow_api_csproj_framework_net10_0",
-      "community": 17,
+      "community": 1,
       "norm_label": "net10.0"
     },
     {
@@ -5770,28 +5816,28 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_microsoft_aspnetcore_authentication_openidconnect",
-      "community": 17,
+      "community": 1,
       "norm_label": "microsoft.aspnetcore.authentication.openidconnect (10.0.10)"
     },
     {
-      "label": "Microsoft.AspNetCore.OpenApi (10.0.2)",
+      "label": "Microsoft.AspNetCore.OpenApi (10.0.10)",
       "file_type": "code",
       "source_file": "src/OmniFlow.Api/OmniFlow.Api.csproj",
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_microsoft_aspnetcore_openapi",
-      "community": 17,
-      "norm_label": "microsoft.aspnetcore.openapi (10.0.2)"
+      "community": 1,
+      "norm_label": "microsoft.aspnetcore.openapi (10.0.10)"
     },
     {
-      "label": "Microsoft.EntityFrameworkCore.Design (10.0.9)",
+      "label": "Microsoft.EntityFrameworkCore.Design (10.0.10)",
       "file_type": "code",
       "source_file": "src/OmniFlow.Api/OmniFlow.Api.csproj",
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_microsoft_entityframeworkcore_design",
-      "community": 17,
-      "norm_label": "microsoft.entityframeworkcore.design (10.0.9)"
+      "community": 1,
+      "norm_label": "microsoft.entityframeworkcore.design (10.0.10)"
     },
     {
       "label": "OpenTelemetry.Exporter.OpenTelemetryProtocol (1.16.0)",
@@ -5800,7 +5846,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_opentelemetry_exporter_opentelemetryprotocol",
-      "community": 17,
+      "community": 1,
       "norm_label": "opentelemetry.exporter.opentelemetryprotocol (1.16.0)"
     },
     {
@@ -5810,7 +5856,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_opentelemetry_extensions_hosting",
-      "community": 17,
+      "community": 1,
       "norm_label": "opentelemetry.extensions.hosting (1.16.0)"
     },
     {
@@ -5820,7 +5866,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_opentelemetry_instrumentation_aspnetcore",
-      "community": 17,
+      "community": 1,
       "norm_label": "opentelemetry.instrumentation.aspnetcore (1.16.0)"
     },
     {
@@ -5830,7 +5876,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_opentelemetry_instrumentation_entityframeworkcore",
-      "community": 17,
+      "community": 1,
       "norm_label": "opentelemetry.instrumentation.entityframeworkcore (1.16.0-beta.1)"
     },
     {
@@ -5840,7 +5886,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_opentelemetry_instrumentation_http",
-      "community": 17,
+      "community": 1,
       "norm_label": "opentelemetry.instrumentation.http (1.16.0)"
     },
     {
@@ -5850,7 +5896,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_serilog_aspnetcore",
-      "community": 17,
+      "community": 1,
       "norm_label": "serilog.aspnetcore (10.0.0)"
     },
     {
@@ -5860,7 +5906,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_swashbuckle_aspnetcore",
-      "community": 17,
+      "community": 1,
       "norm_label": "swashbuckle.aspnetcore (10.2.3)"
     },
     {
@@ -5870,7 +5916,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "sdk_microsoft_net_sdk_web",
-      "community": 17,
+      "community": 1,
       "norm_label": "microsoft.net.sdk.web"
     },
     {
@@ -6060,7 +6106,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_dashboardmetricsservice_cs",
-      "community": 146,
+      "community": 9,
       "norm_label": "dashboardmetricsservice.cs"
     },
     {
@@ -6075,7 +6121,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:f07a9b2d86376f80",
-      "community": 1,
+      "community": 9,
       "norm_label": "omniflow.api.services"
     },
     {
@@ -6091,7 +6137,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_dashboardmetricsservice_omniflow_api_services_dashboardmetricsservice",
-      "community": 146,
+      "community": 9,
       "norm_label": "dashboardmetricsservice"
     },
     {
@@ -6117,7 +6163,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_dashboardmetricsservice_omniflow_api_services_dashboardmetricsservice_broadcastmetricupdateasync",
-      "community": 146,
+      "community": 9,
       "norm_label": ".broadcastmetricupdateasync()"
     },
     {
@@ -6147,7 +6193,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_databasehealthcheck_cs",
-      "community": 115,
+      "community": 9,
       "norm_label": "databasehealthcheck.cs"
     },
     {
@@ -6163,7 +6209,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_databasehealthcheck_omniflow_api_services_databasehealthcheck",
-      "community": 115,
+      "community": 9,
       "norm_label": "databasehealthcheck"
     },
     {
@@ -6173,7 +6219,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "ihealthcheck",
-      "community": 115,
+      "community": 9,
       "norm_label": "ihealthcheck"
     },
     {
@@ -6189,7 +6235,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_databasehealthcheck_omniflow_api_services_databasehealthcheck_checkhealthasync",
-      "community": 115,
+      "community": 9,
       "norm_label": ".checkhealthasync()"
     },
     {
@@ -6199,7 +6245,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "healthcheckcontext",
-      "community": 115,
+      "community": 9,
       "norm_label": "healthcheckcontext"
     },
     {
@@ -6229,7 +6275,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "healthcheckresult",
-      "community": 115,
+      "community": 9,
       "norm_label": "healthcheckresult"
     },
     {
@@ -6239,7 +6285,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_telegramwebhookregistrationservice_cs",
-      "community": 1,
+      "community": 9,
       "norm_label": "telegramwebhookregistrationservice.cs"
     },
     {
@@ -6255,7 +6301,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_telegramwebhookregistrationservice_omniflow_api_services_telegramwebhookregistrationservice",
-      "community": 1,
+      "community": 9,
       "norm_label": "telegramwebhookregistrationservice"
     },
     {
@@ -6265,7 +6311,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "ihostedservice",
-      "community": 1,
+      "community": 9,
       "norm_label": "ihostedservice"
     },
     {
@@ -6311,7 +6357,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_telegramwebhookregistrationservice_omniflow_api_services_telegramwebhookregistrationservice_startasync",
-      "community": 1,
+      "community": 9,
       "norm_label": ".startasync()"
     },
     {
@@ -6347,7 +6393,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_telegramwebhookregistrationservice_omniflow_api_services_telegramwebhookregistrationservice_stopasync",
-      "community": 1,
+      "community": 9,
       "norm_label": ".stopasync()"
     },
     {
@@ -6357,7 +6403,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_tenantservice_cs",
-      "community": 1,
+      "community": 9,
       "norm_label": "tenantservice.cs"
     },
     {
@@ -6373,7 +6419,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_tenantservice_omniflow_api_services_tenantservice",
-      "community": 1,
+      "community": 9,
       "norm_label": "tenantservice"
     },
     {
@@ -6419,7 +6465,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_tenantservice_omniflow_api_services_tenantservice_settenantid",
-      "community": 1,
+      "community": 9,
       "norm_label": ".settenantid()"
     },
     {
@@ -6429,7 +6475,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_usercontextservice_cs",
-      "community": 1,
+      "community": 9,
       "norm_label": "usercontextservice.cs"
     },
     {
@@ -6445,7 +6491,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_services_usercontextservice_omniflow_api_services_usercontextservice",
-      "community": 1,
+      "community": 9,
       "norm_label": "usercontextservice"
     },
     {
@@ -6490,7 +6536,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:a5df101b5726436f",
-      "community": 181,
+      "community": 41,
       "norm_label": "omniflow.application.approvals"
     },
     {
@@ -6629,7 +6675,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "irequest",
-      "community": 67,
+      "community": 202,
       "norm_label": "irequest"
     },
     {
@@ -6681,7 +6727,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "irequesthandler",
-      "community": 222,
+      "community": 171,
       "norm_label": "irequesthandler"
     },
     {
@@ -7016,7 +7062,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_assignassetcommand",
-      "community": 41,
+      "community": 6,
       "norm_label": "assignassetcommand.cs"
     },
     {
@@ -7031,7 +7077,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:f3c28e3dd69d41d0",
-      "community": 41,
+      "community": 6,
       "norm_label": "omniflow.application.assets.commands"
     },
     {
@@ -7073,7 +7119,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_assignassetcommand_omniflow_application_assets_commands_assignassetcommandhandler",
-      "community": 222,
+      "community": 171,
       "norm_label": "assignassetcommandhandler"
     },
     {
@@ -7083,7 +7129,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_assignassetcommand_cs_ipublishendpoint",
-      "community": 222,
+      "community": 171,
       "norm_label": "ipublishendpoint"
     },
     {
@@ -7129,7 +7175,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_createassetcommand",
-      "community": 41,
+      "community": 6,
       "norm_label": "createassetcommand.cs"
     },
     {
@@ -7145,7 +7191,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_createassetcommand_omniflow_application_assets_commands_createassetcommand",
-      "community": 201,
+      "community": 222,
       "norm_label": "createassetcommand"
     },
     {
@@ -7155,7 +7201,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_createassetcommand_cs_guid",
-      "community": 201,
+      "community": 222,
       "norm_label": "guid"
     },
     {
@@ -7171,7 +7217,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_createassetcommand_omniflow_application_assets_commands_createassetcommandhandler",
-      "community": 201,
+      "community": 222,
       "norm_label": "createassetcommandhandler"
     },
     {
@@ -7187,7 +7233,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_createassetcommand_omniflow_application_assets_commands_createassetcommandhandler_handle",
-      "community": 201,
+      "community": 222,
       "norm_label": ".handle()"
     },
     {
@@ -7197,7 +7243,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_createassetcommand_cs_cancellationtoken",
-      "community": 201,
+      "community": 222,
       "norm_label": "cancellationtoken"
     },
     {
@@ -7207,7 +7253,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_createassetcommand_cs_task",
-      "community": 201,
+      "community": 222,
       "norm_label": "task"
     },
     {
@@ -7217,7 +7263,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_deleteassetcommand",
-      "community": 41,
+      "community": 6,
       "norm_label": "deleteassetcommand.cs"
     },
     {
@@ -7305,7 +7351,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_updateassetcommand",
-      "community": 41,
+      "community": 6,
       "norm_label": "updateassetcommand.cs"
     },
     {
@@ -7321,7 +7367,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_updateassetcommand_omniflow_application_assets_commands_updateassetcommand",
-      "community": 222,
+      "community": 49,
       "norm_label": "updateassetcommand"
     },
     {
@@ -7331,7 +7377,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_updateassetcommand_cs_guid",
-      "community": 222,
+      "community": 49,
       "norm_label": "guid"
     },
     {
@@ -7347,7 +7393,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_updateassetcommand_omniflow_application_assets_commands_updateassetcommandhandler",
-      "community": 222,
+      "community": 49,
       "norm_label": "updateassetcommandhandler"
     },
     {
@@ -7363,7 +7409,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_updateassetcommand_omniflow_application_assets_commands_updateassetcommandhandler_handle",
-      "community": 222,
+      "community": 49,
       "norm_label": ".handle()"
     },
     {
@@ -7373,7 +7419,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_updateassetcommand_cs_cancellationtoken",
-      "community": 222,
+      "community": 49,
       "norm_label": "cancellationtoken"
     },
     {
@@ -7383,7 +7429,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_updateassetcommand_cs_task",
-      "community": 222,
+      "community": 49,
       "norm_label": "task"
     },
     {
@@ -7527,7 +7573,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:7fd686f3f180b3be",
-      "community": 42,
+      "community": 6,
       "norm_label": "omniflow.application.auditlogs.queries"
     },
     {
@@ -7573,7 +7619,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_auditlogs_queries_getauditlogsquery_cs",
-      "community": 42,
+      "community": 6,
       "norm_label": "getauditlogsquery.cs"
     },
     {
@@ -8194,7 +8240,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_common_models_gridrequest_cs",
-      "community": 179,
+      "community": 34,
       "norm_label": "gridrequest.cs"
     },
     {
@@ -8225,7 +8271,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_common_models_gridrequest_omniflow_application_common_models_gridrequest",
-      "community": 179,
+      "community": 34,
       "norm_label": "gridrequest"
     },
     {
@@ -8490,7 +8536,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:bc0e6b6a4e7e198f",
-      "community": 171,
+      "community": 106,
       "norm_label": "omniflow.application.dashboard.queries"
     },
     {
@@ -8593,7 +8639,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:3ce32f1500d020c4",
-      "community": 7,
+      "community": 181,
       "norm_label": "omniflow.application.departments.commands"
     },
     {
@@ -8609,7 +8655,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_departments_commands_createdepartmentcommand_omniflow_application_departments_commands_createdepartmentcommand",
-      "community": 67,
+      "community": 171,
       "norm_label": "createdepartmentcommand"
     },
     {
@@ -8635,7 +8681,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_departments_commands_createdepartmentcommand_omniflow_application_departments_commands_createdepartmentcommandhandler",
-      "community": 67,
+      "community": 171,
       "norm_label": "createdepartmentcommandhandler"
     },
     {
@@ -8651,7 +8697,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_departments_commands_createdepartmentcommand_omniflow_application_departments_commands_createdepartmentcommandhandler_handle",
-      "community": 67,
+      "community": 171,
       "norm_label": ".handle()"
     },
     {
@@ -8681,7 +8727,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_departments_commands_createdepartmentcommandvalidator_cs",
-      "community": 7,
+      "community": 181,
       "norm_label": "createdepartmentcommandvalidator.cs"
     },
     {
@@ -8697,7 +8743,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_departments_commands_createdepartmentcommandvalidator_omniflow_application_departments_commands_createdepartmentcommandvalidator",
-      "community": 7,
+      "community": 181,
       "norm_label": "createdepartmentcommandvalidator"
     },
     {
@@ -8707,7 +8753,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_departments_commands_deletedepartmentcommand",
-      "community": 199,
+      "community": 34,
       "norm_label": "deletedepartmentcommand.cs"
     },
     {
@@ -8723,7 +8769,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_departments_commands_deletedepartmentcommand_omniflow_application_departments_commands_deletedepartmentcommand",
-      "community": 199,
+      "community": 34,
       "norm_label": "deletedepartmentcommand"
     },
     {
@@ -8733,7 +8779,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_departments_commands_deletedepartmentcommand_cs_guid",
-      "community": 199,
+      "community": 34,
       "norm_label": "guid"
     },
     {
@@ -8749,7 +8795,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_departments_commands_deletedepartmentcommand_omniflow_application_departments_commands_deletedepartmentcommandhandler",
-      "community": 199,
+      "community": 34,
       "norm_label": "deletedepartmentcommandhandler"
     },
     {
@@ -8765,7 +8811,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_departments_commands_deletedepartmentcommand_omniflow_application_departments_commands_deletedepartmentcommandhandler_handle",
-      "community": 199,
+      "community": 34,
       "norm_label": ".handle()"
     },
     {
@@ -8775,7 +8821,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_departments_commands_deletedepartmentcommand_cs_cancellationtoken",
-      "community": 199,
+      "community": 34,
       "norm_label": "cancellationtoken"
     },
     {
@@ -8785,7 +8831,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_departments_commands_deletedepartmentcommand_cs_task",
-      "community": 199,
+      "community": 34,
       "norm_label": "task"
     },
     {
@@ -8795,7 +8841,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_departments_commands_updatedepartmentcommand",
-      "community": 8,
+      "community": 181,
       "norm_label": "updatedepartmentcommand.cs"
     },
     {
@@ -8883,7 +8929,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_departments_queries_getdepartmentsquery_cs",
-      "community": 7,
+      "community": 75,
       "norm_label": "getdepartmentsquery.cs"
     },
     {
@@ -8898,7 +8944,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:b313005ae085d2ce",
-      "community": 7,
+      "community": 181,
       "norm_label": "omniflow.application.departments.queries"
     },
     {
@@ -8914,7 +8960,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_departments_queries_getdepartmentsquery_omniflow_application_departments_queries_departmentdto",
-      "community": 7,
+      "community": 75,
       "norm_label": "departmentdto"
     },
     {
@@ -8940,7 +8986,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_departments_queries_getdepartmentsquery_omniflow_application_departments_queries_getdepartmentsquery",
-      "community": 7,
+      "community": 75,
       "norm_label": "getdepartmentsquery"
     },
     {
@@ -8956,7 +9002,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_departments_queries_getdepartmentsquery_omniflow_application_departments_queries_getdepartmentsqueryhandler",
-      "community": 7,
+      "community": 75,
       "norm_label": "getdepartmentsqueryhandler"
     },
     {
@@ -8972,7 +9018,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_departments_queries_getdepartmentsquery_omniflow_application_departments_queries_getdepartmentsqueryhandler_handle",
-      "community": 7,
+      "community": 75,
       "norm_label": ".handle()"
     },
     {
@@ -9069,7 +9115,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_interfaces_idashboardmetricsservice_cs",
-      "community": 146,
+      "community": 9,
       "norm_label": "idashboardmetricsservice.cs"
     },
     {
@@ -9084,7 +9130,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:2816fdb477e759e6",
-      "community": 41,
+      "community": 6,
       "norm_label": "omniflow.application.interfaces"
     },
     {
@@ -9100,7 +9146,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_interfaces_idashboardmetricsservice_omniflow_application_interfaces_idashboardmetricsservice",
-      "community": 146,
+      "community": 9,
       "norm_label": "idashboardmetricsservice"
     },
     {
@@ -9116,7 +9162,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_interfaces_idashboardmetricsservice_omniflow_application_interfaces_idashboardmetricsservice_broadcastmetricupdateasync",
-      "community": 146,
+      "community": 9,
       "norm_label": ".broadcastmetricupdateasync()"
     },
     {
@@ -9690,7 +9736,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_interfaces_inotificationservice",
-      "community": 41,
+      "community": 6,
       "norm_label": "inotificationservice.cs"
     },
     {
@@ -9706,7 +9752,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_interfaces_inotificationservice_omniflow_application_interfaces_notificationpayload",
-      "community": 104,
+      "community": 9,
       "norm_label": "notificationpayload"
     },
     {
@@ -9722,7 +9768,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_interfaces_inotificationservice_omniflow_application_interfaces_inotificationpusher",
-      "community": 9,
+      "community": 104,
       "norm_label": "inotificationpusher"
     },
     {
@@ -9784,7 +9830,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_interfaces_inotificationservice_omniflow_application_interfaces_inotificationservice",
-      "community": 16,
+      "community": 104,
       "norm_label": "inotificationservice"
     },
     {
@@ -9826,7 +9872,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_interfaces_iomniflowdbcontext",
-      "community": 181,
+      "community": 6,
       "norm_label": "iomniflowdbcontext.cs"
     },
     {
@@ -9884,7 +9930,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_interfaces_iomniflowdbcontext_omniflow_application_interfaces_iomniflowdbcontext_savechangesasync",
-      "community": 80,
+      "community": 34,
       "norm_label": ".savechangesasync()"
     },
     {
@@ -9894,7 +9940,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_interfaces_iomniflowdbcontext_cs_cancellationtoken",
-      "community": 80,
+      "community": 34,
       "norm_label": "cancellationtoken"
     },
     {
@@ -9904,7 +9950,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_interfaces_iomniflowdbcontext_cs_task",
-      "community": 80,
+      "community": 34,
       "norm_label": "task"
     },
     {
@@ -10074,7 +10120,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_interfaces_itelegramidentityservice_cs",
-      "community": 105,
+      "community": 55,
       "norm_label": "itelegramidentityservice.cs"
     },
     {
@@ -10090,7 +10136,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_interfaces_itelegramidentityservice_omniflow_application_interfaces_itelegramidentityservice",
-      "community": 105,
+      "community": 55,
       "norm_label": "itelegramidentityservice"
     },
     {
@@ -10106,7 +10152,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_interfaces_itelegramidentityservice_omniflow_application_interfaces_itelegramidentityservice_getuseridbytelegramchatidasync",
-      "community": 105,
+      "community": 55,
       "norm_label": ".getuseridbytelegramchatidasync()"
     },
     {
@@ -10152,7 +10198,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_interfaces_itelegramidentityservice_omniflow_application_interfaces_itelegramidentityservice_gettelegramchatidbyuseridasync",
-      "community": 105,
+      "community": 55,
       "norm_label": ".gettelegramchatidbyuseridasync()"
     },
     {
@@ -10168,7 +10214,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_interfaces_itelegramidentityservice_omniflow_application_interfaces_itelegramidentityservice_validatewebhookpayloadasync",
-      "community": 105,
+      "community": 55,
       "norm_label": ".validatewebhookpayloadasync()"
     },
     {
@@ -10758,7 +10804,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_leaverequests_commands_approveleaverequestcommand",
-      "community": 181,
+      "community": 41,
       "norm_label": "approveleaverequestcommand.cs"
     },
     {
@@ -10773,7 +10819,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:8bbee90e65caa594",
-      "community": 181,
+      "community": 41,
       "norm_label": "omniflow.application.leaverequests.commands"
     },
     {
@@ -10789,7 +10835,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_leaverequests_commands_approveleaverequestcommand_omniflow_application_leaverequests_commands_approveleaverequestcommand",
-      "community": 27,
+      "community": 202,
       "norm_label": "approveleaverequestcommand"
     },
     {
@@ -10799,7 +10845,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_leaverequests_commands_approveleaverequestcommand_cs_guid",
-      "community": 27,
+      "community": 202,
       "norm_label": "guid"
     },
     {
@@ -10815,7 +10861,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_leaverequests_commands_approveleaverequestcommand_omniflow_application_leaverequests_commands_approveleaverequestcommandhandler",
-      "community": 27,
+      "community": 202,
       "norm_label": "approveleaverequestcommandhandler"
     },
     {
@@ -10825,7 +10871,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_leaverequests_commands_approveleaverequestcommand_cs_ipublishendpoint",
-      "community": 27,
+      "community": 202,
       "norm_label": "ipublishendpoint"
     },
     {
@@ -10841,7 +10887,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_leaverequests_commands_approveleaverequestcommand_omniflow_application_leaverequests_commands_approveleaverequestcommandhandler_handle",
-      "community": 27,
+      "community": 202,
       "norm_label": ".handle()"
     },
     {
@@ -10851,7 +10897,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_leaverequests_commands_approveleaverequestcommand_cs_cancellationtoken",
-      "community": 27,
+      "community": 202,
       "norm_label": "cancellationtoken"
     },
     {
@@ -10861,7 +10907,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_leaverequests_commands_approveleaverequestcommand_cs_task",
-      "community": 27,
+      "community": 202,
       "norm_label": "task"
     },
     {
@@ -10871,7 +10917,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_leaverequests_commands_createleaverequestcommand",
-      "community": 181,
+      "community": 41,
       "norm_label": "createleaverequestcommand.cs"
     },
     {
@@ -10979,7 +11025,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_leaverequests_commands_createleaverequestcommandvalidator_cs",
-      "community": 181,
+      "community": 41,
       "norm_label": "createleaverequestcommandvalidator.cs"
     },
     {
@@ -10995,7 +11041,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_leaverequests_commands_createleaverequestcommandvalidator_omniflow_application_leaverequests_commands_createleaverequestcommandvalidator",
-      "community": 181,
+      "community": 41,
       "norm_label": "createleaverequestcommandvalidator"
     },
     {
@@ -11015,7 +11061,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_leaverequests_queries_getmyleaverequestsquery_cs",
-      "community": 75,
+      "community": 105,
       "norm_label": "getmyleaverequestsquery.cs"
     },
     {
@@ -11030,7 +11076,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:7003eecce4b2b734",
-      "community": 75,
+      "community": 105,
       "norm_label": "omniflow.application.leaverequests.queries"
     },
     {
@@ -11046,7 +11092,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_leaverequests_queries_getmyleaverequestsquery_omniflow_application_leaverequests_queries_leaverequestdto",
-      "community": 75,
+      "community": 105,
       "norm_label": "leaverequestdto"
     },
     {
@@ -11082,7 +11128,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_leaverequests_queries_getmyleaverequestsquery_omniflow_application_leaverequests_queries_getmyleaverequestsquery",
-      "community": 75,
+      "community": 105,
       "norm_label": "getmyleaverequestsquery"
     },
     {
@@ -11098,7 +11144,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_leaverequests_queries_getmyleaverequestsquery_omniflow_application_leaverequests_queries_getmyleaverequestsqueryhandler",
-      "community": 75,
+      "community": 105,
       "norm_label": "getmyleaverequestsqueryhandler"
     },
     {
@@ -11114,7 +11160,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_leaverequests_queries_getmyleaverequestsquery_omniflow_application_leaverequests_queries_getmyleaverequestsqueryhandler_handle",
-      "community": 75,
+      "community": 105,
       "norm_label": ".handle()"
     },
     {
@@ -11159,7 +11205,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:2fa606de1847576c",
-      "community": 31,
+      "community": 106,
       "norm_label": "omniflow.application.menus.queries"
     },
     {
@@ -11283,16 +11329,6 @@
       "norm_label": ".buildmenudto()"
     },
     {
-      "label": "OmniFlow.Application.csproj",
-      "file_type": "code",
-      "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_omniflow_application_csproj",
-      "community": 11,
-      "norm_label": "omniflow.application.csproj"
-    },
-    {
       "label": "net10.0",
       "file_type": "concept",
       "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
@@ -11343,14 +11379,14 @@
       "norm_label": "mediatr (14.2.0)"
     },
     {
-      "label": "Microsoft.EntityFrameworkCore (10.0.9)",
+      "label": "Microsoft.EntityFrameworkCore (10.0.10)",
       "file_type": "code",
       "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
       "source_location": null,
       "_origin": "ast",
       "id": "src_omniflow_application_omniflow_application_csproj_nuget_microsoft_entityframeworkcore",
       "community": 11,
-      "norm_label": "microsoft.entityframeworkcore (10.0.9)"
+      "norm_label": "microsoft.entityframeworkcore (10.0.10)"
     },
     {
       "label": "Stateless (5.20.1)",
@@ -11361,16 +11397,6 @@
       "id": "nuget_stateless",
       "community": 11,
       "norm_label": "stateless (5.20.1)"
-    },
-    {
-      "label": "OmniFlow.Domain.csproj",
-      "file_type": "code",
-      "source_file": "src/OmniFlow.Domain/OmniFlow.Domain.csproj",
-      "source_location": null,
-      "_origin": "ast",
-      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_omniflow_domain_csproj",
-      "community": 11,
-      "norm_label": "omniflow.domain.csproj"
     },
     {
       "label": "Microsoft.NET.Sdk",
@@ -11404,7 +11430,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:98fadfb01e22eace",
-      "community": 8,
+      "community": 6,
       "norm_label": "omniflow.application.tickets.commands"
     },
     {
@@ -11440,7 +11466,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_commands_addticketcommentcommandhandler",
-      "community": 8,
+      "community": 6,
       "norm_label": "addticketcommentcommandhandler.cs"
     },
     {
@@ -11538,7 +11564,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_commands_assignticketcommandhandler",
-      "community": 8,
+      "community": 6,
       "norm_label": "assignticketcommandhandler.cs"
     },
     {
@@ -11636,7 +11662,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_commands_createticketcommandhandler",
-      "community": 8,
+      "community": 6,
       "norm_label": "createticketcommandhandler.cs"
     },
     {
@@ -11780,7 +11806,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_commands_transitionticketcommandhandler",
-      "community": 8,
+      "community": 41,
       "norm_label": "transitionticketcommandhandler.cs"
     },
     {
@@ -11980,7 +12006,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:02d39b8eec61d2a6",
-      "community": 48,
+      "community": 6,
       "norm_label": "omniflow.application.tickets.queries"
     },
     {
@@ -12250,7 +12276,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_tickets_queries_getticketsqueryhandler_cs",
-      "community": 41,
+      "community": 6,
       "norm_label": "getticketsqueryhandler.cs"
     },
     {
@@ -12379,7 +12405,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_workflow_workflowvalidator_omniflow_application_tickets_workflow_workflowvalidator",
-      "community": 50,
+      "community": 33,
       "norm_label": "workflowvalidator"
     },
     {
@@ -12395,7 +12421,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_workflow_workflowvalidator_omniflow_application_tickets_workflow_workflowvalidator_validate",
-      "community": 50,
+      "community": 33,
       "norm_label": ".validate()"
     },
     {
@@ -12405,7 +12431,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_workflow_workflowvalidator_cs_ireadonlylist",
-      "community": 50,
+      "community": 33,
       "norm_label": "ireadonlylist"
     },
     {
@@ -12421,7 +12447,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_workflow_workflowvalidator_omniflow_application_tickets_workflow_workflowvalidator_validateapprovalpolicy",
-      "community": 50,
+      "community": 33,
       "norm_label": ".validateapprovalpolicy()"
     },
     {
@@ -12431,7 +12457,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_workflow_workflowvalidator_cs_ienumerable",
-      "community": 50,
+      "community": 33,
       "norm_label": "ienumerable"
     },
     {
@@ -12447,7 +12473,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_tickets_workflow_workflowvalidator_omniflow_application_tickets_workflow_workflowvalidator_reachable",
-      "community": 50,
+      "community": 33,
       "norm_label": ".reachable()"
     },
     {
@@ -12457,7 +12483,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_users_commands_createusercommand",
-      "community": 41,
+      "community": 6,
       "norm_label": "createusercommand.cs"
     },
     {
@@ -12472,7 +12498,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:c8affbeac40c5ba3",
-      "community": 41,
+      "community": 6,
       "norm_label": "omniflow.application.users.commands"
     },
     {
@@ -12508,7 +12534,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_users_commands_createusercommandhandler",
-      "community": 41,
+      "community": 6,
       "norm_label": "createusercommandhandler.cs"
     },
     {
@@ -12606,7 +12632,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_users_commands_deleteusercommand",
-      "community": 41,
+      "community": 6,
       "norm_label": "deleteusercommand.cs"
     },
     {
@@ -12694,7 +12720,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_users_commands_updateusercommand",
-      "community": 41,
+      "community": 6,
       "norm_label": "updateusercommand.cs"
     },
     {
@@ -12782,7 +12808,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_common_approvaldefinition_cs",
-      "community": 41,
+      "community": 33,
       "norm_label": "approvaldefinition.cs"
     },
     {
@@ -12813,7 +12839,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_common_approvaldefinition_omniflow_domain_common_approvaldefinition",
-      "community": 50,
+      "community": 33,
       "norm_label": "approvaldefinition"
     },
     {
@@ -12905,7 +12931,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_common_baseentity_cs",
-      "community": 39,
+      "community": 55,
       "norm_label": "baseentity.cs"
     },
     {
@@ -12921,7 +12947,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_common_baseentity_omniflow_domain_common_baseentity",
-      "community": 39,
+      "community": 55,
       "norm_label": "baseentity"
     },
     {
@@ -12977,7 +13003,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_common_baseentity_omniflow_domain_common_baseentity_adddomainevent",
-      "community": 39,
+      "community": 55,
       "norm_label": ".adddomainevent()"
     },
     {
@@ -12993,7 +13019,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_common_baseentity_omniflow_domain_common_baseentity_removedomainevent",
-      "community": 39,
+      "community": 55,
       "norm_label": ".removedomainevent()"
     },
     {
@@ -13009,7 +13035,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_common_baseentity_omniflow_domain_common_baseentity_cleardomainevents",
-      "community": 39,
+      "community": 55,
       "norm_label": ".cleardomainevents()"
     },
     {
@@ -13019,7 +13045,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_domain_common_exceptions_conflictexception",
-      "community": 8,
+      "community": 32,
       "norm_label": "conflictexception.cs"
     },
     {
@@ -13034,7 +13060,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:32abf7318bdcbee5",
-      "community": 8,
+      "community": 6,
       "norm_label": "omniflow.domain.common.exceptions"
     },
     {
@@ -13050,7 +13076,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_domain_common_exceptions_conflictexception_omniflow_domain_common_exceptions_conflictexception",
-      "community": 8,
+      "community": 32,
       "norm_label": "conflictexception"
     },
     {
@@ -13060,7 +13086,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_domain_common_exceptions_domainexception",
-      "community": 8,
+      "community": 32,
       "norm_label": "domainexception.cs"
     },
     {
@@ -13076,7 +13102,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_domain_common_exceptions_domainexception_omniflow_domain_common_exceptions_domainexception",
-      "community": 8,
+      "community": 32,
       "norm_label": "domainexception"
     },
     {
@@ -13086,7 +13112,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "exception",
-      "community": 8,
+      "community": 32,
       "norm_label": "exception"
     },
     {
@@ -13102,7 +13128,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_domain_common_exceptions_domainexception_omniflow_domain_common_exceptions_apiexception",
-      "community": 8,
+      "community": 32,
       "norm_label": "apiexception"
     },
     {
@@ -13112,7 +13138,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_domain_common_exceptions_forbiddenaccessexception",
-      "community": 8,
+      "community": 32,
       "norm_label": "forbiddenaccessexception.cs"
     },
     {
@@ -13128,7 +13154,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_domain_common_exceptions_forbiddenaccessexception_omniflow_domain_common_exceptions_forbiddenaccessexception",
-      "community": 8,
+      "community": 32,
       "norm_label": "forbiddenaccessexception"
     },
     {
@@ -13138,7 +13164,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_domain_common_exceptions_notfoundexception",
-      "community": 8,
+      "community": 32,
       "norm_label": "notfoundexception.cs"
     },
     {
@@ -13154,7 +13180,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_domain_common_exceptions_notfoundexception_omniflow_domain_common_exceptions_notfoundexception",
-      "community": 8,
+      "community": 32,
       "norm_label": "notfoundexception"
     },
     {
@@ -13164,7 +13190,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_domain_common_exceptions_validationexception",
-      "community": 8,
+      "community": 32,
       "norm_label": "validationexception.cs"
     },
     {
@@ -13180,7 +13206,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_domain_common_exceptions_validationexception_omniflow_domain_common_exceptions_validationexception",
-      "community": 8,
+      "community": 32,
       "norm_label": "validationexception"
     },
     {
@@ -13190,7 +13216,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "idictionary",
-      "community": 8,
+      "community": 32,
       "norm_label": "idictionary"
     },
     {
@@ -13200,7 +13226,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_common_isoftdelete_cs",
-      "community": 243,
+      "community": 2,
       "norm_label": "isoftdelete.cs"
     },
     {
@@ -13216,7 +13242,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_common_isoftdelete_omniflow_domain_common_isoftdelete",
-      "community": 243,
+      "community": 2,
       "norm_label": "isoftdelete"
     },
     {
@@ -13493,7 +13519,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_approvals_approvalrequest",
-      "community": 181,
+      "community": 41,
       "norm_label": "approvalrequest.cs"
     },
     {
@@ -13508,7 +13534,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:8b91e538e1160c0e",
-      "community": 181,
+      "community": 41,
       "norm_label": "omniflow.domain.entities.approvals"
     },
     {
@@ -13524,7 +13550,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_approvals_approvalrequest_omniflow_domain_entities_approvals_approvalentitytypes",
-      "community": 181,
+      "community": 41,
       "norm_label": "approvalentitytypes"
     },
     {
@@ -13534,7 +13560,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_approvals_approvalrequest_cs_string",
-      "community": 181,
+      "community": 41,
       "norm_label": "string"
     },
     {
@@ -13550,7 +13576,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_approvals_approvalrequest_omniflow_domain_entities_approvals_approvaldecisionkind",
-      "community": 181,
+      "community": 41,
       "norm_label": "approvaldecisionkind"
     },
     {
@@ -15777,7 +15803,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_entities_tickettemplate_omniflow_domain_entities_workflowdefinition",
-      "community": 50,
+      "community": 33,
       "norm_label": "workflowdefinition"
     },
     {
@@ -15803,7 +15829,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_entities_tickettemplate_omniflow_domain_entities_workflowtransition",
-      "community": 50,
+      "community": 33,
       "norm_label": "workflowtransition"
     },
     {
@@ -16436,7 +16462,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_ticketstate_cs",
-      "community": 50,
+      "community": 33,
       "norm_label": "ticketstate.cs"
     },
     {
@@ -16452,7 +16478,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_enums_ticketstate_omniflow_domain_enums_ticketstate",
-      "community": 50,
+      "community": 33,
       "norm_label": "ticketstate"
     },
     {
@@ -16653,7 +16679,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_events_leaverequestevents_cs",
-      "community": 117,
+      "community": 16,
       "norm_label": "leaverequestevents.cs"
     },
     {
@@ -16669,7 +16695,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_events_leaverequestevents_omniflow_domain_events_leaverequestcreatedevent",
-      "community": 117,
+      "community": 16,
       "norm_label": "leaverequestcreatedevent"
     },
     {
@@ -16705,7 +16731,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_events_leaverequestevents_omniflow_domain_events_leaverequestresolvedevent",
-      "community": 117,
+      "community": 16,
       "norm_label": "leaverequestresolvedevent"
     },
     {
@@ -16741,7 +16767,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "inotification",
-      "community": 39,
+      "community": 55,
       "norm_label": "inotification"
     },
     {
@@ -16751,7 +16777,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_events_ticketslaevents_cs",
-      "community": 16,
+      "community": 50,
       "norm_label": "ticketslaevents.cs"
     },
     {
@@ -16767,7 +16793,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_events_ticketslaevents_omniflow_domain_events_checkticketslabreachevent",
-      "community": 16,
+      "community": 50,
       "norm_label": "checkticketslabreachevent"
     },
     {
@@ -16817,13 +16843,23 @@
       "norm_label": "ticketstatetransitioneddomainevent"
     },
     {
+      "label": "OmniFlow.Domain.csproj",
+      "file_type": "code",
+      "source_file": "src/OmniFlow.Domain/OmniFlow.Domain.csproj",
+      "source_location": null,
+      "_origin": "ast",
+      "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_omniflow_domain_csproj",
+      "community": 114,
+      "norm_label": "omniflow.domain.csproj"
+    },
+    {
       "label": "net10.0",
       "file_type": "concept",
       "source_file": "src/OmniFlow.Domain/OmniFlow.Domain.csproj",
       "source_location": null,
       "_origin": "ast",
       "id": "src_omniflow_domain_omniflow_domain_csproj_framework_net10_0",
-      "community": 11,
+      "community": 114,
       "norm_label": "net10.0"
     },
     {
@@ -16833,7 +16869,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_mediatr_contracts",
-      "community": 11,
+      "community": 114,
       "norm_label": "mediatr.contracts (2.0.1)"
     },
     {
@@ -16843,7 +16879,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "src_omniflow_domain_omniflow_domain_csproj_sdk_microsoft_net_sdk",
-      "community": 11,
+      "community": 114,
       "norm_label": "microsoft.net.sdk"
     },
     {
@@ -16853,7 +16889,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_authorization_permissionauthorizationhandler",
-      "community": 40,
+      "community": 6,
       "norm_label": "permissionauthorizationhandler.cs"
     },
     {
@@ -18495,7 +18531,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_identity_telegramidentityservice_omniflow_infrastructure_identity_telegramidentityservice",
-      "community": 105,
+      "community": 55,
       "norm_label": "telegramidentityservice"
     },
     {
@@ -18541,7 +18577,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_identity_telegramidentityservice_omniflow_infrastructure_identity_telegramidentityservice_getuseridbytelegramchatidasync",
-      "community": 105,
+      "community": 55,
       "norm_label": ".getuseridbytelegramchatidasync()"
     },
     {
@@ -18587,7 +18623,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_identity_telegramidentityservice_omniflow_infrastructure_identity_telegramidentityservice_gettelegramchatidbyuseridasync",
-      "community": 105,
+      "community": 55,
       "norm_label": ".gettelegramchatidbyuseridasync()"
     },
     {
@@ -18603,7 +18639,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_identity_telegramidentityservice_omniflow_infrastructure_identity_telegramidentityservice_validatewebhookpayloadasync",
-      "community": 105,
+      "community": 55,
       "norm_label": ".validatewebhookpayloadasync()"
     },
     {
@@ -19113,7 +19149,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_messaging_consumers_approvalstepactivatedconsumer_omniflow_infrastructure_messaging_consumers_approvalstepactivatedconsumer",
-      "community": 16,
+      "community": 104,
       "norm_label": "approvalstepactivatedconsumer"
     },
     {
@@ -19123,7 +19159,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_messaging_consumers_approvalstepactivatedconsumer_cs_ilogger",
-      "community": 16,
+      "community": 104,
       "norm_label": "ilogger"
     },
     {
@@ -19257,7 +19293,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_messaging_consumers_leaverequestnotificationconsumer_omniflow_infrastructure_messaging_consumers_leaverequestnotificationconsumer",
-      "community": 117,
+      "community": 16,
       "norm_label": "leaverequestnotificationconsumer"
     },
     {
@@ -19283,7 +19319,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_messaging_consumers_leaverequestnotificationconsumer_omniflow_infrastructure_messaging_consumers_leaverequestnotificationconsumer_consume",
-      "community": 117,
+      "community": 16,
       "norm_label": ".consume()"
     },
     {
@@ -19329,7 +19365,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_messaging_consumers_ticketslabreachconsumer_omniflow_infrastructure_messaging_consumers_ticketslabreachconsumer",
-      "community": 16,
+      "community": 50,
       "norm_label": "ticketslabreachconsumer"
     },
     {
@@ -19339,7 +19375,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_messaging_consumers_ticketslabreachconsumer_cs_ilogger",
-      "community": 16,
+      "community": 50,
       "norm_label": "ilogger"
     },
     {
@@ -19355,7 +19391,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_messaging_consumers_ticketslabreachconsumer_omniflow_infrastructure_messaging_consumers_ticketslabreachconsumer_consume",
-      "community": 16,
+      "community": 50,
       "norm_label": ".consume()"
     },
     {
@@ -19365,7 +19401,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_messaging_consumers_ticketslabreachconsumer_cs_consumecontext",
-      "community": 16,
+      "community": 50,
       "norm_label": "consumecontext"
     },
     {
@@ -19375,7 +19411,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_messaging_consumers_ticketslabreachconsumer_cs_task",
-      "community": 16,
+      "community": 50,
       "norm_label": "task"
     },
     {
@@ -19416,7 +19452,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_messaging_telegramgateway_omniflow_infrastructure_messaging_telegramgateway",
-      "community": 110,
+      "community": 55,
       "norm_label": "telegramgateway"
     },
     {
@@ -19462,7 +19498,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_messaging_telegramgateway_omniflow_infrastructure_messaging_telegramgateway_sendmessageasync",
-      "community": 110,
+      "community": 55,
       "norm_label": ".sendmessageasync()"
     },
     {
@@ -19498,7 +19534,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_messaging_telegramgateway_omniflow_infrastructure_messaging_telegramgateway_receivemessageasync",
-      "community": 110,
+      "community": 55,
       "norm_label": ".receivemessageasync()"
     },
     {
@@ -19514,7 +19550,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_messaging_telegramgateway_omniflow_infrastructure_messaging_telegramgateway_handlelinkcommandasync",
-      "community": 110,
+      "community": 55,
       "norm_label": ".handlelinkcommandasync()"
     },
     {
@@ -19530,7 +19566,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_messaging_telegramgateway_omniflow_infrastructure_messaging_telegramgateway_handlecreateticketcommandasync",
-      "community": 110,
+      "community": 55,
       "norm_label": ".handlecreateticketcommandasync()"
     },
     {
@@ -19556,7 +19592,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_messaging_telegramgateway_omniflow_infrastructure_messaging_telegramgateway_handlelistticketsqueryasync",
-      "community": 110,
+      "community": 55,
       "norm_label": ".handlelistticketsqueryasync()"
     },
     {
@@ -19572,7 +19608,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_messaging_telegramgateway_omniflow_infrastructure_messaging_telegramgateway_handletransitionticketcommandasync",
-      "community": 110,
+      "community": 55,
       "norm_label": ".handletransitionticketcommandasync()"
     },
     {
@@ -19779,7 +19815,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712110702_domainhardening_cs",
-      "community": 221,
+      "community": 56,
       "norm_label": "20260712110702_domainhardening.cs"
     },
     {
@@ -19795,7 +19831,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712110702_domainhardening_omniflow_infrastructure_migrations_domainhardening",
-      "community": 221,
+      "community": 56,
       "norm_label": "domainhardening"
     },
     {
@@ -19811,7 +19847,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712110702_domainhardening_omniflow_infrastructure_migrations_domainhardening_up",
-      "community": 221,
+      "community": 56,
       "norm_label": ".up()"
     },
     {
@@ -19837,7 +19873,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712110702_domainhardening_omniflow_infrastructure_migrations_domainhardening_down",
-      "community": 221,
+      "community": 56,
       "norm_label": ".down()"
     },
     {
@@ -19899,7 +19935,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712161700_approvalengine_cs",
-      "community": 56,
+      "community": 117,
       "norm_label": "20260712161700_approvalengine.cs"
     },
     {
@@ -19915,7 +19951,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712161700_approvalengine_omniflow_infrastructure_migrations_approvalengine",
-      "community": 56,
+      "community": 117,
       "norm_label": "approvalengine"
     },
     {
@@ -19931,7 +19967,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712161700_approvalengine_omniflow_infrastructure_migrations_approvalengine_up",
-      "community": 56,
+      "community": 117,
       "norm_label": ".up()"
     },
     {
@@ -19957,7 +19993,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_migrations_20260712161700_approvalengine_omniflow_infrastructure_migrations_approvalengine_down",
-      "community": 56,
+      "community": 117,
       "norm_label": ".down()"
     },
     {
@@ -20749,7 +20785,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_notifications_notificationservice",
-      "community": 41,
+      "community": 53,
       "norm_label": "notificationservice.cs"
     },
     {
@@ -20764,7 +20800,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:f8fa918c29437439",
-      "community": 41,
+      "community": 55,
       "norm_label": "omniflow.infrastructure.notifications"
     },
     {
@@ -20894,7 +20930,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_notifications_ticketcreatednotificationhandler_cs",
-      "community": 41,
+      "community": 55,
       "norm_label": "ticketcreatednotificationhandler.cs"
     },
     {
@@ -20966,7 +21002,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_notifications_ticketstatetransitionednotificationhandler_cs",
-      "community": 41,
+      "community": 55,
       "norm_label": "ticketstatetransitionednotificationhandler.cs"
     },
     {
@@ -21092,24 +21128,24 @@
       "norm_label": "masstransit.rabbitmq (8.3.4)"
     },
     {
-      "label": "Microsoft.AspNetCore.Identity.EntityFrameworkCore (10.0.3)",
+      "label": "Microsoft.AspNetCore.Identity.EntityFrameworkCore (10.0.10)",
       "file_type": "code",
       "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_microsoft_aspnetcore_identity_entityframeworkcore",
       "community": 17,
-      "norm_label": "microsoft.aspnetcore.identity.entityframeworkcore (10.0.3)"
+      "norm_label": "microsoft.aspnetcore.identity.entityframeworkcore (10.0.10)"
     },
     {
-      "label": "Microsoft.EntityFrameworkCore (10.0.9)",
+      "label": "Microsoft.EntityFrameworkCore (10.0.10)",
       "file_type": "code",
       "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
       "source_location": null,
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_omniflow_infrastructure_csproj_nuget_microsoft_entityframeworkcore",
       "community": 17,
-      "norm_label": "microsoft.entityframeworkcore (10.0.9)"
+      "norm_label": "microsoft.entityframeworkcore (10.0.10)"
     },
     {
       "label": "Novell.Directory.Ldap.NETStandard (3.6.0)",
@@ -21275,7 +21311,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_persistence_configurations_approvalconfiguration",
-      "community": 181,
+      "community": 28,
       "norm_label": "approvalconfiguration.cs"
     },
     {
@@ -21946,7 +21982,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_persistence_configurations_tenantconfiguration_cs",
-      "community": 28,
+      "community": 18,
       "norm_label": "tenantconfiguration.cs"
     },
     {
@@ -22711,7 +22747,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder",
-      "community": 49,
+      "community": 62,
       "norm_label": "databaseseeder"
     },
     {
@@ -22727,7 +22763,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedasync",
-      "community": 49,
+      "community": 62,
       "norm_label": ".seedasync()"
     },
     {
@@ -22737,7 +22773,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_iserviceprovider",
-      "community": 49,
+      "community": 62,
       "norm_label": "iserviceprovider"
     },
     {
@@ -22747,7 +22783,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_cancellationtoken",
-      "community": 49,
+      "community": 62,
       "norm_label": "cancellationtoken"
     },
     {
@@ -22757,7 +22793,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_task",
-      "community": 49,
+      "community": 62,
       "norm_label": "task"
     },
     {
@@ -22773,7 +22809,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedapprovalartifactsasync",
-      "community": 49,
+      "community": 62,
       "norm_label": ".seedapprovalartifactsasync()"
     },
     {
@@ -22783,7 +22819,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_cs_omniflowdbcontext",
-      "community": 49,
+      "community": 62,
       "norm_label": "omniflowdbcontext"
     },
     {
@@ -22799,7 +22835,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_persistence_seed_databaseseeder_omniflow_infrastructure_persistence_seed_databaseseeder_seedlegacyusersasync",
-      "community": 49,
+      "community": 62,
       "norm_label": ".seedlegacyusersasync()"
     },
     {
@@ -22825,7 +22861,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_persistence_seed_identityseeddata_omniflow_infrastructure_persistence_seed_identityseeddata",
-      "community": 49,
+      "community": 62,
       "norm_label": "identityseeddata"
     },
     {
@@ -22841,7 +22877,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_persistence_seed_identityseeddata_omniflow_infrastructure_persistence_seed_identityseeddata_seedasync",
-      "community": 49,
+      "community": 62,
       "norm_label": ".seedasync()"
     },
     {
@@ -22851,7 +22887,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_persistence_seed_identityseeddata_cs_iserviceprovider",
-      "community": 49,
+      "community": 62,
       "norm_label": "iserviceprovider"
     },
     {
@@ -22861,7 +22897,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_persistence_seed_identityseeddata_cs_task",
-      "community": 49,
+      "community": 62,
       "norm_label": "task"
     },
     {
@@ -26186,7 +26222,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "iclassfixture",
-      "community": 65,
+      "community": 7,
       "norm_label": "iclassfixture"
     },
     {
@@ -26807,13 +26843,127 @@
       "norm_label": ".disposeasync()"
     },
     {
+      "label": "DirectoryTests.cs",
+      "file_type": "code",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "tests_omniflow_api_integrationtests_directorytests",
+      "community": 7,
+      "norm_label": "directorytests.cs"
+    },
+    {
+      "label": "DirectoryTests",
+      "file_type": "code",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L12",
+      "metadata": {
+        "namespace": "OmniFlow.Api.IntegrationTests",
+        "scope_chain": [
+          "s84"
+        ]
+      },
+      "_origin": "ast",
+      "id": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests",
+      "community": 7,
+      "norm_label": "directorytests"
+    },
+    {
+      "label": "string",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "tests_omniflow_api_integrationtests_directorytests_cs_string",
+      "community": 7,
+      "norm_label": "string"
+    },
+    {
+      "label": ".Employees_returns_both_profiled_and_profile_less_users()",
+      "file_type": "code",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L21",
+      "metadata": {
+        "namespace": "OmniFlow.Api.IntegrationTests",
+        "scope_chain": [
+          "s84"
+        ]
+      },
+      "_origin": "ast",
+      "id": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests_employees_returns_both_profiled_and_profile_less_users",
+      "community": 7,
+      "norm_label": ".employees_returns_both_profiled_and_profile_less_users()"
+    },
+    {
+      "label": "Task",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "tests_omniflow_api_integrationtests_directorytests_cs_task",
+      "community": 7,
+      "norm_label": "task"
+    },
+    {
+      "label": "Fact",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "tests_omniflow_api_integrationtests_directorytests_cs_fact",
+      "community": 7,
+      "norm_label": "fact"
+    },
+    {
+      "label": ".Employees_requires_authentication()",
+      "file_type": "code",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L47",
+      "metadata": {
+        "namespace": "OmniFlow.Api.IntegrationTests",
+        "scope_chain": [
+          "s84"
+        ]
+      },
+      "_origin": "ast",
+      "id": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests_employees_requires_authentication",
+      "community": 7,
+      "norm_label": ".employees_requires_authentication()"
+    },
+    {
+      "label": ".AdminClientAsync()",
+      "file_type": "code",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L55",
+      "metadata": {
+        "namespace": "OmniFlow.Api.IntegrationTests",
+        "scope_chain": [
+          "s84"
+        ]
+      },
+      "_origin": "ast",
+      "id": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests_adminclientasync",
+      "community": 7,
+      "norm_label": ".adminclientasync()"
+    },
+    {
+      "label": "HttpClient",
+      "file_type": "code",
+      "source_file": "",
+      "source_location": "",
+      "_origin": "ast",
+      "id": "tests_omniflow_api_integrationtests_directorytests_cs_httpclient",
+      "community": 7,
+      "norm_label": "httpclient"
+    },
+    {
       "label": "NotificationTests.cs",
       "file_type": "code",
       "source_file": "tests/OmniFlow.Api.IntegrationTests/NotificationTests.cs",
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_omniflow_api_integrationtests_notificationtests",
-      "community": 41,
+      "community": 6,
       "norm_label": "notificationtests.cs"
     },
     {
@@ -27033,7 +27183,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "tests_omniflow_api_integrationtests_omniflow_api_integrationtests_csproj_framework_net10_0",
-      "community": 17,
+      "community": 39,
       "norm_label": "net10.0"
     },
     {
@@ -27043,18 +27193,18 @@
       "source_location": null,
       "_origin": "ast",
       "id": "tests_omniflow_api_integrationtests_omniflow_api_integrationtests_csproj_nuget_coverlet_collector",
-      "community": 17,
+      "community": 39,
       "norm_label": "coverlet.collector (6.0.4)"
     },
     {
-      "label": "Microsoft.AspNetCore.Mvc.Testing (10.0.2)",
+      "label": "Microsoft.AspNetCore.Mvc.Testing (10.0.10)",
       "file_type": "code",
       "source_file": "tests/OmniFlow.Api.IntegrationTests/OmniFlow.Api.IntegrationTests.csproj",
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_microsoft_aspnetcore_mvc_testing",
-      "community": 17,
-      "norm_label": "microsoft.aspnetcore.mvc.testing (10.0.2)"
+      "community": 39,
+      "norm_label": "microsoft.aspnetcore.mvc.testing (10.0.10)"
     },
     {
       "label": "Microsoft.NET.Test.Sdk (17.14.1)",
@@ -27063,7 +27213,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "tests_omniflow_api_integrationtests_omniflow_api_integrationtests_csproj_nuget_microsoft_net_test_sdk",
-      "community": 17,
+      "community": 39,
       "norm_label": "microsoft.net.test.sdk (17.14.1)"
     },
     {
@@ -27073,7 +27223,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "nuget_testcontainers_postgresql",
-      "community": 17,
+      "community": 39,
       "norm_label": "testcontainers.postgresql (4.1.0)"
     },
     {
@@ -27083,7 +27233,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "tests_omniflow_api_integrationtests_omniflow_api_integrationtests_csproj_nuget_xunit",
-      "community": 17,
+      "community": 39,
       "norm_label": "xunit (2.9.3)"
     },
     {
@@ -27093,7 +27243,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "tests_omniflow_api_integrationtests_omniflow_api_integrationtests_csproj_nuget_xunit_runner_visualstudio",
-      "community": 17,
+      "community": 39,
       "norm_label": "xunit.runner.visualstudio (3.1.4)"
     },
     {
@@ -27103,7 +27253,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "tests_omniflow_api_integrationtests_omniflow_api_integrationtests_csproj_sdk_microsoft_net_sdk",
-      "community": 17,
+      "community": 39,
       "norm_label": "microsoft.net.sdk"
     },
     {
@@ -27333,7 +27483,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_omniflow_api_integrationtests_tenantprovisioningtests",
-      "community": 63,
+      "community": 116,
       "norm_label": "tenantprovisioningtests.cs"
     },
     {
@@ -27460,7 +27610,7 @@
       },
       "_origin": "ast",
       "id": "tests_omniflow_api_integrationtests_tenantprovisioningtests_omniflow_api_integrationtests_tokenresult",
-      "community": 63,
+      "community": 116,
       "norm_label": "tokenresult"
     },
     {
@@ -27816,7 +27966,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_omniflow_api_integrationtests_translationoverridetests",
-      "community": 116,
+      "community": 178,
       "norm_label": "translationoverridetests.cs"
     },
     {
@@ -28856,7 +29006,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_omniflow_application_unittests_csproj_framework_net10_0",
-      "community": 17,
+      "community": 80,
       "norm_label": "net10.0"
     },
     {
@@ -28866,7 +29016,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_omniflow_application_unittests_csproj_nuget_coverlet_collector",
-      "community": 17,
+      "community": 80,
       "norm_label": "coverlet.collector (6.0.4)"
     },
     {
@@ -28876,7 +29026,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_omniflow_application_unittests_csproj_nuget_microsoft_net_test_sdk",
-      "community": 17,
+      "community": 80,
       "norm_label": "microsoft.net.test.sdk (17.14.1)"
     },
     {
@@ -28886,7 +29036,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_omniflow_application_unittests_csproj_nuget_xunit",
-      "community": 17,
+      "community": 80,
       "norm_label": "xunit (2.9.3)"
     },
     {
@@ -28896,7 +29046,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_omniflow_application_unittests_csproj_nuget_xunit_runner_visualstudio",
-      "community": 17,
+      "community": 80,
       "norm_label": "xunit.runner.visualstudio (3.1.4)"
     },
     {
@@ -28906,7 +29056,7 @@
       "source_location": null,
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_omniflow_application_unittests_csproj_sdk_microsoft_net_sdk",
-      "community": 17,
+      "community": 80,
       "norm_label": "microsoft.net.sdk"
     },
     {
@@ -29079,7 +29229,7 @@
       },
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_validators_createusercommandvalidatortests_omniflow_application_unittests_validators_createusercommandvalidatortests",
-      "community": 241,
+      "community": 8,
       "norm_label": "createusercommandvalidatortests"
     },
     {
@@ -29095,7 +29245,7 @@
       },
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_validators_createusercommandvalidatortests_omniflow_application_unittests_validators_createusercommandvalidatortests_valid",
-      "community": 241,
+      "community": 8,
       "norm_label": ".valid()"
     },
     {
@@ -29111,7 +29261,7 @@
       },
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_validators_createusercommandvalidatortests_omniflow_application_unittests_validators_createusercommandvalidatortests_valid_command_passes",
-      "community": 241,
+      "community": 8,
       "norm_label": ".valid_command_passes()"
     },
     {
@@ -29121,7 +29271,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_validators_createusercommandvalidatortests_cs_fact",
-      "community": 241,
+      "community": 8,
       "norm_label": "fact"
     },
     {
@@ -29137,7 +29287,7 @@
       },
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_validators_createusercommandvalidatortests_omniflow_application_unittests_validators_createusercommandvalidatortests_invalid_email_fails",
-      "community": 241,
+      "community": 8,
       "norm_label": ".invalid_email_fails()"
     },
     {
@@ -29147,7 +29297,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "theory",
-      "community": 241,
+      "community": 8,
       "norm_label": "theory"
     },
     {
@@ -29157,7 +29307,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "inlinedata",
-      "community": 241,
+      "community": 8,
       "norm_label": "inlinedata"
     },
     {
@@ -29173,7 +29323,7 @@
       },
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_validators_createusercommandvalidatortests_omniflow_application_unittests_validators_createusercommandvalidatortests_empty_name_fails",
-      "community": 241,
+      "community": 8,
       "norm_label": ".empty_name_fails()"
     },
     {
@@ -29189,7 +29339,7 @@
       },
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_validators_createusercommandvalidatortests_omniflow_application_unittests_validators_createusercommandvalidatortests_empty_department_fails",
-      "community": 241,
+      "community": 8,
       "norm_label": ".empty_department_fails()"
     },
     {
@@ -29230,7 +29380,7 @@
       },
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_workflow_workflowvalidatortests_omniflow_application_unittests_workflow_workflowvalidatortests",
-      "community": 50,
+      "community": 33,
       "norm_label": "workflowvalidatortests"
     },
     {
@@ -29246,7 +29396,7 @@
       },
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_workflow_workflowvalidatortests_omniflow_application_unittests_workflow_workflowvalidatortests_t",
-      "community": 50,
+      "community": 33,
       "norm_label": ".t()"
     },
     {
@@ -29262,7 +29412,7 @@
       },
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_workflow_workflowvalidatortests_omniflow_application_unittests_workflow_workflowvalidatortests_valid_linear_workflow_has_no_errors",
-      "community": 50,
+      "community": 33,
       "norm_label": ".valid_linear_workflow_has_no_errors()"
     },
     {
@@ -29272,7 +29422,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_workflow_workflowvalidatortests_cs_fact",
-      "community": 50,
+      "community": 33,
       "norm_label": "fact"
     },
     {
@@ -29288,7 +29438,7 @@
       },
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_workflow_workflowvalidatortests_omniflow_application_unittests_workflow_workflowvalidatortests_empty_workflow_is_rejected",
-      "community": 50,
+      "community": 33,
       "norm_label": ".empty_workflow_is_rejected()"
     },
     {
@@ -29304,7 +29454,7 @@
       },
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_workflow_workflowvalidatortests_omniflow_application_unittests_workflow_workflowvalidatortests_duplicate_trigger_from_same_state_is_rejected",
-      "community": 50,
+      "community": 33,
       "norm_label": ".duplicate_trigger_from_same_state_is_rejected()"
     },
     {
@@ -29320,7 +29470,7 @@
       },
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_workflow_workflowvalidatortests_omniflow_application_unittests_workflow_workflowvalidatortests_self_transition_is_rejected",
-      "community": 50,
+      "community": 33,
       "norm_label": ".self_transition_is_rejected()"
     },
     {
@@ -29336,7 +29486,7 @@
       },
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_workflow_workflowvalidatortests_omniflow_application_unittests_workflow_workflowvalidatortests_unreachable_terminal_states_are_rejected",
-      "community": 50,
+      "community": 33,
       "norm_label": ".unreachable_terminal_states_are_rejected()"
     },
     {
@@ -29352,7 +29502,7 @@
       },
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_workflow_workflowvalidatortests_omniflow_application_unittests_workflow_workflowvalidatortests_approval_policy_off_the_approval_state_is_rejected",
-      "community": 50,
+      "community": 33,
       "norm_label": ".approval_policy_off_the_approval_state_is_rejected()"
     },
     {
@@ -29368,7 +29518,7 @@
       },
       "_origin": "ast",
       "id": "tests_omniflow_application_unittests_workflow_workflowvalidatortests_omniflow_application_unittests_workflow_workflowvalidatortests_role_approval_step_without_a_role_is_rejected",
-      "community": 50,
+      "community": 33,
       "norm_label": ".role_approval_step_without_a_role_is_rejected()"
     },
     {
@@ -30366,6 +30516,87 @@
     {
       "relation": "imports",
       "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_application_omniflow_application",
+      "target": "nuget_fluentvalidation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_application_omniflow_application",
+      "target": "nuget_fluentvalidation_dependencyinjectionextensions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_application_omniflow_application",
+      "target": "nuget_masstransit_abstractions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_application_omniflow_application",
+      "target": "nuget_mediatr",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_application_omniflow_application",
+      "target": "nuget_stateless",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_application_omniflow_application",
+      "target": "src_omniflow_application_omniflow_application_csproj_framework_net10_0",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_application_omniflow_application",
+      "target": "src_omniflow_application_omniflow_application_csproj_nuget_microsoft_entityframeworkcore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_application_omniflow_application",
+      "target": "src_omniflow_application_omniflow_application_csproj_sdk_microsoft_net_sdk",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
+      "weight": 1.0,
+      "source": "src_omniflow_application_omniflow_application",
+      "target": "src_omniflow_domain_omniflow_domain",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj",
       "weight": 1.0,
       "source": "src_omniflow_infrastructure_omniflow_infrastructure",
@@ -30799,6 +31030,16 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "src_omniflow_api_controllers_directorycontroller",
+      "target": "csharp_namespace:29ec9b3bce998963",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Api/Controllers/LeaveRequestsController.cs",
       "source_location": "L8",
       "weight": 1.0,
@@ -30963,16 +31204,6 @@
       "source_location": "L6",
       "weight": 1.0,
       "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_departmentscontroller_cs",
-      "target": "csharp_namespace:29ec9b3bce998963",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
-      "source_location": "L6",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_directorycontroller_cs",
       "target": "csharp_namespace:29ec9b3bce998963",
       "confidence_score": 1.0
     },
@@ -31163,6 +31394,19 @@
         "ref_token": "ControllerBase"
       },
       "source": "src_omniflow_api_controllers_categoriescontroller_omniflow_api_controllers_categoriescontroller",
+      "target": "controllerbase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "inherits",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
+      "source_location": "L29",
+      "weight": 1.0,
+      "metadata": {
+        "ref_token": "ControllerBase"
+      },
+      "source": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller",
       "target": "controllerbase",
       "confidence_score": 1.0
     },
@@ -31384,19 +31628,6 @@
         "ref_token": "ControllerBase"
       },
       "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_departmentscontroller_omniflow_api_controllers_departmentscontroller",
-      "target": "controllerbase",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "inherits",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
-      "source_location": "L8",
-      "weight": 1.0,
-      "metadata": {
-        "ref_token": "ControllerBase"
-      },
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller",
       "target": "controllerbase",
       "confidence_score": 1.0
     },
@@ -33518,7 +33749,7 @@
         "target_fqn": "OmniFlow.Application.Interfaces",
         "scope_kind": "file"
       },
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_directorycontroller_cs",
+      "source": "src_omniflow_api_controllers_directorycontroller",
       "target": "csharp_namespace:2816fdb477e759e6",
       "confidence_score": 1.0
     },
@@ -33534,7 +33765,7 @@
         "target_fqn": "OmniFlow.Domain.Entities",
         "scope_kind": "file"
       },
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_directorycontroller_cs",
+      "source": "src_omniflow_api_controllers_directorycontroller",
       "target": "csharp_namespace:564d789e13902d4a",
       "confidence_score": 1.0
     },
@@ -33542,44 +33773,180 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
-      "source_location": "L8",
+      "source_location": "L29",
       "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_directorycontroller_cs",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller",
+      "source": "src_omniflow_api_controllers_directorycontroller",
+      "target": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "src_omniflow_api_controllers_directorycontroller",
+      "target": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_employeedirectoryentry",
       "confidence_score": 1.0
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
-      "source_location": "L12",
+      "source_location": "L25",
+      "weight": 1.0,
+      "context": "field",
+      "metadata": {
+        "ref_token": "DateTime"
+      },
+      "source": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_employeedirectoryentry",
+      "target": "src_omniflow_api_controllers_directorycontroller_cs_datetime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
+      "source_location": "L16",
+      "weight": 1.0,
+      "context": "field",
+      "metadata": {
+        "ref_token": "Guid"
+      },
+      "source": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_employeedirectoryentry",
+      "target": "src_omniflow_api_controllers_directorycontroller_cs_guid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "field",
+      "metadata": {
+        "ref_token": "List"
+      },
+      "source": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_employeedirectoryentry",
+      "target": "src_omniflow_api_controllers_directorycontroller_cs_list",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
+      "source_location": "L40",
+      "weight": 1.0,
+      "source": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller",
+      "target": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller_getemployees",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
+      "source_location": "L80",
+      "weight": 1.0,
+      "source": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller",
+      "target": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller_getorgchart",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
+      "source_location": "L33",
       "weight": 1.0,
       "context": "field",
       "metadata": {
         "ref_token": "IOmniFlowDbContext"
       },
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller",
+      "source": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller",
       "target": "src_omniflow_application_interfaces_iomniflowdbcontext_omniflow_application_interfaces_iomniflowdbcontext",
       "confidence_score": 1.0
     },
     {
-      "relation": "method",
+      "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
-      "source_location": "L19",
+      "source_location": "L40",
       "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller_getemployees",
+      "context": "attribute",
+      "metadata": {
+        "ref_token": "HttpGet"
+      },
+      "source": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller_getemployees",
+      "target": "src_omniflow_api_controllers_directorycontroller_cs_httpget",
       "confidence_score": 1.0
     },
     {
-      "relation": "method",
+      "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
-      "source_location": "L63",
+      "source_location": "L40",
       "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller_getorgchart",
+      "context": "generic_arg",
+      "metadata": {
+        "ref_token": "IActionResult"
+      },
+      "source": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller_getemployees",
+      "target": "src_omniflow_api_controllers_directorycontroller_cs_iactionresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
+      "source_location": "L40",
+      "weight": 1.0,
+      "context": "return_type",
+      "metadata": {
+        "ref_token": "Task"
+      },
+      "source": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller_getemployees",
+      "target": "src_omniflow_api_controllers_directorycontroller_cs_task",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
+      "source_location": "L80",
+      "weight": 1.0,
+      "context": "return_type",
+      "metadata": {
+        "ref_token": "Task"
+      },
+      "source": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller_getorgchart",
+      "target": "src_omniflow_api_controllers_directorycontroller_cs_task",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
+      "source_location": "L80",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "metadata": {
+        "ref_token": "IActionResult"
+      },
+      "source": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller_getorgchart",
+      "target": "src_omniflow_api_controllers_directorycontroller_cs_iactionresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Api/Controllers/DirectoryController.cs",
+      "source_location": "L80",
+      "weight": 1.0,
+      "context": "attribute",
+      "metadata": {
+        "ref_token": "HttpGet"
+      },
+      "source": "src_omniflow_api_controllers_directorycontroller_omniflow_api_controllers_directorycontroller_getorgchart",
+      "target": "src_omniflow_api_controllers_directorycontroller_cs_httpget",
       "confidence_score": 1.0
     },
     {
@@ -52536,114 +52903,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_omniflow_application_csproj",
-      "target": "nuget_fluentvalidation",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_omniflow_application_csproj",
-      "target": "nuget_fluentvalidation_dependencyinjectionextensions",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_omniflow_application_csproj",
-      "target": "nuget_masstransit_abstractions",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_omniflow_application_csproj",
-      "target": "nuget_mediatr",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_omniflow_application_csproj",
-      "target": "nuget_stateless",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_omniflow_application_csproj",
-      "target": "src_omniflow_application_omniflow_application_csproj_framework_net10_0",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_omniflow_application_csproj",
-      "target": "src_omniflow_application_omniflow_application_csproj_nuget_microsoft_entityframeworkcore",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_omniflow_application_csproj",
-      "target": "src_omniflow_application_omniflow_application_csproj_sdk_microsoft_net_sdk",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Application/OmniFlow.Application.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_omniflow_application_csproj",
-      "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_omniflow_domain_csproj",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Domain/OmniFlow.Domain.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_omniflow_domain_csproj",
-      "target": "nuget_mediatr_contracts",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Domain/OmniFlow.Domain.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_omniflow_domain_csproj",
-      "target": "src_omniflow_domain_omniflow_domain_csproj_framework_net10_0",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "src/OmniFlow.Domain/OmniFlow.Domain.csproj",
-      "weight": 1.0,
-      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_omniflow_domain_csproj",
-      "target": "src_omniflow_domain_omniflow_domain_csproj_sdk_microsoft_net_sdk",
-      "confidence_score": 1.0
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/OmniFlow.Application/Tickets/Commands/AddTicketCommentCommand.cs",
@@ -62527,6 +62786,33 @@
       },
       "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_notifications_ticketstatetransitionednotificationhandler_omniflow_infrastructure_notifications_ticketstatetransitionednotificationhandler_handle",
       "target": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_events_ticketstatetransitioneddomainevent_omniflow_domain_events_ticketstatetransitioneddomainevent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Domain/OmniFlow.Domain.csproj",
+      "weight": 1.0,
+      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_omniflow_domain_csproj",
+      "target": "nuget_mediatr_contracts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Domain/OmniFlow.Domain.csproj",
+      "weight": 1.0,
+      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_omniflow_domain_csproj",
+      "target": "src_omniflow_domain_omniflow_domain_csproj_framework_net10_0",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "src/OmniFlow.Domain/OmniFlow.Domain.csproj",
+      "weight": 1.0,
+      "source": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_omniflow_domain_csproj",
+      "target": "src_omniflow_domain_omniflow_domain_csproj_sdk_microsoft_net_sdk",
       "confidence_score": 1.0
     },
     {
@@ -77011,6 +77297,16 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "tests_omniflow_api_integrationtests_directorytests",
+      "target": "csharp_namespace:d1e7eccc2cc9683a",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "tests/OmniFlow.Api.IntegrationTests/NotificationTests.cs",
       "source_location": "L9",
       "weight": 1.0,
@@ -77233,6 +77529,19 @@
         "ref_token": "IClassFixture"
       },
       "source": "tests_omniflow_api_integrationtests_criticalpathtests_omniflow_api_integrationtests_criticalpathtests",
+      "target": "iclassfixture",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L12",
+      "weight": 1.0,
+      "metadata": {
+        "ref_token": "IClassFixture"
+      },
+      "source": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests",
       "target": "iclassfixture",
       "confidence_score": 1.0
     },
@@ -78308,6 +78617,20 @@
     {
       "relation": "references",
       "confidence": "EXTRACTED",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L17",
+      "weight": 1.0,
+      "context": "field",
+      "metadata": {
+        "ref_token": "CustomWebApplicationFactory"
+      },
+      "source": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests",
+      "target": "tests_omniflow_api_integrationtests_customwebapplicationfactory_omniflow_api_integrationtests_customwebapplicationfactory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
       "source_file": "tests/OmniFlow.Api.IntegrationTests/NotificationTests.cs",
       "source_location": "L28",
       "weight": 1.0,
@@ -78443,6 +78766,155 @@
       },
       "source": "tests_omniflow_api_integrationtests_customwebapplicationfactory_omniflow_api_integrationtests_customwebapplicationfactory_disposeasync",
       "target": "tests_omniflow_api_integrationtests_customwebapplicationfactory_cs_task",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "tests_omniflow_api_integrationtests_directorytests",
+      "target": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L15",
+      "weight": 1.0,
+      "context": "field",
+      "metadata": {
+        "ref_token": "string"
+      },
+      "source": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests",
+      "target": "tests_omniflow_api_integrationtests_directorytests_cs_string",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests",
+      "target": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests_adminclientasync",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L47",
+      "weight": 1.0,
+      "source": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests",
+      "target": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests_employees_requires_authentication",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests",
+      "target": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests_employees_returns_both_profiled_and_profile_less_users",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "attribute",
+      "metadata": {
+        "ref_token": "Fact"
+      },
+      "source": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests_employees_returns_both_profiled_and_profile_less_users",
+      "target": "tests_omniflow_api_integrationtests_directorytests_cs_fact",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L21",
+      "weight": 1.0,
+      "context": "return_type",
+      "metadata": {
+        "ref_token": "Task"
+      },
+      "source": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests_employees_returns_both_profiled_and_profile_less_users",
+      "target": "tests_omniflow_api_integrationtests_directorytests_cs_task",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests_employees_returns_both_profiled_and_profile_less_users",
+      "target": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests_adminclientasync",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L55",
+      "weight": 1.0,
+      "context": "return_type",
+      "metadata": {
+        "ref_token": "Task"
+      },
+      "source": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests_adminclientasync",
+      "target": "tests_omniflow_api_integrationtests_directorytests_cs_task",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L47",
+      "weight": 1.0,
+      "context": "return_type",
+      "metadata": {
+        "ref_token": "Task"
+      },
+      "source": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests_employees_requires_authentication",
+      "target": "tests_omniflow_api_integrationtests_directorytests_cs_task",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L47",
+      "weight": 1.0,
+      "context": "attribute",
+      "metadata": {
+        "ref_token": "Fact"
+      },
+      "source": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests_employees_requires_authentication",
+      "target": "tests_omniflow_api_integrationtests_directorytests_cs_fact",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/OmniFlow.Api.IntegrationTests/DirectoryTests.cs",
+      "source_location": "L55",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "metadata": {
+        "ref_token": "HttpClient"
+      },
+      "source": "tests_omniflow_api_integrationtests_directorytests_omniflow_api_integrationtests_directorytests_adminclientasync",
+      "target": "tests_omniflow_api_integrationtests_directorytests_cs_httpclient",
       "confidence_score": 1.0
     },
     {
@@ -83741,5 +84213,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "387f443ba124c24155dd5b276de05eb02202123e"
+  "built_at_commit": "5f4d65c6ba70a6aa61c74cc56c5b78bff2783850"
 }
