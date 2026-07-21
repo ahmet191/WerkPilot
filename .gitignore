@@ -34,5 +34,8 @@ logs/
 # Graphify AST cache artifact (created when cache_root points at src/)
 src/graphify-out/
 
-# Uploaded file store (local dev)
-storage/
+# Uploaded file store (local dev). Must stay narrow: a bare "storage/" also
+# matches source folders such as src/OmniFlow.Infrastructure/Storage/ (git
+# matches ignore patterns case-insensitively on macOS/Windows), which silently
+# kept LocalFileStorage.cs out of the repo and broke the CI build.
+**/storage/uploads/

@@ -55,7 +55,9 @@ public class SmtpEmailSender : IEmailSender
         await client.ConnectAsync(_options.Host, _options.Port, security, cancellationToken);
         if (!string.IsNullOrEmpty(_options.Username))
         {
-            await client.AuthenticateAsync(_options.Username, _options.Password, cancellationToken);
+            // A configured username with no password is a misconfiguration, not
+            // a null credential — send an empty secret rather than null.
+            await client.AuthenticateAsync(_options.Username, _options.Password ?? string.Empty, cancellationToken);
         }
         await client.SendAsync(message, cancellationToken);
         await client.DisconnectAsync(quit: true, cancellationToken);
