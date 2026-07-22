@@ -1,0 +1,61 @@
+# WerkPilot (OmniFlow ESM) local stack.
+#   docker compose up --build
+#   UI  → http://localhost:5173   API → http://localhost:5226
+services:
+  rabbitmq:
+    image: rabbitmq:4-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"   # management UI (guest/guest)
+    volumes:
+      - rabbitmqdata:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # web UI
+    healthcheck:
+      test: ["CMD", "/mailpit", "readyz"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    image: werkpilotacr4772.azurecr.io/api:v1
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: "Server=ep-square-wildflower-a4k1t2f6-pooler.us-east-1.aws.neon.tech;Database=neondb;User Id=neondb_owner;Password=npg_I0S1fWmNETgo;Ssl Mode=Require;Trust Server Certificate=true;"
+      Messaging__Transport: RabbitMq
+      RabbitMq__Host: rabbitmq
+      Email__Host: mailpit
+      Email__Port: "1025"
+      Email__UseStartTls: "false"
+    ports:
+      - "5226:8080"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  ui:
+    image: werkpilotacr4772.azurecr.io/ui:v1
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+
+  # ── Opt-in infrastructure (uncomment when needed) ──────────────────────
+  # otel-collector:
+  #   image: otel/opentelemetry-collector:latest
+  #   command: ["--config=/etc/otel-collector.yaml"]
+  #   volumes: ["./otel-collector.yaml:/etc/otel-collector.yaml"]
+  #   ports: ["4317:4317"]
+
+volumes:
+  rabbitmqdata:

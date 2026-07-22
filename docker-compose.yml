@@ -49,8 +49,8 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: http://+:8080
-      ConnectionStrings__DefaultConnection: "Server=ep-square-wildflower-a4k1t2f6-pooler.us-east-1.aws.neon.tech;Database=neondb;User Id=neondb_owner;Password=npg_I0S1fWmNETgo;Ssl Mode=Require;Trust Server Certificate=true;"
-      #ConnectionStrings__DefaultConnection: "Host=postgres;Database=OmniFlowDb;Username=postgres;Password=postgres"
+      #ConnectionStrings__DefaultConnection: "Server=ep-square-wildflower-a4k1t2f6-pooler.us-east-1.aws.neon.tech;Database=neondb;User Id=neondb_owner;Password=npg_I0S1fWmNETgo;Ssl Mode=Require;Trust Server Certificate=true;"
+      ConnectionStrings__DefaultConnection: "Host=postgres;Database=OmniFlowDb;Username=postgres;Password=postgres"
       Messaging__Transport: RabbitMq
       RabbitMq__Host: rabbitmq
       Email__Host: mailpit
