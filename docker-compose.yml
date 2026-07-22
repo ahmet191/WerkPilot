@@ -49,7 +49,8 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: http://+:8080
-      ConnectionStrings__DefaultConnection: "Host=postgres;Database=OmniFlowDb;Username=postgres;Password=postgres"
+      ConnectionStrings__DefaultConnection: "Server=localhost;Database=neondb;User Id=neondb_owner;Password=[REDACTED_PASSWORD];Ssl Mode=Require;Trust Server Certificate=true;"
+      #ConnectionStrings__DefaultConnection: "Host=postgres;Database=OmniFlowDb;Username=postgres;Password=postgres"
       Messaging__Transport: RabbitMq
       RabbitMq__Host: rabbitmq
       Email__Host: mailpit
