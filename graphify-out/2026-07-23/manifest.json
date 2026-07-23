@@ -1784,14 +1784,9 @@
     "ast_hash": "eb16ec00dd947ffe9a55ac4b386eeb48",
     "semantic_hash": ""
   },
-  ".github/workflows/codeql.yml": {
-    "mtime": 1784832325.3204873,
-    "ast_hash": "5c0948f09f38ad1a5cb87d5d967a37bd",
-    "semantic_hash": ""
-  },
   ".github/workflows/security.yml": {
-    "mtime": 1784832317.49115,
-    "ast_hash": "f21a21fc7ec206c920cfdbc845a0ef07",
+    "mtime": 1784834245.029658,
+    "ast_hash": "6a7903f3fb9bf850ba4704a5d3e0fd85",
     "semantic_hash": ""
   },
   "CONTRIBUTING.md": {
@@ -1800,8 +1795,8 @@
     "semantic_hash": ""
   },
   "SECURITY.md": {
-    "mtime": 1784832581.611319,
-    "ast_hash": "a429cc22522c29a20805e50442f38937",
+    "mtime": 1784837783.8094835,
+    "ast_hash": "071a59d5f90808ee81c4b81fdd4de17d",
     "semantic_hash": ""
   }
 }
