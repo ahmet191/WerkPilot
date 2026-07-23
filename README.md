@@ -195,10 +195,7 @@ explorer unless you opt in.
 
 ## License
 
-No license has been chosen yet. Until one is added, default copyright applies
-and the code is not licensed for reuse.
-
-## License
-
-No license has been chosen yet. Until one is added, default copyright applies
-and the code is not licensed for reuse.
+**Proprietary — all rights reserved.** The source is public for evaluation and
+review only; it is not open-source and no usage, distribution, or production
+rights are granted. See [LICENSE](LICENSE). Security policy: [SECURITY.md](SECURITY.md).
+Contribution terms: [CONTRIBUTING.md](CONTRIBUTING.md).
