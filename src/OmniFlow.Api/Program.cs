@@ -549,6 +549,22 @@ app.UseSerilogRequestLogging(options =>
     };
 });
 
+// Baseline security response headers on every API response. CSP lives on the UI
+// (nginx) where the HTML is served; these are the transport/sniffing/framing guards.
+app.Use(async (context, next) =>
+{
+    var headers = context.Response.Headers;
+    headers["X-Content-Type-Options"] = "nosniff";
+    headers["X-Frame-Options"] = "DENY";
+    headers["Referrer-Policy"] = "no-referrer";
+    // HSTS only makes sense over TLS; harmless if the proxy terminates it.
+    if (context.Request.IsHttps)
+    {
+        headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains";
+    }
+    await next();
+});
+
 // Swagger is gated on an explicit flag, not the environment: a demo deployed with
 // ASPNETCORE_ENVIRONMENT=Development must not expose the API explorer unless the
 // operator opts in. Defaults to on in Development, off everywhere else.
@@ -567,6 +583,22 @@ if (!builder.Configuration.GetValue("DisableHttpsRedirection", false))
 app.UseCors("AllowViteUI");
 app.UseRateLimiter();
 
+// SignalR sends the access token as a query-string parameter on the WebSocket
+// connection (browsers can't set an Authorization header on the upgrade). Promote
+// it to the header for /hubs paths so OpenIddict validation — which only reads the
+// header — can authenticate hub connections. Must run before UseAuthentication.
+app.Use(async (context, next) =>
+{
+    if (string.IsNullOrEmpty(context.Request.Headers.Authorization) &&
+        context.Request.Path.StartsWithSegments("/hubs") &&
+        context.Request.Query.TryGetValue("access_token", out var token) &&
+        !string.IsNullOrEmpty(token))
+    {
+        context.Request.Headers.Authorization = $"Bearer {token}";
+    }
+    await next();
+});
+
 // Authentication & Authorization (order matters!)
 app.UseAuthentication();
 app.UseAuthorization();
@@ -576,9 +608,9 @@ app.UseMiddleware<OmniFlow.Api.Middleware.AuditLoggingMiddleware>();
 
 app.MapControllers();
 
-// TODO(Phase 5): require auth on the hub once the SPA sends access tokens on the
-// SignalR connection (accessTokenFactory) and query-string token extraction is wired.
-app.MapHub<OmniFlow.Api.Hubs.DashboardHub>("/hubs/dashboard").AllowAnonymous();
+// Both hubs require auth: the SPA sends the token via accessTokenFactory and the
+// middleware above promotes it to the header so validation can read it.
+app.MapHub<OmniFlow.Api.Hubs.DashboardHub>("/hubs/dashboard");
 app.MapHub<OmniFlow.Api.Hubs.NotificationHub>("/hubs/notifications");
 
 // Liveness: the process is up. Readiness: dependencies (database) are reachable.
