@@ -130,8 +130,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Hubs/DashboardHub.cs": {
-    "mtime": 1783786889.2202055,
-    "ast_hash": "ef6fad68676c6f5218f2657a8be7b29c",
+    "mtime": 1784832067.3800662,
+    "ast_hash": "04c1b7b212f99c9106065dfafa04bac2",
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Middleware/AuditLoggingMiddleware.cs": {
@@ -155,8 +155,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Program.cs": {
-    "mtime": 1784830648.684209,
-    "ast_hash": "a545eb1c8a1f364168b8423f5aee6cf1",
+    "mtime": 1784832143.9760218,
+    "ast_hash": "4cd00ab4d6504a6795308ab73263761a",
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Properties/launchSettings.json": {
@@ -1765,8 +1765,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1784831418.574453,
-    "ast_hash": "e21b39e8116883194ec6b258d16a5842",
+    "mtime": 1784832634.3117929,
+    "ast_hash": "cc7d62724d44300dc1d79c2303614ef1",
     "semantic_hash": ""
   },
   "scripts/generate-certs.sh": {
@@ -1777,6 +1777,31 @@
   "src/OmniFlow.Infrastructure/Storage/S3FileStorage.cs": {
     "mtime": 1784830527.3776476,
     "ast_hash": "b3a29ff18239d655d4a6ed24aa6894da",
+    "semantic_hash": ""
+  },
+  ".github/dependabot.yml": {
+    "mtime": 1784832331.7106974,
+    "ast_hash": "eb16ec00dd947ffe9a55ac4b386eeb48",
+    "semantic_hash": ""
+  },
+  ".github/workflows/codeql.yml": {
+    "mtime": 1784832325.3204873,
+    "ast_hash": "5c0948f09f38ad1a5cb87d5d967a37bd",
+    "semantic_hash": ""
+  },
+  ".github/workflows/security.yml": {
+    "mtime": 1784832317.49115,
+    "ast_hash": "f21a21fc7ec206c920cfdbc845a0ef07",
+    "semantic_hash": ""
+  },
+  "CONTRIBUTING.md": {
+    "mtime": 1784832596.1696377,
+    "ast_hash": "258e0569a1a46f2ee5fc9819a25af102",
+    "semantic_hash": ""
+  },
+  "SECURITY.md": {
+    "mtime": 1784832581.611319,
+    "ast_hash": "a429cc22522c29a20805e50442f38937",
     "semantic_hash": ""
   }
 }
