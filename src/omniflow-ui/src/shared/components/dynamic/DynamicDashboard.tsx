@@ -111,7 +111,7 @@ export const DynamicDashboard: React.FC = () => {
       {/* Greeting header */}
       <div style={{ marginBottom: 20 }}>
         <h2 style={{ margin: 0, fontSize: 20, fontWeight: 700, letterSpacing: 0.1 }}>
-          {t(greetingKey, greetingFallback)} 👋 Ahmet Test
+          {t(greetingKey, greetingFallback)} 👋
         </h2>
         <span style={{ fontSize: 12.5, color: 'var(--text-tertiary)', textTransform: 'capitalize' }}>{today}</span>
       </div>
