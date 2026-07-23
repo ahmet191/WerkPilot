@@ -162,9 +162,38 @@ builder.Services.AddScoped<OmniFlow.Application.Interfaces.INotificationService,
 builder.Services.AddScoped<OmniFlow.Application.Interfaces.ITranslationService,
     OmniFlow.Infrastructure.Localization.TranslationService>();
 
-// Ticket attachments: file bytes on disk (swappable for S3/Blob), metadata in the DB.
-builder.Services.AddSingleton<OmniFlow.Application.Interfaces.IFileStorage,
-    OmniFlow.Infrastructure.Storage.LocalFileStorage>();
+// Ticket attachments: metadata in the DB, bytes in a config-selected blob store.
+// Local disk by default (needs a mounted volume to survive redeploys); S3-compatible
+// (AWS/MinIO) for portable durable storage. Storage:Provider = Local | S3.
+var storageProvider = builder.Configuration["Storage:Provider"] ?? "Local";
+if (storageProvider.Equals("S3", StringComparison.OrdinalIgnoreCase))
+{
+    var s3Options = builder.Configuration.GetSection("Storage:S3")
+        .Get<OmniFlow.Infrastructure.Storage.S3StorageOptions>()
+        ?? new OmniFlow.Infrastructure.Storage.S3StorageOptions();
+    builder.Services.AddSingleton(s3Options);
+    builder.Services.AddSingleton<Amazon.S3.IAmazonS3>(_ =>
+    {
+        var config = new Amazon.S3.AmazonS3Config { ForcePathStyle = s3Options.ForcePathStyle };
+        // A ServiceUrl points at MinIO/self-hosted; its absence means real AWS by Region.
+        if (!string.IsNullOrWhiteSpace(s3Options.ServiceUrl))
+            config.ServiceURL = s3Options.ServiceUrl;
+        else
+            config.RegionEndpoint = Amazon.RegionEndpoint.GetBySystemName(s3Options.Region);
+        // Explicit keys for MinIO; absent keys fall back to the AWS credential chain.
+        return string.IsNullOrWhiteSpace(s3Options.AccessKey)
+            ? new Amazon.S3.AmazonS3Client(config)
+            : new Amazon.S3.AmazonS3Client(
+                new Amazon.Runtime.BasicAWSCredentials(s3Options.AccessKey, s3Options.SecretKey), config);
+    });
+    builder.Services.AddSingleton<OmniFlow.Application.Interfaces.IFileStorage,
+        OmniFlow.Infrastructure.Storage.S3FileStorage>();
+}
+else
+{
+    builder.Services.AddSingleton<OmniFlow.Application.Interfaces.IFileStorage,
+        OmniFlow.Infrastructure.Storage.LocalFileStorage>();
+}
 
 // Short-lived cookie that only carries the external IdP round-trip; the SPA
 // never sees it — it exchanges the SSO ticket for real tokens instead.
@@ -426,11 +455,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserContext, OmniFlow.Api.Services.UserContextService>();
 
+// Allowed origins are config-driven so a real deployment can name its own UI
+// host(s); defaults to the Vite dev origin. Under the docker/nginx setup the SPA
+// is same-origin with the API so CORS never fires, but direct API access and the
+// SSO round-trip still need the real origin allow-listed.
+var corsOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>();
+if (corsOrigins is null || corsOrigins.Length == 0)
+    corsOrigins = new[] { "http://localhost:5173" };
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowViteUI", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins(corsOrigins)
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
@@ -513,7 +549,10 @@ app.UseSerilogRequestLogging(options =>
     };
 });
 
-if (app.Environment.IsDevelopment())
+// Swagger is gated on an explicit flag, not the environment: a demo deployed with
+// ASPNETCORE_ENVIRONMENT=Development must not expose the API explorer unless the
+// operator opts in. Defaults to on in Development, off everywhere else.
+if (builder.Configuration.GetValue("Swagger:Enabled", app.Environment.IsDevelopment()))
 {
     app.UseSwagger();
     app.UseSwaggerUI();

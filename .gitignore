@@ -21,6 +21,10 @@ dist-ssr/
 !.env.example
 appsettings.*.Local.json
 
+# Generated OpenIddict certificates (scripts/generate-certs.sh) — secrets
+certs/
+*.pfx
+
 # OS noise
 .DS_Store
 Thumbs.db
