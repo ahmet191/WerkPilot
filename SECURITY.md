@@ -12,12 +12,14 @@ Please allow reasonable time for a fix before any public disclosure.
 
 ## Scope notes
 
-- **Known item — Telegram bot token in git history.** An early commit contains a
-  low-value demo Telegram bot token. It is not present in the current code
-  (`Telegram:BotToken` ships empty) and the application runs fully without it.
-  CI secret scanning (gitleaks) runs against the **working tree**, so it gates
-  new secrets without re-flagging this historical one. If the history matters for
-  your use, purge it with `git-filter-repo` and rotate the token via BotFather.
+- **Git history may contain credentials from earlier development.** CI secret
+  scanning (gitleaks) runs against the **committed files at HEAD** — a clean
+  export with no `.git` — so it gates secrets in the current code deterministically,
+  independent of checkout depth. History is not automatically scrubbed. Before the
+  repository is made public (or now, if it already is), **rotate any real
+  credential that was ever committed** — database passwords, connection strings,
+  API tokens — and purge them from history with `git-filter-repo` if the exposure
+  matters. The current code carries only empty placeholders and local-dev defaults.
 
 - **Secrets** belong in environment variables or .NET user-secrets, never in
   committed files. `appsettings.json` holds only empty placeholders.
