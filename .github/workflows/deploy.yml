@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch: # GitHub arayüzünden tek tıkla 'Run workflow' yapabilmeniz için
 
 jobs:
   deploy:
@@ -20,5 +21,5 @@ jobs:
             git reset --hard origin/master
             git pull origin master
             docker compose build --no-cache ui
-            docker compose up -d
+            docker compose up -d --force-recreate ui
             docker image prune -f
