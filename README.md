@@ -7,6 +7,8 @@ are configured per tenant at runtime rather than compiled in.
 Built with .NET 10 (Clean Architecture, DDD, CQRS/MediatR, MassTransit,
 EF Core + PostgreSQL, OpenIddict) and React 19 + TypeScript + Ant Design.
 
+🚀 **You can check out the live demo here:** [https://werkpilot.duckdns.org](https://werkpilot.duckdns.org)
+
 ---
 
 ## Quick start
