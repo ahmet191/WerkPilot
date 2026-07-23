@@ -1790,8 +1790,8 @@
     "semantic_hash": ""
   },
   ".github/workflows/security.yml": {
-    "mtime": 1784832317.49115,
-    "ast_hash": "f21a21fc7ec206c920cfdbc845a0ef07",
+    "mtime": 1784834245.029658,
+    "ast_hash": "6a7903f3fb9bf850ba4704a5d3e0fd85",
     "semantic_hash": ""
   },
   "CONTRIBUTING.md": {
@@ -1800,8 +1800,8 @@
     "semantic_hash": ""
   },
   "SECURITY.md": {
-    "mtime": 1784832581.611319,
-    "ast_hash": "a429cc22522c29a20805e50442f38937",
+    "mtime": 1784834293.3022819,
+    "ast_hash": "9b5308a4b8921bb5fdf8771ef2b17ddc",
     "semantic_hash": ""
   }
 }
