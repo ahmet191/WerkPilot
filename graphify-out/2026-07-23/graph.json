@@ -1858,7 +1858,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_leaverequestscontroller",
-      "community": 164,
+      "community": 41,
       "norm_label": "leaverequestscontroller.cs"
     },
     {
@@ -5019,7 +5019,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_api_controllers_userscontroller",
-      "community": 41,
+      "community": 6,
       "norm_label": "userscontroller.cs"
     },
     {
@@ -6578,7 +6578,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:a5df101b5726436f",
-      "community": 164,
+      "community": 41,
       "norm_label": "omniflow.application.approvals"
     },
     {
@@ -6676,7 +6676,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_approvals_commands_decideapprovalstepcommand",
-      "community": 164,
+      "community": 41,
       "norm_label": "decideapprovalstepcommand.cs"
     },
     {
@@ -6733,7 +6733,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_application_approvals_commands_decideapprovalstepcommand_omniflow_application_approvals_commands_decideapprovalstepcommandvalidator",
-      "community": 164,
+      "community": 41,
       "norm_label": "decideapprovalstepcommandvalidator"
     },
     {
@@ -6743,7 +6743,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "abstractvalidator",
-      "community": 164,
+      "community": 181,
       "norm_label": "abstractvalidator"
     },
     {
@@ -7104,7 +7104,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_assignassetcommand",
-      "community": 41,
+      "community": 6,
       "norm_label": "assignassetcommand.cs"
     },
     {
@@ -7119,7 +7119,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:f3c28e3dd69d41d0",
-      "community": 41,
+      "community": 6,
       "norm_label": "omniflow.application.assets.commands"
     },
     {
@@ -7217,7 +7217,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_createassetcommand",
-      "community": 41,
+      "community": 6,
       "norm_label": "createassetcommand.cs"
     },
     {
@@ -7305,7 +7305,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_deleteassetcommand",
-      "community": 41,
+      "community": 6,
       "norm_label": "deleteassetcommand.cs"
     },
     {
@@ -7393,7 +7393,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_assets_commands_updateassetcommand",
-      "community": 41,
+      "community": 6,
       "norm_label": "updateassetcommand.cs"
     },
     {
@@ -9172,7 +9172,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:2816fdb477e759e6",
-      "community": 41,
+      "community": 6,
       "norm_label": "omniflow.application.interfaces"
     },
     {
@@ -9778,7 +9778,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_interfaces_inotificationservice",
-      "community": 41,
+      "community": 6,
       "norm_label": "inotificationservice.cs"
     },
     {
@@ -9914,7 +9914,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_interfaces_iomniflowdbcontext",
-      "community": 164,
+      "community": 41,
       "norm_label": "iomniflowdbcontext.cs"
     },
     {
@@ -10846,7 +10846,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_leaverequests_commands_approveleaverequestcommand",
-      "community": 164,
+      "community": 41,
       "norm_label": "approveleaverequestcommand.cs"
     },
     {
@@ -10861,7 +10861,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:8bbee90e65caa594",
-      "community": 164,
+      "community": 41,
       "norm_label": "omniflow.application.leaverequests.commands"
     },
     {
@@ -10959,7 +10959,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_leaverequests_commands_createleaverequestcommand",
-      "community": 164,
+      "community": 41,
       "norm_label": "createleaverequestcommand.cs"
     },
     {
@@ -11067,7 +11067,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_leaverequests_commands_createleaverequestcommandvalidator_cs",
-      "community": 164,
+      "community": 41,
       "norm_label": "createleaverequestcommandvalidator.cs"
     },
     {
@@ -11083,7 +11083,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_leaverequests_commands_createleaverequestcommandvalidator_omniflow_application_leaverequests_commands_createleaverequestcommandvalidator",
-      "community": 164,
+      "community": 181,
       "norm_label": "createleaverequestcommandvalidator"
     },
     {
@@ -11796,7 +11796,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_tickets_commands_createticketcommandvalidator_cs",
-      "community": 164,
+      "community": 181,
       "norm_label": "createticketcommandvalidator.cs"
     },
     {
@@ -11812,7 +11812,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_tickets_commands_createticketcommandvalidator_omniflow_application_tickets_commands_createticketcommandvalidator",
-      "community": 164,
+      "community": 181,
       "norm_label": "createticketcommandvalidator"
     },
     {
@@ -11920,7 +11920,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_tickets_commands_transitionticketcommandvalidator_cs",
-      "community": 164,
+      "community": 181,
       "norm_label": "transitionticketcommandvalidator.cs"
     },
     {
@@ -11936,7 +11936,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_tickets_commands_transitionticketcommandvalidator_omniflow_application_tickets_commands_transitionticketcommandvalidator",
-      "community": 164,
+      "community": 181,
       "norm_label": "transitionticketcommandvalidator"
     },
     {
@@ -12525,7 +12525,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_users_commands_createusercommand",
-      "community": 41,
+      "community": 181,
       "norm_label": "createusercommand.cs"
     },
     {
@@ -12540,7 +12540,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:c8affbeac40c5ba3",
-      "community": 41,
+      "community": 181,
       "norm_label": "omniflow.application.users.commands"
     },
     {
@@ -12576,7 +12576,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_users_commands_createusercommandhandler",
-      "community": 41,
+      "community": 181,
       "norm_label": "createusercommandhandler.cs"
     },
     {
@@ -12648,7 +12648,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_users_commands_createusercommandvalidator_cs",
-      "community": 164,
+      "community": 181,
       "norm_label": "createusercommandvalidator.cs"
     },
     {
@@ -12664,7 +12664,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_application_users_commands_createusercommandvalidator_omniflow_application_users_commands_createusercommandvalidator",
-      "community": 164,
+      "community": 181,
       "norm_label": "createusercommandvalidator"
     },
     {
@@ -12674,7 +12674,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_users_commands_deleteusercommand",
-      "community": 41,
+      "community": 181,
       "norm_label": "deleteusercommand.cs"
     },
     {
@@ -12762,7 +12762,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_application_users_commands_updateusercommand",
-      "community": 41,
+      "community": 181,
       "norm_label": "updateusercommand.cs"
     },
     {
@@ -13561,7 +13561,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_approvals_approvalrequest",
-      "community": 164,
+      "community": 41,
       "norm_label": "approvalrequest.cs"
     },
     {
@@ -13576,7 +13576,7 @@
       },
       "_origin": "ast",
       "id": "csharp_namespace:8b91e538e1160c0e",
-      "community": 164,
+      "community": 41,
       "norm_label": "omniflow.domain.entities.approvals"
     },
     {
@@ -13592,7 +13592,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_approvals_approvalrequest_omniflow_domain_entities_approvals_approvalentitytypes",
-      "community": 164,
+      "community": 41,
       "norm_label": "approvalentitytypes"
     },
     {
@@ -13602,7 +13602,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_approvals_approvalrequest_cs_string",
-      "community": 164,
+      "community": 41,
       "norm_label": "string"
     },
     {
@@ -13618,7 +13618,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_domain_entities_approvals_approvalrequest_omniflow_domain_entities_approvals_approvaldecisionkind",
-      "community": 164,
+      "community": 41,
       "norm_label": "approvaldecisionkind"
     },
     {
@@ -16608,7 +16608,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_events_approvalevents_cs",
-      "community": 104,
+      "community": 164,
       "norm_label": "approvalevents.cs"
     },
     {
@@ -16639,7 +16639,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_events_approvalevents_omniflow_domain_events_approvalstepactivatedevent",
-      "community": 104,
+      "community": 164,
       "norm_label": "approvalstepactivatedevent"
     },
     {
@@ -16721,7 +16721,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_events_leaverequestevents_cs",
-      "community": 16,
+      "community": 164,
       "norm_label": "leaverequestevents.cs"
     },
     {
@@ -16737,7 +16737,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_events_leaverequestevents_omniflow_domain_events_leaverequestcreatedevent",
-      "community": 16,
+      "community": 164,
       "norm_label": "leaverequestcreatedevent"
     },
     {
@@ -16773,7 +16773,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_domain_events_leaverequestevents_omniflow_domain_events_leaverequestresolvedevent",
-      "community": 16,
+      "community": 164,
       "norm_label": "leaverequestresolvedevent"
     },
     {
@@ -17272,7 +17272,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_authorization_permissionservice",
-      "community": 6,
+      "community": 53,
       "norm_label": "permissionservice.cs"
     },
     {
@@ -19047,7 +19047,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "iconsumer",
-      "community": 16,
+      "community": 164,
       "norm_label": "iconsumer"
     },
     {
@@ -19191,7 +19191,7 @@
       },
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_messaging_consumers_approvalstepactivatedconsumer_omniflow_infrastructure_messaging_consumers_approvalstepactivatedconsumer",
-      "community": 104,
+      "community": 164,
       "norm_label": "approvalstepactivatedconsumer"
     },
     {
@@ -19201,7 +19201,7 @@
       "source_location": "",
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_messaging_consumers_approvalstepactivatedconsumer_cs_ilogger",
-      "community": 104,
+      "community": 164,
       "norm_label": "ilogger"
     },
     {
@@ -19335,7 +19335,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_messaging_consumers_leaverequestnotificationconsumer_omniflow_infrastructure_messaging_consumers_leaverequestnotificationconsumer",
-      "community": 16,
+      "community": 164,
       "norm_label": "leaverequestnotificationconsumer"
     },
     {
@@ -19361,7 +19361,7 @@
       },
       "_origin": "ast",
       "id": "users_ahmetsekerci_projects_werkpilot_src_omniflow_infrastructure_messaging_consumers_leaverequestnotificationconsumer_omniflow_infrastructure_messaging_consumers_leaverequestnotificationconsumer_consume",
-      "community": 16,
+      "community": 164,
       "norm_label": ".consume()"
     },
     {
@@ -21363,7 +21363,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_persistence_configurations_approvalconfiguration",
-      "community": 164,
+      "community": 41,
       "norm_label": "approvalconfiguration.cs"
     },
     {
@@ -22913,7 +22913,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_omniflow_infrastructure_persistence_seed_identityseeddata",
-      "community": 53,
+      "community": 18,
       "norm_label": "identityseeddata.cs"
     },
     {
@@ -27227,7 +27227,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_omniflow_api_integrationtests_notificationtests",
-      "community": 41,
+      "community": 6,
       "norm_label": "notificationtests.cs"
     },
     {
@@ -30609,7 +30609,7 @@
       "label": "Automated checks",
       "file_type": "document",
       "source_file": "SECURITY.md",
-      "source_location": "L25",
+      "source_location": "L27",
       "_origin": "ast",
       "id": "security_automated_checks",
       "community": 118,
@@ -85261,7 +85261,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "SECURITY.md",
-      "source_location": "L25",
+      "source_location": "L27",
       "weight": 1.0,
       "source": "security_security_policy",
       "target": "security_automated_checks",
@@ -85319,5 +85319,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "4f4c75bb43be1be1aa492322d282370dd34764c2"
+  "built_at_commit": "a3f641c72c3c1ee13e2ef7a3a8cfa60d037a5239"
 }

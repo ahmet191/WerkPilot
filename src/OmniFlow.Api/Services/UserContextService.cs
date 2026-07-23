@@ -37,6 +37,23 @@ public class UserContextService : IUserContext
         }
     }
 
+    public IReadOnlyCollection<string> Roles
+    {
+        get
+        {
+            var user = _httpContextAccessor.HttpContext?.User;
+            if (user is null) return Array.Empty<string>();
+            // Roles can arrive under the mapped ClaimTypes.Role URI or the raw
+            // "role" claim depending on the token; take both and dedupe.
+            return user.FindAll(System.Security.Claims.ClaimTypes.Role)
+                .Concat(user.FindAll("role"))
+                .Select(c => c.Value)
+                .Where(v => !string.IsNullOrWhiteSpace(v))
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToArray();
+        }
+    }
+
     public string Language
     {
         get

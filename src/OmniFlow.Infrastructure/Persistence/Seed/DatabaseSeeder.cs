@@ -50,7 +50,11 @@ public static class DatabaseSeeder
         // Demo-only extras layered on top of the baseline.
         await SeedLegacyUsersAsync(context, cancellationToken);
         await SeedApprovalArtifactsAsync(context, cancellationToken);
-        await SeedSampleTicketsAsync(context, cancellationToken);
+
+        // The full "actively-used company" dataset (departments, IT/HR desks,
+        // people, assets, tickets, leave, expenses). Idempotent per block, so it
+        // imports once on a fresh or existing database and never duplicates.
+        await DemoDataSeeder.SeedAsync(context, cancellationToken);
 
         logger.LogInformation("Database seeding completed");
     }
@@ -125,97 +129,6 @@ public static class DatabaseSeeder
         {
             await context.SaveChangesAsync(cancellationToken);
         }
-    }
-
-    /// <summary>
-    /// Seeds a spread of tickets so the dashboard and grid are populated on first
-    /// boot instead of showing zeros. States are reached through the aggregate's
-    /// own Transition/Assign behaviours (isSystem bypasses the role and approval
-    /// guards — this is trusted seed data), so audit trails come out consistent.
-    /// Gated on an empty ticket table, so it never duplicates on re-seed.
-    /// </summary>
-    private static async Task SeedSampleTicketsAsync(OmniFlowDbContext context, CancellationToken cancellationToken)
-    {
-        if (await context.Tickets.AnyAsync(cancellationToken)) return;
-
-        var template = await context.TicketTemplates
-            .FirstOrDefaultAsync(t => t.Id == SeedConstants.ItSupportTemplateId, cancellationToken);
-        if (template is null) return; // baseline template missing — nothing to hang tickets off
-
-        static Dictionary<string, object> Data(string title, string description,
-            string type, string priority, string impact, string urgency) => new()
-        {
-            ["Title"] = title,
-            ["Description"] = description,
-            ["Type"] = type,
-            ["Priority"] = priority,
-            ["Impact"] = impact,
-            ["Urgency"] = urgency,
-        };
-
-        var requester = SeedConstants.RequesterUserId;
-
-        // A near-breach SLA (due soon) makes the SLA column visibly urgent without
-        // scheduling a breach job — seeding bypasses the command handler that would.
-        var newCritical = Ticket.Create(template, requester,
-            Data("VPN gateway unreachable from the branch office",
-                 "Users at the branch office have been unable to connect to the VPN since 09:00.",
-                 "Incident", "Critical", "High", "High"),
-            slaResolutionTime: TimeSpan.FromMinutes(45));
-
-        var newMedium = Ticket.Create(template, requester,
-            Data("Laptop request for a new onboarding hire",
-                 "Standard developer laptop for a backend engineer starting next week.",
-                 "ServiceRequest", "Medium", "Medium", "Medium"),
-            slaResolutionTime: TimeSpan.FromHours(20));
-
-        var inProgress = Ticket.Create(template, requester,
-            Data("Intermittent email delivery delays",
-                 "Outbound mail to external domains is delayed by 10-15 minutes intermittently.",
-                 "Incident", "High", "High", "Medium"),
-            slaResolutionTime: TimeSpan.FromHours(6));
-
-        var resolved = Ticket.Create(template, requester,
-            Data("Password reset for the finance shared mailbox",
-                 "Requested a password reset for the finance@ shared mailbox.",
-                 "ServiceRequest", "Low", "Low", "Low"));
-
-        var closed = Ticket.Create(template, requester,
-            Data("Replace flickering monitor at desk 14",
-                 "The secondary monitor at desk 14 flickers; requesting a replacement.",
-                 "ServiceRequest", "Low", "Low", "Low"));
-
-        context.Tickets.AddRange(newCritical, newMedium, inProgress, resolved, closed);
-        await context.SaveChangesAsync(cancellationToken);
-
-        var agent = await context.Users.FirstAsync(u => u.Id == SeedConstants.AgentUserId, cancellationToken);
-        var approver = await context.Users.FirstAsync(u => u.Id == SeedConstants.ApproverUserId, cancellationToken);
-
-        // Transition reads Template.Workflow, so reload each ticket with its
-        // template navigation before driving it.
-        async Task<Ticket> WithTemplateAsync(Guid id) =>
-            await context.Tickets.Include(t => t.Template).FirstAsync(t => t.Id == id, cancellationToken);
-
-        var ip = await WithTemplateAsync(inProgress.Id);
-        ip.Assign(SeedConstants.AgentUserId, SeedConstants.AgentUserId);
-        ip.Transition("StartWork", agent, isSystem: true);
-
-        // Drive fully through the approval path so it ends Resolved (no orphaned
-        // WaitingForApproval state left dangling without an approval request).
-        var rs = await WithTemplateAsync(resolved.Id);
-        rs.Assign(SeedConstants.AgentUserId, SeedConstants.AgentUserId);
-        rs.Transition("StartWork", agent, isSystem: true);
-        rs.Transition("RequestApproval", agent, isSystem: true);
-        rs.Transition("Approve", approver, isSystem: true);
-
-        var cl = await WithTemplateAsync(closed.Id);
-        cl.Assign(SeedConstants.AgentUserId, SeedConstants.AgentUserId);
-        cl.Transition("StartWork", agent, isSystem: true);
-        cl.Transition("RequestApproval", agent, isSystem: true);
-        cl.Transition("Approve", approver, isSystem: true);
-        cl.Transition("Close", approver, isSystem: true);
-
-        await context.SaveChangesAsync(cancellationToken);
     }
 
     private static async Task SeedLegacyUsersAsync(OmniFlowDbContext context, CancellationToken cancellationToken)

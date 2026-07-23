@@ -185,8 +185,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/Services/UserContextService.cs": {
-    "mtime": 1783788328.0915065,
-    "ast_hash": "25ed8accfefd890d6e98830f05a4abc4",
+    "mtime": 1784839608.868905,
+    "ast_hash": "9758bca506da82d05b389b87eea9df31",
     "semantic_hash": ""
   },
   "src/OmniFlow.Api/appsettings.Development.json": {
@@ -350,8 +350,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Interfaces/IUserContext.cs": {
-    "mtime": 1783786889.5520632,
-    "ast_hash": "2534732286cdff1a2c189ec9025774cc",
+    "mtime": 1784839597.1083844,
+    "ast_hash": "cd0cef79d0a4bcd292adba85ea9f667c",
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/KnowledgeBase/Commands/CreateArticleCommand.cs": {
@@ -385,8 +385,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/Menus/Queries/GetMenuQuery.cs": {
-    "mtime": 1783854341.3224912,
-    "ast_hash": "bcbf2388d6cceec00b7b34d375fb952c",
+    "mtime": 1784839625.7196069,
+    "ast_hash": "9b3042117ed75ad17b1df96fb1b4851e",
     "semantic_hash": ""
   },
   "src/OmniFlow.Application/OmniFlow.Application.csproj": {
@@ -1045,8 +1045,8 @@
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Persistence/Seed/DatabaseSeeder.cs": {
-    "mtime": 1784830897.1718638,
-    "ast_hash": "aeef61d920038292db963f83209f4a4c",
+    "mtime": 1784839176.7228522,
+    "ast_hash": "68972ae2a8b9c16b5bbf2db9e57dde43",
     "semantic_hash": ""
   },
   "src/OmniFlow.Infrastructure/Persistence/Seed/IdentitySeedData.cs": {
@@ -1797,6 +1797,11 @@
   "SECURITY.md": {
     "mtime": 1784837783.8094835,
     "ast_hash": "071a59d5f90808ee81c4b81fdd4de17d",
+    "semantic_hash": ""
+  },
+  "src/OmniFlow.Infrastructure/Persistence/Seed/DemoDataSeeder.cs": {
+    "mtime": 1784839054.8324785,
+    "ast_hash": "e793bb1d4f6a684c8cd79a09b0435440",
     "semantic_hash": ""
   }
 }
