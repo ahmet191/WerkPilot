@@ -143,6 +143,7 @@ boots and runs fully without any of them; each is enabled by supplying config.
 | Telegram bot | `Telegram:BotToken` |
 | RabbitMQ | `Messaging:Transport=RabbitMq` (`InMemory` otherwise) |
 | OpenTelemetry export | `Otlp:Endpoint` |
+| S3-compatible storage | `Storage:Provider=S3` + `Storage:S3:*` (see below) |
 
 **Never put real credentials in `appsettings.json`** — it is committed. Use
 user secrets for local development:
@@ -154,6 +155,48 @@ dotnet user-secrets set "Telegram:BotToken" "..."
 
 or environment variables in production, where nested keys use a double
 underscore: `Telegram__BotToken`.
+
+## Production notes
+
+The containers are built to run **non-root** (API as uid 1654, UI as uid 101)
+and carry Docker `HEALTHCHECK`s. The UI's nginx listens on **8080** inside the
+container (an unprivileged user cannot bind 80); compose maps host `5173` to it,
+so the local URL is unchanged. When deploying the UI elsewhere, point the
+platform's ingress/target-port at **8080**.
+
+**File storage.** Ticket attachments default to the `Local` provider, which
+writes to `/app/storage` — durable only if that path is a mounted volume (the
+compose file mounts the `uploads` volume there). For portable durable storage,
+use the `S3` provider against AWS or any S3-compatible endpoint (MinIO):
+
+```
+Storage__Provider=S3
+Storage__S3__ServiceUrl=http://minio:9000   # omit for real AWS (uses Region)
+Storage__S3__BucketName=werkpilot-uploads
+Storage__S3__AccessKey=...
+Storage__S3__SecretKey=...
+```
+
+`docker compose --profile s3 up` starts a local MinIO to try it against.
+
+**Certificates.** Outside `Development`, OpenIddict requires real signing and
+encryption certificates (the API refuses to start without them). Generate a
+demo pair and point config at them:
+
+```bash
+scripts/generate-certs.sh ./certs
+# then set OpenIddict__SigningCertificate__Path, __Password, and the
+# EncryptionCertificate equivalents (mount ./certs into the container)
+```
+
+Swagger is served only when `Swagger:Enabled=true` (defaults on in Development,
+off otherwise), so a demo left in Development mode still won't expose the API
+explorer unless you opt in.
+
+## License
+
+No license has been chosen yet. Until one is added, default copyright applies
+and the code is not licensed for reuse.
 
 ## License
 
