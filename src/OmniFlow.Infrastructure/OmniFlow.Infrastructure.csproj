@@ -16,7 +16,7 @@
     <PackageReference Include="Novell.Directory.Ldap.NETStandard" Version="3.6.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
     <PackageReference Include="OpenIddict.AspNetCore" Version="6.4.0" />
-    <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="6.4.0" />
+    <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="7.6.0" />
     <PackageReference Include="Quartz.Extensions.Hosting" Version="3.18.2" />
     <PackageReference Include="Quartz.Serialization.Json" Version="3.18.2" />
     <PackageReference Include="Telegram.Bot" Version="22.10.1.1" />
