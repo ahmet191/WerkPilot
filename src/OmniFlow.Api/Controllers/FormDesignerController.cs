@@ -52,5 +52,14 @@ namespace OmniFlow.Api.Controllers
             var result = await _mediator.Send(command, cancellationToken);
             return Ok(result);
         }
+
+        /// <summary>Deletes a dynamic form schema.</summary>
+        [HttpDelete("schemas/{id:guid}")]
+        [Authorize(Policy = PermissionPolicyNames.TemplatesManage)]
+        public async Task<ActionResult> DeleteSchema(Guid id, CancellationToken cancellationToken)
+        {
+            await _mediator.Send(new DeleteTicketFormSchemaCommand(id, CurrentTenantId), cancellationToken);
+            return NoContent();
+        }
     }
 }

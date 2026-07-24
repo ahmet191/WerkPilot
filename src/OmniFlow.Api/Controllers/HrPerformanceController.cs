@@ -73,6 +73,38 @@ namespace OmniFlow.Api.Controllers
             return Ok(result);
         }
 
+        /// <summary>Creates or updates one of the logged-in employee's skills.</summary>
+        [HttpPost("skills")]
+        public async Task<ActionResult<Guid>> SaveSkill([FromBody] SaveEmployeeSkillCommand command, CancellationToken cancellationToken)
+        {
+            command.UserId = CurrentUserId;
+            return Ok(await _mediator.Send(command, cancellationToken));
+        }
+
+        /// <summary>Deletes one of the logged-in employee's skills.</summary>
+        [HttpDelete("skills/{id:guid}")]
+        public async Task<ActionResult> DeleteSkill(Guid id, CancellationToken cancellationToken)
+        {
+            await _mediator.Send(new DeleteEmployeeSkillCommand(id, CurrentUserId), cancellationToken);
+            return NoContent();
+        }
+
+        /// <summary>Creates or updates one of the logged-in employee's certificates.</summary>
+        [HttpPost("certificates")]
+        public async Task<ActionResult<Guid>> SaveCertificate([FromBody] SaveEmployeeCertificateCommand command, CancellationToken cancellationToken)
+        {
+            command.UserId = CurrentUserId;
+            return Ok(await _mediator.Send(command, cancellationToken));
+        }
+
+        /// <summary>Deletes one of the logged-in employee's certificates.</summary>
+        [HttpDelete("certificates/{id:guid}")]
+        public async Task<ActionResult> DeleteCertificate(Guid id, CancellationToken cancellationToken)
+        {
+            await _mediator.Send(new DeleteEmployeeCertificateCommand(id, CurrentUserId), cancellationToken);
+            return NoContent();
+        }
+
         /// <summary>
         /// Gets assigned LMS training courses for the logged-in employee.
         /// </summary>

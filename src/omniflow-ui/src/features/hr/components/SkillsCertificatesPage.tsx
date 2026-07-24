@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Table, Tag, Rate, Alert, Row, Col, Spin, Divider, Button, Modal, Form, Input, Select, DatePicker, Checkbox, message } from 'antd';
-import { TrophyOutlined, ExclamationCircleOutlined, CheckCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Card, Table, Tag, Rate, Alert, Row, Col, Spin, Divider, Button, Modal, Form, Input, Select, DatePicker, Checkbox, Popconfirm, Space, message } from 'antd';
+import { TrophyOutlined, ExclamationCircleOutlined, CheckCircleOutlined, PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { api } from '../../../core/api';
 
@@ -31,6 +31,8 @@ export const SkillsCertificatesPage: React.FC = () => {
 
   const [isSkillModalOpen, setIsSkillModalOpen] = useState(false);
   const [isCertModalOpen, setIsCertModalOpen] = useState(false);
+  const [editingSkillId, setEditingSkillId] = useState<string | null>(null);
+  const [editingCertId, setEditingCertId] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   const [skillForm] = Form.useForm();
@@ -52,38 +54,90 @@ export const SkillsCertificatesPage: React.FC = () => {
     fetchData();
   }, []);
 
-  const handleAddSkill = async (values: any) => {
+  const openSkillModal = (skill?: SkillItem) => {
+    if (skill) {
+      setEditingSkillId(skill.id);
+      skillForm.setFieldsValue({ skillName: skill.skillName, category: skill.category, proficiencyLevel: skill.proficiencyLevel });
+    } else {
+      setEditingSkillId(null);
+      skillForm.resetFields();
+    }
+    setIsSkillModalOpen(true);
+  };
+
+  const handleSaveSkill = async (values: any) => {
     setSubmitting(true);
     try {
-      await api.post('/hr/skills', values);
-      message.success('Skill added successfully!');
+      await api.post('/hr/skills', editingSkillId ? { ...values, id: editingSkillId } : values);
+      message.success(editingSkillId ? 'Skill updated.' : 'Skill added.');
       setIsSkillModalOpen(false);
+      setEditingSkillId(null);
       skillForm.resetFields();
       fetchData();
     } catch {
-      message.error('Failed to add skill.');
+      message.error('Failed to save skill.');
     } finally {
       setSubmitting(false);
     }
   };
 
-  const handleAddCertificate = async (values: any) => {
+  const handleDeleteSkill = async (id: string) => {
+    try {
+      await api.delete(`/hr/skills/${id}`);
+      message.success('Skill removed.');
+      fetchData();
+    } catch {
+      message.error('Failed to remove skill.');
+    }
+  };
+
+  const openCertModal = (cert?: CertificateItem) => {
+    if (cert) {
+      setEditingCertId(cert.id);
+      certForm.setFieldsValue({
+        certificateName: cert.certificateName,
+        issuingOrganization: cert.issuingOrganization,
+        credentialId: cert.credentialId,
+        issueDate: cert.issueDate ? dayjs(cert.issueDate) : undefined,
+        expirationDate: cert.expirationDate ? dayjs(cert.expirationDate) : undefined,
+        isMandatory: cert.isMandatory,
+      });
+    } else {
+      setEditingCertId(null);
+      certForm.resetFields();
+    }
+    setIsCertModalOpen(true);
+  };
+
+  const handleSaveCertificate = async (values: any) => {
     setSubmitting(true);
     try {
       const payload = {
         ...values,
+        id: editingCertId ?? undefined,
         issueDate: values.issueDate.toISOString(),
         expirationDate: values.expirationDate ? values.expirationDate.toISOString() : null,
       };
       await api.post('/hr/certificates', payload);
-      message.success('Certificate added successfully!');
+      message.success(editingCertId ? 'Certificate updated.' : 'Certificate added.');
       setIsCertModalOpen(false);
+      setEditingCertId(null);
       certForm.resetFields();
       fetchData();
     } catch {
-      message.error('Failed to add certificate.');
+      message.error('Failed to save certificate.');
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const handleDeleteCertificate = async (id: string) => {
+    try {
+      await api.delete(`/hr/certificates/${id}`);
+      message.success('Certificate removed.');
+      fetchData();
+    } catch {
+      message.error('Failed to remove certificate.');
     }
   };
 
@@ -114,19 +168,27 @@ export const SkillsCertificatesPage: React.FC = () => {
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
               <h3 style={{ margin: 0 }}>🎯 Skill Matrix & Competency Evaluations</h3>
-              <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsSkillModalOpen(true)}>
+              <Button type="primary" icon={<PlusOutlined />} onClick={() => openSkillModal()}>
                 Add Skill
               </Button>
             </div>
-            
+
             <Row gutter={[16, 16]} style={{ marginBottom: 32 }}>
               {skills.map((s) => (
                 <Col xs={24} sm={12} md={8} key={s.id}>
                   <Card size="small" style={{ borderRadius: 12, border: '1px solid #e8e8e8' }}>
-                    <Tag color="cyan" style={{ marginBottom: 8 }}>{s.category}</Tag>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                      <Tag color="cyan" style={{ marginBottom: 8 }}>{s.category}</Tag>
+                      <Space size={0}>
+                        <Button type="text" size="small" icon={<EditOutlined />} onClick={() => openSkillModal(s)} />
+                        <Popconfirm title="Remove this skill?" onConfirm={() => handleDeleteSkill(s.id)} okText="Remove" cancelText="Cancel">
+                          <Button type="text" size="small" danger icon={<DeleteOutlined />} />
+                        </Popconfirm>
+                      </Space>
+                    </div>
                     <h4 style={{ margin: 0 }}>{s.skillName}</h4>
                     <div style={{ marginTop: 8 }}>
-                      <Rate disabled defaultValue={s.proficiencyLevel} count={5} />
+                      <Rate disabled value={s.proficiencyLevel} count={5} />
                     </div>
                   </Card>
                 </Col>
@@ -142,7 +204,7 @@ export const SkillsCertificatesPage: React.FC = () => {
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
               <h3 style={{ margin: 0 }}>📜 Certification Vault & Expiry Alarms</h3>
-              <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsCertModalOpen(true)}>
+              <Button type="primary" icon={<PlusOutlined />} onClick={() => openCertModal()}>
                 Add Certificate
               </Button>
             </div>
@@ -178,6 +240,19 @@ export const SkillsCertificatesPage: React.FC = () => {
                     if (record.isExpiringSoon) return <Tag color="warning" icon={<ExclamationCircleOutlined />}>Expires Soon ({dayjs(exp).format('DD/MM/YYYY')})</Tag>;
                     return <Tag color="green" icon={<CheckCircleOutlined />}>Valid until {dayjs(exp).format('DD/MM/YYYY')}</Tag>;
                   }
+                },
+                {
+                  title: 'Actions',
+                  key: 'actions',
+                  width: 100,
+                  render: (_: unknown, record: CertificateItem) => (
+                    <Space size={0}>
+                      <Button type="text" size="small" icon={<EditOutlined />} onClick={() => openCertModal(record)} />
+                      <Popconfirm title="Remove this certificate?" onConfirm={() => handleDeleteCertificate(record.id)} okText="Remove" cancelText="Cancel">
+                        <Button type="text" size="small" danger icon={<DeleteOutlined />} />
+                      </Popconfirm>
+                    </Space>
+                  )
                 }
               ]}
             />
@@ -185,15 +260,15 @@ export const SkillsCertificatesPage: React.FC = () => {
         )}
       </Card>
 
-      {/* Add Skill Modal */}
+      {/* Add / Edit Skill Modal */}
       <Modal
-        title="Add New Skill"
+        title={editingSkillId ? 'Edit Skill' : 'Add New Skill'}
         open={isSkillModalOpen}
-        onCancel={() => setIsSkillModalOpen(false)}
+        onCancel={() => { setIsSkillModalOpen(false); setEditingSkillId(null); }}
         footer={null}
         destroyOnClose
       >
-        <Form form={skillForm} layout="vertical" onFinish={handleAddSkill}>
+        <Form form={skillForm} layout="vertical" onFinish={handleSaveSkill}>
           <Form.Item name="skillName" label="Skill Name" rules={[{ required: true }]}>
             <Input placeholder="e.g. React, C#, Leadership" />
           </Form.Item>
@@ -209,21 +284,21 @@ export const SkillsCertificatesPage: React.FC = () => {
             <Rate count={5} />
           </Form.Item>
           <div style={{ textAlign: 'right' }}>
-            <Button onClick={() => setIsSkillModalOpen(false)} style={{ marginRight: 8 }}>Cancel</Button>
-            <Button type="primary" htmlType="submit" loading={submitting}>Add Skill</Button>
+            <Button onClick={() => { setIsSkillModalOpen(false); setEditingSkillId(null); }} style={{ marginRight: 8 }}>Cancel</Button>
+            <Button type="primary" htmlType="submit" loading={submitting}>{editingSkillId ? 'Save' : 'Add Skill'}</Button>
           </div>
         </Form>
       </Modal>
 
-      {/* Add Certificate Modal */}
+      {/* Add / Edit Certificate Modal */}
       <Modal
-        title="Add Certification"
+        title={editingCertId ? 'Edit Certification' : 'Add Certification'}
         open={isCertModalOpen}
-        onCancel={() => setIsCertModalOpen(false)}
+        onCancel={() => { setIsCertModalOpen(false); setEditingCertId(null); }}
         footer={null}
         destroyOnClose
       >
-        <Form form={certForm} layout="vertical" onFinish={handleAddCertificate}>
+        <Form form={certForm} layout="vertical" onFinish={handleSaveCertificate}>
           <Form.Item name="certificateName" label="Certification Name" rules={[{ required: true }]}>
             <Input placeholder="e.g. AWS Certified Solutions Architect" />
           </Form.Item>
@@ -243,8 +318,8 @@ export const SkillsCertificatesPage: React.FC = () => {
             <Checkbox>This certification is legally mandatory for my role</Checkbox>
           </Form.Item>
           <div style={{ textAlign: 'right' }}>
-            <Button onClick={() => setIsCertModalOpen(false)} style={{ marginRight: 8 }}>Cancel</Button>
-            <Button type="primary" htmlType="submit" loading={submitting}>Add Certificate</Button>
+            <Button onClick={() => { setIsCertModalOpen(false); setEditingCertId(null); }} style={{ marginRight: 8 }}>Cancel</Button>
+            <Button type="primary" htmlType="submit" loading={submitting}>{editingCertId ? 'Save' : 'Add Certificate'}</Button>
           </div>
         </Form>
       </Modal>

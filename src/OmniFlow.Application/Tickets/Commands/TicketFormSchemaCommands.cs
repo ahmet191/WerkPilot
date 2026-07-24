@@ -97,4 +97,26 @@ namespace OmniFlow.Application.Tickets.Commands
             return schema.Id;
         }
     }
+
+    public record DeleteTicketFormSchemaCommand(Guid Id, Guid TenantId) : IRequest<bool>;
+
+    public class DeleteTicketFormSchemaCommandHandler : IRequestHandler<DeleteTicketFormSchemaCommand, bool>
+    {
+        private readonly IOmniFlowDbContext _context;
+
+        public DeleteTicketFormSchemaCommandHandler(IOmniFlowDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<bool> Handle(DeleteTicketFormSchemaCommand request, CancellationToken cancellationToken)
+        {
+            var schema = await _context.TicketFormSchemas
+                .FirstOrDefaultAsync(s => s.Id == request.Id && s.TenantId == request.TenantId, cancellationToken)
+                ?? throw new KeyNotFoundException($"Form schema '{request.Id}' not found.");
+            _context.TicketFormSchemas.Remove(schema);
+            await _context.SaveChangesAsync(cancellationToken);
+            return true;
+        }
+    }
 }

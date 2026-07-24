@@ -54,5 +54,14 @@ namespace OmniFlow.Api.Controllers
             var result = await _mediator.Send(command, cancellationToken);
             return Ok(result);
         }
+
+        /// <summary>Deletes a custom department from the Department Studio.</summary>
+        [HttpDelete("studio/{id:guid}")]
+        [Authorize(Policy = PermissionPolicyNames.UsersManage)]
+        public async Task<ActionResult> DeleteDepartment(Guid id, CancellationToken cancellationToken)
+        {
+            await _mediator.Send(new DeleteCustomDepartmentCommand(id, CurrentTenantId), cancellationToken);
+            return NoContent();
+        }
     }
 }

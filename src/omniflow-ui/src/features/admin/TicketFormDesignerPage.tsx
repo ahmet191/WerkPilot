@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Table, Tag, Button, Modal, Form, Input, Select, Switch, message, Spin } from 'antd';
-import { FileTextOutlined, PlusOutlined } from '@ant-design/icons';
+import { Card, Table, Tag, Button, Modal, Form, Input, Select, Switch, message, Spin, Popconfirm, Space } from 'antd';
+import { FileTextOutlined, PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { api } from '../../core/api';
 
 interface FormSchema {
@@ -13,11 +13,15 @@ interface FormSchema {
   isActive: boolean;
 }
 
+const SAMPLE_FIELDS = '[\n  { "key": "device_type", "label": "Device Type", "fieldType": "Select", "isRequired": true, "options": ["MacBook", "Dell XPS"] }\n]';
+
 export const TicketFormDesignerPage: React.FC = () => {
   const [schemas, setSchemas] = useState<FormSchema[]>([]);
   const [desks, setDesks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const [form] = Form.useForm();
 
   const fetchData = async () => {
@@ -39,15 +43,45 @@ export const TicketFormDesignerPage: React.FC = () => {
     fetchData();
   }, []);
 
+  const openModal = (schema?: FormSchema) => {
+    if (schema) {
+      setEditingId(schema.id);
+      form.setFieldsValue({
+        serviceDeskId: schema.serviceDeskId, formTitle: schema.formTitle,
+        formDescription: schema.formDescription, fieldsJson: schema.fieldsJson, isActive: schema.isActive,
+      });
+    } else {
+      setEditingId(null);
+      form.resetFields();
+      form.setFieldsValue({ isActive: true, fieldsJson: SAMPLE_FIELDS });
+    }
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => { setIsModalOpen(false); setEditingId(null); };
+
   const handleSubmit = async (values: any) => {
+    setSubmitting(true);
     try {
-      await api.post('/forms/schemas', values);
-      message.success('Form schema saved successfully!');
-      setIsModalOpen(false);
+      await api.post('/forms/schemas', editingId ? { ...values, id: editingId } : values);
+      message.success(editingId ? 'Form schema updated.' : 'Form schema created.');
+      closeModal();
       form.resetFields();
       fetchData();
     } catch {
       message.error('Failed to save form schema.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      await api.delete(`/forms/schemas/${id}`);
+      message.success('Form schema removed.');
+      fetchData();
+    } catch {
+      message.error('Failed to remove form schema.');
     }
   };
 
@@ -64,7 +98,7 @@ export const TicketFormDesignerPage: React.FC = () => {
               Design custom request form schemas and dynamic input fields per Service Desk.
             </div>
           </div>
-          <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalOpen(true)}>
+          <Button type="primary" icon={<PlusOutlined />} onClick={() => openModal()}>
             Create Form Schema
           </Button>
         </div>
@@ -95,6 +129,19 @@ export const TicketFormDesignerPage: React.FC = () => {
                 title: 'Status',
                 dataIndex: 'isActive',
                 render: (act: boolean) => act ? <Tag color="green">Active</Tag> : <Tag color="default">Draft</Tag>
+              },
+              {
+                title: 'Actions',
+                key: 'actions',
+                width: 100,
+                render: (_: unknown, record: FormSchema) => (
+                  <Space size={0}>
+                    <Button type="text" size="small" icon={<EditOutlined />} onClick={() => openModal(record)} />
+                    <Popconfirm title="Remove this form schema?" onConfirm={() => handleDelete(record.id)} okText="Remove" cancelText="Cancel">
+                      <Button type="text" size="small" danger icon={<DeleteOutlined />} />
+                    </Popconfirm>
+                  </Space>
+                )
               }
             ]}
           />
@@ -102,13 +149,14 @@ export const TicketFormDesignerPage: React.FC = () => {
       </Card>
 
       <Modal
-        title="Design Service Desk Ticket Form Schema"
+        title={editingId ? 'Edit Form Schema' : 'Design Service Desk Ticket Form Schema'}
         open={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
+        onCancel={closeModal}
         footer={null}
         width={600}
+        destroyOnClose
       >
-        <Form form={form} layout="vertical" onFinish={handleSubmit} initialValues={{ isActive: true, fieldsJson: '[\n  { "key": "device_type", "label": "Device Type", "fieldType": "Select", "isRequired": true, "options": ["MacBook", "Dell XPS"] }\n]' }}>
+        <Form form={form} layout="vertical" onFinish={handleSubmit} initialValues={{ isActive: true, fieldsJson: SAMPLE_FIELDS }}>
           <Form.Item name="serviceDeskId" label="Target Service Desk" rules={[{ required: true }]}>
             <Select options={desks.map(d => ({ value: d.id, label: d.name }))} placeholder="Select Service Desk" />
           </Form.Item>
@@ -125,8 +173,8 @@ export const TicketFormDesignerPage: React.FC = () => {
             <Switch />
           </Form.Item>
           <div style={{ textAlign: 'right', marginTop: 24 }}>
-            <Button onClick={() => setIsModalOpen(false)} style={{ marginRight: 8 }}>Cancel</Button>
-            <Button type="primary" htmlType="submit">Save Form Schema</Button>
+            <Button onClick={closeModal} style={{ marginRight: 8 }}>Cancel</Button>
+            <Button type="primary" htmlType="submit" loading={submitting}>{editingId ? 'Save' : 'Create Schema'}</Button>
           </div>
         </Form>
       </Modal>

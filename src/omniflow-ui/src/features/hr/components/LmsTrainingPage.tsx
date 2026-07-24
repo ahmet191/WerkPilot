@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Table, Tag, Button, Row, Col, Statistic, message, Spin, Modal, Typography } from 'antd';
+import { Card, Table, Tag, Button, Row, Col, Statistic, message, Spin, Modal, Typography, InputNumber } from 'antd';
 import { ReadOutlined, CheckCircleOutlined, PlayCircleOutlined, FieldTimeOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { api } from '../../../core/api';
 
@@ -23,6 +23,7 @@ export const LmsTrainingPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [selectedCourse, setSelectedCourse] = useState<TrainingCourse | null>(null);
   const [isCourseModalOpen, setIsCourseModalOpen] = useState(false);
+  const [examScore, setExamScore] = useState<number>(100);
 
   const fetchCourses = async () => {
     setLoading(true);
@@ -41,16 +42,15 @@ export const LmsTrainingPage: React.FC = () => {
 
   const handleOpenCourse = (course: TrainingCourse) => {
     setSelectedCourse(course);
+    setExamScore(course.score > 0 ? course.score : 100);
     setIsCourseModalOpen(true);
   };
 
   const handleCompleteCourse = async () => {
     if (!selectedCourse) return;
     try {
-      // Generate a realistic random score between 85 and 100
-      const realisticScore = Math.floor(Math.random() * 16) + 85; 
-      await api.post(`/hr/trainings/${selectedCourse.id}/complete`, { score: realisticScore });
-      message.success(`Training completed successfully with a score of ${realisticScore}!`);
+      await api.post(`/hr/trainings/${selectedCourse.id}/complete`, { score: examScore });
+      message.success(`Training completed with an assessment score of ${examScore}.`);
       setIsCourseModalOpen(false);
       setSelectedCourse(null);
       fetchCourses();
@@ -182,10 +182,12 @@ export const LmsTrainingPage: React.FC = () => {
               </ul>
             </div>
 
-            <div style={{ textAlign: 'right', borderTop: '1px solid #f0f0f0', paddingTop: 16 }}>
-              <Button onClick={() => setIsCourseModalOpen(false)} style={{ marginRight: 12 }}>Save for Later</Button>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 12, borderTop: '1px solid #f0f0f0', paddingTop: 16 }}>
+              <Text type="secondary">Assessment score:</Text>
+              <InputNumber min={0} max={100} value={examScore} onChange={(v) => setExamScore(v ?? 0)} style={{ width: 90 }} />
+              <Button onClick={() => setIsCourseModalOpen(false)}>Save for Later</Button>
               <Button type="primary" icon={<CheckCircleOutlined />} onClick={handleCompleteCourse} size="large">
-                Mark as Completed & Take Exam
+                Complete & Record Score
               </Button>
             </div>
           </div>

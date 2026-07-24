@@ -125,4 +125,26 @@ namespace OmniFlow.Application.Tenants.Commands
             return dept.Id;
         }
     }
+
+    public record DeleteCustomDepartmentCommand(Guid Id, Guid TenantId) : IRequest<bool>;
+
+    public class DeleteCustomDepartmentCommandHandler : IRequestHandler<DeleteCustomDepartmentCommand, bool>
+    {
+        private readonly IOmniFlowDbContext _context;
+
+        public DeleteCustomDepartmentCommandHandler(IOmniFlowDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<bool> Handle(DeleteCustomDepartmentCommand request, CancellationToken cancellationToken)
+        {
+            var dept = await _context.CustomDepartments
+                .FirstOrDefaultAsync(d => d.Id == request.Id && d.TenantId == request.TenantId, cancellationToken)
+                ?? throw new KeyNotFoundException($"Custom department '{request.Id}' not found.");
+            _context.CustomDepartments.Remove(dept);
+            await _context.SaveChangesAsync(cancellationToken);
+            return true;
+        }
+    }
 }

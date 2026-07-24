@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Table, Tag, Button, Modal, Form, Input, Select, Switch, Row, Col, message, Spin, ColorPicker } from 'antd';
-import { BankOutlined, PlusOutlined, ApartmentOutlined } from '@ant-design/icons';
+import { Card, Table, Tag, Button, Modal, Form, Input, Select, Switch, Row, Col, message, Spin, ColorPicker, Popconfirm, Space } from 'antd';
+import { BankOutlined, PlusOutlined, ApartmentOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { api } from '../../core/api';
 
 interface CustomDepartment {
@@ -16,10 +16,14 @@ interface CustomDepartment {
   isActive: boolean;
 }
 
+const DEFAULTS = { departmentType: 'Custom', colorHex: '#8b5cf6', isActive: true };
+
 export const DepartmentStudioPage: React.FC = () => {
   const [departments, setDepartments] = useState<CustomDepartment[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const [form] = Form.useForm();
 
   const fetchDepartments = async () => {
@@ -37,19 +41,50 @@ export const DepartmentStudioPage: React.FC = () => {
     fetchDepartments();
   }, []);
 
+  const openModal = (dept?: CustomDepartment) => {
+    if (dept) {
+      setEditingId(dept.id);
+      form.setFieldsValue({
+        name: dept.name, code: dept.code, departmentType: dept.departmentType,
+        description: dept.description, colorHex: dept.colorHex, isActive: dept.isActive,
+      });
+    } else {
+      setEditingId(null);
+      form.resetFields();
+      form.setFieldsValue(DEFAULTS);
+    }
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => { setIsModalOpen(false); setEditingId(null); };
+
   const handleSubmit = async (values: any) => {
+    setSubmitting(true);
     try {
       const payload = {
         ...values,
+        id: editingId ?? undefined,
         colorHex: typeof values.colorHex === 'string' ? values.colorHex : values.colorHex?.toHexString() || '#8b5cf6'
       };
       await api.post('/departments/studio', payload);
-      message.success('Custom department saved successfully!');
-      setIsModalOpen(false);
+      message.success(editingId ? 'Department updated.' : 'Custom department created.');
+      closeModal();
       form.resetFields();
       fetchDepartments();
     } catch {
       message.error('Failed to save department.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      await api.delete(`/departments/studio/${id}`);
+      message.success('Department removed.');
+      fetchDepartments();
+    } catch {
+      message.error('Failed to remove department.');
     }
   };
 
@@ -66,7 +101,7 @@ export const DepartmentStudioPage: React.FC = () => {
               Create and manage dynamic enterprise departments (IT, HR, Finance, Legal, Facilities) with custom themes and parent-child hierarchy.
             </div>
           </div>
-          <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalOpen(true)}>
+          <Button type="primary" icon={<PlusOutlined />} onClick={() => openModal()}>
             Add Custom Department
           </Button>
         </div>
@@ -103,6 +138,19 @@ export const DepartmentStudioPage: React.FC = () => {
                 title: 'Status',
                 dataIndex: 'isActive',
                 render: (act: boolean) => act ? <Tag color="green">Active</Tag> : <Tag color="default">Inactive</Tag>
+              },
+              {
+                title: 'Actions',
+                key: 'actions',
+                width: 100,
+                render: (_: unknown, record: CustomDepartment) => (
+                  <Space size={0}>
+                    <Button type="text" size="small" icon={<EditOutlined />} onClick={() => openModal(record)} />
+                    <Popconfirm title="Remove this department?" onConfirm={() => handleDelete(record.id)} okText="Remove" cancelText="Cancel">
+                      <Button type="text" size="small" danger icon={<DeleteOutlined />} />
+                    </Popconfirm>
+                  </Space>
+                )
               }
             ]}
           />
@@ -110,12 +158,13 @@ export const DepartmentStudioPage: React.FC = () => {
       </Card>
 
       <Modal
-        title="Create / Edit Custom Department"
+        title={editingId ? 'Edit Custom Department' : 'Create Custom Department'}
         open={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
+        onCancel={closeModal}
         footer={null}
+        destroyOnClose
       >
-        <Form form={form} layout="vertical" onFinish={handleSubmit} initialValues={{ departmentType: 'Custom', colorHex: '#8b5cf6', isActive: true }}>
+        <Form form={form} layout="vertical" onFinish={handleSubmit} initialValues={DEFAULTS}>
           <Form.Item name="name" label="Department Name" rules={[{ required: true }]}>
             <Input placeholder="e.g. Legal & Contract Management" />
           </Form.Item>
@@ -154,8 +203,8 @@ export const DepartmentStudioPage: React.FC = () => {
             </Col>
           </Row>
           <div style={{ textAlign: 'right', marginTop: 24 }}>
-            <Button onClick={() => setIsModalOpen(false)} style={{ marginRight: 8 }}>Cancel</Button>
-            <Button type="primary" htmlType="submit">Save Department</Button>
+            <Button onClick={closeModal} style={{ marginRight: 8 }}>Cancel</Button>
+            <Button type="primary" htmlType="submit" loading={submitting}>{editingId ? 'Save' : 'Create Department'}</Button>
           </div>
         </Form>
       </Modal>
