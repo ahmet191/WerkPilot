@@ -1,0 +1,385 @@
+@import 'antd/dist/reset.css';
+@import '@fontsource-variable/inter';
+
+/* ═══════════════════════════════════════════════════════════════════════
+   WerkPilot Design System — tokens per theme
+   Surfaces: app < panel < elevated. Accent drives interactive states.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+:root[data-theme="light"] {
+  --bg-app: #f4f6fa;
+  --bg-app-glow-1: rgba(9, 105, 218, 0.055);
+  --bg-app-glow-2: rgba(56, 189, 248, 0.05);
+  --bg-dark: #f4f6fa;               /* legacy alias (toolbar/table heads) */
+  --bg-panel: #ffffff;
+  --bg-elevated: #ffffff;
+  --bg-hover: #eef2f7;
+  --border-color: #dde3ea;
+  --border-strong: #c3ccd6;
+  --text-primary: #1f2733;
+  --text-secondary: #5b6675;
+  --text-tertiary: #8d97a5;
+  --accent-color: #0969da;
+  --accent-strong: #0757b3;
+  --accent-soft: rgba(9, 105, 218, 0.09);
+  --accent-gradient: linear-gradient(135deg, #0969da 0%, #2f81f7 60%, #38bdf8 100%);
+  --success: #1a7f37; --warning: #bc4c00; --danger: #cf222e;
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.55);
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --shadow-md: 0 4px 12px rgba(16, 24, 40, 0.08);
+  --shadow-lg: 0 12px 32px rgba(16, 24, 40, 0.14);
+  --row-selected: rgba(9, 105, 218, 0.07);
+}
+
+:root[data-theme="dark"] {
+  --bg-app: #0d1117;
+  --bg-app-glow-1: rgba(47, 129, 247, 0.07);
+  --bg-app-glow-2: rgba(137, 87, 229, 0.05);
+  --bg-dark: #0d1117;
+  --bg-panel: #161b22;
+  --bg-elevated: #1c2129;
+  --bg-hover: #21262d;
+  --border-color: #30363d;
+  --border-strong: #3d444d;
+  --text-primary: #e6edf3;
+  --text-secondary: #9198a1;
+  --text-tertiary: #6e7681;
+  --accent-color: #2f81f7;
+  --accent-strong: #1f6feb;
+  --accent-soft: rgba(47, 129, 247, 0.15);
+  --accent-gradient: linear-gradient(135deg, #1f6feb 0%, #2f81f7 55%, #38bdf8 100%);
+  --success: #3fb950; --warning: #d29922; --danger: #f85149;
+  --glass-bg: rgba(22, 27, 34, 0.66);
+  --glass-border: rgba(240, 246, 252, 0.08);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 14px 40px rgba(0, 0, 0, 0.55);
+  --row-selected: rgba(47, 129, 247, 0.12);
+}
+
+:root[data-theme="slate-blue"] {
+  --bg-app: #1b212c;
+  --bg-app-glow-1: rgba(56, 189, 248, 0.075);
+  --bg-app-glow-2: rgba(59, 130, 246, 0.055);
+  --bg-dark: #1e2530;
+  --bg-panel: #252d3a;
+  --bg-elevated: #2b3442;
+  --bg-hover: #2e3848;
+  --border-color: #3a4454;
+  --border-strong: #475366;
+  --text-primary: #dbe3f0;
+  --text-secondary: #93a1b8;
+  --text-tertiary: #6f7d94;
+  --accent-color: #38bdf8;
+  --accent-strong: #0ea5e9;
+  --accent-soft: rgba(56, 189, 248, 0.14);
+  --accent-gradient: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 55%, #7dd3fc 100%);
+  --success: #4ade80; --warning: #fbbf24; --danger: #f87171;
+  --glass-bg: rgba(37, 45, 58, 0.66);
+  --glass-border: rgba(219, 227, 240, 0.08);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.38);
+  --shadow-lg: 0 14px 40px rgba(0, 0, 0, 0.5);
+  --row-selected: rgba(56, 189, 248, 0.11);
+}
+
+:root {
+  --font-family: 'Inter Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────── */
+
+html { height: 100%; }
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background-color: var(--bg-app);
+  /* Subtle corner glows: premium depth without distraction. */
+  background-image:
+    radial-gradient(1100px 520px at 85% -10%, var(--bg-app-glow-1), transparent 60%),
+    radial-gradient(900px 480px at -10% 100%, var(--bg-app-glow-2), transparent 55%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection { background: var(--accent-soft); }
+
+*:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 1px;
+  border-radius: 2px;
+}
+
+/* Slim, theme-aware scrollbars */
+* { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 8px; }
+*::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
+*::-webkit-scrollbar-track { background: transparent; }
+
+/* ── Motion ───────────────────────────────────────────────────────────── */
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.page-fade-in { animation: fadeInUp 0.28s var(--transition-base) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ── Reusable surfaces ────────────────────────────────────────────────── */
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid var(--glass-border);
+}
+
+.card-lift {
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+.card-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-strong);
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-gradient);
+  color: #fff;
+  font-weight: 800;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 4px 14px var(--accent-soft);
+  user-select: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   EnterpriseDataGrid — professional data surface.
+   The Excel-beating functionality (server-side sort/filter/search/grouping,
+   selection, dbl-click) lives in the component; these styles only make it
+   look the part. Never let a style rule swallow an interaction.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.enterprise-grid {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  animation: fadeInUp 0.28s var(--transition-base) both;
+}
+
+.enterprise-grid .grid-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-color);
+  background:
+    linear-gradient(to bottom, color-mix(in srgb, var(--bg-panel) 55%, var(--bg-elevated)), var(--bg-panel));
+}
+
+.enterprise-grid .grid-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: 0.1px;
+}
+
+.ant-table-wrapper .ant-table {
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.ant-table-wrapper .ant-table-thead > tr > th {
+  background: var(--bg-dark) !important;
+  color: var(--text-secondary) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  font-size: 11px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 650;
+  padding: 9px 12px !important;
+  white-space: nowrap;
+}
+
+/* Sorted column header gets the accent so state is always visible. */
+.ant-table-wrapper .ant-table-thead > tr > th.ant-table-column-sort {
+  color: var(--accent-color) !important;
+}
+
+.ant-table-wrapper .ant-table-tbody > tr > td {
+  border-bottom: 1px solid var(--border-color) !important;
+  font-size: 13px;
+  padding: 7px 12px !important;
+  transition: background-color var(--transition-fast);
+}
+
+.ant-table-wrapper .ant-table-tbody > tr:hover > td {
+  background: var(--bg-hover) !important;
+}
+
+/* Selected rows: soft accent wash + a 2px accent bar on the first cell. */
+.ant-table-wrapper .ant-table-tbody > tr.ant-table-row-selected > td {
+  background: var(--row-selected) !important;
+}
+.ant-table-wrapper .ant-table-tbody > tr.ant-table-row-selected > td:first-child {
+  box-shadow: inset 3px 0 0 var(--accent-color);
+}
+
+/* Group header rows (client-side grouping) read as section dividers. */
+.ant-table-wrapper .ant-table-tbody > tr[data-row-key^="__group__"] > td {
+  background: color-mix(in srgb, var(--bg-panel) 60%, var(--bg-elevated)) !important;
+  font-weight: 600;
+}
+
+/* Pagination */
+.ant-pagination-item,
+.ant-pagination-item-link,
+.ant-pagination-options-size-changer {
+  background: var(--bg-dark) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+  border-radius: var(--radius-sm) !important;
+}
+.ant-pagination-item-active { border-color: var(--accent-color) !important; }
+.ant-pagination-item-active a { color: var(--accent-color) !important; }
+
+/* ── Application shell ────────────────────────────────────────────────── */
+
+.app-layout { display: flex; height: 100vh; overflow: hidden; background: transparent; }
+
+.sidebar {
+  background: var(--bg-panel);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sidebar menu: rounded active pill with accent wash. */
+.sidebar .ant-menu { padding: 4px 8px; }
+.sidebar .ant-menu-item, .sidebar .ant-menu-submenu-title {
+  border-radius: var(--radius-sm) !important;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+.sidebar .ant-menu-item-selected {
+  background: var(--accent-soft) !important;
+  color: var(--accent-color) !important;
+  font-weight: 600;
+}
+.sidebar .ant-menu-item-selected::before {
+  content: '';
+  position: absolute;
+  left: -8px; top: 20%;
+  height: 60%; width: 3px;
+  border-radius: 3px;
+  background: var(--accent-gradient);
+}
+
+.main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+.top-header {
+  height: 52px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.page-content { flex: 1; padding: 20px 22px; overflow-y: auto; }
+
+/* Header avatar chip */
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px 4px 4px;
+  border-radius: 999px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+.user-chip:hover { background: var(--bg-hover); border-color: var(--border-color); }
+
+/* ── Dashboard stat cards ─────────────────────────────────────────────── */
+
+.stat-card {
+  position: relative;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.stat-card::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--accent-gradient);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+.stat-card:hover::after { opacity: 1; }
+
+.stat-icon-chip {
+  width: 42px; height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  font-size: 20px;
+  color: #fff;
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Auth screen ──────────────────────────────────────────────────────── */
+
+.auth-bg {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(900px 600px at 15% 15%, var(--bg-app-glow-1), transparent 55%),
+    radial-gradient(800px 520px at 85% 85%, var(--bg-app-glow-2), transparent 55%),
+    var(--bg-app);
+}
+
+.auth-card {
+  width: 400px;
+  padding: 8px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  animation: fadeInUp 0.4s var(--transition-base) both;
+}

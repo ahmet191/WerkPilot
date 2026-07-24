@@ -1,0 +1,58 @@
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using OmniFlow.Application.Assets.Commands;
+using OmniFlow.Application.Assets.Queries;
+
+namespace OmniFlow.Api.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class AssetsController : ControllerBase
+{
+    private readonly IMediator _mediator;
+
+    public AssetsController(IMediator mediator)
+    {
+        _mediator = mediator;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Get([FromQuery] OmniFlow.Application.Common.Models.GridRequest request)
+    {
+        var result = await _mediator.Send(new GetAssetsQuery(request));
+        return Ok(result);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] CreateAssetCommand command)
+    {
+        var id = await _mediator.Send(command);
+        return CreatedAtAction(nameof(Get), new { id }, id);
+    }
+
+    [HttpPut("{id:guid}/assign")]
+    public async Task<IActionResult> Assign(Guid id, [FromBody] AssignAssetCommand command)
+    {
+        command.AssetId = id;
+        var result = await _mediator.Send(command);
+        return Ok(result);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(Guid id, [FromBody] UpdateAssetCommand command)
+    {
+        if (id != command.Id)
+        {
+            return BadRequest("Id mismatch");
+        }
+        await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(Guid id)
+    {
+        await _mediator.Send(new DeleteAssetCommand { Id = id });
+        return NoContent();
+    }
+}

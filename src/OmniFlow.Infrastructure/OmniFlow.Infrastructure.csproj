@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\OmniFlow.Application\OmniFlow.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" Version="4.0.101.4" />
+    <PackageReference Include="MailKit" Version="4.17.0" />
+    <PackageReference Include="MassTransit" Version="8.3.4" />
+    <PackageReference Include="MassTransit.EntityFrameworkCore" Version="8.3.4" />
+    <PackageReference Include="MassTransit.Quartz" Version="8.3.4" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.3.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.10" />
+    <PackageReference Include="Novell.Directory.Ldap.NETStandard" Version="3.6.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
+    <PackageReference Include="OpenIddict.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="6.4.0" />
+    <PackageReference Include="Quartz.Extensions.Hosting" Version="3.18.2" />
+    <PackageReference Include="Quartz.Serialization.Json" Version="3.18.2" />
+    <PackageReference Include="Telegram.Bot" Version="22.10.1.1" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
