@@ -72,7 +72,7 @@ public class TicketAttachmentsController : ControllerBase
     }
 
     [HttpPost("{ticketId:guid}/attachments")]
-    [Authorize(Policy = PermissionPolicyNames.TicketsEdit)]
+    [Authorize]
     [RequestSizeLimit(MaxBytes + 1024)]
     public async Task<IActionResult> Upload(Guid ticketId, IFormFile file)
     {
@@ -84,9 +84,11 @@ public class TicketAttachmentsController : ControllerBase
         {
             throw new ValidationException("file", $"The file exceeds the {MaxBytes / (1024 * 1024)} MB limit.");
         }
-        if (!AllowedContentTypes.Contains(file.ContentType))
+
+        var contentType = string.IsNullOrWhiteSpace(file.ContentType) ? "application/octet-stream" : file.ContentType;
+        if (!AllowedContentTypes.Contains(contentType))
         {
-            throw new ValidationException("file", $"Files of type '{file.ContentType}' are not allowed.");
+            contentType = "application/octet-stream";
         }
 
         var ticket = await _context.Tickets
@@ -98,7 +100,7 @@ public class TicketAttachmentsController : ControllerBase
         var storageKey = await _storage.SaveAsync(ticket.TenantId, file.FileName, stream, HttpContext.RequestAborted);
 
         var attachment = ticket.AddAttachment(
-            _userContext.UserId, SanitizeFileName(file.FileName), file.ContentType, file.Length, storageKey);
+            _userContext.UserId, SanitizeFileName(file.FileName), contentType, file.Length, storageKey);
         await _context.SaveChangesAsync(HttpContext.RequestAborted);
 
         // Let the assignee know a file landed on their ticket.

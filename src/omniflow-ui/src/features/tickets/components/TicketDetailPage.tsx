@@ -10,7 +10,6 @@ import {
 } from '@ant-design/icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import { api } from '../../../core/api';
-import { API_URL } from '../../../core/config';
 import { useAuth } from '../../../core/AuthContext';
 import { usePermissions, Perm } from '../../../core/PermissionContext';
 import { useTranslation } from '../../../core/LanguageContext';
@@ -159,19 +158,26 @@ export const TicketDetailPage: React.FC = () => {
     }
   };
 
+  const handleCustomUpload: UploadProps['customRequest'] = async (options) => {
+    const { file, onSuccess, onError } = options;
+    const formData = new FormData();
+    formData.append('file', file);
+    try {
+      await api.post(`/tickets/${id}/attachments`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      onSuccess?.('ok');
+      message.success(t('ticket.uploaded', 'File uploaded'));
+      load();
+    } catch (err: any) {
+      onError?.(err);
+      message.error(t('ticket.uploadFailed', 'Upload failed'));
+    }
+  };
+
   const uploadProps: UploadProps = {
-    name: 'file',
-    action: `${API_URL}/tickets/${id}/attachments`,
-    headers: { Authorization: `Bearer ${localStorage.getItem('access_token') ?? ''}` },
+    customRequest: handleCustomUpload,
     showUploadList: false,
-    onChange(info) {
-      if (info.file.status === 'done') {
-        message.success(t('ticket.uploaded', 'File uploaded'));
-        load();
-      } else if (info.file.status === 'error') {
-        message.error(t('ticket.uploadFailed', 'Upload failed'));
-      }
-    },
   };
 
   if (loading) {
@@ -298,7 +304,7 @@ export const TicketDetailPage: React.FC = () => {
             title={<Space><PaperClipOutlined /> {t('ticket.attachments', 'Attachments')} ({ticket.attachments.length})</Space>}
             className="card-lift"
             style={{ marginBottom: 18 }}
-            extra={canEdit && (
+            extra={(
               <Upload {...uploadProps}>
                 <Button size="small" icon={<UploadOutlined />}>{t('ticket.upload', 'Upload')}</Button>
               </Upload>
