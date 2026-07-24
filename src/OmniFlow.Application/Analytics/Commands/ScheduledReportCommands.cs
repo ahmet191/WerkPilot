@@ -37,6 +37,7 @@ namespace OmniFlow.Application.Analytics.Commands
             var reports = await _context.ScheduledReports
                 .AsNoTracking()
                 .Where(r => r.TenantId == request.TenantId)
+                .OrderByDescending(r => r.CreatedAt)
                 .Select(r => new ScheduledReportDto
                 {
                     Id = r.Id,
@@ -48,16 +49,6 @@ namespace OmniFlow.Application.Analytics.Commands
                     IsActive = r.IsActive
                 })
                 .ToListAsync(cancellationToken);
-
-            if (!reports.Any())
-            {
-                // Return some mock initial state
-                return new List<ScheduledReportDto>
-                {
-                    new() { Id = Guid.NewGuid(), ReportName = "Weekly IT Service Desk Performance", CronExpression = "0 9 * * 1", Recipients = "it-management@example.com", Format = "PDF", IsActive = true, NextRunTime = DateTime.UtcNow.AddDays(3) },
-                    new() { Id = Guid.NewGuid(), ReportName = "Monthly SLA Breach Report", CronExpression = "0 8 1 * *", Recipients = "compliance@example.com", Format = "Excel", IsActive = true, NextRunTime = DateTime.UtcNow.AddDays(15) }
-                };
-            }
 
             return reports;
         }
@@ -76,23 +67,36 @@ namespace OmniFlow.Application.Analytics.Commands
     public class CreateScheduledReportCommandHandler : IRequestHandler<CreateScheduledReportCommand, Guid>
     {
         private readonly IOmniFlowDbContext _context;
+        private readonly ICronScheduleService _cron;
 
-        public CreateScheduledReportCommandHandler(IOmniFlowDbContext context)
+        public CreateScheduledReportCommandHandler(IOmniFlowDbContext context, ICronScheduleService cron)
         {
             _context = context;
+            _cron = cron;
         }
 
         public async Task<Guid> Handle(CreateScheduledReportCommand request, CancellationToken cancellationToken)
         {
+            // The next run is derived from the cron expression, not a fixed offset,
+            // so the dispatch job fires it at the right time. An unparseable cron is
+            // a 400 rather than a silently-never-running report.
+            var nextRun = _cron.GetNextOccurrenceUtc(request.CronExpression, DateTime.UtcNow);
+            if (nextRun is null)
+            {
+                throw new OmniFlow.Domain.Common.Exceptions.ValidationException(
+                    nameof(request.CronExpression),
+                    "Invalid cron expression. Use 5-field Unix cron, e.g. '0 8 * * 1' (every Monday at 08:00).");
+            }
+
             var report = new ScheduledReport
             {
                 TenantId = request.TenantId,
                 ReportName = request.ReportName,
-                CronExpression = request.CronExpression,
+                CronExpression = request.CronExpression.Trim(),
                 Recipients = request.Recipients,
                 Format = request.Format,
                 IsActive = request.IsActive,
-                NextRunTime = DateTime.UtcNow.AddDays(1) // Mock next run for demo
+                NextRunTime = nextRun
             };
 
             _context.ScheduledReports.Add(report);

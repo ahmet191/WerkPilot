@@ -138,6 +138,8 @@ builder.Services.Configure<OmniFlow.Infrastructure.Email.EmailOptions>(
     builder.Configuration.GetSection("Email"));
 builder.Services.AddScoped<OmniFlow.Application.Interfaces.IEmailSender,
     OmniFlow.Infrastructure.Email.SmtpEmailSender>();
+builder.Services.AddSingleton<OmniFlow.Application.Interfaces.ICronScheduleService,
+    OmniFlow.Infrastructure.Scheduling.CronScheduleService>();
 builder.Services.AddScoped<OmniFlow.Application.Interfaces.IIdentityAccountService,
     OmniFlow.Infrastructure.Identity.IdentityAccountService>();
 
@@ -393,6 +395,16 @@ builder.Services.AddQuartz(q =>
         .WithIdentity("sla-reconciliation-trigger", "omniflow")
         .StartAt(DateTimeOffset.UtcNow.AddMinutes(1))
         .WithSimpleSchedule(s => s.WithIntervalInMinutes(5).RepeatForever()));
+
+    // Automated reports: sweep every minute for due schedules and email them.
+    q.AddJob<OmniFlow.Infrastructure.Scheduling.ScheduledReportDispatchJob>(
+        OmniFlow.Infrastructure.Scheduling.ScheduledReportDispatchJob.Key,
+        j => j.WithDescription("Dispatch due scheduled reports to their recipients"));
+    q.AddTrigger(t => t
+        .ForJob(OmniFlow.Infrastructure.Scheduling.ScheduledReportDispatchJob.Key)
+        .WithIdentity("scheduled-report-trigger", "omniflow")
+        .StartAt(DateTimeOffset.UtcNow.AddMinutes(1))
+        .WithSimpleSchedule(s => s.WithIntervalInMinutes(1).RepeatForever()));
 });
 builder.Services.AddQuartzHostedService(o => o.WaitForJobsToComplete = false);
 
