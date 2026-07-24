@@ -19,8 +19,10 @@ public class UserContextService : IUserContext
     {
         get
         {
-            var claimValue = _httpContextAccessor.HttpContext?.User?.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value
-                          ?? _httpContextAccessor.HttpContext?.User?.FindFirst("sub")?.Value;
+            var user = _httpContextAccessor.HttpContext?.User;
+            var claimValue = user?.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value
+                          ?? user?.FindFirst("sub")?.Value
+                          ?? user?.FindFirst(OpenIddict.Abstractions.OpenIddictConstants.Claims.Subject)?.Value;
 
             return Guid.TryParse(claimValue, out var userId) ? userId : Guid.Empty;
         }

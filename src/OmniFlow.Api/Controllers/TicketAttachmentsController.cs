@@ -99,17 +99,26 @@ public class TicketAttachmentsController : ControllerBase
         await using var stream = file.OpenReadStream();
         var storageKey = await _storage.SaveAsync(ticket.TenantId, file.FileName, stream, HttpContext.RequestAborted);
 
+        var uploaderId = _userContext.UserId != Guid.Empty ? _userContext.UserId : ticket.RequesterId;
+
         var attachment = ticket.AddAttachment(
-            _userContext.UserId, SanitizeFileName(file.FileName), contentType, file.Length, storageKey);
+            uploaderId, SanitizeFileName(file.FileName), contentType, file.Length, storageKey);
         await _context.SaveChangesAsync(HttpContext.RequestAborted);
 
         // Let the assignee know a file landed on their ticket.
-        if (ticket.AssigneeId is { } assigneeId && assigneeId != _userContext.UserId)
+        if (ticket.AssigneeId is { } assigneeId && assigneeId != uploaderId)
         {
-            await _notifications.NotifyUserAsync(
-                assigneeId, NotificationKind.TicketStateChanged,
-                "New attachment", $"A file was added to ticket '{ticket.Title}'.",
-                $"/tickets/{ticket.Id}", HttpContext.RequestAborted);
+            try
+            {
+                await _notifications.NotifyUserAsync(
+                    assigneeId, NotificationKind.TicketStateChanged,
+                    "New attachment", $"A file was added to ticket '{ticket.Title}'.",
+                    $"/tickets/{ticket.Id}", HttpContext.RequestAborted);
+            }
+            catch
+            {
+                // Non-fatal if notification delivery fails
+            }
         }
 
         return Ok(new { attachmentId = attachment.Id });
