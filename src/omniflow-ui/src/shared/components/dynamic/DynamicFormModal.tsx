@@ -457,6 +457,13 @@ export function DynamicFormModal({ open, schema, editRecord, editEndpoint, onCan
         return <WorkflowBuilder />;
       case 'json':
         return <Input.TextArea rows={6} placeholder="Enter JSON..." style={{ fontFamily: 'monospace' }} />;
+      case 'textarea':
+        return <Input.TextArea rows={4} placeholder={t(field.labelKey)} />;
+      case 'password':
+        return <Input.Password placeholder={t(field.labelKey)} />;
+      case 'boolean':
+      case 'checkbox':
+        return <Checkbox>{t(field.labelKey)}</Checkbox>;
       case 'text':
       default:
         return <Input placeholder={t(field.labelKey)} />;
@@ -531,6 +538,7 @@ export function DynamicFormModal({ open, schema, editRecord, editEndpoint, onCan
               name={field.name}
               label={t(field.labelKey) || field.labelKey}
               rules={getRules(field)}
+              valuePropName={(field.type === 'boolean' || field.type === 'checkbox') ? 'checked' : 'value'}
             >
               {renderField(field)}
             </Form.Item>

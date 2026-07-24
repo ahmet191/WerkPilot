@@ -123,4 +123,29 @@ namespace OmniFlow.Application.Employees.Queries
             return goal.Id;
         }
     }
+
+    public record DeleteGoalCommand(Guid GoalId, Guid UserId) : IRequest<bool>;
+
+    public class DeleteGoalCommandHandler : IRequestHandler<DeleteGoalCommand, bool>
+    {
+        private readonly IOmniFlowDbContext _context;
+
+        public DeleteGoalCommandHandler(IOmniFlowDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<bool> Handle(DeleteGoalCommand request, CancellationToken cancellationToken)
+        {
+            var goal = await _context.EmployeeGoals.FirstOrDefaultAsync(g => g.Id == request.GoalId && g.EmployeeUserId == request.UserId, cancellationToken);
+            if (goal == null)
+            {
+                throw new KeyNotFoundException($"Goal '{request.GoalId}' not found or doesn't belong to the user.");
+            }
+
+            _context.EmployeeGoals.Remove(goal);
+            await _context.SaveChangesAsync(cancellationToken);
+            return true;
+        }
+    }
 }

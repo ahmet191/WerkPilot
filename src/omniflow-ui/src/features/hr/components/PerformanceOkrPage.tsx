@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Table, Tag, Progress, Button, Modal, Form, Input, Select, InputNumber, Row, Col, Statistic, message, Spin } from 'antd';
-import { AimOutlined, PlusOutlined, CheckCircleOutlined, ClockCircleOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Card, Table, Tag, Progress, Button, Modal, Form, Input, Select, InputNumber, Row, Col, Statistic, message, Spin, Space, Popconfirm } from 'antd';
+import { AimOutlined, PlusOutlined, CheckCircleOutlined, ClockCircleOutlined, ExclamationCircleOutlined, EditOutlined, DeleteOutlined, PercentageOutlined } from '@ant-design/icons';
 import { api } from '../../../core/api';
 
 interface EmployeeGoal {
@@ -20,8 +20,13 @@ interface EmployeeGoal {
 export const PerformanceOkrPage: React.FC = () => {
   const [goals, setGoals] = useState<EmployeeGoal[]>([]);
   const [loading, setLoading] = useState(true);
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isProgressModalOpen, setIsProgressModalOpen] = useState(false);
+  const [editingGoal, setEditingGoal] = useState<EmployeeGoal | null>(null);
+  
   const [form] = Form.useForm();
+  const [progressForm] = Form.useForm();
 
   const fetchGoals = async () => {
     setLoading(true);
@@ -39,15 +44,57 @@ export const PerformanceOkrPage: React.FC = () => {
     fetchGoals();
   }, []);
 
+  const handleOpenAddModal = () => {
+    setEditingGoal(null);
+    form.resetFields();
+    form.setFieldsValue({ quarter: 'Q1', year: 2026, targetValue: 100, currentValue: 0, unit: 'Percentage' });
+    setIsModalOpen(true);
+  };
+
+  const handleOpenEditModal = (goal: EmployeeGoal) => {
+    setEditingGoal(goal);
+    form.setFieldsValue(goal);
+    setIsModalOpen(true);
+  };
+
+  const handleOpenProgressModal = (goal: EmployeeGoal) => {
+    setEditingGoal(goal);
+    progressForm.setFieldsValue({ currentValue: goal.currentValue, status: goal.status });
+    setIsProgressModalOpen(true);
+  };
+
   const handleGoalSubmit = async (values: any) => {
     try {
-      await api.post('/hr/goals', values);
-      message.success('Goal updated successfully!');
+      const payload = { ...values, id: editingGoal?.id };
+      await api.post('/hr/goals', payload);
+      message.success(`Goal ${editingGoal ? 'updated' : 'created'} successfully!`);
       setIsModalOpen(false);
-      form.resetFields();
       fetchGoals();
     } catch (err) {
       message.error('Failed to save goal.');
+    }
+  };
+
+  const handleProgressSubmit = async (values: any) => {
+    if (!editingGoal) return;
+    try {
+      const payload = { ...editingGoal, ...values };
+      await api.post('/hr/goals', payload);
+      message.success('Progress updated successfully!');
+      setIsProgressModalOpen(false);
+      fetchGoals();
+    } catch (err) {
+      message.error('Failed to update progress.');
+    }
+  };
+
+  const handleDeleteGoal = async (id: string) => {
+    try {
+      await api.delete(`/hr/goals/${id}`);
+      message.success('Goal deleted successfully!');
+      fetchGoals();
+    } catch (err) {
+      message.error('Failed to delete goal.');
     }
   };
 
@@ -67,7 +114,7 @@ export const PerformanceOkrPage: React.FC = () => {
               Track quarterly (Q1-Q4) and annual Objectives & Key Results (OKRs).
             </div>
           </div>
-          <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalOpen(true)}>
+          <Button type="primary" icon={<PlusOutlined />} onClick={handleOpenAddModal}>
             Add New Goal / OKR
           </Button>
         </div>
@@ -125,6 +172,19 @@ export const PerformanceOkrPage: React.FC = () => {
                   if (st === 'Behind') return <Tag color="red" icon={<ExclamationCircleOutlined />}>Behind</Tag>;
                   return <Tag color="processing" icon={<ClockCircleOutlined />}>In Progress</Tag>;
                 }
+              },
+              {
+                title: 'Actions',
+                key: 'actions',
+                render: (_: any, record: EmployeeGoal) => (
+                  <Space size="small">
+                    <Button type="text" style={{ color: '#52c41a' }} icon={<PercentageOutlined />} onClick={() => handleOpenProgressModal(record)} title="Update Progress" />
+                    <Button type="text" style={{ color: '#1890ff' }} icon={<EditOutlined />} onClick={() => handleOpenEditModal(record)} title="Edit Goal" />
+                    <Popconfirm title="Are you sure to delete this goal?" onConfirm={() => handleDeleteGoal(record.id)}>
+                      <Button type="text" danger icon={<DeleteOutlined />} title="Delete Goal" />
+                    </Popconfirm>
+                  </Space>
+                )
               }
             ]}
           />
@@ -132,12 +192,13 @@ export const PerformanceOkrPage: React.FC = () => {
       </Card>
 
       <Modal
-        title="Add Performance Goal / OKR"
+        title={editingGoal ? "Edit Goal / OKR" : "Add Performance Goal / OKR"}
         open={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
         footer={null}
+        destroyOnClose
       >
-        <Form form={form} layout="vertical" onFinish={handleGoalSubmit} initialValues={{ quarter: 'Q1', year: 2026, targetValue: 100, currentValue: 0, unit: 'Percentage' }}>
+        <Form form={form} layout="vertical" onFinish={handleGoalSubmit}>
           <Form.Item name="title" label="Goal Title" rules={[{ required: true }]}>
             <Input placeholder="e.g. Achieve >98% SLA Compliance" />
           </Form.Item>
@@ -157,20 +218,61 @@ export const PerformanceOkrPage: React.FC = () => {
             </Col>
           </Row>
           <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item name="currentValue" label="Current Progress">
+            <Col span={8}>
+              <Form.Item name="currentValue" label="Current">
+                <InputNumber style={{ width: '100%' }} disabled={!editingGoal} />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item name="targetValue" label="Target">
                 <InputNumber style={{ width: '100%' }} />
               </Form.Item>
             </Col>
-            <Col span={12}>
-              <Form.Item name="targetValue" label="Target Value">
-                <InputNumber style={{ width: '100%' }} />
+            <Col span={8}>
+              <Form.Item name="unit" label="Unit">
+                <Select options={[{ value: 'Percentage' }, { value: 'Number' }, { value: 'Currency' }]} />
               </Form.Item>
             </Col>
           </Row>
           <div style={{ textAlign: 'right', marginTop: 24 }}>
             <Button onClick={() => setIsModalOpen(false)} style={{ marginRight: 8 }}>Cancel</Button>
             <Button type="primary" htmlType="submit">Save Goal</Button>
+          </div>
+        </Form>
+      </Modal>
+
+      <Modal
+        title="Update Goal Progress"
+        open={isProgressModalOpen}
+        onCancel={() => setIsProgressModalOpen(false)}
+        footer={null}
+        destroyOnClose
+      >
+        <Form form={progressForm} layout="vertical" onFinish={handleProgressSubmit}>
+          <div style={{ marginBottom: 16 }}>
+            <strong>{editingGoal?.title}</strong>
+            <div style={{ color: '#8c8c8c' }}>Target: {editingGoal?.targetValue} {editingGoal?.unit}</div>
+          </div>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item name="currentValue" label="Current Value" rules={[{ required: true }]}>
+                <InputNumber style={{ width: '100%' }} min={0} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="status" label="Status">
+                <Select options={[
+                  { value: 'NotStarted', label: 'Not Started' },
+                  { value: 'InProgress', label: 'In Progress' },
+                  { value: 'Behind', label: 'Behind Schedule' },
+                  { value: 'Achieved', label: 'Achieved' }
+                ]} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <div style={{ textAlign: 'right', marginTop: 24 }}>
+            <Button onClick={() => setIsProgressModalOpen(false)} style={{ marginRight: 8 }}>Cancel</Button>
+            <Button type="primary" htmlType="submit">Update Progress</Button>
           </div>
         </Form>
       </Modal>

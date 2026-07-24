@@ -126,4 +126,29 @@ namespace OmniFlow.Application.Tickets.Commands
             return rule.Id;
         }
     }
+
+    public record DeleteSlaPolicyRuleCommand(Guid PolicyId, Guid TenantId) : IRequest<bool>;
+
+    public class DeleteSlaPolicyRuleCommandHandler : IRequestHandler<DeleteSlaPolicyRuleCommand, bool>
+    {
+        private readonly IOmniFlowDbContext _context;
+
+        public DeleteSlaPolicyRuleCommandHandler(IOmniFlowDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<bool> Handle(DeleteSlaPolicyRuleCommand request, CancellationToken cancellationToken)
+        {
+            var rule = await _context.SlaPolicyRules.FirstOrDefaultAsync(s => s.Id == request.PolicyId && s.TenantId == request.TenantId, cancellationToken);
+            if (rule == null)
+            {
+                throw new KeyNotFoundException($"SLA Policy '{request.PolicyId}' not found.");
+            }
+
+            _context.SlaPolicyRules.Remove(rule);
+            await _context.SaveChangesAsync(cancellationToken);
+            return true;
+        }
+    }
 }

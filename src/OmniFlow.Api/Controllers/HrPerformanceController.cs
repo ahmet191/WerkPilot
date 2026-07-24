@@ -54,6 +54,16 @@ namespace OmniFlow.Api.Controllers
         }
 
         /// <summary>
+        /// Deletes an employee performance goal/OKR.
+        /// </summary>
+        [HttpDelete("goals/{id:guid}")]
+        public async Task<ActionResult> DeleteGoal(Guid id, CancellationToken cancellationToken)
+        {
+            await _mediator.Send(new DeleteGoalCommand(id, CurrentUserId), cancellationToken);
+            return NoContent();
+        }
+
+        /// <summary>
         /// Gets skill matrix competencies and certification vault items.
         /// </summary>
         [HttpGet("skills-certificates")]

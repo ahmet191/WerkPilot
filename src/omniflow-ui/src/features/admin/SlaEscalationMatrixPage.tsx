@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Table, Tag, Button, Modal, Form, Input, Select, InputNumber, Switch, Row, Col, message, Spin } from 'antd';
-import { FieldTimeOutlined, PlusOutlined, AlertOutlined, BellOutlined } from '@ant-design/icons';
+import { Card, Table, Tag, Button, Modal, Form, Input, Select, InputNumber, Switch, Row, Col, message, Spin, Popconfirm, Space } from 'antd';
+import { FieldTimeOutlined, PlusOutlined, AlertOutlined, BellOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { api } from '../../core/api';
 
 interface SlaRule {
@@ -20,6 +20,7 @@ export const SlaEscalationMatrixPage: React.FC = () => {
   const [rules, setRules] = useState<SlaRule[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingRule, setEditingRule] = useState<SlaRule | null>(null);
   const [form] = Form.useForm();
 
   const fetchRules = async () => {
@@ -38,15 +39,38 @@ export const SlaEscalationMatrixPage: React.FC = () => {
     fetchRules();
   }, []);
 
+  const handleOpenAddModal = () => {
+    setEditingRule(null);
+    form.resetFields();
+    form.setFieldsValue({ priority: 'Medium', responseTimeMinutes: 60, resolutionTimeHours: 24, escalateAfterPercent: 80, notifyManagerOnBreach: true, isActive: true });
+    setIsModalOpen(true);
+  };
+
+  const handleOpenEditModal = (rule: SlaRule) => {
+    setEditingRule(rule);
+    form.setFieldsValue(rule);
+    setIsModalOpen(true);
+  };
+
   const handleSubmit = async (values: any) => {
     try {
-      await api.post('/slas/policies', values);
-      message.success('SLA policy rule saved successfully!');
+      const payload = { ...values, id: editingRule?.id };
+      await api.post('/slas/policies', payload);
+      message.success(`SLA policy rule ${editingRule ? 'updated' : 'saved'} successfully!`);
       setIsModalOpen(false);
-      form.resetFields();
       fetchRules();
     } catch (err) {
       message.error('Failed to save SLA policy.');
+    }
+  };
+
+  const handleDeleteRule = async (id: string) => {
+    try {
+      await api.delete(`/slas/policies/${id}`);
+      message.success('SLA policy rule deleted successfully!');
+      fetchRules();
+    } catch (err) {
+      message.error('Failed to delete SLA policy rule.');
     }
   };
 
@@ -63,7 +87,7 @@ export const SlaEscalationMatrixPage: React.FC = () => {
               Configure response & resolution SLAs, breach warnings, and automatic manager escalation rules.
             </div>
           </div>
-          <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalOpen(true)}>
+          <Button type="primary" icon={<PlusOutlined />} onClick={handleOpenAddModal}>
             Add SLA Policy Rule
           </Button>
         </div>
@@ -110,6 +134,18 @@ export const SlaEscalationMatrixPage: React.FC = () => {
                 title: 'Status',
                 dataIndex: 'isActive',
                 render: (act: boolean) => act ? <Tag color="green">Active</Tag> : <Tag color="default">Inactive</Tag>
+              },
+              {
+                title: 'Actions',
+                key: 'actions',
+                render: (_: any, record: SlaRule) => (
+                  <Space size="small">
+                    <Button type="text" style={{ color: '#1890ff' }} icon={<EditOutlined />} onClick={() => handleOpenEditModal(record)} title="Edit Rule" />
+                    <Popconfirm title="Are you sure to delete this SLA rule?" onConfirm={() => handleDeleteRule(record.id)}>
+                      <Button type="text" danger icon={<DeleteOutlined />} title="Delete Rule" />
+                    </Popconfirm>
+                  </Space>
+                )
               }
             ]}
           />
@@ -117,12 +153,13 @@ export const SlaEscalationMatrixPage: React.FC = () => {
       </Card>
 
       <Modal
-        title="Configure SLA Policy Rule & Escalation Matrix"
+        title={editingRule ? "Edit SLA Policy Rule" : "Configure SLA Policy Rule"}
         open={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
         footer={null}
+        destroyOnClose
       >
-        <Form form={form} layout="vertical" onFinish={handleSubmit} initialValues={{ priority: 'Medium', responseTimeMinutes: 60, resolutionTimeHours: 24, escalateAfterPercent: 80, notifyManagerOnBreach: true, isActive: true }}>
+        <Form form={form} layout="vertical" onFinish={handleSubmit}>
           <Form.Item name="name" label="Policy Name" rules={[{ required: true }]}>
             <Input placeholder="e.g. Critical P1 Outage SLA Policy" />
           </Form.Item>

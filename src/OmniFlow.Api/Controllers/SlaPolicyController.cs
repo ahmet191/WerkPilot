@@ -50,5 +50,15 @@ namespace OmniFlow.Api.Controllers
             var result = await _mediator.Send(command, cancellationToken);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Deletes an SLA policy rule.
+        /// </summary>
+        [HttpDelete("policies/{id:guid}")]
+        public async Task<ActionResult> DeletePolicy(Guid id, CancellationToken cancellationToken)
+        {
+            await _mediator.Send(new DeleteSlaPolicyRuleCommand(id, CurrentTenantId), cancellationToken);
+            return NoContent();
+        }
     }
 }
