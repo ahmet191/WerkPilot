@@ -148,17 +148,31 @@ export function AppLayout() {
       onClick: () => navigate('/hr/center'),
     },
     {
+      key: 'onboarding',
+      icon: <TeamOutlined />,
+      label: t('sidebar.onboarding', 'Onboarding & Offboarding'),
+      onClick: () => navigate('/hr/onboarding'),
+    },
+    {
       key: 'security',
       icon: <SafetyCertificateOutlined />,
       label: t('security.title', 'Security'),
       onClick: () => navigate('/settings/security'),
     },
-    ...(has(Perm.PermissionsManage) ? [{
-      key: 'permissions',
-      icon: <TeamOutlined />,
-      label: t('permissions.title', 'Roles & Permissions'),
-      onClick: () => navigate('/settings/permissions'),
-    }] : []),
+    ...(has(Perm.PermissionsManage) ? [
+      {
+        key: 'permissions',
+        icon: <TeamOutlined />,
+        label: t('permissions.title', 'Roles & Permissions'),
+        onClick: () => navigate('/settings/permissions'),
+      },
+      {
+        key: 'visibility',
+        icon: <TeamOutlined />,
+        label: t('visibility.title', 'Department Visibility Matrix'),
+        onClick: () => navigate('/settings/visibility'),
+      }
+    ] : []),
     ...(has(Perm.TranslationsManage) ? [{
       key: 'translations',
       icon: <TranslationOutlined />,

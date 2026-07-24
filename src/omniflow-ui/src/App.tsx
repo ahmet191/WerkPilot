@@ -25,6 +25,8 @@ const OrgChart = lazy(() => import('./features/hr/components/OrgChart').then(m =
 const MyApprovals = lazy(() => import('./features/approvals/MyApprovals').then(m => ({ default: m.MyApprovals })));
 const ReportsPage = lazy(() => import('./features/reports/ReportsPage').then(m => ({ default: m.ReportsPage })));
 const PermissionMatrixPage = lazy(() => import('./features/admin/PermissionMatrixPage').then(m => ({ default: m.PermissionMatrixPage })));
+const VisibilityMatrixPage = lazy(() => import('./features/admin/VisibilityMatrixPage').then(m => ({ default: m.VisibilityMatrixPage })));
+const OnboardingManagementPage = lazy(() => import('./features/hr/components/OnboardingManagementPage').then(m => ({ default: m.OnboardingManagementPage })));
 const PlatformTenantsPage = lazy(() => import('./features/platform/PlatformTenantsPage').then(m => ({ default: m.PlatformTenantsPage })));
 const TemplatesAdminPage = lazy(() => import('./features/admin/TemplatesAdminPage').then(m => ({ default: m.TemplatesAdminPage })));
 const WorkflowDesignerPage = lazy(() => import('./features/admin/WorkflowDesignerPage').then(m => ({ default: m.WorkflowDesignerPage })));
@@ -70,6 +72,7 @@ function App() {
                 <Route path="assets" element={<DynamicPage entityType="assets" />} />
                 <Route path="directory" element={<EmployeeDirectory />} />
                 <Route path="hr/center" element={<EmployeeCenterPage />} />
+                <Route path="hr/onboarding" element={<OnboardingManagementPage />} />
                 <Route path="orgchart" element={<OrgChart />} />
                 <Route path="leaves" element={<DynamicPage entityType="leaves" />} />
                 <Route path="expenses" element={<DynamicPage entityType="expenses" />} />
@@ -99,6 +102,7 @@ function App() {
                 </Route>
                 <Route element={<ProtectedRoute requiredPermission={Perm.PermissionsManage} />}>
                   <Route path="settings/permissions" element={<PermissionMatrixPage />} />
+                  <Route path="settings/visibility" element={<VisibilityMatrixPage />} />
                 </Route>
                 <Route element={<ProtectedRoute requiredPermission={Perm.TranslationsManage} />}>
                   <Route path="settings/translations" element={<TranslationsAdminPage />} />

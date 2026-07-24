@@ -58,6 +58,8 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
     public DbSet<ChangeRequest> ChangeRequests => Set<ChangeRequest>();
     
     public DbSet<ServiceDesk> ServiceDesks => Set<ServiceDesk>();
+    public DbSet<DepartmentVisibility> DepartmentVisibilities => Set<DepartmentVisibility>();
+    public DbSet<HR.OnboardingChecklist> OnboardingChecklists => Set<HR.OnboardingChecklist>();
     public DbSet<ExpenseClaim> ExpenseClaims { get; set; }
     public DbSet<AuthorityDelegation> AuthorityDelegations { get; set; }
     public DbSet<DirectoryProfile> DirectoryProfiles { get; set; }
@@ -100,6 +102,21 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
         builder.AddOutboxStateEntity();
 
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        builder.Entity<DepartmentVisibility>(entity =>
+        {
+            entity.HasIndex(v => new { v.TenantId, v.RoleName, v.ServiceDeskKey }).IsUnique();
+            entity.Property(v => v.RoleName).HasMaxLength(64).IsRequired();
+            entity.Property(v => v.ServiceDeskKey).HasMaxLength(64).IsRequired();
+        });
+
+        builder.Entity<HR.OnboardingChecklist>(entity =>
+        {
+            entity.HasIndex(c => new { c.TenantId, c.EmployeeUserId, c.Type });
+            entity.Property(c => c.TaskName).HasMaxLength(200).IsRequired();
+            entity.HasOne(c => c.EmployeeUser).WithMany().HasForeignKey(c => c.EmployeeUserId).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(c => c.CompletedByUser).WithMany().HasForeignKey(c => c.CompletedByUserId).OnDelete(DeleteBehavior.NoAction);
+        });
 
         builder.Entity<HR.EmployeeProfile>(entity =>
         {

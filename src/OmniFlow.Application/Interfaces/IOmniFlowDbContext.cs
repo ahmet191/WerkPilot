@@ -28,6 +28,8 @@ public interface IOmniFlowDbContext
     DbSet<ChangeRequest> ChangeRequests { get; }
     
     DbSet<ServiceDesk> ServiceDesks { get; }
+    DbSet<DepartmentVisibility> DepartmentVisibilities { get; }
+    DbSet<Domain.Entities.HR.OnboardingChecklist> OnboardingChecklists { get; }
     DbSet<ExpenseClaim> ExpenseClaims { get; }
     DbSet<AuthorityDelegation> AuthorityDelegations { get; }
     DbSet<DirectoryProfile> DirectoryProfiles { get; }
