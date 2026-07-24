@@ -58,6 +58,7 @@ public static class PermissionPolicyNames
     public const string PermissionsManage = P + "permissions.manage";
     public const string TranslationsManage = P + "translations.manage";
     public const string UiSchemaManage = P + "uischema.manage";
+    public const string ReportsManage = P + "reports.manage";
 }
 
 /// <summary>

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OmniFlow.Application.Tenants.Commands;
 using OmniFlow.Domain.Common.Exceptions;
+using OmniFlow.Infrastructure.Authorization;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace OmniFlow.Api.Controllers
@@ -46,6 +47,7 @@ namespace OmniFlow.Api.Controllers
         /// Creates or updates a custom department in the Department Studio.
         /// </summary>
         [HttpPost("studio")]
+        [Authorize(Policy = PermissionPolicyNames.UsersManage)]
         public async Task<ActionResult<Guid>> CreateOrUpdateDepartment([FromBody] CreateOrUpdateCustomDepartmentCommand command, CancellationToken cancellationToken)
         {
             command.TenantId = CurrentTenantId;

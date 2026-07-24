@@ -130,7 +130,7 @@ function App() {
                 <Route element={<ProtectedRoute requiredPermission={Perm.UiSchemaManage} />}>
                   <Route path="settings/layouts" element={<UiSchemaAdminPage />} />
                 </Route>
-                <Route element={<ProtectedRoute requiredRoles={['Admin']} />}>
+                <Route element={<ProtectedRoute requiredPermission={Perm.ReportsManage} />}>
                   <Route path="analytics/dashboard" element={<ExecutiveDashboardPage />} />
                   <Route path="analytics/reports" element={<AutomatedReportsPage />} />
                 </Route>

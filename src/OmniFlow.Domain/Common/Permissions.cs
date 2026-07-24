@@ -45,6 +45,7 @@ public static class Permissions
     public const string PermissionsManage = "permissions.manage";
     public const string TranslationsManage = "translations.manage";
     public const string UiSchemaManage = "uischema.manage";
+    public const string ReportsManage = "reports.manage";
 
     public const string ModuleTickets = "Tickets";
     public const string ModuleHr = "Human Resources";
@@ -85,6 +86,7 @@ public static class Permissions
         new(PermissionsManage, ModuleAdministration, "Manage the permission matrix"),
         new(TranslationsManage, ModuleAdministration, "Customize interface text"),
         new(UiSchemaManage, ModuleAdministration, "Customize screen layouts"),
+        new(ReportsManage, ModuleAdministration, "Manage scheduled reports"),
     ];
 
     private static readonly HashSet<string> Keys = All.Select(p => p.Key).ToHashSet(StringComparer.Ordinal);

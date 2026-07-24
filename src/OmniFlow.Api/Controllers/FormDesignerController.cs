@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OmniFlow.Application.Tickets.Commands;
+using OmniFlow.Infrastructure.Authorization;
 
 namespace OmniFlow.Api.Controllers
 {
@@ -44,6 +45,7 @@ namespace OmniFlow.Api.Controllers
         /// Saves a dynamic form schema for a Service Desk.
         /// </summary>
         [HttpPost("schemas")]
+        [Authorize(Policy = PermissionPolicyNames.TemplatesManage)]
         public async Task<ActionResult<Guid>> SaveSchema([FromBody] SaveTicketFormSchemaCommand command, CancellationToken cancellationToken)
         {
             command.TenantId = CurrentTenantId;

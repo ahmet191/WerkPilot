@@ -90,4 +90,5 @@ export const Perm = {
   PermissionsManage: 'permissions.manage',
   TranslationsManage: 'translations.manage',
   UiSchemaManage: 'uischema.manage',
+  ReportsManage: 'reports.manage',
 } as const;

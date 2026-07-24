@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OmniFlow.Application.Tickets.Commands;
+using OmniFlow.Infrastructure.Authorization;
 
 namespace OmniFlow.Api.Controllers
 {
@@ -44,6 +45,7 @@ namespace OmniFlow.Api.Controllers
         /// Saves an SLA policy rule and escalation matrix definition.
         /// </summary>
         [HttpPost("policies")]
+        [Authorize(Policy = PermissionPolicyNames.SlaManage)]
         public async Task<ActionResult<Guid>> SavePolicy([FromBody] SaveSlaPolicyRuleCommand command, CancellationToken cancellationToken)
         {
             command.TenantId = CurrentTenantId;
@@ -55,6 +57,7 @@ namespace OmniFlow.Api.Controllers
         /// Deletes an SLA policy rule.
         /// </summary>
         [HttpDelete("policies/{id:guid}")]
+        [Authorize(Policy = PermissionPolicyNames.SlaManage)]
         public async Task<ActionResult> DeletePolicy(Guid id, CancellationToken cancellationToken)
         {
             await _mediator.Send(new DeleteSlaPolicyRuleCommand(id, CurrentTenantId), cancellationToken);

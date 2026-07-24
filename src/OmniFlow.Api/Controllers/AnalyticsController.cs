@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OmniFlow.Application.Analytics.Commands;
 using OmniFlow.Application.Analytics.Queries;
+using OmniFlow.Infrastructure.Authorization;
 
 namespace OmniFlow.Api.Controllers
 {
@@ -29,6 +30,7 @@ namespace OmniFlow.Api.Controllers
                 : Guid.Parse("00000000-0000-0000-0000-000000000001");
 
         [HttpGet("dashboard")]
+        [Authorize(Policy = PermissionPolicyNames.ReportsManage)]
         public async Task<ActionResult<ExecutiveDashboardMetricsDto>> GetDashboardMetrics(CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetExecutiveDashboardMetricsQuery(CurrentTenantId), cancellationToken);
@@ -36,6 +38,7 @@ namespace OmniFlow.Api.Controllers
         }
 
         [HttpGet("reports")]
+        [Authorize(Policy = PermissionPolicyNames.ReportsManage)]
         public async Task<ActionResult<List<ScheduledReportDto>>> GetScheduledReports(CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetScheduledReportsQuery(CurrentTenantId), cancellationToken);
@@ -43,6 +46,7 @@ namespace OmniFlow.Api.Controllers
         }
 
         [HttpPost("reports")]
+        [Authorize(Policy = PermissionPolicyNames.ReportsManage)]
         public async Task<ActionResult<Guid>> CreateScheduledReport([FromBody] CreateScheduledReportCommand command, CancellationToken cancellationToken)
         {
             command.TenantId = CurrentTenantId;
