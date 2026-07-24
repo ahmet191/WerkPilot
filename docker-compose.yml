@@ -20,6 +20,8 @@ services:
 
   rabbitmq:
     image: rabbitmq:4-management-alpine
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "WerkPilotErlangCookieLongSecret2026"
     ports:
       - "5672:5672"
       - "15672:15672"   # management UI (guest/guest)

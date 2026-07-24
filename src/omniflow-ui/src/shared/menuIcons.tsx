@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react';
 import {
-  AppstoreOutlined, AppstoreAddOutlined, AuditOutlined, BankOutlined, BarChartOutlined, CalendarOutlined,
+  AimOutlined, AppstoreOutlined, AppstoreAddOutlined, AuditOutlined, BankOutlined, BarChartOutlined, CalendarOutlined,
   CheckCircleOutlined, CloudServerOutlined, ContainerOutlined, DashboardOutlined, DollarOutlined,
   EyeOutlined, FieldTimeOutlined, FileTextOutlined, FireOutlined, IdcardOutlined, LaptopOutlined, MenuOutlined,
-  SafetyCertificateOutlined, SettingOutlined, SolutionOutlined, SyncOutlined, TeamOutlined,
-  ToolOutlined, TranslationOutlined, UserOutlined, UserAddOutlined,
+  ReadOutlined, SafetyCertificateOutlined, SettingOutlined, SolutionOutlined, SyncOutlined, TeamOutlined,
+  ToolOutlined, TranslationOutlined, TrophyOutlined, UserOutlined, UserAddOutlined,
 } from '@ant-design/icons';
 
 // Curated icon set for DB-driven menu/notification icons. Using a fixed map
@@ -12,6 +12,7 @@ import {
 // out of the bundle — only these are shipped. Unknown names fall back to a
 // generic icon, so a tenant-customized menu never renders blank.
 const ICONS: Record<string, ReactNode> = {
+  AimOutlined: <AimOutlined />,
   AppstoreOutlined: <AppstoreOutlined />,
   AppstoreAddOutlined: <AppstoreAddOutlined />,
   AuditOutlined: <AuditOutlined />,
@@ -30,6 +31,7 @@ const ICONS: Record<string, ReactNode> = {
   IdcardOutlined: <IdcardOutlined />,
   LaptopOutlined: <LaptopOutlined />,
   MenuOutlined: <MenuOutlined />,
+  ReadOutlined: <ReadOutlined />,
   SafetyCertificateOutlined: <SafetyCertificateOutlined />,
   SettingOutlined: <SettingOutlined />,
   SolutionOutlined: <SolutionOutlined />,
@@ -37,6 +39,7 @@ const ICONS: Record<string, ReactNode> = {
   TeamOutlined: <TeamOutlined />,
   ToolOutlined: <ToolOutlined />,
   TranslationOutlined: <TranslationOutlined />,
+  TrophyOutlined: <TrophyOutlined />,
   UserOutlined: <UserOutlined />,
   UserAddOutlined: <UserAddOutlined />,
 };

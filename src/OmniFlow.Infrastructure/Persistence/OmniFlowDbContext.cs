@@ -60,6 +60,10 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
     public DbSet<ServiceDesk> ServiceDesks => Set<ServiceDesk>();
     public DbSet<DepartmentVisibility> DepartmentVisibilities => Set<DepartmentVisibility>();
     public DbSet<HR.OnboardingChecklist> OnboardingChecklists => Set<HR.OnboardingChecklist>();
+    public DbSet<HR.EmployeeGoal> EmployeeGoals => Set<HR.EmployeeGoal>();
+    public DbSet<HR.EmployeeSkill> EmployeeSkills => Set<HR.EmployeeSkill>();
+    public DbSet<HR.EmployeeCertificate> EmployeeCertificates => Set<HR.EmployeeCertificate>();
+    public DbSet<HR.TrainingCourse> TrainingCourses => Set<HR.TrainingCourse>();
     public DbSet<ExpenseClaim> ExpenseClaims { get; set; }
     public DbSet<AuthorityDelegation> AuthorityDelegations { get; set; }
     public DbSet<DirectoryProfile> DirectoryProfiles { get; set; }
@@ -116,6 +120,34 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
             entity.Property(c => c.TaskName).HasMaxLength(200).IsRequired();
             entity.HasOne(c => c.EmployeeUser).WithMany().HasForeignKey(c => c.EmployeeUserId).OnDelete(DeleteBehavior.Cascade);
             entity.HasOne(c => c.CompletedByUser).WithMany().HasForeignKey(c => c.CompletedByUserId).OnDelete(DeleteBehavior.NoAction);
+        });
+
+        builder.Entity<HR.EmployeeGoal>(entity =>
+        {
+            entity.HasIndex(g => new { g.TenantId, g.EmployeeUserId, g.Year });
+            entity.Property(g => g.Title).HasMaxLength(200).IsRequired();
+            entity.HasOne(g => g.EmployeeUser).WithMany().HasForeignKey(g => g.EmployeeUserId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        builder.Entity<HR.EmployeeSkill>(entity =>
+        {
+            entity.HasIndex(s => new { s.TenantId, s.EmployeeUserId });
+            entity.Property(s => s.SkillName).HasMaxLength(128).IsRequired();
+            entity.HasOne(s => s.EmployeeUser).WithMany().HasForeignKey(s => s.EmployeeUserId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        builder.Entity<HR.EmployeeCertificate>(entity =>
+        {
+            entity.HasIndex(c => new { c.TenantId, c.EmployeeUserId });
+            entity.Property(c => c.CertificateName).HasMaxLength(200).IsRequired();
+            entity.HasOne(c => c.EmployeeUser).WithMany().HasForeignKey(c => c.EmployeeUserId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        builder.Entity<HR.TrainingCourse>(entity =>
+        {
+            entity.HasIndex(t => new { t.TenantId, t.EmployeeUserId });
+            entity.Property(t => t.Title).HasMaxLength(200).IsRequired();
+            entity.HasOne(t => t.EmployeeUser).WithMany().HasForeignKey(t => t.EmployeeUserId).OnDelete(DeleteBehavior.Cascade);
         });
 
         builder.Entity<HR.EmployeeProfile>(entity =>

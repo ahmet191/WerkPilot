@@ -194,7 +194,10 @@ public static class TenantBaseline
                 Child(hrParent, "sidebar.directory", "/directory", "TeamOutlined", 10),
                 Child(hrParent, "sidebar.hrCenter", "/hr/center", "IdcardOutlined", 15),
                 Child(hrParent, "sidebar.onboarding", "/hr/onboarding", "UserAddOutlined", 18),
-                Child(hrParent, "sidebar.orgchart", "/orgchart", "DashboardOutlined", 20),
+                Child(hrParent, "sidebar.okrs", "/hr/okrs", "AimOutlined", 19),
+                Child(hrParent, "sidebar.skills", "/hr/skills", "TrophyOutlined", 21),
+                Child(hrParent, "sidebar.trainings", "/hr/trainings", "ReadOutlined", 22),
+                Child(hrParent, "sidebar.orgchart", "/orgchart", "DashboardOutlined", 25),
                 Child(hrParent, "sidebar.leaves", "/leaves", "CalendarOutlined", 30),
                 Child(hrParent, "sidebar.expenses", "/expenses", "DollarOutlined", 40),
 
@@ -236,6 +239,9 @@ public static class TenantBaseline
 
         EnsureChild(hrParent, "sidebar.hrCenter", "/hr/center", "IdcardOutlined", 15);
         EnsureChild(hrParent, "sidebar.onboarding", "/hr/onboarding", "UserAddOutlined", 18);
+        EnsureChild(hrParent, "sidebar.okrs", "/hr/okrs", "AimOutlined", 19);
+        EnsureChild(hrParent, "sidebar.skills", "/hr/skills", "TrophyOutlined", 21);
+        EnsureChild(hrParent, "sidebar.trainings", "/hr/trainings", "ReadOutlined", 22);
         EnsureChild(adminParent, "sidebar.visibility", "/settings/visibility", "EyeOutlined", 75);
         EnsureChild(adminParent, "sidebar.permissions", "/settings/permissions", "SafetyCertificateOutlined", 78);
         EnsureChild(adminParent, "sidebar.reports", "/reports", "BarChartOutlined", 80);

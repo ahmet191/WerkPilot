@@ -30,6 +30,10 @@ public interface IOmniFlowDbContext
     DbSet<ServiceDesk> ServiceDesks { get; }
     DbSet<DepartmentVisibility> DepartmentVisibilities { get; }
     DbSet<Domain.Entities.HR.OnboardingChecklist> OnboardingChecklists { get; }
+    DbSet<Domain.Entities.HR.EmployeeGoal> EmployeeGoals { get; }
+    DbSet<Domain.Entities.HR.EmployeeSkill> EmployeeSkills { get; }
+    DbSet<Domain.Entities.HR.EmployeeCertificate> EmployeeCertificates { get; }
+    DbSet<Domain.Entities.HR.TrainingCourse> TrainingCourses { get; }
     DbSet<ExpenseClaim> ExpenseClaims { get; }
     DbSet<AuthorityDelegation> AuthorityDelegations { get; }
     DbSet<DirectoryProfile> DirectoryProfiles { get; }

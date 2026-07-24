@@ -27,6 +27,9 @@ const ReportsPage = lazy(() => import('./features/reports/ReportsPage').then(m =
 const PermissionMatrixPage = lazy(() => import('./features/admin/PermissionMatrixPage').then(m => ({ default: m.PermissionMatrixPage })));
 const VisibilityMatrixPage = lazy(() => import('./features/admin/VisibilityMatrixPage').then(m => ({ default: m.VisibilityMatrixPage })));
 const OnboardingManagementPage = lazy(() => import('./features/hr/components/OnboardingManagementPage').then(m => ({ default: m.OnboardingManagementPage })));
+const PerformanceOkrPage = lazy(() => import('./features/hr/components/PerformanceOkrPage').then(m => ({ default: m.PerformanceOkrPage })));
+const SkillsCertificatesPage = lazy(() => import('./features/hr/components/SkillsCertificatesPage').then(m => ({ default: m.SkillsCertificatesPage })));
+const LmsTrainingPage = lazy(() => import('./features/hr/components/LmsTrainingPage').then(m => ({ default: m.LmsTrainingPage })));
 const PlatformTenantsPage = lazy(() => import('./features/platform/PlatformTenantsPage').then(m => ({ default: m.PlatformTenantsPage })));
 const TemplatesAdminPage = lazy(() => import('./features/admin/TemplatesAdminPage').then(m => ({ default: m.TemplatesAdminPage })));
 const WorkflowDesignerPage = lazy(() => import('./features/admin/WorkflowDesignerPage').then(m => ({ default: m.WorkflowDesignerPage })));
@@ -73,6 +76,9 @@ function App() {
                 <Route path="directory" element={<EmployeeDirectory />} />
                 <Route path="hr/center" element={<EmployeeCenterPage />} />
                 <Route path="hr/onboarding" element={<OnboardingManagementPage />} />
+                <Route path="hr/okrs" element={<PerformanceOkrPage />} />
+                <Route path="hr/skills" element={<SkillsCertificatesPage />} />
+                <Route path="hr/trainings" element={<LmsTrainingPage />} />
                 <Route path="orgchart" element={<OrgChart />} />
                 <Route path="leaves" element={<DynamicPage entityType="leaves" />} />
                 <Route path="expenses" element={<DynamicPage entityType="expenses" />} />
