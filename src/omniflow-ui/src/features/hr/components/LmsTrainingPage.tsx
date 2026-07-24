@@ -30,7 +30,6 @@ export const LmsTrainingPage: React.FC = () => {
       const res = await api.get('/hr/trainings');
       setCourses(res.data);
     } catch {
-      console.error(err);
     } finally {
       setLoading(false);
     }

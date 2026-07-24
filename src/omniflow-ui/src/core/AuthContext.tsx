@@ -70,7 +70,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
           });
         }
       } catch {
-        console.error("Invalid token", err);
+        console.error("Invalid token");
         localStorage.removeItem(TOKEN_KEY);
       }
     }

@@ -29,7 +29,6 @@ export const OnboardingManagementPage: React.FC = () => {
       const res = await api.get('/onboarding/checklist');
       setTasks(res.data);
     } catch {
-      console.error(err);
     } finally {
       setLoading(false);
     }

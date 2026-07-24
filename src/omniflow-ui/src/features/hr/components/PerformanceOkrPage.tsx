@@ -34,7 +34,6 @@ export const PerformanceOkrPage: React.FC = () => {
       const res = await api.get('/hr/goals');
       setGoals(res.data);
     } catch {
-      console.error(err);
     } finally {
       setLoading(false);
     }

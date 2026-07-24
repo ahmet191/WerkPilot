@@ -28,7 +28,6 @@ export const VisibilityMatrixPage: React.FC = () => {
       const res = await api.get('/visibility/matrix');
       setMatrix(res.data);
     } catch {
-      console.error(err);
     } finally {
       setLoading(false);
     }

@@ -36,7 +36,7 @@ const DynamicSelect = ({ field, ...props }: any) => {
       });
       setFetchedOptions(mappedOptions);
     } catch {
-      console.error(`Failed to load options for ${field.name}`, err);
+      console.error(`Failed to load options for ${field.name}`);
     } finally {
       setLoading(false);
     }
@@ -334,7 +334,7 @@ export function DynamicFormModal({ open, schema, editRecord, editEndpoint, onCan
       const res = await api.get(`${schema.templateEndpoint!}${separator}pageSize=200`);
       setTemplates(unwrapList(res.data));
     } catch {
-      console.error('Failed to load templates', err);
+      console.error('Failed to load templates');
     } finally {
       setLoading(false);
     }
@@ -349,7 +349,7 @@ export function DynamicFormModal({ open, schema, editRecord, editEndpoint, onCan
         const res = await api.get(url);
         setActiveSchema(res.data);
       } catch {
-        console.error('Failed to load dynamic schema', err);
+        console.error('Failed to load dynamic schema');
       } finally {
         setLoading(false);
       }
@@ -538,7 +538,7 @@ export function DynamicFormModal({ open, schema, editRecord, editEndpoint, onCan
               name={field.name}
               label={t(field.labelKey) || field.labelKey}
               rules={getRules(field)}
-              valuePropName={(field.type === 'boolean' || field.type === 'checkbox') ? 'checked' : 'value'}
+              valuePropName={((field.type as string) === 'boolean' || (field.type as string) === 'checkbox') ? 'checked' : 'value'}
             >
               {renderField(field)}
             </Form.Item>

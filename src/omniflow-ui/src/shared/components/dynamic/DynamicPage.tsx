@@ -93,7 +93,7 @@ export function DynamicPage({ entityType, detailRoute, extraActions }: DynamicPa
       const paged = all.slice((page - 1) * pageSize, page * pageSize);
       return { data: paged, total: all.length };
     } catch {
-      console.error('Failed to fetch data', err);
+      console.error('Failed to fetch data');
       return { data: [], total: 0 };
     }
   }, [schema, refreshKey]); // refreshKey forces a refetch after mutations
@@ -126,7 +126,7 @@ export function DynamicPage({ entityType, detailRoute, extraActions }: DynamicPa
           message.success(t('delete.success', 'Deleted successfully'));
           setRefreshKey(prev => prev + 1);
         } catch {
-          console.error('Delete failed', err);
+          console.error('Delete failed');
         }
       },
     });
@@ -140,7 +140,7 @@ export function DynamicPage({ entityType, detailRoute, extraActions }: DynamicPa
       message.success(t('common.done', 'Done'));
       setRefreshKey(prev => prev + 1);
     } catch {
-      console.error('Action failed', err);
+      console.error('Action failed');
     }
   }, [t]);
 

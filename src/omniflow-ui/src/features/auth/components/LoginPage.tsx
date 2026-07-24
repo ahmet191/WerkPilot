@@ -50,7 +50,6 @@ export const LoginPage: React.FC = () => {
         setError(t('auth.mfaInvalid', 'The verification code is invalid.'));
         return;
       }
-      console.error(err);
       setError(data?.error_description || 'Login failed. Please check your credentials.');
       setMfaStep(false);
     } finally {

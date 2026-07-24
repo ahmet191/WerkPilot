@@ -28,7 +28,6 @@ export const DepartmentStudioPage: React.FC = () => {
       const res = await api.get('/departments/studio');
       setDepartments(res.data);
     } catch {
-      console.error(err);
     } finally {
       setLoading(false);
     }

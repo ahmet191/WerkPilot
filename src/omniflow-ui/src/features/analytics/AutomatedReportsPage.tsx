@@ -25,7 +25,6 @@ export const AutomatedReportsPage: React.FC = () => {
       const res = await api.get('/analytics/reports');
       setReports(res.data);
     } catch {
-      console.error(err);
     } finally {
       setLoading(false);
     }

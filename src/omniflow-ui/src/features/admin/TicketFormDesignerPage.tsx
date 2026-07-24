@@ -30,7 +30,6 @@ export const TicketFormDesignerPage: React.FC = () => {
       setSchemas(resSchemas.data);
       setDesks(resDesks.data || []);
     } catch {
-      console.error(err);
     } finally {
       setLoading(false);
     }

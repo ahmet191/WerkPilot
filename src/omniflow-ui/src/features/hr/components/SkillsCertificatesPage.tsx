@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Table, Tag, Rate, Alert, Row, Col, Spin, Divider, Button, Modal, Form, Input, Select, InputNumber, DatePicker, Checkbox, message } from 'antd';
+import { Card, Table, Tag, Rate, Alert, Row, Col, Spin, Divider, Button, Modal, Form, Input, Select, DatePicker, Checkbox, message } from 'antd';
 import { TrophyOutlined, ExclamationCircleOutlined, CheckCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { api } from '../../../core/api';
@@ -43,7 +43,6 @@ export const SkillsCertificatesPage: React.FC = () => {
       setSkills(res.data.skills);
       setCertificates(res.data.certificates);
     } catch {
-      console.error(err);
     } finally {
       setLoading(false);
     }

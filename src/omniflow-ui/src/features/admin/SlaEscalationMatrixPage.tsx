@@ -29,7 +29,6 @@ export const SlaEscalationMatrixPage: React.FC = () => {
       const res = await api.get('/slas/policies');
       setRules(res.data);
     } catch {
-      console.error(err);
     } finally {
       setLoading(false);
     }

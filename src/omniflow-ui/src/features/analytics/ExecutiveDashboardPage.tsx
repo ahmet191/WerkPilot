@@ -38,7 +38,6 @@ export const ExecutiveDashboardPage: React.FC = () => {
         setTrend(tr.data ?? []);
         setByPriority((pr.data ?? []).map(p => ({ type: p.priority, value: p.count })));
       } catch {
-        console.error(err);
       } finally {
         setLoading(false);
       }
