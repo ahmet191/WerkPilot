@@ -81,7 +81,18 @@ public class DirectoryController : ControllerBase
     public async Task<IActionResult> GetOrgChart()
     {
         var users = await _context.Users
-            .Select(u => new { u.Id, u.Name, u.Title, u.ManagerId })
+            .Include(u => u.Department)
+            .Select(u => new
+            {
+                u.Id,
+                u.Name,
+                u.Title,
+                u.Email,
+                u.ManagerId,
+                DepartmentName = u.Department != null ? u.Department.LocalizedName.GetValueOrDefault("en") : "Executive & Operations",
+                u.ProfilePictureUrl,
+                u.PhoneNumber
+            })
             .ToListAsync();
 
         return Ok(users);
