@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/OmniFlow.Api/OmniFlow.Api.csproj" />
+    <Project Path="src/OmniFlow.Application/OmniFlow.Application.csproj" />
+    <Project Path="src/OmniFlow.Domain/OmniFlow.Domain.csproj" />
+    <Project Path="src/OmniFlow.Infrastructure/OmniFlow.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/OmniFlow.Application.UnitTests/OmniFlow.Application.UnitTests.csproj" />
+    <Project Path="tests/OmniFlow.Api.IntegrationTests/OmniFlow.Api.IntegrationTests.csproj" />
+  </Folder>
+</Solution>

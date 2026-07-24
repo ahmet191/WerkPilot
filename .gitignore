@@ -1,0 +1,51 @@
+# .NET build output
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+.vs/
+
+# Rider / IDE
+.idea/
+*.DotSettings.user
+
+# Node / frontend
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Environment & secrets — never commit real credentials
+.env
+.env.*
+!.env.example
+appsettings.*.Local.json
+
+# Generated OpenIddict certificates (scripts/generate-certs.sh) — secrets
+certs/
+*.pfx
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+/src/OmniFlow.Api/bin
+/src/OmniFlow.Api/obj
+
+# Graphify AST cache artifact
+graphify-out/
+/graphify-out/
+
+# AI Agent workspace metadata
+.claude/
+/.claude/
+
+# Uploaded file store (local dev). Must stay narrow: a bare "storage/" also
+# matches source folders such as src/OmniFlow.Infrastructure/Storage/ (git
+# matches ignore patterns case-insensitively on macOS/Windows), which silently
+# kept LocalFileStorage.cs out of the repo and broke the CI build.
+**/storage/uploads/
+
