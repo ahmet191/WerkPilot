@@ -246,11 +246,21 @@ export function AppLayout() {
         collapsed={collapsed}
         onCollapse={(value) => setCollapsed(value)}
         theme={theme === 'light' ? 'light' : 'dark'}
+        style={{
+          height: '100vh',
+          position: 'sticky',
+          top: 0,
+          left: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          zIndex: 100
+        }}
       >
         {/* Brand block */}
         <div
           style={{
             height: 64,
+            flexShrink: 0,
             display: 'flex',
             alignItems: 'center',
             justifyContent: collapsed ? 'center' : 'flex-start',
@@ -273,18 +283,21 @@ export function AppLayout() {
           )}
         </div>
 
-        {loading ? (
-          <div style={{ textAlign: 'center', padding: '20px' }}><Spin /></div>
-        ) : (
-          <Menu
-            mode="inline"
-            selectedKeys={[location.pathname]}
-            items={generateMenuProps(filterMenuByRole(menuData))}
-            onClick={handleMenuClick}
-            style={{ borderRight: 0, background: 'transparent' }}
-            theme={theme === 'light' ? 'light' : 'dark'}
-          />
-        )}
+        {/* Scrollable menu container */}
+        <div className="sidebar-scrollable" style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', paddingBottom: 16 }}>
+          {loading ? (
+            <div style={{ textAlign: 'center', padding: '20px' }}><Spin /></div>
+          ) : (
+            <Menu
+              mode="inline"
+              selectedKeys={[location.pathname]}
+              items={generateMenuProps(filterMenuByRole(menuData))}
+              onClick={handleMenuClick}
+              style={{ borderRight: 0, background: 'transparent' }}
+              theme={theme === 'light' ? 'light' : 'dark'}
+            />
+          )}
+        </div>
       </Sider>
 
       <Layout className="main-content">
