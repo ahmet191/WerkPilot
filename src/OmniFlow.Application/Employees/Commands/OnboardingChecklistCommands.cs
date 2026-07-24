@@ -59,22 +59,6 @@ namespace OmniFlow.Application.Employees.Commands
 
             var tasks = await query.OrderBy(c => c.IsCompleted).ThenBy(c => c.DueDate).ToListAsync(cancellationToken);
 
-            // Default seeded onboarding tasks if table is currently empty for demo
-            if (!tasks.Any())
-            {
-                var demoEmp = await _context.Users.FirstOrDefaultAsync(cancellationToken);
-                var empId = demoEmp?.Id ?? Guid.NewGuid();
-                var empName = demoEmp?.Name ?? "New Employee";
-
-                return new List<OnboardingTaskDto>
-                {
-                    new() { Id = Guid.NewGuid(), EmployeeUserId = empId, EmployeeName = empName, Type = "Onboarding", TaskName = "Provision Google Workspace / M365 Email Account", Description = "Create corporate email and invite user.", AssignedDepartment = "IT", IsCompleted = true, CompletedAt = DateTime.UtcNow.AddDays(-2), CompletedByName = "Bob IT Agent", DueDate = DateTime.UtcNow.AddDays(-1) },
-                    new() { Id = Guid.NewGuid(), EmployeeUserId = empId, EmployeeName = empName, Type = "Onboarding", TaskName = "Issue Corporate Laptop (MacBook Air/ThinkPad)", Description = "Prepare device image and hand over to employee.", AssignedDepartment = "IT", IsCompleted = false, DueDate = DateTime.UtcNow.AddDays(1) },
-                    new() { Id = Guid.NewGuid(), EmployeeUserId = empId, EmployeeName = empName, Type = "Onboarding", TaskName = "Collect Signed Employment Contract & Özlük Documents", Description = "Collect ID photocopy, diploma, and signed agreement.", AssignedDepartment = "HR", IsCompleted = false, DueDate = DateTime.UtcNow.AddDays(2) },
-                    new() { Id = Guid.NewGuid(), EmployeeUserId = empId, EmployeeName = empName, Type = "Onboarding", TaskName = "Issue Building Access Card & Meal Allowance Card", Description = "Encode RFID badge and register on turnstiles.", AssignedDepartment = "Facilities", IsCompleted = false, DueDate = DateTime.UtcNow.AddDays(1) }
-                };
-            }
-
             return tasks.Select(c => new OnboardingTaskDto
             {
                 Id = c.Id,

@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using OmniFlow.Domain.Common;
 using OmniFlow.Domain.Entities;
 using OmniFlow.Domain.Enums;
+using HR = OmniFlow.Domain.Entities.HR;
 
 namespace OmniFlow.Infrastructure.Persistence.Seed;
 
@@ -58,6 +59,7 @@ public static class DemoDataSeeder
         await SeedTicketsAsync(context, cancellationToken);
         await SeedLeaveAsync(context, cancellationToken);
         await SeedExpensesAsync(context, cancellationToken);
+        await SeedPhase2To5Async(context, cancellationToken);
         await EnsureReportsMenuAsync(context, cancellationToken);
         await SpecializeMenusAsync(context, cancellationToken);
     }
@@ -450,6 +452,258 @@ public static class DemoDataSeeder
                 Status = s.S,
                 ApproverId = s.S is ExpenseStatus.Approved or ExpenseStatus.Rejected or ExpenseStatus.Paid ? approver : null,
             });
+        }
+        await context.SaveChangesAsync(ct);
+    }
+
+    // ════════════════════════════════════════════════════════════════════
+    // Phase 2-5 feature data: OKRs, competency, LMS, onboarding, department
+    // studio, desk visibility, SLA escalation, form schemas, AI predictions.
+    // Each block is idempotent (gates on its own table being empty).
+    // ════════════════════════════════════════════════════════════════════
+
+    // HR self-service screens read the *signed-in* user's data, so the four
+    // people most likely to be demoed each get a rich profile.
+    private static readonly Guid[] HrFeaturedUsers =
+    {
+        SeedConstants.AdminUserId, ItManagerId, ItAgent2Id, HrSpecialistId,
+    };
+
+    private static async Task SeedPhase2To5Async(OmniFlowDbContext context, CancellationToken ct)
+    {
+        await SeedGoalsAsync(context, ct);
+        await SeedSkillsAndCertificatesAsync(context, ct);
+        await SeedTrainingsAsync(context, ct);
+        await SeedOnboardingAsync(context, ct);
+        await SeedCustomDepartmentsAsync(context, ct);
+        await SeedDepartmentVisibilityAsync(context, ct);
+        await SeedSlaPolicyRulesAsync(context, ct);
+        await SeedTicketFormSchemasAsync(context, ct);
+        await SeedAiPredictionsAsync(context, ct);
+    }
+
+    // ── OKRs / performance goals ────────────────────────────────────────
+    private static async Task SeedGoalsAsync(OmniFlowDbContext context, CancellationToken ct)
+    {
+        if (await context.EmployeeGoals.AnyAsync(ct)) return;
+        var year = DateTime.UtcNow.Year;
+
+        HR.EmployeeGoal Goal(Guid u, string title, string desc, HR.GoalQuarter q, decimal target, decimal current, HR.GoalStatus status) => new()
+        {
+            TenantId = SeedConstants.DefaultTenantId,
+            EmployeeUserId = u, Title = title, Description = desc,
+            Quarter = q, Year = year, TargetValue = target, CurrentValue = current, Unit = "Percentage", Status = status,
+        };
+
+        context.EmployeeGoals.AddRange(
+            Goal(SeedConstants.AdminUserId, "Raise service-desk SLA compliance above 95%", "Keep P1/P2 resolution within target across both desks.", HR.GoalQuarter.Q3, 95, 93, HR.GoalStatus.InProgress),
+            Goal(SeedConstants.AdminUserId, "Roll out MFA to 100% of staff", "Enforce TOTP for every account.", HR.GoalQuarter.Q2, 100, 100, HR.GoalStatus.Achieved),
+            Goal(SeedConstants.AdminUserId, "Complete the Q4 security audit", "Review access logs and the permission matrix.", HR.GoalQuarter.Q4, 100, 35, HR.GoalStatus.InProgress),
+            Goal(ItManagerId, "Improve first-response rate to 90%", "Streamline triage and the on-call rota.", HR.GoalQuarter.Q3, 90, 78, HR.GoalStatus.Behind),
+            Goal(ItManagerId, "Automate endpoint provisioning", "Zero-touch imaging for new laptops.", HR.GoalQuarter.Q3, 100, 60, HR.GoalStatus.InProgress),
+            Goal(ItAgent2Id, "Cut repeat incidents by 20%", "Root-cause the top five recurring tickets.", HR.GoalQuarter.Q3, 100, 55, HR.GoalStatus.InProgress),
+            Goal(HrSpecialistId, "Speed up onboarding to 3 days", "Parallelise the IT / HR / Facilities checklists.", HR.GoalQuarter.Q3, 100, 70, HR.GoalStatus.InProgress));
+        await context.SaveChangesAsync(ct);
+    }
+
+    // ── Competency: skills + certificates ───────────────────────────────
+    private static async Task SeedSkillsAndCertificatesAsync(OmniFlowDbContext context, CancellationToken ct)
+    {
+        if (await context.EmployeeSkills.AnyAsync(ct)) return;
+
+        HR.EmployeeSkill Skill(Guid u, string name, string cat, int level) => new()
+        {
+            TenantId = SeedConstants.DefaultTenantId, EmployeeUserId = u,
+            SkillName = name, Category = cat, ProficiencyLevel = level, LastEvaluatedAt = DateTime.UtcNow.AddMonths(-2),
+        };
+
+        context.EmployeeSkills.AddRange(
+            Skill(SeedConstants.AdminUserId, "Platform Administration", "Technical", 5),
+            Skill(SeedConstants.AdminUserId, "Security & Compliance", "Compliance", 5),
+            Skill(SeedConstants.AdminUserId, "Team Leadership", "Leadership", 4),
+            Skill(ItManagerId, "ITIL Service Management", "Domain", 5),
+            Skill(ItManagerId, "Azure & Cloud Infrastructure", "Technical", 4),
+            Skill(ItManagerId, "Incident Management", "Domain", 5),
+            Skill(ItAgent2Id, "Windows & Intune Endpoint", "Technical", 4),
+            Skill(ItAgent2Id, "PowerShell Automation", "Technical", 4),
+            Skill(ItAgent2Id, "Active Directory & Identity", "Technical", 3),
+            Skill(HrSpecialistId, "Recruiting & Onboarding", "Domain", 4),
+            Skill(HrSpecialistId, "Payroll & Benefits", "Domain", 4),
+            Skill(HrSpecialistId, "Labour Law (TR)", "Compliance", 3));
+        await context.SaveChangesAsync(ct);
+
+        HR.EmployeeCertificate Cert(Guid u, string name, string org, string cred, int issuedMonthsAgo, int? expiresInDays, bool mandatory) => new()
+        {
+            TenantId = SeedConstants.DefaultTenantId, EmployeeUserId = u,
+            CertificateName = name, IssuingOrganization = org, CredentialId = cred,
+            IssueDate = DateTime.UtcNow.AddMonths(-issuedMonthsAgo),
+            ExpirationDate = expiresInDays.HasValue ? DateTime.UtcNow.AddDays(expiresInDays.Value) : null,
+            IsMandatory = mandatory,
+        };
+
+        context.EmployeeCertificates.AddRange(
+            Cert(SeedConstants.AdminUserId, "ISO 27001 Lead Auditor", "BSI Group", "BSI-ISO-27001-9921", 10, 40, true),   // expiring soon
+            Cert(ItManagerId, "ITIL 4 Managing Professional", "PeopleCert", "ITIL-MP-55210", 14, 720, false),
+            Cert(ItManagerId, "İSG Temel Eğitimi", "ÇSGB", "ISG-TR-2025-014", 8, 300, true),
+            Cert(ItAgent2Id, "Microsoft MD-102 Endpoint Admin", "Microsoft", "MS-MD102-31882", 6, 540, false),
+            Cert(HrSpecialistId, "KVKK Data Protection", "WerkPilot Academy", "KVKK-2025-77", 5, 200, true));
+        await context.SaveChangesAsync(ct);
+    }
+
+    // ── LMS training courses ────────────────────────────────────────────
+    private static async Task SeedTrainingsAsync(OmniFlowDbContext context, CancellationToken ct)
+    {
+        if (await context.TrainingCourses.AnyAsync(ct)) return;
+
+        HR.TrainingCourse Course(Guid u, string title, string desc, string cat, int hours, bool mandatory, HR.TrainingStatus status, int score, int? completedMonthsAgo) => new()
+        {
+            TenantId = SeedConstants.DefaultTenantId, EmployeeUserId = u,
+            Title = title, Description = desc, Category = cat, DurationHours = hours, IsMandatory = mandatory,
+            Status = status, Score = score,
+            CompletedAt = completedMonthsAgo.HasValue ? DateTime.UtcNow.AddMonths(-completedMonthsAgo.Value) : null,
+        };
+
+        foreach (var u in HrFeaturedUsers)
+        {
+            context.TrainingCourses.AddRange(
+                Course(u, "GDPR & KVKK Data Protection 2026", "Mandatory annual data-privacy training.", "Mandatory Compliance", 2, true, HR.TrainingStatus.Completed, 92, 2),
+                Course(u, "Security & Anti-Phishing Awareness", "Password hygiene, MFA and phishing prevention.", "Mandatory Compliance", 3, true, HR.TrainingStatus.InProgress, 0, null),
+                Course(u, "Effective Communication at Work", "Soft-skills workshop for cross-team collaboration.", "Soft Skills", 4, false, HR.TrainingStatus.NotStarted, 0, null));
+        }
+        await context.SaveChangesAsync(ct);
+    }
+
+    // ── Onboarding checklist for a recent new hire ──────────────────────
+    private static async Task SeedOnboardingAsync(OmniFlowDbContext context, CancellationToken ct)
+    {
+        if (await context.OnboardingChecklists.AnyAsync(ct)) return;
+
+        var newHire = OpsEmpId; // Hande, Operations
+
+        HR.OnboardingChecklist Item(string name, string desc, HR.ChecklistDepartment dept, bool done, int dueOffsetDays) => new()
+        {
+            TenantId = SeedConstants.DefaultTenantId, EmployeeUserId = newHire, Type = HR.ChecklistType.Onboarding,
+            TaskName = name, Description = desc, AssignedDepartment = dept, IsCompleted = done,
+            CompletedAt = done ? DateTime.UtcNow.AddDays(-2) : null,
+            CompletedByUserId = done ? HrSpecialistId : null,
+            DueDate = DateTime.UtcNow.AddDays(dueOffsetDays),
+        };
+
+        context.OnboardingChecklists.AddRange(
+            Item("Create corporate email & M365 account", "Provision the mailbox and invite the new hire.", HR.ChecklistDepartment.IT, true, -1),
+            Item("Issue and image a corporate laptop", "Prepare the device and hand it over.", HR.ChecklistDepartment.IT, true, -1),
+            Item("Collect signed contract & ID documents", "Employment agreement and personnel file.", HR.ChecklistDepartment.HR, false, 2),
+            Item("Issue building access & meal card", "Encode the RFID badge and register turnstiles.", HR.ChecklistDepartment.Facilities, false, 1),
+            Item("Set up payroll & bank details", "Register the salary account and tax declaration.", HR.ChecklistDepartment.Finance, false, 3),
+            Item("Enrol in the pension & benefits scheme", "Complete the benefits enrolment forms.", HR.ChecklistDepartment.HR, false, 5));
+        await context.SaveChangesAsync(ct);
+    }
+
+    // ── Department studio: custom department definitions ────────────────
+    private static async Task SeedCustomDepartmentsAsync(OmniFlowDbContext context, CancellationToken ct)
+    {
+        if (await context.CustomDepartments.AnyAsync(ct)) return;
+
+        CustomDepartment Dept(string code, string name, string desc, string type, string icon, string color) => new()
+        {
+            TenantId = SeedConstants.DefaultTenantId,
+            Code = code, Name = name, Description = desc, DepartmentType = type, IconName = icon, ColorHex = color, IsActive = true,
+        };
+
+        context.CustomDepartments.AddRange(
+            Dept("LEGAL", "Legal & Compliance", "Contracts, compliance and data-protection requests.", "Legal", "AuditOutlined", "#6366f1"),
+            Dept("PROC", "Procurement", "Purchasing, vendors and supplier onboarding.", "Procurement", "ShoppingOutlined", "#f59e0b"),
+            Dept("FAC", "Facilities", "Office, access cards and workplace requests.", "Facilities", "HomeOutlined", "#10b981"));
+        await context.SaveChangesAsync(ct);
+    }
+
+    // ── Multi-desk visibility overrides ─────────────────────────────────
+    private static async Task SeedDepartmentVisibilityAsync(OmniFlowDbContext context, CancellationToken ct)
+    {
+        if (await context.DepartmentVisibilities.AnyAsync(ct)) return;
+
+        DepartmentVisibility Vis(string role, string deskKey, bool visible, bool canCreate, bool confidential) => new()
+        {
+            TenantId = SeedConstants.DefaultTenantId,
+            RoleName = role, ServiceDeskKey = deskKey, IsVisible = visible, CanCreateTickets = canCreate, IsConfidential = confidential,
+        };
+
+        context.DepartmentVisibilities.AddRange(
+            Vis("Requester", "FINANCE", false, false, true),  // requesters can't see the finance desk
+            Vis("Requester", "LEGAL", false, false, true),
+            Vis("ITAgent", "HR", true, false, true),           // IT can view HR tickets but they're confidential
+            Vis("HRAdmin", "HR", true, true, false));
+        await context.SaveChangesAsync(ct);
+    }
+
+    // ── SLA escalation matrix ───────────────────────────────────────────
+    private static async Task SeedSlaPolicyRulesAsync(OmniFlowDbContext context, CancellationToken ct)
+    {
+        if (await context.SlaPolicyRules.AnyAsync(ct)) return;
+
+        SlaPolicyRule Rule(string name, TicketPriority prio, int responseMin, int resolveHrs, int escalatePct) => new()
+        {
+            TenantId = SeedConstants.DefaultTenantId,
+            Name = name, Priority = prio, ResponseTimeMinutes = responseMin, ResolutionTimeHours = resolveHrs,
+            EscalateAfterPercent = escalatePct, EscalateToUserId = ItManagerId, NotifyManagerOnBreach = true, IsActive = true,
+        };
+
+        context.SlaPolicyRules.AddRange(
+            Rule("Critical — escalate fast", TicketPriority.Critical, 15, 4, 75),
+            Rule("High priority", TicketPriority.High, 30, 8, 80),
+            Rule("Medium priority", TicketPriority.Medium, 60, 24, 85),
+            Rule("Low priority", TicketPriority.Low, 240, 72, 90));
+        await context.SaveChangesAsync(ct);
+    }
+
+    // ── Form designer: custom ticket form schemas ───────────────────────
+    private static async Task SeedTicketFormSchemasAsync(OmniFlowDbContext context, CancellationToken ct)
+    {
+        if (await context.TicketFormSchemas.AnyAsync(ct)) return;
+
+        const string hardwareFields =
+            "[{\"Key\":\"AssetTag\",\"Label\":\"Asset Tag\",\"FieldType\":\"text\",\"IsRequired\":true,\"OrderIndex\":1}," +
+            "{\"Key\":\"IssueType\",\"Label\":\"Issue Type\",\"FieldType\":\"select\",\"IsRequired\":true,\"Options\":[\"Won't power on\",\"Screen\",\"Keyboard\",\"Battery\",\"Other\"],\"OrderIndex\":2}," +
+            "{\"Key\":\"Description\",\"Label\":\"Description\",\"FieldType\":\"textarea\",\"IsRequired\":true,\"OrderIndex\":3}]";
+        const string onboardingFields =
+            "[{\"Key\":\"StartDate\",\"Label\":\"Start Date\",\"FieldType\":\"date\",\"IsRequired\":true,\"OrderIndex\":1}," +
+            "{\"Key\":\"Role\",\"Label\":\"Role / Title\",\"FieldType\":\"text\",\"IsRequired\":true,\"OrderIndex\":2}," +
+            "{\"Key\":\"Equipment\",\"Label\":\"Equipment Needed\",\"FieldType\":\"select\",\"IsRequired\":false,\"Options\":[\"Laptop\",\"Monitor\",\"Phone\"],\"OrderIndex\":3}]";
+
+        context.TicketFormSchemas.AddRange(
+            new TicketFormSchema { TenantId = SeedConstants.DefaultTenantId, ServiceDeskId = SeedConstants.ItServiceDeskId, FormTitle = "Hardware Fault Report", FormDescription = "Guided form for laptop and peripheral faults.", FieldsJson = hardwareFields, IsActive = true },
+            new TicketFormSchema { TenantId = SeedConstants.DefaultTenantId, ServiceDeskId = HrServiceDeskId, FormTitle = "New Hire Onboarding Request", FormDescription = "Collects the details HR needs to start onboarding.", FieldsJson = onboardingFields, IsActive = true });
+        await context.SaveChangesAsync(ct);
+    }
+
+    // ── Historical AI triage predictions on existing tickets ────────────
+    private static async Task SeedAiPredictionsAsync(OmniFlowDbContext context, CancellationToken ct)
+    {
+        if (await context.TicketAiPredictions.AnyAsync(ct)) return;
+
+        var tickets = await context.Tickets
+            .OrderBy(t => t.CreatedAt)
+            .Take(10)
+            .Select(t => t.Id)
+            .ToListAsync(ct);
+        if (tickets.Count == 0) return;
+
+        var cats = new[] { "Network", "Hardware", "Access & Identity", "Software", "Email & Collaboration" };
+        var prios = new[] { "High", "Medium", "Critical", "Low", "Medium" };
+
+        var n = 0;
+        foreach (var ticketId in tickets)
+        {
+            context.TicketAiPredictions.Add(new TicketAiPrediction
+            {
+                TenantId = SeedConstants.DefaultTenantId,
+                TicketId = ticketId,
+                PredictedCategory = cats[n % cats.Length],
+                PredictedPriority = prios[n % prios.Length],
+                ConfidenceScore = 0.70 + (n % 3) * 0.08,
+                Reasoning = "Seeded historical prediction from the triage model.",
+            });
+            n++;
         }
         await context.SaveChangesAsync(ct);
     }

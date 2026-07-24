@@ -81,29 +81,6 @@ namespace OmniFlow.Application.Employees.Queries
                 })
                 .ToListAsync(cancellationToken);
 
-            // Default seed data for demonstration if empty
-            if (!skills.Any())
-            {
-                skills = new List<EmployeeSkillDto>
-                {
-                    new() { Id = Guid.NewGuid(), SkillName = "C# & .NET Core / ASP.NET Architecture", Category = "Technical", ProficiencyLevel = 5, LastEvaluatedAt = DateTime.UtcNow },
-                    new() { Id = Guid.NewGuid(), SkillName = "React & TypeScript Frontend", Category = "Technical", ProficiencyLevel = 4, LastEvaluatedAt = DateTime.UtcNow },
-                    new() { Id = Guid.NewGuid(), SkillName = "ITSM & SLA Policy Management", Category = "Domain", ProficiencyLevel = 4, LastEvaluatedAt = DateTime.UtcNow },
-                    new() { Id = Guid.NewGuid(), SkillName = "GDPR & KVK Security Compliance", Category = "Compliance", ProficiencyLevel = 5, LastEvaluatedAt = DateTime.UtcNow },
-                    new() { Id = Guid.NewGuid(), SkillName = "Team Leadership & Agile Coaching", Category = "Leadership", ProficiencyLevel = 4, LastEvaluatedAt = DateTime.UtcNow }
-                };
-            }
-
-            if (!certs.Any())
-            {
-                certs = new List<EmployeeCertificateDto>
-                {
-                    new() { Id = Guid.NewGuid(), CertificateName = "ISO 27001 Lead Security Auditor", IssuingOrganization = "BSI Group", CredentialId = "BSI-ISO-98765", IssueDate = DateTime.UtcNow.AddYears(-1), ExpirationDate = DateTime.UtcNow.AddDays(25), IsMandatory = true },
-                    new() { Id = Guid.NewGuid(), CertificateName = "AWS Certified Solutions Architect - Associate", IssuingOrganization = "Amazon Web Services", CredentialId = "AWS-ARCH-54321", IssueDate = DateTime.UtcNow.AddMonths(-6), ExpirationDate = DateTime.UtcNow.AddYears(2), IsMandatory = false },
-                    new() { Id = Guid.NewGuid(), CertificateName = "İSG (İş Sağlığı ve Güvenliği) Temel Eğitimi", IssuingOrganization = "ÇSGB / WerkPilot Safety", CredentialId = "ISG-TR-2025-01", IssueDate = DateTime.UtcNow.AddMonths(-8), ExpirationDate = DateTime.UtcNow.AddYears(1), IsMandatory = true }
-                };
-            }
-
             return new SkillsAndCertificatesBundleDto
             {
                 Skills = skills,

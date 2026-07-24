@@ -56,17 +56,6 @@ namespace OmniFlow.Application.Employees.Queries
                 })
                 .ToListAsync(cancellationToken);
 
-            // Default LMS courses seed for demonstration if empty
-            if (!courses.Any())
-            {
-                return new List<TrainingCourseDto>
-                {
-                    new() { Id = Guid.NewGuid(), EmployeeUserId = request.UserId, Title = "2026 GDPR & KVKK Data Protection & Privacy Training", Description = "Mandatory annual data privacy training for all employees.", Category = "Mandatory Compliance", DurationHours = 2, IsMandatory = true, Status = "Completed", CompletedAt = DateTime.UtcNow.AddMonths(-2), Score = 95 },
-                    new() { Id = Guid.NewGuid(), EmployeeUserId = request.UserId, Title = "Information Security & Anti-Phishing Awareness", Description = "Best practices for password security, MFA, and phishing prevention.", Category = "Mandatory Compliance", DurationHours = 3, IsMandatory = true, Status = "InProgress", Score = 0 },
-                    new() { Id = Guid.NewGuid(), EmployeeUserId = request.UserId, Title = "Advanced C# 13 & Clean Architecture Principles", Description = "Deep-dive into MediatR CQRS, Domain-Driven Design, and EF Core 10.", Category = "Technical", DurationHours = 8, IsMandatory = false, Status = "NotStarted", Score = 0 }
-                };
-            }
-
             return courses;
         }
     }

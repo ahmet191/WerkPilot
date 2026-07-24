@@ -60,17 +60,6 @@ namespace OmniFlow.Application.Employees.Queries
                 })
                 .ToListAsync(cancellationToken);
 
-            // Default seed goals for demonstration if user has no goals set yet
-            if (!goals.Any())
-            {
-                return new List<EmployeeGoalDto>
-                {
-                    new() { Id = Guid.NewGuid(), EmployeeUserId = request.UserId, Title = "Improve Service Desk SLA Compliance to >98%", Description = "Resolve P1/P2 tickets within target response SLA.", Quarter = "Q1", Year = targetYear, TargetValue = 98, CurrentValue = 95, Unit = "Percentage", ProgressPercent = 96.9m, Status = "InProgress" },
-                    new() { Id = Guid.NewGuid(), EmployeeUserId = request.UserId, Title = "Complete ISO 27001 Security Audit Preparation", Description = "Audit all access logs and role permission matrix entries.", Quarter = "Q2", Year = targetYear, TargetValue = 100, CurrentValue = 80, Unit = "Percentage", ProgressPercent = 80m, Status = "InProgress" },
-                    new() { Id = Guid.NewGuid(), EmployeeUserId = request.UserId, Title = "Obtain AWS Certified Solutions Architect Certificate", Description = "Complete cloud security and infrastructure training.", Quarter = "Q3", Year = targetYear, TargetValue = 100, CurrentValue = 100, Unit = "Percentage", ProgressPercent = 100m, Status = "Achieved" }
-                };
-            }
-
             return goals;
         }
     }
