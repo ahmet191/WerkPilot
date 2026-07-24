@@ -36,6 +36,7 @@ public class TriageTicketOnCreatedHandler : INotificationHandler<TicketCreatedDo
         {
             var prediction = await _aiTriage.PredictTicketAsync(ticket.Title, ticket.Description, cancellationToken);
             prediction.TicketId = ticket.Id;
+            prediction.TenantId = ticket.TenantId;
 
             _context.TicketAiPredictions.Add(prediction);
             await _context.SaveChangesAsync(cancellationToken);

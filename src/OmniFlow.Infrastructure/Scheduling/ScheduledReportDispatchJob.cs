@@ -69,13 +69,16 @@ public class ScheduledReportDispatchJob : IJob
                 }
 
                 report.LastRunTime = now;
-                report.NextRunTime = _cron.GetNextOccurrenceUtc(report.CronExpression, now);
-                if (report.NextRunTime is null)
+                var next = _cron.GetNextOccurrenceUtc(report.CronExpression, now);
+                if (next is null)
                 {
-                    // A cron that no longer parses can never run again — pause it
-                    // instead of re-selecting it every sweep.
                     report.IsActive = false;
+                    report.NextRunTime = null;
                     _logger.LogWarning("Report {ReportId} has an invalid cron and was paused.", report.Id);
+                }
+                else
+                {
+                    report.NextRunTime = next;
                 }
 
                 _logger.LogInformation("Report {ReportId} '{Name}' sent; next run {Next}.",
@@ -84,8 +87,8 @@ public class ScheduledReportDispatchJob : IJob
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Failed to dispatch report {ReportId}; advancing to avoid a tight loop.", report.Id);
-                // Advance anyway so a persistently failing report does not fire every sweep.
-                report.NextRunTime = _cron.GetNextOccurrenceUtc(report.CronExpression, now);
+                var nextFallback = _cron.GetNextOccurrenceUtc(report.CronExpression, now) ?? now.AddHours(1);
+                report.NextRunTime = nextFallback;
             }
         }
 
