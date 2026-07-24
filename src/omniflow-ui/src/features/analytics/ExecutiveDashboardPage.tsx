@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Row, Col, Statistic, Spin, Typography } from 'antd';
+import { Card, Row, Col, Statistic, Spin, Typography, theme, Empty } from 'antd';
 import { Area, Pie } from '@ant-design/plots';
 import { BarChartOutlined, DashboardOutlined, FieldTimeOutlined, RobotOutlined, WarningOutlined } from '@ant-design/icons';
 import { api } from '../../core/api';
+import { useTranslation } from '../../core/LanguageContext';
 
 const { Title, Text } = Typography;
 
@@ -14,119 +15,97 @@ interface DashboardMetrics {
   aiPredictionsCount: number;
 }
 
+interface TrendPoint { date: string; count: number }
+interface PriorityPoint { priority: string; count: number }
+
 export const ExecutiveDashboardPage: React.FC = () => {
+  const { t } = useTranslation();
+  const { token } = theme.useToken();
   const [metrics, setMetrics] = useState<DashboardMetrics | null>(null);
+  const [trend, setTrend] = useState<TrendPoint[]>([]);
+  const [byPriority, setByPriority] = useState<{ type: string; value: number }[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchMetrics = async () => {
+    const load = async () => {
       try {
-        const res = await api.get('/analytics/dashboard');
-        setMetrics(res.data);
+        const [m, tr, pr] = await Promise.all([
+          api.get<DashboardMetrics>('/analytics/dashboard'),
+          api.get<TrendPoint[]>('/analytics/reports/volume-trend?days=30'),
+          api.get<PriorityPoint[]>('/analytics/reports/tickets-by-priority'),
+        ]);
+        setMetrics(m.data);
+        setTrend(tr.data ?? []);
+        setByPriority((pr.data ?? []).map(p => ({ type: p.priority, value: p.count })));
       } catch (err) {
         console.error(err);
       } finally {
         setLoading(false);
       }
     };
-    fetchMetrics();
+    load();
   }, []);
-
-  // Mock data for charts to demonstrate executive view
-  const trendData = [
-    { date: '2026-07-01', count: 120 },
-    { date: '2026-07-08', count: 150 },
-    { date: '2026-07-15', count: 130 },
-    { date: '2026-07-22', count: 180 },
-  ];
-
-  const deptData = [
-    { type: 'IT', value: 45 },
-    { type: 'HR', value: 25 },
-    { type: 'Finance', value: 15 },
-    { type: 'Legal', value: 10 },
-    { type: 'Facilities', value: 5 },
-  ];
 
   if (loading) {
     return <div style={{ textAlign: 'center', padding: 50 }}><Spin size="large" /></div>;
   }
 
+  const trendHasData = trend.some(p => p.count > 0);
+  const priorityHasData = byPriority.some(p => p.value > 0);
+
   return (
     <div style={{ padding: 24, maxWidth: 1400, margin: '0 auto' }}>
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24 }}>
-        <DashboardOutlined style={{ fontSize: 28, color: '#1890ff', marginRight: 12 }} />
+        <DashboardOutlined style={{ fontSize: 28, color: token.colorPrimary, marginRight: 12 }} />
         <div>
-          <Title level={2} style={{ margin: 0 }}>Executive Analytics Dashboard</Title>
-          <Text type="secondary">AI-Powered insights and service desk performance KPIs</Text>
+          <Title level={2} style={{ margin: 0 }}>{t('execDash.title', 'Executive Analytics Dashboard')}</Title>
+          <Text type="secondary">{t('execDash.subtitle', 'AI-assisted insights and service desk performance KPIs')}</Text>
         </div>
       </div>
 
       <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
-        <Col span={6}>
-          <Card hoverable style={{ borderLeft: '4px solid #1890ff' }}>
-            <Statistic
-              title="Active Tickets"
-              value={metrics?.totalActiveTickets}
-              prefix={<BarChartOutlined />}
-            />
+        <Col xs={24} sm={12} lg={6}>
+          <Card hoverable style={{ borderLeft: `4px solid ${token.colorPrimary}` }}>
+            <Statistic title={t('execDash.activeTickets', 'Active Tickets')} value={metrics?.totalActiveTickets} prefix={<BarChartOutlined />} />
           </Card>
         </Col>
-        <Col span={6}>
-          <Card hoverable style={{ borderLeft: '4px solid #52c41a' }}>
-            <Statistic
-              title="Avg Resolution (Hours)"
-              value={metrics?.averageResolutionTimeHours}
-              prefix={<FieldTimeOutlined />}
-            />
+        <Col xs={24} sm={12} lg={6}>
+          <Card hoverable style={{ borderLeft: `4px solid ${token.colorSuccess}` }}>
+            <Statistic title={t('execDash.avgResolution', 'Avg Resolution (Hours)')} value={metrics?.averageResolutionTimeHours} precision={1} prefix={<FieldTimeOutlined />} />
           </Card>
         </Col>
-        <Col span={6}>
-          <Card hoverable style={{ borderLeft: '4px solid #faad14' }}>
-            <Statistic
-              title="FCR Rate (%)"
-              value={metrics?.firstContactResolutionPercentage}
-              precision={1}
-              suffix="%"
-            />
+        <Col xs={24} sm={12} lg={6}>
+          <Card hoverable style={{ borderLeft: `4px solid ${token.colorWarning}` }}>
+            <Statistic title={t('execDash.fcr', 'First-time Resolution')} value={metrics?.firstContactResolutionPercentage} precision={1} suffix="%" />
           </Card>
         </Col>
-        <Col span={6}>
-          <Card hoverable style={{ borderLeft: '4px solid #f5222d' }}>
+        <Col xs={24} sm={12} lg={6}>
+          <Card hoverable style={{ borderLeft: `4px solid ${token.colorError}` }}>
             <Statistic
-              title="SLA Breach Rate"
+              title={t('execDash.slaBreach', 'SLA Breach Rate')}
               value={metrics?.slaBreachRatePercentage}
               precision={1}
               suffix="%"
               prefix={<WarningOutlined />}
-              valueStyle={{ color: '#cf1322' }}
+              valueStyle={{ color: token.colorError }}
             />
           </Card>
         </Col>
       </Row>
 
       <Row gutter={[16, 16]}>
-        <Col span={16}>
-          <Card title="Ticket Volume Trend (30 Days)" style={{ height: '100%' }}>
-            <Area
-              data={trendData}
-              xField="date"
-              yField="count"
-              height={300}
-            />
+        <Col xs={24} lg={16}>
+          <Card title={t('execDash.volumeTrend', 'Ticket Volume Trend (30 Days)')} style={{ height: '100%' }}>
+            {trendHasData
+              ? <Area data={trend} xField="date" yField="count" height={300} />
+              : <Empty description={t('execDash.noTrend', 'No tickets created in this period yet')} style={{ padding: '60px 0' }} />}
           </Card>
         </Col>
-        <Col span={8}>
-          <Card title="Distribution by Department" style={{ height: '100%' }}>
-            <Pie
-              data={deptData}
-              angleField="value"
-              colorField="type"
-              radius={0.8}
-              innerRadius={0.6}
-              label={{ type: 'inner', offset: '-50%', content: '{value}' }}
-              height={300}
-            />
+        <Col xs={24} lg={8}>
+          <Card title={t('execDash.byPriority', 'Distribution by Priority')} style={{ height: '100%' }}>
+            {priorityHasData
+              ? <Pie data={byPriority} angleField="value" colorField="type" radius={0.8} innerRadius={0.6} height={300} legend={{ position: 'bottom' }} />
+              : <Empty description={t('execDash.noData', 'No data yet')} style={{ padding: '60px 0' }} />}
           </Card>
         </Col>
       </Row>
@@ -135,12 +114,13 @@ export const ExecutiveDashboardPage: React.FC = () => {
         <Col span={24}>
           <Card>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <RobotOutlined style={{ fontSize: 32, color: '#722ed1', marginRight: 16 }} />
+              <RobotOutlined style={{ fontSize: 32, color: token.colorPrimary, marginRight: 16 }} />
               <div>
-                <Title level={4} style={{ margin: 0, color: '#722ed1' }}>AI Triaging Active</Title>
+                <Title level={4} style={{ margin: 0, color: token.colorPrimary }}>{t('execDash.aiTitle', 'AI Triage Active')}</Title>
                 <Text>
-                  The Gemini AI model has successfully processed <strong>{metrics?.aiPredictionsCount}</strong> tickets, 
-                  automatically predicting categories, priorities, and routing them to the correct service desks.
+                  {t('execDash.aiBody1', 'The AI triage model has analysed')}{' '}
+                  <strong>{metrics?.aiPredictionsCount}</strong>{' '}
+                  {t('execDash.aiBody2', 'tickets, suggesting a category, priority and confidence score for each to speed up routing. Predictions are advisory and never change a ticket on their own.')}
                 </Text>
               </div>
             </div>

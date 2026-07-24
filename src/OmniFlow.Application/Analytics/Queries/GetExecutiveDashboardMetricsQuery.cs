@@ -40,24 +40,26 @@ namespace OmniFlow.Application.Analytics.Queries
             var resolvedTickets = tickets.Where(t => t.CurrentState == TicketState.Resolved || t.CurrentState == TicketState.Closed).ToList();
 
             double avgResolution = 0;
-            if (resolvedTickets.Any())
+            var resolvedWithDate = resolvedTickets.Where(t => t.ResolutionDate.HasValue).ToList();
+            if (resolvedWithDate.Any())
             {
-                avgResolution = resolvedTickets
-                    .Where(t => t.ResolutionDate.HasValue)
-                    .Average(t => (t.ResolutionDate!.Value - t.CreatedAt).TotalHours);
+                avgResolution = resolvedWithDate.Average(t => (t.ResolutionDate!.Value - t.CreatedAt).TotalHours);
             }
 
-            double fcrRate = 0; // Simulated FCR logic for now
+            // First-time resolution: resolved tickets that were closed without ever
+            // breaching their SLA target. Uses the same breach signal the SLA
+            // compliance report does, so the two figures always agree.
+            double fcrRate = 0;
             if (resolvedTickets.Any())
             {
-                // Fake condition: resolved within 4 hours
-                var fcrCount = resolvedTickets.Count(t => t.ResolutionDate.HasValue && (t.ResolutionDate!.Value - t.CreatedAt).TotalHours < 4);
-                fcrRate = (double)fcrCount / resolvedTickets.Count * 100;
+                var firstTimeResolved = resolvedTickets.Count(t => !t.SlaBreachNotifiedAt.HasValue);
+                fcrRate = (double)firstTimeResolved / resolvedTickets.Count * 100;
             }
 
-            // Fake SLA logic for demonstration
-            double slaBreachRate = resolvedTickets.Any() ? 5.2 : 0; 
-            
+            // Real SLA breach rate: the share of all tickets whose breach job fired.
+            var breachedCount = tickets.Count(t => t.SlaBreachNotifiedAt.HasValue);
+            double slaBreachRate = tickets.Any() ? (double)breachedCount / tickets.Count * 100 : 0;
+
             var aiPredictionsCount = await _context.TicketAiPredictions
                 .Where(p => p.TenantId == request.TenantId)
                 .CountAsync(cancellationToken);
