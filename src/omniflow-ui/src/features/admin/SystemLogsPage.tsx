@@ -3,6 +3,7 @@ import { Table, Tag, Input, Button, Select, Space, Card, Typography, Tooltip } f
 import { SearchOutlined, EyeOutlined, SyncOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../../core/api';
+import { useTranslation } from '../../core/LanguageContext';
 import dayjs from 'dayjs';
 
 const { Title, Text } = Typography;
@@ -17,11 +18,12 @@ interface SystemLogDto {
 }
 
 export const SystemLogsPage: React.FC = () => {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const [data, setData] = useState<SystemLogDto[]>([]);
     const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(false);
-    
+
     // Pagination & Filters
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(50);
@@ -59,51 +61,51 @@ export const SystemLogsPage: React.FC = () => {
 
     const columns = [
         {
-            title: 'Timestamp',
+            title: t('syslog.colTimestamp', 'Timestamp'),
             dataIndex: 'timestamp',
             key: 'timestamp',
             render: (val: string) => dayjs(val).format('YYYY-MM-DD HH:mm:ss.SSS'),
             width: 200,
         },
         {
-            title: 'Level',
+            title: t('syslog.colLevel', 'Level'),
             dataIndex: 'level',
             key: 'level',
-            render: (level: string) => {
+            render: (lvl: string) => {
                 let color = 'blue';
-                if (level === 'Error' || level === 'Fatal') color = 'red';
-                if (level === 'Warning') color = 'orange';
-                if (level === 'Debug') color = 'default';
-                return <Tag color={color}>{level.toUpperCase()}</Tag>;
+                if (lvl === 'Error' || lvl === 'Fatal') color = 'red';
+                if (lvl === 'Warning') color = 'orange';
+                if (lvl === 'Debug') color = 'default';
+                return <Tag color={color}>{lvl.toUpperCase()}</Tag>;
             },
             width: 100,
         },
         {
-            title: 'Message',
+            title: t('syslog.colMessage', 'Message'),
             dataIndex: 'message',
             key: 'message',
             ellipsis: true,
         },
         {
-            title: 'Trace ID',
+            title: t('syslog.colTrace', 'Trace ID'),
             dataIndex: 'traceId',
             key: 'traceId',
             render: (val: string) => val ? <Text copyable>{val}</Text> : '-',
             width: 250,
         },
         {
-            title: 'Action',
+            title: t('syslog.colAction', 'Action'),
             key: 'action',
             render: (_: any, record: SystemLogDto) => (
-                <Tooltip title="View Request Trace">
-                    <Button 
-                        type="primary" 
-                        icon={<EyeOutlined />} 
+                <Tooltip title={t('syslog.viewTrace', 'View Request Trace')}>
+                    <Button
+                        type="primary"
+                        icon={<EyeOutlined />}
                         size="small"
                         disabled={!record.traceId}
                         onClick={() => navigate(`/admin/logs/trace/${record.traceId}`)}
                     >
-                        Trace
+                        {t('syslog.trace', 'Trace')}
                     </Button>
                 </Tooltip>
             ),
@@ -112,23 +114,23 @@ export const SystemLogsPage: React.FC = () => {
     ];
 
     return (
-        <Card title={<Title level={4}>System Logs</Title>} extra={<Button icon={<SyncOutlined />} onClick={fetchLogs}>Refresh</Button>}>
+        <Card title={<Title level={4}>{t('syslog.title', 'System Logs')}</Title>} extra={<Button icon={<SyncOutlined />} onClick={fetchLogs}>{t('syslog.refresh', 'Refresh')}</Button>}>
             <Space style={{ marginBottom: 16 }}>
                 <Select
-                    placeholder="Log Level"
+                    placeholder={t('syslog.logLevel', 'Log Level')}
                     style={{ width: 120 }}
                     allowClear
                     value={level}
                     onChange={setLevel}
                 >
-                    <Select.Option value="Information">Info</Select.Option>
-                    <Select.Option value="Warning">Warning</Select.Option>
-                    <Select.Option value="Error">Error</Select.Option>
-                    <Select.Option value="Fatal">Fatal</Select.Option>
-                    <Select.Option value="Debug">Debug</Select.Option>
+                    <Select.Option value="Information">{t('syslog.info', 'Info')}</Select.Option>
+                    <Select.Option value="Warning">{t('syslog.warning', 'Warning')}</Select.Option>
+                    <Select.Option value="Error">{t('syslog.error', 'Error')}</Select.Option>
+                    <Select.Option value="Fatal">{t('syslog.fatal', 'Fatal')}</Select.Option>
+                    <Select.Option value="Debug">{t('syslog.debug', 'Debug')}</Select.Option>
                 </Select>
                 <Input
-                    placeholder="Search by Trace ID"
+                    placeholder={t('syslog.searchTrace', 'Search by Trace ID')}
                     value={traceId}
                     onChange={e => setTraceId(e.target.value)}
                     onPressEnter={handleSearch}
@@ -136,7 +138,7 @@ export const SystemLogsPage: React.FC = () => {
                     prefix={<SearchOutlined />}
                     allowClear
                 />
-                <Button type="primary" onClick={handleSearch}>Search</Button>
+                <Button type="primary" onClick={handleSearch}>{t('syslog.search', 'Search')}</Button>
             </Space>
 
             <Table

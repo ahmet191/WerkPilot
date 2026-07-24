@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Table, Tag, Button, Modal, Form, Input, Select, Switch, Row, Col, message, Spin } from 'antd';
 import { ScheduleOutlined, PlusOutlined, MailOutlined, FilePdfOutlined, FileExcelOutlined } from '@ant-design/icons';
 import { api } from '../../core/api';
+import { useTranslation } from '../../core/LanguageContext';
 
 interface ScheduledReport {
   id: string;
@@ -14,6 +15,7 @@ interface ScheduledReport {
 }
 
 export const AutomatedReportsPage: React.FC = () => {
+  const { t } = useTranslation();
   const [reports, setReports] = useState<ScheduledReport[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,12 +39,12 @@ export const AutomatedReportsPage: React.FC = () => {
   const handleSubmit = async (values: any) => {
     try {
       await api.post('/analytics/reports', values);
-      message.success('Scheduled report configured successfully!');
+      message.success(t('arep.saved', 'Scheduled report configured.'));
       setIsModalOpen(false);
       form.resetFields();
       fetchReports();
     } catch {
-      message.error('Failed to configure scheduled report.');
+      message.error(t('arep.saveFailed', 'Failed to configure scheduled report.'));
     }
   };
 
@@ -53,14 +55,14 @@ export const AutomatedReportsPage: React.FC = () => {
           <div>
             <h2 style={{ margin: 0, fontWeight: 700 }}>
               <ScheduleOutlined style={{ marginRight: 8, color: '#13c2c2' }} />
-              Automated Scheduled Reports
+              {t('arep.title', 'Automated Scheduled Reports')}
             </h2>
             <div style={{ color: 'var(--text-secondary)', marginTop: 4 }}>
-              Configure recurring email reports for KPIs, SLA breaches, and Service Desk performance.
+              {t('arep.subtitle', 'Configure recurring email reports for KPIs, SLA breaches, and Service Desk performance.')}
             </div>
           </div>
           <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsModalOpen(true)}>
-            Schedule New Report
+            {t('arep.schedule', 'Schedule New Report')}
           </Button>
         </div>
 
@@ -71,27 +73,27 @@ export const AutomatedReportsPage: React.FC = () => {
             dataSource={reports}
             rowKey="id"
             columns={[
-              { title: 'Report Name', dataIndex: 'reportName', render: (n: string) => <strong>{n}</strong> },
-              { title: 'Schedule (Cron)', dataIndex: 'cronExpression', render: (c: string) => <Tag color="purple">{c}</Tag> },
+              { title: t('arep.colName', 'Report Name'), dataIndex: 'reportName', render: (n: string) => <strong>{n}</strong> },
+              { title: t('arep.colCron', 'Schedule (Cron)'), dataIndex: 'cronExpression', render: (c: string) => <Tag color="purple">{c}</Tag> },
               {
-                title: 'Format',
+                title: t('arep.colFormat', 'Format'),
                 dataIndex: 'format',
                 render: (f: string) => f === 'PDF' ? <Tag icon={<FilePdfOutlined />} color="red">PDF</Tag> : <Tag icon={<FileExcelOutlined />} color="green">Excel</Tag>
               },
               {
-                title: 'Recipients',
+                title: t('arep.colRecipients', 'Recipients'),
                 dataIndex: 'recipients',
-                render: (r: string) => <Tag icon={<MailOutlined />} color="blue">{r.split(',').length} Recipients</Tag>
+                render: (r: string) => <Tag icon={<MailOutlined />} color="blue">{t('arep.recipientsCount', '{n} Recipients').replace('{n}', String(r.split(',').length))}</Tag>
               },
               {
-                title: 'Next Run',
+                title: t('arep.colNextRun', 'Next Run'),
                 dataIndex: 'nextRunTime',
-                render: (d: string) => d ? new Date(d).toLocaleString() : 'N/A'
+                render: (d: string) => d ? new Date(d).toLocaleString() : t('arep.na', 'N/A')
               },
               {
-                title: 'Status',
+                title: t('arep.colStatus', 'Status'),
                 dataIndex: 'isActive',
-                render: (act: boolean) => act ? <Tag color="green">Active</Tag> : <Tag color="default">Paused</Tag>
+                render: (act: boolean) => act ? <Tag color="green">{t('arep.active', 'Active')}</Tag> : <Tag color="default">{t('arep.paused', 'Paused')}</Tag>
               }
             ]}
           />
@@ -99,39 +101,39 @@ export const AutomatedReportsPage: React.FC = () => {
       </Card>
 
       <Modal
-        title="Configure Scheduled Report"
+        title={t('arep.configureTitle', 'Configure Scheduled Report')}
         open={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
         footer={null}
       >
         <Form form={form} layout="vertical" onFinish={handleSubmit} initialValues={{ format: 'PDF', isActive: true, cronExpression: '0 8 * * 1' }}>
-          <Form.Item name="reportName" label="Report Title" rules={[{ required: true }]}>
-            <Input placeholder="e.g. Weekly Executive Service Desk Summary" />
+          <Form.Item name="reportName" label={t('arep.reportTitle', 'Report Title')} rules={[{ required: true }]}>
+            <Input placeholder={t('arep.reportTitlePlaceholder', 'e.g. Weekly Executive Service Desk Summary')} />
           </Form.Item>
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item name="cronExpression" label="Schedule (Cron Expression)" rules={[{ required: true }]}>
-                <Input placeholder="e.g. 0 8 * * 1 (Every Monday at 8 AM)" />
+              <Form.Item name="cronExpression" label={t('arep.cronLabel', 'Schedule (Cron Expression)')} rules={[{ required: true }]}>
+                <Input placeholder={t('arep.cronPlaceholder', 'e.g. 0 8 * * 1 (Every Monday at 8 AM)')} />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="format" label="Export Format">
+              <Form.Item name="format" label={t('arep.exportFormat', 'Export Format')}>
                 <Select options={[
-                  { value: 'PDF', label: 'PDF Document' },
-                  { value: 'Excel', label: 'Excel Spreadsheet' }
+                  { value: 'PDF', label: t('arep.pdfDoc', 'PDF Document') },
+                  { value: 'Excel', label: t('arep.excelSheet', 'Excel Spreadsheet') }
                 ]} />
               </Form.Item>
             </Col>
           </Row>
-          <Form.Item name="recipients" label="Recipients (Comma separated emails)" rules={[{ required: true }]}>
+          <Form.Item name="recipients" label={t('arep.recipientsLabel', 'Recipients (Comma separated emails)')} rules={[{ required: true }]}>
             <Input.TextArea placeholder="ceo@company.com, it-director@company.com" />
           </Form.Item>
-          <Form.Item name="isActive" label="Is Active" valuePropName="checked">
+          <Form.Item name="isActive" label={t('arep.isActive', 'Is Active')} valuePropName="checked">
             <Switch />
           </Form.Item>
           <div style={{ textAlign: 'right', marginTop: 24 }}>
-            <Button onClick={() => setIsModalOpen(false)} style={{ marginRight: 8 }}>Cancel</Button>
-            <Button type="primary" htmlType="submit">Save Schedule</Button>
+            <Button onClick={() => setIsModalOpen(false)} style={{ marginRight: 8 }}>{t('common.cancel', 'Cancel')}</Button>
+            <Button type="primary" htmlType="submit">{t('arep.saveSchedule', 'Save Schedule')}</Button>
           </div>
         </Form>
       </Modal>

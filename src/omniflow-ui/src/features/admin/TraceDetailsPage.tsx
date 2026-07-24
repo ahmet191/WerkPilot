@@ -3,6 +3,7 @@ import { Card, Typography, Timeline, Tag, Spin, Button, Descriptions, Collapse, 
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeftOutlined, ClockCircleOutlined, CheckCircleOutlined, CloseCircleOutlined, InfoCircleOutlined, WarningOutlined } from '@ant-design/icons';
 import { api } from '../../core/api';
+import { useTranslation } from '../../core/LanguageContext';
 import dayjs from 'dayjs';
 
 const { Title, Text } = Typography;
@@ -20,6 +21,7 @@ interface SystemLogDto {
 }
 
 export const TraceDetailsPage: React.FC = () => {
+    const { t } = useTranslation();
     const { traceId } = useParams<{ traceId: string }>();
     const navigate = useNavigate();
     const [logs, setLogs] = useState<SystemLogDto[]>([]);
@@ -46,7 +48,7 @@ export const TraceDetailsPage: React.FC = () => {
     }
 
     if (logs.length === 0) {
-        return <Alert message="No trace found" description={`Could not find any logs for Trace ID: ${traceId}`} type="warning" showIcon />;
+        return <Alert message={t('trace.noTrace', 'No trace found')} description={t('trace.noTraceDesc', 'Could not find any logs for Trace ID: {id}').replace('{id}', String(traceId))} type="warning" showIcon />;
     }
 
     const getIconForLevel = (level: string) => {
@@ -84,21 +86,21 @@ export const TraceDetailsPage: React.FC = () => {
     return (
         <div style={{ maxWidth: 1000, margin: '0 auto' }}>
             <Button type="link" icon={<ArrowLeftOutlined />} onClick={() => navigate(-1)} style={{ marginBottom: 16 }}>
-                Back to System Logs
+                {t('trace.back', 'Back to System Logs')}
             </Button>
-            
+
             <Card style={{ marginBottom: 24 }}>
-                <Title level={4}>Trace Investigation</Title>
+                <Title level={4}>{t('trace.investigation', 'Trace Investigation')}</Title>
                 <Descriptions bordered size="small" column={2}>
-                    <Descriptions.Item label="Trace ID" span={2}><Text copyable>{traceId}</Text></Descriptions.Item>
-                    <Descriptions.Item label="Started At">{startTime.format('YYYY-MM-DD HH:mm:ss.SSS')}</Descriptions.Item>
-                    <Descriptions.Item label="Duration">{duration} ms</Descriptions.Item>
-                    <Descriptions.Item label="Total Steps">{logs.length}</Descriptions.Item>
-                    <Descriptions.Item label="User ID">{logs[0].userId || 'Anonymous / System'}</Descriptions.Item>
+                    <Descriptions.Item label={t('trace.traceId', 'Trace ID')} span={2}><Text copyable>{traceId}</Text></Descriptions.Item>
+                    <Descriptions.Item label={t('trace.startedAt', 'Started At')}>{startTime.format('YYYY-MM-DD HH:mm:ss.SSS')}</Descriptions.Item>
+                    <Descriptions.Item label={t('trace.duration', 'Duration')}>{duration} ms</Descriptions.Item>
+                    <Descriptions.Item label={t('trace.totalSteps', 'Total Steps')}>{logs.length}</Descriptions.Item>
+                    <Descriptions.Item label={t('trace.userId', 'User ID')}>{logs[0].userId || t('trace.anonymous', 'Anonymous / System')}</Descriptions.Item>
                 </Descriptions>
             </Card>
 
-            <Card title="Request Lifecycle" bodyStyle={{ padding: '24px 24px 0 24px' }}>
+            <Card title={t('trace.lifecycle', 'Request Lifecycle')} bodyStyle={{ padding: '24px 24px 0 24px' }}>
                 <Timeline mode="left">
                     {logs.map((log, index) => {
                         const timeOffset = index === 0 ? 0 : dayjs(log.timestamp).diff(startTime, 'millisecond');
@@ -116,9 +118,9 @@ export const TraceDetailsPage: React.FC = () => {
                                 
                                 {log.exception && (
                                     <div style={{ marginTop: 8, marginBottom: 8 }}>
-                                        <Alert 
-                                            type="error" 
-                                            message="Exception Thrown"
+                                        <Alert
+                                            type="error"
+                                            message={t('trace.exceptionThrown', 'Exception Thrown')}
                                             description={
                                                 <pre style={{ fontSize: '12px', whiteSpace: 'pre-wrap', maxHeight: 300, overflowY: 'auto' }}>
                                                     {log.exception}
@@ -130,7 +132,7 @@ export const TraceDetailsPage: React.FC = () => {
 
                                 {Object.keys(log.properties).length > 0 && (
                                     <Collapse ghost size="small">
-                                        <Panel header="View Context Properties" key="1">
+                                        <Panel header={t('trace.viewProps', 'View Context Properties')} key="1">
                                             <pre style={{ fontSize: '12px', backgroundColor: 'var(--bg-elevated)', padding: 8, borderRadius: 4 }}>
                                                 {JSON.stringify(log.properties, null, 2)}
                                             </pre>
@@ -142,7 +144,7 @@ export const TraceDetailsPage: React.FC = () => {
                     })}
                     
                     <Timeline.Item dot={<ClockCircleOutlined style={{ fontSize: '16px' }} />} label={<Text strong>{duration} ms</Text>}>
-                        <Text strong>End of Trace</Text>
+                        <Text strong>{t('trace.endOfTrace', 'End of Trace')}</Text>
                     </Timeline.Item>
                 </Timeline>
             </Card>

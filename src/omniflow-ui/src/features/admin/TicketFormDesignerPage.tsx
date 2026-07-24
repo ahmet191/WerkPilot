@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Table, Tag, Button, Modal, Form, Input, Select, Switch, message, Spin, Popconfirm, Space } from 'antd';
 import { FileTextOutlined, PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { api } from '../../core/api';
+import { useTranslation } from '../../core/LanguageContext';
 
 interface FormSchema {
   id: string;
@@ -16,6 +17,7 @@ interface FormSchema {
 const SAMPLE_FIELDS = '[\n  { "key": "device_type", "label": "Device Type", "fieldType": "Select", "isRequired": true, "options": ["MacBook", "Dell XPS"] }\n]';
 
 export const TicketFormDesignerPage: React.FC = () => {
+  const { t } = useTranslation();
   const [schemas, setSchemas] = useState<FormSchema[]>([]);
   const [desks, setDesks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -64,12 +66,12 @@ export const TicketFormDesignerPage: React.FC = () => {
     setSubmitting(true);
     try {
       await api.post('/forms/schemas', editingId ? { ...values, id: editingId } : values);
-      message.success(editingId ? 'Form schema updated.' : 'Form schema created.');
+      message.success(editingId ? t('fdes.updated', 'Form schema updated.') : t('fdes.created', 'Form schema created.'));
       closeModal();
       form.resetFields();
       fetchData();
     } catch {
-      message.error('Failed to save form schema.');
+      message.error(t('fdes.saveFailed', 'Failed to save form schema.'));
     } finally {
       setSubmitting(false);
     }
@@ -78,10 +80,10 @@ export const TicketFormDesignerPage: React.FC = () => {
   const handleDelete = async (id: string) => {
     try {
       await api.delete(`/forms/schemas/${id}`);
-      message.success('Form schema removed.');
+      message.success(t('fdes.removed', 'Form schema removed.'));
       fetchData();
     } catch {
-      message.error('Failed to remove form schema.');
+      message.error(t('fdes.removeFailed', 'Failed to remove form schema.'));
     }
   };
 
@@ -92,14 +94,14 @@ export const TicketFormDesignerPage: React.FC = () => {
           <div>
             <h2 style={{ margin: 0, fontWeight: 700 }}>
               <FileTextOutlined style={{ marginRight: 8, color: '#1890ff' }} />
-              Dynamic Ticket Form Designer
+              {t('fdes.title', 'Dynamic Ticket Form Designer')}
             </h2>
             <div style={{ color: 'var(--text-secondary)', marginTop: 4 }}>
-              Design custom request form schemas and dynamic input fields per Service Desk.
+              {t('fdes.subtitle', 'Design custom request form schemas and dynamic input fields per Service Desk.')}
             </div>
           </div>
           <Button type="primary" icon={<PlusOutlined />} onClick={() => openModal()}>
-            Create Form Schema
+            {t('fdes.createSchema', 'Create Form Schema')}
           </Button>
         </div>
 
@@ -110,34 +112,34 @@ export const TicketFormDesignerPage: React.FC = () => {
             dataSource={schemas}
             rowKey="id"
             columns={[
-              { title: 'Service Desk', dataIndex: 'serviceDeskName', render: (s: string) => <Tag color="blue">{s}</Tag> },
-              { title: 'Form Title', dataIndex: 'formTitle', render: (t: string) => <strong>{t}</strong> },
-              { title: 'Description', dataIndex: 'formDescription' },
+              { title: t('fdes.colDesk', 'Service Desk'), dataIndex: 'serviceDeskName', render: (s: string) => <Tag color="blue">{s}</Tag> },
+              { title: t('fdes.colTitle', 'Form Title'), dataIndex: 'formTitle', render: (tt: string) => <strong>{tt}</strong> },
+              { title: t('fdes.colDescription', 'Description'), dataIndex: 'formDescription' },
               {
-                title: 'Fields Count',
+                title: t('fdes.colFields', 'Fields Count'),
                 dataIndex: 'fieldsJson',
                 render: (json: string) => {
                   try {
                     const parsed = JSON.parse(json);
-                    return <Tag color="cyan">{parsed.length} Dynamic Fields</Tag>;
+                    return <Tag color="cyan">{t('fdes.dynamicFields', '{n} Dynamic Fields').replace('{n}', String(parsed.length))}</Tag>;
                   } catch {
-                    return <Tag color="default">0 Fields</Tag>;
+                    return <Tag color="default">{t('fdes.zeroFields', '0 Fields')}</Tag>;
                   }
                 }
               },
               {
-                title: 'Status',
+                title: t('fdes.colStatus', 'Status'),
                 dataIndex: 'isActive',
-                render: (act: boolean) => act ? <Tag color="green">Active</Tag> : <Tag color="default">Draft</Tag>
+                render: (act: boolean) => act ? <Tag color="green">{t('fdes.active', 'Active')}</Tag> : <Tag color="default">{t('fdes.draft', 'Draft')}</Tag>
               },
               {
-                title: 'Actions',
+                title: t('fdes.colActions', 'Actions'),
                 key: 'actions',
                 width: 100,
                 render: (_: unknown, record: FormSchema) => (
                   <Space size={0}>
                     <Button type="text" size="small" icon={<EditOutlined />} onClick={() => openModal(record)} />
-                    <Popconfirm title="Remove this form schema?" onConfirm={() => handleDelete(record.id)} okText="Remove" cancelText="Cancel">
+                    <Popconfirm title={t('fdes.confirmRemove', 'Remove this form schema?')} onConfirm={() => handleDelete(record.id)} okText={t('fdes.remove', 'Remove')} cancelText={t('common.cancel', 'Cancel')}>
                       <Button type="text" size="small" danger icon={<DeleteOutlined />} />
                     </Popconfirm>
                   </Space>
@@ -149,7 +151,7 @@ export const TicketFormDesignerPage: React.FC = () => {
       </Card>
 
       <Modal
-        title={editingId ? 'Edit Form Schema' : 'Design Service Desk Ticket Form Schema'}
+        title={editingId ? t('fdes.editModal', 'Edit Form Schema') : t('fdes.designModal', 'Design Service Desk Ticket Form Schema')}
         open={isModalOpen}
         onCancel={closeModal}
         footer={null}
@@ -157,24 +159,24 @@ export const TicketFormDesignerPage: React.FC = () => {
         destroyOnClose
       >
         <Form form={form} layout="vertical" onFinish={handleSubmit} initialValues={{ isActive: true, fieldsJson: SAMPLE_FIELDS }}>
-          <Form.Item name="serviceDeskId" label="Target Service Desk" rules={[{ required: true }]}>
-            <Select options={desks.map(d => ({ value: d.id, label: d.name }))} placeholder="Select Service Desk" />
+          <Form.Item name="serviceDeskId" label={t('fdes.targetDesk', 'Target Service Desk')} rules={[{ required: true }]}>
+            <Select options={desks.map(d => ({ value: d.id, label: d.name }))} placeholder={t('fdes.selectDesk', 'Select Service Desk')} />
           </Form.Item>
-          <Form.Item name="formTitle" label="Form Title" rules={[{ required: true }]}>
-            <Input placeholder="e.g. Hardware Acquisition Request Form" />
+          <Form.Item name="formTitle" label={t('fdes.colTitle', 'Form Title')} rules={[{ required: true }]}>
+            <Input placeholder={t('fdes.titlePlaceholder', 'e.g. Hardware Acquisition Request Form')} />
           </Form.Item>
-          <Form.Item name="formDescription" label="Form Description">
-            <Input.TextArea placeholder="Brief instructions for ticket requestors..." />
+          <Form.Item name="formDescription" label={t('fdes.formDesc', 'Form Description')}>
+            <Input.TextArea placeholder={t('fdes.descPlaceholder', 'Brief instructions for ticket requestors...')} />
           </Form.Item>
-          <Form.Item name="fieldsJson" label="Fields Definition (JSON)" rules={[{ required: true }]}>
+          <Form.Item name="fieldsJson" label={t('fdes.fieldsJson', 'Fields Definition (JSON)')} rules={[{ required: true }]}>
             <Input.TextArea rows={6} style={{ fontFamily: 'monospace' }} />
           </Form.Item>
-          <Form.Item name="isActive" label="Is Form Active" valuePropName="checked">
+          <Form.Item name="isActive" label={t('fdes.isActive', 'Is Form Active')} valuePropName="checked">
             <Switch />
           </Form.Item>
           <div style={{ textAlign: 'right', marginTop: 24 }}>
-            <Button onClick={closeModal} style={{ marginRight: 8 }}>Cancel</Button>
-            <Button type="primary" htmlType="submit" loading={submitting}>{editingId ? 'Save' : 'Create Schema'}</Button>
+            <Button onClick={closeModal} style={{ marginRight: 8 }}>{t('common.cancel', 'Cancel')}</Button>
+            <Button type="primary" htmlType="submit" loading={submitting}>{editingId ? t('common.save', 'Save') : t('fdes.createSchemaBtn', 'Create Schema')}</Button>
           </div>
         </Form>
       </Modal>

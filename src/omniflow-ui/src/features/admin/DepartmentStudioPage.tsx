@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Table, Tag, Button, Modal, Form, Input, Select, Switch, Row, Col, message, Spin, ColorPicker, Popconfirm, Space } from 'antd';
 import { BankOutlined, PlusOutlined, ApartmentOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { api } from '../../core/api';
+import { useTranslation } from '../../core/LanguageContext';
 
 interface CustomDepartment {
   id: string;
@@ -19,6 +20,7 @@ interface CustomDepartment {
 const DEFAULTS = { departmentType: 'Custom', colorHex: '#8b5cf6', isActive: true };
 
 export const DepartmentStudioPage: React.FC = () => {
+  const { t } = useTranslation();
   const [departments, setDepartments] = useState<CustomDepartment[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -67,12 +69,12 @@ export const DepartmentStudioPage: React.FC = () => {
         colorHex: typeof values.colorHex === 'string' ? values.colorHex : values.colorHex?.toHexString() || '#8b5cf6'
       };
       await api.post('/departments/studio', payload);
-      message.success(editingId ? 'Department updated.' : 'Custom department created.');
+      message.success(editingId ? t('studio.updated', 'Department updated.') : t('studio.created', 'Custom department created.'));
       closeModal();
       form.resetFields();
       fetchDepartments();
     } catch {
-      message.error('Failed to save department.');
+      message.error(t('studio.saveFailed', 'Failed to save department.'));
     } finally {
       setSubmitting(false);
     }
@@ -81,10 +83,10 @@ export const DepartmentStudioPage: React.FC = () => {
   const handleDelete = async (id: string) => {
     try {
       await api.delete(`/departments/studio/${id}`);
-      message.success('Department removed.');
+      message.success(t('studio.removed', 'Department removed.'));
       fetchDepartments();
     } catch {
-      message.error('Failed to remove department.');
+      message.error(t('studio.removeFailed', 'Failed to remove department.'));
     }
   };
 
@@ -95,14 +97,14 @@ export const DepartmentStudioPage: React.FC = () => {
           <div>
             <h2 style={{ margin: 0, fontWeight: 700 }}>
               <BankOutlined style={{ marginRight: 8, color: '#8b5cf6' }} />
-              Custom Department Studio
+              {t('studio.title', 'Custom Department Studio')}
             </h2>
             <div style={{ color: 'var(--text-secondary)', marginTop: 4 }}>
-              Create and manage dynamic enterprise departments (IT, HR, Finance, Legal, Facilities) with custom themes and parent-child hierarchy.
+              {t('studio.subtitle', 'Create and manage dynamic enterprise departments (IT, HR, Finance, Legal, Facilities) with custom themes and parent-child hierarchy.')}
             </div>
           </div>
           <Button type="primary" icon={<PlusOutlined />} onClick={() => openModal()}>
-            Add Custom Department
+            {t('studio.addDept', 'Add Custom Department')}
           </Button>
         </div>
 
@@ -114,7 +116,7 @@ export const DepartmentStudioPage: React.FC = () => {
             rowKey="id"
             columns={[
               {
-                title: 'Dept Code',
+                title: t('studio.colCode', 'Dept Code'),
                 dataIndex: 'code',
                 render: (code: string, record: CustomDepartment) => (
                   <Tag style={{ background: record.colorHex, color: '#fff', fontWeight: 700 }}>
@@ -122,31 +124,31 @@ export const DepartmentStudioPage: React.FC = () => {
                   </Tag>
                 )
               },
-              { title: 'Department Name', dataIndex: 'name', render: (n: string) => <strong>{n}</strong> },
-              { title: 'Description', dataIndex: 'description' },
+              { title: t('studio.colName', 'Department Name'), dataIndex: 'name', render: (n: string) => <strong>{n}</strong> },
+              { title: t('studio.colDescription', 'Description'), dataIndex: 'description' },
               {
-                title: 'Type',
+                title: t('studio.colType', 'Type'),
                 dataIndex: 'departmentType',
                 render: (type: string) => <Tag color="purple">{type}</Tag>
               },
               {
-                title: 'Parent Department',
+                title: t('studio.colParent', 'Parent Department'),
                 dataIndex: 'parentDepartmentName',
-                render: (p: string) => p ? <Tag icon={<ApartmentOutlined />}>{p}</Tag> : <span style={{ color: 'var(--text-secondary)' }}>Root Department</span>
+                render: (p: string) => p ? <Tag icon={<ApartmentOutlined />}>{p}</Tag> : <span style={{ color: 'var(--text-secondary)' }}>{t('studio.rootDept', 'Root Department')}</span>
               },
               {
-                title: 'Status',
+                title: t('studio.colStatus', 'Status'),
                 dataIndex: 'isActive',
-                render: (act: boolean) => act ? <Tag color="green">Active</Tag> : <Tag color="default">Inactive</Tag>
+                render: (act: boolean) => act ? <Tag color="green">{t('studio.active', 'Active')}</Tag> : <Tag color="default">{t('studio.inactive', 'Inactive')}</Tag>
               },
               {
-                title: 'Actions',
+                title: t('studio.colActions', 'Actions'),
                 key: 'actions',
                 width: 100,
                 render: (_: unknown, record: CustomDepartment) => (
                   <Space size={0}>
                     <Button type="text" size="small" icon={<EditOutlined />} onClick={() => openModal(record)} />
-                    <Popconfirm title="Remove this department?" onConfirm={() => handleDelete(record.id)} okText="Remove" cancelText="Cancel">
+                    <Popconfirm title={t('studio.confirmRemove', 'Remove this department?')} onConfirm={() => handleDelete(record.id)} okText={t('studio.remove', 'Remove')} cancelText={t('common.cancel', 'Cancel')}>
                       <Button type="text" size="small" danger icon={<DeleteOutlined />} />
                     </Popconfirm>
                   </Space>
@@ -158,53 +160,53 @@ export const DepartmentStudioPage: React.FC = () => {
       </Card>
 
       <Modal
-        title={editingId ? 'Edit Custom Department' : 'Create Custom Department'}
+        title={editingId ? t('studio.editModal', 'Edit Custom Department') : t('studio.createModal', 'Create Custom Department')}
         open={isModalOpen}
         onCancel={closeModal}
         footer={null}
         destroyOnClose
       >
         <Form form={form} layout="vertical" onFinish={handleSubmit} initialValues={DEFAULTS}>
-          <Form.Item name="name" label="Department Name" rules={[{ required: true }]}>
-            <Input placeholder="e.g. Legal & Contract Management" />
+          <Form.Item name="name" label={t('studio.colName', 'Department Name')} rules={[{ required: true }]}>
+            <Input placeholder={t('studio.namePlaceholder', 'e.g. Legal & Contract Management')} />
           </Form.Item>
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item name="code" label="Dept Code">
+              <Form.Item name="code" label={t('studio.colCode', 'Dept Code')}>
                 <Input placeholder="e.g. LEGAL" />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="departmentType" label="Department Type">
+              <Form.Item name="departmentType" label={t('studio.deptType', 'Department Type')}>
                 <Select options={[
-                  { value: 'IT', label: 'IT & Infrastructure' },
-                  { value: 'HR', label: 'Human Resources' },
-                  { value: 'Finance', label: 'Finance & Procurement' },
-                  { value: 'Legal', label: 'Legal & Compliance' },
-                  { value: 'Facilities', label: 'Facility Management' },
-                  { value: 'Custom', label: 'Custom Department' }
+                  { value: 'IT', label: t('studio.typeIt', 'IT & Infrastructure') },
+                  { value: 'HR', label: t('studio.typeHr', 'Human Resources') },
+                  { value: 'Finance', label: t('studio.typeFinance', 'Finance & Procurement') },
+                  { value: 'Legal', label: t('studio.typeLegal', 'Legal & Compliance') },
+                  { value: 'Facilities', label: t('studio.typeFacilities', 'Facility Management') },
+                  { value: 'Custom', label: t('studio.typeCustom', 'Custom Department') }
                 ]} />
               </Form.Item>
             </Col>
           </Row>
-          <Form.Item name="description" label="Description">
-            <Input.TextArea placeholder="Responsibilities and scope..." />
+          <Form.Item name="description" label={t('studio.colDescription', 'Description')}>
+            <Input.TextArea placeholder={t('studio.descPlaceholder', 'Responsibilities and scope...')} />
           </Form.Item>
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item name="colorHex" label="Theme Color">
+              <Form.Item name="colorHex" label={t('studio.themeColor', 'Theme Color')}>
                 <ColorPicker format="hex" showText />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="isActive" label="Is Active" valuePropName="checked">
+              <Form.Item name="isActive" label={t('studio.isActive', 'Is Active')} valuePropName="checked">
                 <Switch />
               </Form.Item>
             </Col>
           </Row>
           <div style={{ textAlign: 'right', marginTop: 24 }}>
-            <Button onClick={closeModal} style={{ marginRight: 8 }}>Cancel</Button>
-            <Button type="primary" htmlType="submit" loading={submitting}>{editingId ? 'Save' : 'Create Department'}</Button>
+            <Button onClick={closeModal} style={{ marginRight: 8 }}>{t('common.cancel', 'Cancel')}</Button>
+            <Button type="primary" htmlType="submit" loading={submitting}>{editingId ? t('common.save', 'Save') : t('studio.createDept', 'Create Department')}</Button>
           </div>
         </Form>
       </Modal>
