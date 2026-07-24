@@ -35,7 +35,7 @@ const DynamicSelect = ({ field, ...props }: any) => {
         };
       });
       setFetchedOptions(mappedOptions);
-    } catch (err) {
+    } catch {
       console.error(`Failed to load options for ${field.name}`, err);
     } finally {
       setLoading(false);
@@ -333,7 +333,7 @@ export function DynamicFormModal({ open, schema, editRecord, editEndpoint, onCan
       const separator = schema.templateEndpoint!.includes('?') ? '&' : '?';
       const res = await api.get(`${schema.templateEndpoint!}${separator}pageSize=200`);
       setTemplates(unwrapList(res.data));
-    } catch (err) {
+    } catch {
       console.error('Failed to load templates', err);
     } finally {
       setLoading(false);
@@ -348,7 +348,7 @@ export function DynamicFormModal({ open, schema, editRecord, editEndpoint, onCan
         const url = schema.dynamicSchemaEndpoint.replace('{templateId}', templateId);
         const res = await api.get(url);
         setActiveSchema(res.data);
-      } catch (err) {
+      } catch {
         console.error('Failed to load dynamic schema', err);
       } finally {
         setLoading(false);
@@ -365,7 +365,7 @@ export function DynamicFormModal({ open, schema, editRecord, editEndpoint, onCan
         if (field.type === 'json' && values[field.name]) {
           try {
             values[field.name] = JSON.parse(values[field.name]);
-          } catch (e) {
+          } catch {
             message.error(`Invalid JSON in ${field.labelKey}`);
             throw new Error('Invalid JSON');
           }

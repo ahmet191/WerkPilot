@@ -27,7 +27,7 @@ export const DepartmentStudioPage: React.FC = () => {
     try {
       const res = await api.get('/departments/studio');
       setDepartments(res.data);
-    } catch (err) {
+    } catch {
       console.error(err);
     } finally {
       setLoading(false);
@@ -49,7 +49,7 @@ export const DepartmentStudioPage: React.FC = () => {
       setIsModalOpen(false);
       form.resetFields();
       fetchDepartments();
-    } catch (err) {
+    } catch {
       message.error('Failed to save department.');
     }
   };

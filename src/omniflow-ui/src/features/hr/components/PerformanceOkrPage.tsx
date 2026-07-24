@@ -33,7 +33,7 @@ export const PerformanceOkrPage: React.FC = () => {
     try {
       const res = await api.get('/hr/goals');
       setGoals(res.data);
-    } catch (err) {
+    } catch {
       console.error(err);
     } finally {
       setLoading(false);
@@ -70,7 +70,7 @@ export const PerformanceOkrPage: React.FC = () => {
       message.success(`Goal ${editingGoal ? 'updated' : 'created'} successfully!`);
       setIsModalOpen(false);
       fetchGoals();
-    } catch (err) {
+    } catch {
       message.error('Failed to save goal.');
     }
   };
@@ -83,7 +83,7 @@ export const PerformanceOkrPage: React.FC = () => {
       message.success('Progress updated successfully!');
       setIsProgressModalOpen(false);
       fetchGoals();
-    } catch (err) {
+    } catch {
       message.error('Failed to update progress.');
     }
   };
@@ -93,7 +93,7 @@ export const PerformanceOkrPage: React.FC = () => {
       await api.delete(`/hr/goals/${id}`);
       message.success('Goal deleted successfully!');
       fetchGoals();
-    } catch (err) {
+    } catch {
       message.error('Failed to delete goal.');
     }
   };

@@ -28,7 +28,7 @@ export const OnboardingManagementPage: React.FC = () => {
     try {
       const res = await api.get('/onboarding/checklist');
       setTasks(res.data);
-    } catch (err) {
+    } catch {
       console.error(err);
     } finally {
       setLoading(false);
@@ -46,7 +46,7 @@ export const OnboardingManagementPage: React.FC = () => {
       });
       message.success('Task status updated!');
       fetchTasks();
-    } catch (err) {
+    } catch {
       message.error('Failed to update task.');
     }
   };

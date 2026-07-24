@@ -27,7 +27,7 @@ export const VisibilityMatrixPage: React.FC = () => {
     try {
       const res = await api.get('/visibility/matrix');
       setMatrix(res.data);
-    } catch (err) {
+    } catch {
       console.error(err);
     } finally {
       setLoading(false);
@@ -56,7 +56,7 @@ export const VisibilityMatrixPage: React.FC = () => {
       await api.put('/visibility/matrix', updated);
       message.success(t('form.success', 'Visibility rule updated successfully!'));
       fetchMatrix();
-    } catch (err) {
+    } catch {
       message.error(t('form.error', 'Failed to update visibility rule.'));
     }
   };

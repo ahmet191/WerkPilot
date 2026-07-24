@@ -29,7 +29,7 @@ export const LmsTrainingPage: React.FC = () => {
     try {
       const res = await api.get('/hr/trainings');
       setCourses(res.data);
-    } catch (err) {
+    } catch {
       console.error(err);
     } finally {
       setLoading(false);
@@ -55,7 +55,7 @@ export const LmsTrainingPage: React.FC = () => {
       setIsCourseModalOpen(false);
       setSelectedCourse(null);
       fetchCourses();
-    } catch (err) {
+    } catch {
       message.error('Failed to complete training.');
     }
   };

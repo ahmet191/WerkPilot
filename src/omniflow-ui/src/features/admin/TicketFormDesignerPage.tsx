@@ -29,7 +29,7 @@ export const TicketFormDesignerPage: React.FC = () => {
       ]);
       setSchemas(resSchemas.data);
       setDesks(resDesks.data || []);
-    } catch (err) {
+    } catch {
       console.error(err);
     } finally {
       setLoading(false);
@@ -47,7 +47,7 @@ export const TicketFormDesignerPage: React.FC = () => {
       setIsModalOpen(false);
       form.resetFields();
       fetchData();
-    } catch (err) {
+    } catch {
       message.error('Failed to save form schema.');
     }
   };

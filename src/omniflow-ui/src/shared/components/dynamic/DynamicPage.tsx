@@ -92,7 +92,7 @@ export function DynamicPage({ entityType, detailRoute, extraActions }: DynamicPa
       const all: any[] = response.data;
       const paged = all.slice((page - 1) * pageSize, page * pageSize);
       return { data: paged, total: all.length };
-    } catch (err) {
+    } catch {
       console.error('Failed to fetch data', err);
       return { data: [], total: 0 };
     }
@@ -125,7 +125,7 @@ export function DynamicPage({ entityType, detailRoute, extraActions }: DynamicPa
           }
           message.success(t('delete.success', 'Deleted successfully'));
           setRefreshKey(prev => prev + 1);
-        } catch (err) {
+        } catch {
           console.error('Delete failed', err);
         }
       },
@@ -139,7 +139,7 @@ export function DynamicPage({ entityType, detailRoute, extraActions }: DynamicPa
       else if (action.method.toUpperCase() === 'POST') await api.post(url);
       message.success(t('common.done', 'Done'));
       setRefreshKey(prev => prev + 1);
-    } catch (err) {
+    } catch {
       console.error('Action failed', err);
     }
   }, [t]);

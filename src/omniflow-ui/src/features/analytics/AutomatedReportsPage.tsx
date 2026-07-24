@@ -24,7 +24,7 @@ export const AutomatedReportsPage: React.FC = () => {
     try {
       const res = await api.get('/analytics/reports');
       setReports(res.data);
-    } catch (err) {
+    } catch {
       console.error(err);
     } finally {
       setLoading(false);
@@ -42,7 +42,7 @@ export const AutomatedReportsPage: React.FC = () => {
       setIsModalOpen(false);
       form.resetFields();
       fetchReports();
-    } catch (err) {
+    } catch {
       message.error('Failed to configure scheduled report.');
     }
   };

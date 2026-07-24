@@ -69,7 +69,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             tenantId: decoded.tenant_id
           });
         }
-      } catch (err) {
+      } catch {
         console.error("Invalid token", err);
         localStorage.removeItem(TOKEN_KEY);
       }

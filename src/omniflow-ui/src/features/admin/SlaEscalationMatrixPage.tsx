@@ -28,7 +28,7 @@ export const SlaEscalationMatrixPage: React.FC = () => {
     try {
       const res = await api.get('/slas/policies');
       setRules(res.data);
-    } catch (err) {
+    } catch {
       console.error(err);
     } finally {
       setLoading(false);
@@ -59,7 +59,7 @@ export const SlaEscalationMatrixPage: React.FC = () => {
       message.success(`SLA policy rule ${editingRule ? 'updated' : 'saved'} successfully!`);
       setIsModalOpen(false);
       fetchRules();
-    } catch (err) {
+    } catch {
       message.error('Failed to save SLA policy.');
     }
   };
@@ -69,7 +69,7 @@ export const SlaEscalationMatrixPage: React.FC = () => {
       await api.delete(`/slas/policies/${id}`);
       message.success('SLA policy rule deleted successfully!');
       fetchRules();
-    } catch (err) {
+    } catch {
       message.error('Failed to delete SLA policy rule.');
     }
   };

@@ -120,7 +120,7 @@ export const EmployeeCenterPage: React.FC = () => {
   const [form] = Form.useForm();
   const [uploadForm] = Form.useForm();
 
-  const fetchHrData = async () => {
+  const fetchHrData = React.useCallback(async () => {
     setLoading(true);
     try {
       const [profileRes, docsRes] = await Promise.all([
@@ -133,17 +133,16 @@ export const EmployeeCenterPage: React.FC = () => {
         ...profileRes.data,
         birthDate: profileRes.data.birthDate ? dayjs(profileRes.data.birthDate) : null
       });
-    } catch (err) {
-      console.error(err);
+    } catch {
       message.error(t('form.error', 'Failed to load HR Profile.'));
     } finally {
       setLoading(false);
     }
-  };
+  }, [form, t]);
 
   useEffect(() => {
     fetchHrData();
-  }, []);
+  }, [fetchHrData]);
 
   const handleProfileSave = async (values: any) => {
     try {
@@ -155,7 +154,7 @@ export const EmployeeCenterPage: React.FC = () => {
       message.success(t('form.success', 'Profile updated successfully!'));
       setIsEditing(false);
       fetchHrData();
-    } catch (err) {
+    } catch {
       message.error(t('form.error', 'Error saving profile.'));
     }
   };
@@ -178,7 +177,7 @@ export const EmployeeCenterPage: React.FC = () => {
       setIsUploadModalOpen(false);
       uploadForm.resetFields();
       fetchHrData();
-    } catch (err) {
+    } catch {
       message.error(t('form.error', 'Document upload failed.'));
     } finally {
       setUploading(false);

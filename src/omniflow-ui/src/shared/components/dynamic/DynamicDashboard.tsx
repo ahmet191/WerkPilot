@@ -67,7 +67,7 @@ export const DynamicDashboard: React.FC = () => {
           return;
         }
         connectionRef.current = connection;
-      } catch (err) {
+      } catch {
         console.error('SignalR connection failed', err);
       }
     };
