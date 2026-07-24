@@ -474,6 +474,7 @@ public static class DemoDataSeeder
         await SeedGoalsAsync(context, ct);
         await SeedSkillsAndCertificatesAsync(context, ct);
         await SeedTrainingsAsync(context, ct);
+        await SeedLeaveBalancesAsync(context, ct);
         await SeedOnboardingAsync(context, ct);
         await SeedCustomDepartmentsAsync(context, ct);
         await SeedDepartmentVisibilityAsync(context, ct);
@@ -570,6 +571,39 @@ public static class DemoDataSeeder
                 Course(u, "Security & Anti-Phishing Awareness", "Password hygiene, MFA and phishing prevention.", "Mandatory Compliance", 3, true, HR.TrainingStatus.InProgress, 0, null),
                 Course(u, "Effective Communication at Work", "Soft-skills workshop for cross-team collaboration.", "Soft Skills", 4, false, HR.TrainingStatus.NotStarted, 0, null));
         }
+        await context.SaveChangesAsync(ct);
+    }
+
+    // ── Leave balances (drives the HR Center "my leave" panel) ──────────
+    private static async Task SeedLeaveBalancesAsync(OmniFlowDbContext context, CancellationToken ct)
+    {
+        if (await context.LeaveBalances.AnyAsync(ct)) return;
+        var year = DateTime.UtcNow.Year;
+
+        // Everyone likely to be demoed gets a coherent balance sheet.
+        var people = new[]
+        {
+            SeedConstants.AdminUserId, SeedConstants.AgentUserId, SeedConstants.ApproverUserId,
+            SeedConstants.RequesterUserId, ItManagerId, ItAgent2Id, HrSpecialistId,
+            FinanceEmpId, SalesEmpId, OpsEmpId,
+        };
+
+        LeaveBalance Bal(Guid u, LeaveType type, decimal allocated, decimal used) => new()
+        {
+            TenantId = SeedConstants.DefaultTenantId, UserId = u, Type = type, Year = year,
+            TotalDaysAllocated = allocated, TotalDaysUsed = used,
+        };
+
+        var rows = new List<LeaveBalance>();
+        var i = 0;
+        foreach (var u in people)
+        {
+            rows.Add(Bal(u, LeaveType.Annual, 20m, 3m + i % 6));   // varied usage per person
+            rows.Add(Bal(u, LeaveType.Sick, 10m, 1m + i % 3));
+            rows.Add(Bal(u, LeaveType.Unpaid, 5m, 0m));
+            i++;
+        }
+        context.LeaveBalances.AddRange(rows);
         await context.SaveChangesAsync(ct);
     }
 

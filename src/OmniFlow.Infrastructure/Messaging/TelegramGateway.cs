@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using OmniFlow.Application.Interfaces;
 using OmniFlow.Application.Tickets.Commands;
@@ -16,17 +17,32 @@ public class TelegramGateway : IMessageGateway
     private readonly ITelegramBotClient? _botClient;
     private readonly ITelegramIdentityService _identityService;
     private readonly IServiceProvider _serviceProvider;
+    private readonly IConfiguration _configuration;
 
     public TelegramGateway(
         ILogger<TelegramGateway> logger,
         ITelegramIdentityService identityService,
         IServiceProvider serviceProvider,
+        IConfiguration configuration,
         ITelegramBotClient? botClient = null)
     {
         _logger = logger;
         _identityService = identityService;
         _serviceProvider = serviceProvider;
+        _configuration = configuration;
         _botClient = botClient;
+    }
+
+    public async Task SendToSupportChannelAsync(string message, CancellationToken cancellationToken = default)
+    {
+        var supportChatId = _configuration["Telegram:SupportChatId"];
+        if (string.IsNullOrWhiteSpace(supportChatId))
+        {
+            _logger.LogDebug("No Telegram:SupportChatId configured — skipping support-channel notification.");
+            return;
+        }
+
+        await SendMessageAsync(supportChatId, message, cancellationToken);
     }
 
     public async Task SendMessageAsync(string chatId, string message, CancellationToken cancellationToken = default)

@@ -58,18 +58,6 @@ namespace OmniFlow.Application.Tickets.Commands
                 })
                 .ToListAsync(cancellationToken);
 
-            // Default seed SLA policies for demonstration if empty
-            if (!rules.Any())
-            {
-                return new List<SlaPolicyRuleDto>
-                {
-                    new() { Id = Guid.NewGuid(), Name = "Critical P1 Outage SLA Policy", Priority = "Critical", ResponseTimeMinutes = 15, ResolutionTimeHours = 4, EscalateAfterPercent = 75, NotifyManagerOnBreach = true, IsActive = true },
-                    new() { Id = Guid.NewGuid(), Name = "High Priority Business Interruption Policy", Priority = "High", ResponseTimeMinutes = 30, ResolutionTimeHours = 8, EscalateAfterPercent = 80, NotifyManagerOnBreach = true, IsActive = true },
-                    new() { Id = Guid.NewGuid(), Name = "Standard Service Request Policy", Priority = "Medium", ResponseTimeMinutes = 120, ResolutionTimeHours = 24, EscalateAfterPercent = 85, NotifyManagerOnBreach = false, IsActive = true },
-                    new() { Id = Guid.NewGuid(), Name = "Low Priority Inquiry Policy", Priority = "Low", ResponseTimeMinutes = 240, ResolutionTimeHours = 48, EscalateAfterPercent = 90, NotifyManagerOnBreach = false, IsActive = true }
-                };
-            }
-
             return rules;
         }
     }

@@ -17,16 +17,13 @@ public class TicketCreatedEventHandler : INotificationHandler<TicketCreatedDomai
     {
         var ticket = notification.Ticket;
 
-        // In a real scenario, this could query the Department Manager's ChatId or an IT Support Channel ID.
-        // We'll use our mock default Chat ID for demo purposes.
-        var itSupportChatId = "8920226584";
-
         var msg = $"🆕 *New Ticket Created*\n" +
                   $"Title: {ticket.Title}\n" +
                   $"Ticket ID: {ticket.Id}\n" +
-                  $"Priority: High\n" +
+                  $"Priority: {ticket.Priority}\n" +
                   $"Link: https://omniflow.local/tickets/{ticket.Id}";
 
-        await _messageGateway.SendMessageAsync(itSupportChatId, msg, cancellationToken);
+        // Routes to the tenant's configured support channel; no-ops if none is set.
+        await _messageGateway.SendToSupportChannelAsync(msg, cancellationToken);
     }
 }

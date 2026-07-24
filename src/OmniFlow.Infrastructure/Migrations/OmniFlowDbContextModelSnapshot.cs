@@ -973,9 +973,6 @@ namespace OmniFlow.Infrastructure.Migrations
                     b.Property<Guid?>("HeadId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("HeadId1")
-                        .HasColumnType("uuid");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
@@ -1000,7 +997,7 @@ namespace OmniFlow.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HeadId1");
+                    b.HasIndex("HeadId");
 
                     b.HasIndex("ManagerId");
 
@@ -4178,7 +4175,8 @@ namespace OmniFlow.Infrastructure.Migrations
                 {
                     b.HasOne("OmniFlow.Domain.Entities.HR.Employee", "Head")
                         .WithMany()
-                        .HasForeignKey("HeadId1");
+                        .HasForeignKey("HeadId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("OmniFlow.Domain.Entities.User", "Manager")
                         .WithMany()

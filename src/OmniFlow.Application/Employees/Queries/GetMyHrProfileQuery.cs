@@ -120,16 +120,6 @@ namespace OmniFlow.Application.Employees.Queries
                 })
                 .ToListAsync(cancellationToken);
 
-            // Default leave balance seeds if empty for demonstration
-            if (!balances.Any())
-            {
-                balances = new List<EmployeeLeaveBalanceSummaryDto>
-                {
-                    new() { LeaveType = profile?.Country == CountryCode.DE ? "Erholungsurlaub (Annual)" : "Yıllık Kıdem İzni", TotalEntitlementDays = 20, UsedDays = 3 },
-                    new() { LeaveType = profile?.Country == CountryCode.DE ? "Krankmeldung (Sick)" : "Hastalık/Mazeret İzni", TotalEntitlementDays = 10, UsedDays = 1 }
-                };
-            }
-
             var deptName = "General";
             if (user.Department?.LocalizedName?.Translations != null && user.Department.LocalizedName.Translations.TryGetValue("en", out var dName))
             {

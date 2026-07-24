@@ -50,34 +50,6 @@ namespace OmniFlow.Application.Tickets.Commands
                 })
                 .ToListAsync(cancellationToken);
 
-            // Default seed schema for demonstration if empty
-            if (!schemas.Any())
-            {
-                var desk = await _context.ServiceDesks.FirstOrDefaultAsync(cancellationToken);
-                var deskId = desk?.Id ?? Guid.NewGuid();
-                var deskName = desk?.Name ?? "IT & Corporate Support";
-
-                return new List<TicketFormSchemaDto>
-                {
-                    new()
-                    {
-                        Id = Guid.NewGuid(),
-                        ServiceDeskId = deskId,
-                        ServiceDeskName = deskName,
-                        FormTitle = "Hardware & Asset Request Form",
-                        FormDescription = "Request laptop, monitor, or peripheral device with approval workflow.",
-                        FieldsJson = """
-                        [
-                            { "key": "asset_type", "label": "Device Type", "fieldType": "Select", "isRequired": true, "options": ["MacBook Pro 16", "Dell XPS 15", "27 4K Monitor", "Ergonomic Keyboard"] },
-                            { "key": "justification", "label": "Business Justification", "fieldType": "TextArea", "isRequired": true },
-                            { "key": "needed_by_date", "label": "Required By Date", "fieldType": "Date", "isRequired": false }
-                        ]
-                        """,
-                        IsActive = true
-                    }
-                };
-            }
-
             return schemas;
         }
     }
