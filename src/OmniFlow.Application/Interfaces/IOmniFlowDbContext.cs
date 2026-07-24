@@ -11,6 +11,7 @@ public interface IOmniFlowDbContext
     DbSet<Location> Locations { get; }
     DbSet<Team> Teams { get; }
     DbSet<EmploymentDetails> EmploymentDetails { get; }
+    DbSet<Domain.Entities.HR.EmployeeProfile> EmployeeProfiles { get; }
     DbSet<EmployeeDocument> EmployeeDocuments { get; }
     DbSet<LeaveRequest> LeaveRequests { get; }
     DbSet<LeaveBalance> LeaveBalances { get; }

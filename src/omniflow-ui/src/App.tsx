@@ -20,6 +20,7 @@ const ServiceDeskPortal = lazy(() => import('./features/tickets/components/Servi
 const IsolatedServiceDesk = lazy(() => import('./features/tickets/components/IsolatedServiceDesk').then(m => ({ default: m.IsolatedServiceDesk })));
 const TicketDetailPage = lazy(() => import('./features/tickets/components/TicketDetailPage').then(m => ({ default: m.TicketDetailPage })));
 const EmployeeDirectory = lazy(() => import('./features/hr/components/EmployeeDirectory').then(m => ({ default: m.EmployeeDirectory })));
+const EmployeeCenterPage = lazy(() => import('./features/hr/components/EmployeeCenterPage').then(m => ({ default: m.EmployeeCenterPage })));
 const OrgChart = lazy(() => import('./features/hr/components/OrgChart').then(m => ({ default: m.OrgChart })));
 const MyApprovals = lazy(() => import('./features/approvals/MyApprovals').then(m => ({ default: m.MyApprovals })));
 const ReportsPage = lazy(() => import('./features/reports/ReportsPage').then(m => ({ default: m.ReportsPage })));
@@ -68,6 +69,7 @@ function App() {
                 <Route path="reports" element={<ReportsPage />} />
                 <Route path="assets" element={<DynamicPage entityType="assets" />} />
                 <Route path="directory" element={<EmployeeDirectory />} />
+                <Route path="hr/center" element={<EmployeeCenterPage />} />
                 <Route path="orgchart" element={<OrgChart />} />
                 <Route path="leaves" element={<DynamicPage entityType="leaves" />} />
                 <Route path="expenses" element={<DynamicPage entityType="expenses" />} />

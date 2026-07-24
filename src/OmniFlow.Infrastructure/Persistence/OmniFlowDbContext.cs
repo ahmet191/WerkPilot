@@ -39,6 +39,7 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
     public DbSet<JobTitle> JobTitles => Set<JobTitle>();
     // HR entities (fully qualified to avoid ambiguity with HR namespace)
     public DbSet<HR.Employee> Employees => Set<HR.Employee>();
+    public DbSet<HR.EmployeeProfile> EmployeeProfiles => Set<HR.EmployeeProfile>();
     public DbSet<HR.Position> Positions => Set<HR.Position>();
     public DbSet<HR.AttendanceRecord> AttendanceRecords => Set<HR.AttendanceRecord>();
     public DbSet<HR.TimeOffRequest> TimeOffRequests => Set<HR.TimeOffRequest>();
@@ -99,6 +100,15 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
         builder.AddOutboxStateEntity();
 
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        builder.Entity<HR.EmployeeProfile>(entity =>
+        {
+            entity.HasIndex(e => new { e.TenantId, e.UserId }).IsUnique();
+            entity.OwnsOne(e => e.GermanyDetails, b => b.ToJson());
+            entity.OwnsOne(e => e.TurkeyDetails, b => b.ToJson());
+            entity.HasOne(e => e.User).WithMany().HasForeignKey(e => e.UserId).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(e => e.Manager).WithMany().HasForeignKey(e => e.ManagerId).OnDelete(DeleteBehavior.NoAction);
+        });
 
         builder.Entity<TicketAttachment>(entity =>
         {

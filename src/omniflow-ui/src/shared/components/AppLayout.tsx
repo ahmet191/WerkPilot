@@ -142,6 +142,12 @@ export function AppLayout() {
     },
     { type: 'divider' as const },
     {
+      key: 'hrCenter',
+      icon: <TeamOutlined />,
+      label: t('sidebar.hrCenter', 'My HR Center (Özlük)'),
+      onClick: () => navigate('/hr/center'),
+    },
+    {
       key: 'security',
       icon: <SafetyCertificateOutlined />,
       label: t('security.title', 'Security'),
@@ -269,10 +275,11 @@ export function AppLayout() {
                 variant="borderless"
                 value={language}
                 onChange={setLanguage}
-                style={{ width: 92 }}
+                style={{ width: 110 }}
                 options={[
-                  { value: 'en-US', label: 'English' },
-                  { value: 'tr-TR', label: 'Türkçe' },
+                  { value: 'en-US', label: 'English 🇬🇧' },
+                  { value: 'tr-TR', label: 'Türkçe 🇹🇷' },
+                  { value: 'de-DE', label: 'Deutsch 🇩🇪' },
                 ]}
               />
             </Space>

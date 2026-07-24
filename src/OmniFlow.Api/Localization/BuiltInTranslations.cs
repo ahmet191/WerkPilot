@@ -869,6 +869,55 @@ public static class BuiltInTranslations
                 { "slas.department", "Departman" },
                 { "slas.create", "Yeni SLA Ayarı" }
             }
+        },
+        {
+            "de", new Dictionary<string, string>
+            {
+                { "sidebar.departments", "Abteilungen" },
+                { "sidebar.assets", "Betriebsmittel & Inventar" },
+                { "sidebar.tickets", "Tickets & Anfragen" },
+                { "sidebar.hrCenter", "Mein HR-Zentrum (Özlük)" },
+                { "grid.search", "Suchen..." },
+                { "grid.new", "Neu" },
+                { "grid.total", "Gesamt {0} Elemente" },
+                { "departments.title", "Abteilungsverzeichnis" },
+                { "departments.id", "ID" },
+                { "departments.name", "Name" },
+                { "departments.manager", "Manager" },
+                { "assets.title", "IT-Betriebsmittelverwaltung" },
+                { "assets.tag", "Inventarnummer" },
+                { "assets.category", "Kategorie" },
+                { "assets.model", "Modell" },
+                { "assets.serial", "Seriennummer" },
+                { "assets.status", "Status" },
+                { "assets.assigned", "Zugewiesen an" },
+                { "form.error", "Fehler beim Speichern aufgetreten." },
+                { "form.success", "Erfolgreich gespeichert!" },
+                { "tickets.id", "Ticket-ID" },
+                { "tickets.title", "Betreff" },
+                { "tickets.state", "Status" },
+                { "tickets.create", "Neues Ticket" },
+                { "ticketState.New", "Neu" },
+                { "ticketState.InProgress", "In Bearbeitung" },
+                { "ticketState.WaitingForApproval", "Wartet auf Genehmigung" },
+                { "ticketState.Resolved", "Gelöst" },
+                { "ticketState.Closed", "Geschlossen" },
+                { "priority.Critical", "Kritisch" },
+                { "priority.High", "Hoch" },
+                { "priority.Medium", "Mittel" },
+                { "priority.Low", "Niedrig" },
+                { "hr.centerTitle", "Mein HR-Zentrum & Personalakte" },
+                { "hr.overviewTab", "Übersicht & Personalakte" },
+                { "hr.compensationTab", "Vergütung & Rechtliches" },
+                { "hr.documentsTab", "Digitale Personalakte (Dokumente)" },
+                { "hr.assetsTab", "Zugewiesene Geräte & Inventar" },
+                { "hr.leavesTab", "Urlaubsanspruch & Abwesenheiten" },
+                { "hr.trialPeriod", "Probezeit" },
+                { "hr.taxId", "Steuer-ID" },
+                { "hr.socialSecurity", "Sozialversicherungsnummer (SV)" },
+                { "hr.healthInsurance", "Krankenkasse" },
+                { "hr.taxClass", "Steuerklasse" }
+            }
         }
     };
 
