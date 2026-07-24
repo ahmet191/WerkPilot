@@ -155,50 +155,96 @@ public static class TenantBaseline
 
     private static async Task SeedMenusAsync(OmniFlowDbContext context, Guid tenantId, CancellationToken cancellationToken)
     {
-        if (await context.AppMenus.AnyAsync(cancellationToken)) return;
+        var existingPaths = await context.AppMenus
+            .Where(m => m.Path != null)
+            .Select(m => m.Path!)
+            .ToListAsync(cancellationToken);
 
-        var dashboard = new AppMenu { Id = Guid.NewGuid(), TenantId = tenantId, TitleKey = "sidebar.dashboard", Path = "/", Icon = "DashboardOutlined", OrderIndex = 10 };
-        var approvals = new AppMenu { Id = Guid.NewGuid(), TenantId = tenantId, TitleKey = "sidebar.approvals", Path = "/approvals", Icon = "AuditOutlined", OrderIndex = 15, IsActive = true };
-        var itsmParent = new AppMenu { Id = Guid.NewGuid(), TenantId = tenantId, TitleKey = "sidebar.itsm", Icon = "AppstoreOutlined", OrderIndex = 20 };
-        var hrParent = new AppMenu { Id = Guid.NewGuid(), TenantId = tenantId, TitleKey = "sidebar.hr", Icon = "TeamOutlined", OrderIndex = 30 };
-        var adminParent = new AppMenu { Id = Guid.NewGuid(), TenantId = tenantId, TitleKey = "sidebar.admin", Icon = "SettingOutlined", OrderIndex = 40 };
+        AppMenu? hrParent = await context.AppMenus.FirstOrDefaultAsync(m => m.TitleKey == "sidebar.hr", cancellationToken);
+        AppMenu? adminParent = await context.AppMenus.FirstOrDefaultAsync(m => m.TitleKey == "sidebar.admin", cancellationToken);
 
-        AppMenu Child(AppMenu parent, string titleKey, string path, string icon, int order) => new()
+        if (!await context.AppMenus.AnyAsync(cancellationToken))
         {
-            Id = Guid.NewGuid(),
-            TenantId = tenantId,
-            ParentId = parent.Id,
-            TitleKey = titleKey,
-            Path = path,
-            Icon = icon,
-            OrderIndex = order
-        };
+            var dashboard = new AppMenu { Id = Guid.NewGuid(), TenantId = tenantId, TitleKey = "sidebar.dashboard", Path = "/", Icon = "DashboardOutlined", OrderIndex = 10 };
+            var approvals = new AppMenu { Id = Guid.NewGuid(), TenantId = tenantId, TitleKey = "sidebar.approvals", Path = "/approvals", Icon = "AuditOutlined", OrderIndex = 15, IsActive = true };
+            var itsmParent = new AppMenu { Id = Guid.NewGuid(), TenantId = tenantId, TitleKey = "sidebar.itsm", Icon = "AppstoreOutlined", OrderIndex = 20 };
+            hrParent = new AppMenu { Id = Guid.NewGuid(), TenantId = tenantId, TitleKey = "sidebar.hr", Icon = "TeamOutlined", OrderIndex = 30 };
+            adminParent = new AppMenu { Id = Guid.NewGuid(), TenantId = tenantId, TitleKey = "sidebar.admin", Icon = "SettingOutlined", OrderIndex = 40 };
 
-        context.AppMenus.AddRange(
-            dashboard,
-            approvals,
-            itsmParent,
-            Child(itsmParent, "sidebar.servicedeskportal", "/servicedeskportal", "AppstoreOutlined", 10),
-            Child(itsmParent, "sidebar.tickets", "/tickets", "ContainerOutlined", 20),
-            Child(itsmParent, "sidebar.assets", "/assets", "LaptopOutlined", 30),
+            AppMenu Child(AppMenu parent, string titleKey, string path, string icon, int order) => new()
+            {
+                Id = Guid.NewGuid(),
+                TenantId = tenantId,
+                ParentId = parent.Id,
+                TitleKey = titleKey,
+                Path = path,
+                Icon = icon,
+                OrderIndex = order
+            };
 
-            hrParent,
-            Child(hrParent, "sidebar.directory", "/directory", "TeamOutlined", 10),
-            Child(hrParent, "sidebar.orgchart", "/orgchart", "DashboardOutlined", 20),
-            Child(hrParent, "sidebar.leaves", "/leaves", "CalendarOutlined", 30),
-            Child(hrParent, "sidebar.expenses", "/expenses", "DollarOutlined", 40),
+            context.AppMenus.AddRange(
+                dashboard,
+                approvals,
+                itsmParent,
+                Child(itsmParent, "sidebar.servicedeskportal", "/servicedeskportal", "AppstoreOutlined", 10),
+                Child(itsmParent, "sidebar.tickets", "/tickets", "ContainerOutlined", 20),
+                Child(itsmParent, "sidebar.assets", "/assets", "LaptopOutlined", 30),
 
-            adminParent,
-            Child(adminParent, "sidebar.departments", "/departments", "TeamOutlined", 10),
-            Child(adminParent, "sidebar.servicedesks", "/servicedesks", "ContainerOutlined", 20),
-            Child(adminParent, "sidebar.auditlogs", "/auditlogs", "SafetyCertificateOutlined", 30),
-            Child(adminParent, "sidebar.users", "/users", "UserOutlined", 40),
-            Child(adminParent, "sidebar.templates", "/templates", "FileTextOutlined", 50),
-            Child(adminParent, "sidebar.categories", "/categories", "AppstoreAddOutlined", 60),
-            Child(adminParent, "sidebar.slas", "/slas", "FieldTimeOutlined", 70),
-            Child(adminParent, "sidebar.menus", "/menus", "MenuOutlined", 80));
+                hrParent,
+                Child(hrParent, "sidebar.directory", "/directory", "TeamOutlined", 10),
+                Child(hrParent, "sidebar.hrCenter", "/hr/center", "IdcardOutlined", 15),
+                Child(hrParent, "sidebar.onboarding", "/hr/onboarding", "UserAddOutlined", 18),
+                Child(hrParent, "sidebar.orgchart", "/orgchart", "DashboardOutlined", 20),
+                Child(hrParent, "sidebar.leaves", "/leaves", "CalendarOutlined", 30),
+                Child(hrParent, "sidebar.expenses", "/expenses", "DollarOutlined", 40),
 
-        await context.SaveChangesAsync(cancellationToken);
+                adminParent,
+                Child(adminParent, "sidebar.departments", "/departments", "TeamOutlined", 10),
+                Child(adminParent, "sidebar.servicedesks", "/servicedesks", "ContainerOutlined", 20),
+                Child(adminParent, "sidebar.auditlogs", "/auditlogs", "SafetyCertificateOutlined", 30),
+                Child(adminParent, "sidebar.users", "/users", "UserOutlined", 40),
+                Child(adminParent, "sidebar.templates", "/templates", "FileTextOutlined", 50),
+                Child(adminParent, "sidebar.categories", "/categories", "AppstoreAddOutlined", 60),
+                Child(adminParent, "sidebar.slas", "/slas", "FieldTimeOutlined", 70),
+                Child(adminParent, "sidebar.visibility", "/settings/visibility", "EyeOutlined", 75),
+                Child(adminParent, "sidebar.permissions", "/settings/permissions", "SafetyCertificateOutlined", 78),
+                Child(adminParent, "sidebar.reports", "/reports", "BarChartOutlined", 80),
+                Child(adminParent, "sidebar.menus", "/menus", "MenuOutlined", 85));
+
+            await context.SaveChangesAsync(cancellationToken);
+            return;
+        }
+
+        // Reconcile missing menu items into existing database
+        var toAdd = new List<AppMenu>();
+        void EnsureChild(AppMenu? parent, string titleKey, string path, string icon, int order)
+        {
+            if (parent != null && !existingPaths.Contains(path, StringComparer.OrdinalIgnoreCase))
+            {
+                toAdd.Add(new AppMenu
+                {
+                    Id = Guid.NewGuid(),
+                    TenantId = tenantId,
+                    ParentId = parent.Id,
+                    TitleKey = titleKey,
+                    Path = path,
+                    Icon = icon,
+                    OrderIndex = order
+                });
+            }
+        }
+
+        EnsureChild(hrParent, "sidebar.hrCenter", "/hr/center", "IdcardOutlined", 15);
+        EnsureChild(hrParent, "sidebar.onboarding", "/hr/onboarding", "UserAddOutlined", 18);
+        EnsureChild(adminParent, "sidebar.visibility", "/settings/visibility", "EyeOutlined", 75);
+        EnsureChild(adminParent, "sidebar.permissions", "/settings/permissions", "SafetyCertificateOutlined", 78);
+        EnsureChild(adminParent, "sidebar.reports", "/reports", "BarChartOutlined", 80);
+
+        if (toAdd.Count > 0)
+        {
+            context.AppMenus.AddRange(toAdd);
+            await context.SaveChangesAsync(cancellationToken);
+        }
     }
 
     /// <summary>

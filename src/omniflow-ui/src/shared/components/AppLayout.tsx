@@ -96,20 +96,56 @@ export function AppLayout() {
     }, []);
   };
 
+  const getMenuLabel = (key: string) => {
+    if (!key) return '';
+    const translated = t(key);
+    if (translated && translated !== key) return translated;
+    const fallbackMap: Record<string, string> = {
+      'sidebar.dashboard': 'Dashboard',
+      'sidebar.approvals': 'My Approvals',
+      'sidebar.itsm': 'ITSM & Service Desks',
+      'sidebar.servicedeskportal': 'Service Portal',
+      'sidebar.tickets': 'All Tickets',
+      'sidebar.assets': 'Assets & Equipment',
+      'sidebar.hr': 'Human Resources',
+      'sidebar.hrCenter': 'My HR Center (Özlük)',
+      'sidebar.onboarding': 'Onboarding & Offboarding',
+      'sidebar.directory': 'Employee Directory',
+      'sidebar.orgchart': 'Org Chart',
+      'sidebar.leaves': 'Leave Management',
+      'sidebar.expenses': 'Expenses',
+      'sidebar.admin': 'Administration',
+      'sidebar.departments': 'Departments',
+      'sidebar.servicedesks': 'Service Desks',
+      'sidebar.visibility': 'Visibility Matrix',
+      'sidebar.permissions': 'Roles & Permissions',
+      'sidebar.reports': 'Reports & Analytics',
+      'sidebar.auditlogs': 'Audit Logs',
+      'sidebar.users': 'User Management',
+      'sidebar.templates': 'Ticket Templates',
+      'sidebar.categories': 'Categories',
+      'sidebar.slas': 'SLA Policies',
+      'sidebar.menus': 'Menu Designer'
+    };
+    if (fallbackMap[key]) return fallbackMap[key];
+    const clean = key.replace(/^sidebar\./i, '');
+    return clean.charAt(0).toUpperCase() + clean.slice(1);
+  };
+
   const generateMenuProps = (items: any[]): any[] => {
     return items.map(item => {
       if (item.children && item.children.length > 0) {
         return {
           key: item.id,
           icon: renderIcon(item.icon),
-          label: t(item.titleKey) || item.titleKey,
+          label: getMenuLabel(item.titleKey),
           children: generateMenuProps(item.children)
         };
       }
       return {
         key: item.path || item.id,
         icon: renderIcon(item.icon),
-        label: t(item.titleKey) || item.titleKey,
+        label: getMenuLabel(item.titleKey),
       };
     });
   };

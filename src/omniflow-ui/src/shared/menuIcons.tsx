@@ -2,9 +2,9 @@ import type { ReactNode } from 'react';
 import {
   AppstoreOutlined, AppstoreAddOutlined, AuditOutlined, BankOutlined, BarChartOutlined, CalendarOutlined,
   CheckCircleOutlined, CloudServerOutlined, ContainerOutlined, DashboardOutlined, DollarOutlined,
-  FieldTimeOutlined, FileTextOutlined, FireOutlined, LaptopOutlined, MenuOutlined,
+  EyeOutlined, FieldTimeOutlined, FileTextOutlined, FireOutlined, IdcardOutlined, LaptopOutlined, MenuOutlined,
   SafetyCertificateOutlined, SettingOutlined, SolutionOutlined, SyncOutlined, TeamOutlined,
-  ToolOutlined, TranslationOutlined, UserOutlined,
+  ToolOutlined, TranslationOutlined, UserOutlined, UserAddOutlined,
 } from '@ant-design/icons';
 
 // Curated icon set for DB-driven menu/notification icons. Using a fixed map
@@ -23,9 +23,11 @@ const ICONS: Record<string, ReactNode> = {
   ContainerOutlined: <ContainerOutlined />,
   DashboardOutlined: <DashboardOutlined />,
   DollarOutlined: <DollarOutlined />,
+  EyeOutlined: <EyeOutlined />,
   FieldTimeOutlined: <FieldTimeOutlined />,
   FileTextOutlined: <FileTextOutlined />,
   FireOutlined: <FireOutlined />,
+  IdcardOutlined: <IdcardOutlined />,
   LaptopOutlined: <LaptopOutlined />,
   MenuOutlined: <MenuOutlined />,
   SafetyCertificateOutlined: <SafetyCertificateOutlined />,
@@ -36,6 +38,7 @@ const ICONS: Record<string, ReactNode> = {
   ToolOutlined: <ToolOutlined />,
   TranslationOutlined: <TranslationOutlined />,
   UserOutlined: <UserOutlined />,
+  UserAddOutlined: <UserAddOutlined />,
 };
 
 /** Resolves a stored icon name to an element, falling back to a generic icon. */
