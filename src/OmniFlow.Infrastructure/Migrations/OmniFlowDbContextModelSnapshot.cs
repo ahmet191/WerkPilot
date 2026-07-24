@@ -1000,6 +1000,16 @@ namespace OmniFlow.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)");
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -1012,17 +1022,27 @@ namespace OmniFlow.Infrastructure.Migrations
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("DocumentType")
-                        .IsRequired()
-                        .HasColumnType("jsonb");
+                    b.Property<Guid?>("EmployeeProfileId")
+                        .HasColumnType("uuid");
 
-                    b.Property<DateTime?>("ExpiryDate")
+                    b.Property<DateTime?>("ExpirationDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("FileUrl")
+                    b.Property<string>("FileName")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
+                        .HasMaxLength(260)
+                        .HasColumnType("character varying(260)");
+
+                    b.Property<long>("FileSizeBytes")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("FileStorageKey")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<bool>("IsConfidential")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -1036,12 +1056,24 @@ namespace OmniFlow.Infrastructure.Migrations
                     b.Property<Guid>("TenantId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<DateTime>("UploadedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmployeeProfileId");
+
                     b.HasIndex("UserId");
+
+                    b.HasIndex("TenantId", "UserId");
 
                     b.ToTable("EmployeeDocuments");
                 });
@@ -1337,6 +1369,111 @@ namespace OmniFlow.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Employees", (string)null);
+                });
+
+            modelBuilder.Entity("OmniFlow.Domain.Entities.HR.EmployeeProfile", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("AddressLine")
+                        .HasColumnType("text");
+
+                    b.Property<string>("BankName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("BicSwift")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("BirthDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("BloodType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("City")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Country")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("EmergencyContactName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("EmergencyContactPhone")
+                        .HasColumnType("text");
+
+                    b.Property<int>("EmploymentType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("GrossSalary")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime>("HireDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Iban")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid?>("ManagerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset?>("ModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("TrialPeriodEndDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("WorkingHoursPerWeek")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ManagerId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("TenantId", "UserId")
+                        .IsUnique();
+
+                    b.ToTable("EmployeeProfiles");
                 });
 
             modelBuilder.Entity("OmniFlow.Domain.Entities.HR.PayrollRun", b =>
@@ -3298,6 +3435,10 @@ namespace OmniFlow.Infrastructure.Migrations
 
             modelBuilder.Entity("OmniFlow.Domain.Entities.EmployeeDocument", b =>
                 {
+                    b.HasOne("OmniFlow.Domain.Entities.HR.EmployeeProfile", null)
+                        .WithMany("Documents")
+                        .HasForeignKey("EmployeeProfileId");
+
                     b.HasOne("OmniFlow.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -3378,6 +3519,83 @@ namespace OmniFlow.Infrastructure.Migrations
                     b.Navigation("Department");
 
                     b.Navigation("Position");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("OmniFlow.Domain.Entities.HR.EmployeeProfile", b =>
+                {
+                    b.HasOne("OmniFlow.Domain.Entities.User", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("OmniFlow.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("OmniFlow.Domain.Entities.HR.GermanyDetails", "GermanyDetails", b1 =>
+                        {
+                            b1.Property<Guid>("EmployeeProfileId");
+
+                            b1.Property<string>("HealthInsuranceProvider")
+                                .IsRequired();
+
+                            b1.Property<string>("SocialSecurityNo")
+                                .IsRequired();
+
+                            b1.Property<int>("TaxClass");
+
+                            b1.Property<string>("TaxId")
+                                .IsRequired();
+
+                            b1.HasKey("EmployeeProfileId");
+
+                            b1.ToTable("EmployeeProfiles");
+
+                            b1
+                                .ToJson("GermanyDetails")
+                                .HasColumnType("jsonb");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EmployeeProfileId");
+                        });
+
+                    b.OwnsOne("OmniFlow.Domain.Entities.HR.TurkeyDetails", "TurkeyDetails", b1 =>
+                        {
+                            b1.Property<Guid>("EmployeeProfileId");
+
+                            b1.Property<int>("DisabilityDegree");
+
+                            b1.Property<int>("MilitaryStatus");
+
+                            b1.Property<string>("SgkNo")
+                                .IsRequired();
+
+                            b1.Property<string>("TcKimlikNo")
+                                .IsRequired();
+
+                            b1.HasKey("EmployeeProfileId");
+
+                            b1.ToTable("EmployeeProfiles");
+
+                            b1
+                                .ToJson("TurkeyDetails")
+                                .HasColumnType("jsonb");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EmployeeProfileId");
+                        });
+
+                    b.Navigation("GermanyDetails")
+                        .IsRequired();
+
+                    b.Navigation("Manager");
+
+                    b.Navigation("TurkeyDetails")
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -3713,6 +3931,11 @@ namespace OmniFlow.Infrastructure.Migrations
                     b.Navigation("ChildDepartments");
 
                     b.Navigation("Teams");
+                });
+
+            modelBuilder.Entity("OmniFlow.Domain.Entities.HR.EmployeeProfile", b =>
+                {
+                    b.Navigation("Documents");
                 });
 
             modelBuilder.Entity("OmniFlow.Domain.Entities.Problem", b =>
