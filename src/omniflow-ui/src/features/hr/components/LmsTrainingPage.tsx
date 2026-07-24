@@ -71,7 +71,7 @@ export const LmsTrainingPage: React.FC = () => {
               <ReadOutlined style={{ marginRight: 8, color: '#722ed1' }} />
               LMS Corporate Training & Learning Management
             </h2>
-            <div style={{ color: '#8c8c8c', marginTop: 4 }}>
+            <div style={{ color: 'var(--text-secondary)', marginTop: 4 }}>
               Mandatory compliance training and professional skill development courses.
             </div>
           </div>
@@ -169,11 +169,11 @@ export const LmsTrainingPage: React.FC = () => {
                <Tag icon={<FieldTimeOutlined />}>{selectedCourse.durationHours} hours</Tag>
                {selectedCourse.isMandatory && <Tag color="red">Mandatory</Tag>}
             </div>
-            <Paragraph style={{ fontSize: 16, color: '#595959' }}>
+            <Paragraph style={{ fontSize: 16, color: 'var(--text-secondary)' }}>
               {selectedCourse.description}
             </Paragraph>
             
-            <div style={{ background: '#f5f5f5', padding: 16, borderRadius: 8, marginBottom: 24 }}>
+            <div style={{ background: 'var(--bg-elevated)', padding: 16, borderRadius: 8, marginBottom: 24 }}>
               <Text strong>Course Objectives:</Text>
               <ul style={{ marginTop: 8, paddingLeft: 20 }}>
                 <li>Understand the core principles outlined in the training.</li>
@@ -182,7 +182,7 @@ export const LmsTrainingPage: React.FC = () => {
               </ul>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 12, borderTop: '1px solid #f0f0f0', paddingTop: 16 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 12, borderTop: '1px solid var(--border-color)', paddingTop: 16 }}>
               <Text type="secondary">Assessment score:</Text>
               <InputNumber min={0} max={100} value={examScore} onChange={(v) => setExamScore(v ?? 0)} style={{ width: 90 }} />
               <Button onClick={() => setIsCourseModalOpen(false)}>Save for Later</Button>

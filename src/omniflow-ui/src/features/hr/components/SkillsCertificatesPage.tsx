@@ -176,7 +176,7 @@ export const SkillsCertificatesPage: React.FC = () => {
             <Row gutter={[16, 16]} style={{ marginBottom: 32 }}>
               {skills.map((s) => (
                 <Col xs={24} sm={12} md={8} key={s.id}>
-                  <Card size="small" style={{ borderRadius: 12, border: '1px solid #e8e8e8' }}>
+                  <Card size="small" style={{ borderRadius: 12, border: '1px solid var(--border-color)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                       <Tag color="cyan" style={{ marginBottom: 8 }}>{s.category}</Tag>
                       <Space size={0}>
@@ -195,7 +195,7 @@ export const SkillsCertificatesPage: React.FC = () => {
               ))}
               {skills.length === 0 && (
                 <Col span={24}>
-                  <div style={{ textAlign: 'center', color: '#8c8c8c', padding: 20 }}>No skills added yet.</div>
+                  <div style={{ textAlign: 'center', color: 'var(--text-secondary)', padding: 20 }}>No skills added yet.</div>
                 </Col>
               )}
             </Row>

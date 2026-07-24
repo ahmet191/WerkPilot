@@ -97,7 +97,7 @@ export const DepartmentStudioPage: React.FC = () => {
               <BankOutlined style={{ marginRight: 8, color: '#8b5cf6' }} />
               Custom Department Studio
             </h2>
-            <div style={{ color: '#8c8c8c', marginTop: 4 }}>
+            <div style={{ color: 'var(--text-secondary)', marginTop: 4 }}>
               Create and manage dynamic enterprise departments (IT, HR, Finance, Legal, Facilities) with custom themes and parent-child hierarchy.
             </div>
           </div>
@@ -132,7 +132,7 @@ export const DepartmentStudioPage: React.FC = () => {
               {
                 title: 'Parent Department',
                 dataIndex: 'parentDepartmentName',
-                render: (p: string) => p ? <Tag icon={<ApartmentOutlined />}>{p}</Tag> : <span style={{ color: '#8c8c8c' }}>Root Department</span>
+                render: (p: string) => p ? <Tag icon={<ApartmentOutlined />}>{p}</Tag> : <span style={{ color: 'var(--text-secondary)' }}>Root Department</span>
               },
               {
                 title: 'Status',

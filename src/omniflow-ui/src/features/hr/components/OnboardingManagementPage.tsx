@@ -67,7 +67,7 @@ export const OnboardingManagementPage: React.FC = () => {
               <UserAddOutlined style={{ marginRight: 8, color: '#52c41a' }} />
               Onboarding & Offboarding Checklist Management
             </h2>
-            <div style={{ color: '#8c8c8c', marginTop: 4 }}>
+            <div style={{ color: 'var(--text-secondary)', marginTop: 4 }}>
               Track automated cross-departmental checklist tasks (IT, HR, Facilities, Finance).
             </div>
           </div>
@@ -98,7 +98,7 @@ export const OnboardingManagementPage: React.FC = () => {
           </Col>
           <Col xs={24} sm={8}>
             <Card size="small">
-              <div style={{ fontSize: 14, color: '#8c8c8c', marginBottom: 4 }}>Overall Workflow Completion</div>
+              <div style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 4 }}>Overall Workflow Completion</div>
               <Progress percent={overallProgress} status="active" />
             </Card>
           </Col>

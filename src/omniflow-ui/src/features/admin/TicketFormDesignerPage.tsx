@@ -94,7 +94,7 @@ export const TicketFormDesignerPage: React.FC = () => {
               <FileTextOutlined style={{ marginRight: 8, color: '#1890ff' }} />
               Dynamic Ticket Form Designer
             </h2>
-            <div style={{ color: '#8c8c8c', marginTop: 4 }}>
+            <div style={{ color: 'var(--text-secondary)', marginTop: 4 }}>
               Design custom request form schemas and dynamic input fields per Service Desk.
             </div>
           </div>

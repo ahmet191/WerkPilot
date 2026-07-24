@@ -109,7 +109,7 @@ export const PerformanceOkrPage: React.FC = () => {
               <AimOutlined style={{ marginRight: 8, color: '#1890ff' }} />
               Performance & OKR Goal Tracking
             </h2>
-            <div style={{ color: '#8c8c8c', marginTop: 4 }}>
+            <div style={{ color: 'var(--text-secondary)', marginTop: 4 }}>
               Track quarterly (Q1-Q4) and annual Objectives & Key Results (OKRs).
             </div>
           </div>
@@ -131,7 +131,7 @@ export const PerformanceOkrPage: React.FC = () => {
           </Col>
           <Col xs={24} sm={8}>
             <Card size="small">
-              <div style={{ fontSize: 14, color: '#8c8c8c', marginBottom: 4 }}>Average OKR Completion</div>
+              <div style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 4 }}>Average OKR Completion</div>
               <Progress percent={avgProgress} status="active" />
             </Card>
           </Col>
@@ -159,7 +159,7 @@ export const PerformanceOkrPage: React.FC = () => {
                 render: (pct: number, record: EmployeeGoal) => (
                   <div style={{ width: 160 }}>
                     <Progress percent={pct} status={pct >= 100 ? 'success' : 'active'} />
-                    <span style={{ fontSize: 11, color: '#8c8c8c' }}>{record.currentValue} / {record.targetValue} {record.unit}</span>
+                    <span style={{ fontSize: 11, color: 'var(--text-secondary)' }}>{record.currentValue} / {record.targetValue} {record.unit}</span>
                   </div>
                 )
               },
@@ -250,7 +250,7 @@ export const PerformanceOkrPage: React.FC = () => {
         <Form form={progressForm} layout="vertical" onFinish={handleProgressSubmit}>
           <div style={{ marginBottom: 16 }}>
             <strong>{editingGoal?.title}</strong>
-            <div style={{ color: '#8c8c8c' }}>Target: {editingGoal?.targetValue} {editingGoal?.unit}</div>
+            <div style={{ color: 'var(--text-secondary)' }}>Target: {editingGoal?.targetValue} {editingGoal?.unit}</div>
           </div>
           <Row gutter={16}>
             <Col span={12}>

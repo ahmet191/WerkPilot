@@ -55,7 +55,7 @@ export const AutomatedReportsPage: React.FC = () => {
               <ScheduleOutlined style={{ marginRight: 8, color: '#13c2c2' }} />
               Automated Scheduled Reports
             </h2>
-            <div style={{ color: '#8c8c8c', marginTop: 4 }}>
+            <div style={{ color: 'var(--text-secondary)', marginTop: 4 }}>
               Configure recurring email reports for KPIs, SLA breaches, and Service Desk performance.
             </div>
           </div>

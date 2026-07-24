@@ -131,7 +131,7 @@ export const TraceDetailsPage: React.FC = () => {
                                 {Object.keys(log.properties).length > 0 && (
                                     <Collapse ghost size="small">
                                         <Panel header="View Context Properties" key="1">
-                                            <pre style={{ fontSize: '12px', backgroundColor: '#f5f5f5', padding: 8, borderRadius: 4 }}>
+                                            <pre style={{ fontSize: '12px', backgroundColor: 'var(--bg-elevated)', padding: 8, borderRadius: 4 }}>
                                                 {JSON.stringify(log.properties, null, 2)}
                                             </pre>
                                         </Panel>

@@ -82,7 +82,7 @@ export const SlaEscalationMatrixPage: React.FC = () => {
               <FieldTimeOutlined style={{ marginRight: 8, color: '#fa8c16' }} />
               Advanced SLA Policy Engine & Escalation Matrix
             </h2>
-            <div style={{ color: '#8c8c8c', marginTop: 4 }}>
+            <div style={{ color: 'var(--text-secondary)', marginTop: 4 }}>
               Configure response & resolution SLAs, breach warnings, and automatic manager escalation rules.
             </div>
           </div>
