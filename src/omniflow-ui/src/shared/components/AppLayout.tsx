@@ -77,7 +77,7 @@ export function AppLayout() {
   // Admin-only destinations — mirrors the ADMIN_ROLES route guards in App.tsx.
   // Hidden from the sidebar for non-admins so they never see a link that 403s.
   const ADMIN_PATHS = new Set([
-    '/servicedesks', '/departments', '/auditlogs', '/templates',
+    '/servicedesks', '/departments', '/auditlogs', '/admin/logs', '/templates',
     '/categories', '/slas', '/users', '/menus',
   ]);
   const isAdmin = (user?.roles ?? []).some(r => r === 'Administrator' || r === 'HRAdmin');
@@ -121,6 +121,7 @@ export function AppLayout() {
       'sidebar.permissions': 'Roles & Permissions',
       'sidebar.reports': 'Reports & Analytics',
       'sidebar.auditlogs': 'Audit Logs',
+      'sidebar.systemlogs': 'System Logs',
       'sidebar.users': 'User Management',
       'sidebar.templates': 'Ticket Templates',
       'sidebar.categories': 'Categories',

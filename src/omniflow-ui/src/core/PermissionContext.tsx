@@ -86,6 +86,7 @@ export const Perm = {
   CategoriesManage: 'categories.manage',
   ServiceDesksManage: 'servicedesks.manage',
   AuditLogsView: 'auditlogs.view',
+  SystemLogsView: 'systemlogs.view',
   PermissionsManage: 'permissions.manage',
   TranslationsManage: 'translations.manage',
   UiSchemaManage: 'uischema.manage',

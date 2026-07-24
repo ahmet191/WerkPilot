@@ -41,6 +41,7 @@ public static class Permissions
     public const string CategoriesManage = "categories.manage";
     public const string ServiceDesksManage = "servicedesks.manage";
     public const string AuditLogsView = "auditlogs.view";
+    public const string SystemLogsView = "systemlogs.view";
     public const string PermissionsManage = "permissions.manage";
     public const string TranslationsManage = "translations.manage";
     public const string UiSchemaManage = "uischema.manage";
@@ -80,6 +81,7 @@ public static class Permissions
         new(CategoriesManage, ModuleAdministration, "Manage categories"),
         new(ServiceDesksManage, ModuleAdministration, "Manage service desks"),
         new(AuditLogsView, ModuleAdministration, "View audit logs"),
+        new(SystemLogsView, ModuleAdministration, "View system logs and traces"),
         new(PermissionsManage, ModuleAdministration, "Manage the permission matrix"),
         new(TranslationsManage, ModuleAdministration, "Customize interface text"),
         new(UiSchemaManage, ModuleAdministration, "Customize screen layouts"),

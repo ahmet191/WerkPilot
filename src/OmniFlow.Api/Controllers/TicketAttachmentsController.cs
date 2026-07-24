@@ -73,22 +73,12 @@ public class TicketAttachmentsController : ControllerBase
 
     [HttpPost("{ticketId:guid}/attachments")]
     [Authorize]
-    [RequestSizeLimit(MaxBytes + 1024)]
-    public async Task<IActionResult> Upload(Guid ticketId, IFormFile file)
+    [RequestSizeLimit(100 * 1024 * 1024)] // Allow up to 100 MB per batch upload
+    public async Task<IActionResult> Upload(Guid ticketId, List<IFormFile> files)
     {
-        if (file is null || file.Length == 0)
+        if (files == null || files.Count == 0)
         {
-            throw new ValidationException("file", "No file was uploaded.");
-        }
-        if (file.Length > MaxBytes)
-        {
-            throw new ValidationException("file", $"The file exceeds the {MaxBytes / (1024 * 1024)} MB limit.");
-        }
-
-        var contentType = string.IsNullOrWhiteSpace(file.ContentType) ? "application/octet-stream" : file.ContentType;
-        if (!AllowedContentTypes.Contains(contentType))
-        {
-            contentType = "application/octet-stream";
+            throw new ValidationException("files", "No files were uploaded.");
         }
 
         var ticket = await _context.Tickets
@@ -96,23 +86,42 @@ public class TicketAttachmentsController : ControllerBase
             .FirstOrDefaultAsync(t => t.Id == ticketId, HttpContext.RequestAborted)
             ?? throw new NotFoundException(nameof(Ticket), ticketId);
 
-        await using var stream = file.OpenReadStream();
-        var storageKey = await _storage.SaveAsync(ticket.TenantId, file.FileName, stream, HttpContext.RequestAborted);
-
         var uploaderId = _userContext.UserId != Guid.Empty ? _userContext.UserId : ticket.RequesterId;
+        var attachmentIds = new List<Guid>();
 
-        var attachment = ticket.AddAttachment(
-            uploaderId, SanitizeFileName(file.FileName), contentType, file.Length, storageKey);
+        foreach (var file in files)
+        {
+            if (file.Length == 0) continue;
+            if (file.Length > MaxBytes)
+            {
+                throw new ValidationException("file", $"The file '{file.FileName}' exceeds the {MaxBytes / (1024 * 1024)} MB limit.");
+            }
+
+            var contentType = string.IsNullOrWhiteSpace(file.ContentType) ? "application/octet-stream" : file.ContentType;
+            if (!AllowedContentTypes.Contains(contentType))
+            {
+                contentType = "application/octet-stream";
+            }
+
+            await using var stream = file.OpenReadStream();
+            var storageKey = await _storage.SaveAsync(ticket.TenantId, file.FileName, stream, HttpContext.RequestAborted);
+
+            var attachment = ticket.AddAttachment(
+                uploaderId, SanitizeFileName(file.FileName), contentType, file.Length, storageKey);
+            
+            attachmentIds.Add(attachment.Id);
+        }
+
         await _context.SaveChangesAsync(HttpContext.RequestAborted);
 
-        // Let the assignee know a file landed on their ticket.
-        if (ticket.AssigneeId is { } assigneeId && assigneeId != uploaderId)
+        // Let the assignee know file(s) landed on their ticket.
+        if (ticket.AssigneeId is { } assigneeId && assigneeId != uploaderId && attachmentIds.Count > 0)
         {
             try
             {
                 await _notifications.NotifyUserAsync(
                     assigneeId, NotificationKind.TicketStateChanged,
-                    "New attachment", $"A file was added to ticket '{ticket.Title}'.",
+                    "New attachment(s)", $"{attachmentIds.Count} file(s) were added to ticket '{ticket.Title}'.",
                     $"/tickets/{ticket.Id}", HttpContext.RequestAborted);
             }
             catch
@@ -121,7 +130,7 @@ public class TicketAttachmentsController : ControllerBase
             }
         }
 
-        return Ok(new { attachmentId = attachment.Id });
+        return Ok(new { attachmentIds });
     }
 
     [HttpGet("attachments/{attachmentId:guid}/download")]

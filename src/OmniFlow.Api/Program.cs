@@ -24,13 +24,20 @@ using OmniFlow.Api.Middleware;
 var builder = WebApplication.CreateBuilder(args);
 
 // ═══════════════════════════════════════════════════════
-// 1. Serilog Setup
+// 1. Serilog Setup & System Log Channel
 // ═══════════════════════════════════════════════════════
-builder.Host.UseSerilog((context, loggerConfig) => loggerConfig
+var logChannel = System.Threading.Channels.Channel.CreateUnbounded<Serilog.Events.LogEvent>();
+builder.Services.AddSingleton(logChannel.Writer);
+builder.Services.AddSingleton(logChannel.Reader);
+builder.Services.AddHostedService<OmniFlow.Infrastructure.Logging.DatabaseLogSinkService>();
+
+builder.Host.UseSerilog((context, services, loggerConfig) => loggerConfig
     .ReadFrom.Configuration(context.Configuration)
     .Enrich.FromLogContext()
     .Enrich.WithProperty("Application", "OmniFlow.Api")
-    .WriteTo.Console());
+    .Filter.ByExcluding(e => e.Properties.TryGetValue("SourceContext", out var ctx) && ctx.ToString().Contains("Microsoft.EntityFrameworkCore"))
+    .WriteTo.Console()
+    .WriteTo.Sink(new OmniFlow.Infrastructure.Logging.DatabaseLogSink(services.GetRequiredService<System.Threading.Channels.ChannelWriter<Serilog.Events.LogEvent>>())));
 
 // ═══════════════════════════════════════════════════════
 // 2. OpenTelemetry Setup

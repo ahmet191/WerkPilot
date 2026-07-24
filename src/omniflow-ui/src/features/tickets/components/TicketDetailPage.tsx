@@ -161,7 +161,7 @@ export const TicketDetailPage: React.FC = () => {
   const handleCustomUpload: UploadProps['customRequest'] = async (options) => {
     const { file, onSuccess, onError } = options;
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('files', file);
     try {
       await api.post(`/tickets/${id}/attachments`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
@@ -178,6 +178,7 @@ export const TicketDetailPage: React.FC = () => {
   const uploadProps: UploadProps = {
     customRequest: handleCustomUpload,
     showUploadList: false,
+    multiple: true,
   };
 
   if (loading) {

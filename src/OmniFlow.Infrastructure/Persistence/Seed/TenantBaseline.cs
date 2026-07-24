@@ -212,7 +212,8 @@ public static class TenantBaseline
                 Child(adminParent, "sidebar.visibility", "/settings/visibility", "EyeOutlined", 75),
                 Child(adminParent, "sidebar.permissions", "/settings/permissions", "SafetyCertificateOutlined", 78),
                 Child(adminParent, "sidebar.reports", "/reports", "BarChartOutlined", 80),
-                Child(adminParent, "sidebar.menus", "/menus", "MenuOutlined", 85));
+                Child(adminParent, "sidebar.menus", "/menus", "MenuOutlined", 85),
+                Child(adminParent, "sidebar.systemlogs", "/admin/logs", "CodeOutlined", 90));
 
             await context.SaveChangesAsync(cancellationToken);
             return;
@@ -249,6 +250,7 @@ public static class TenantBaseline
         EnsureChild(adminParent, "sidebar.slaMatrix", "/settings/sla-matrix", "FieldTimeOutlined", 79);
         EnsureChild(adminParent, "sidebar.analyticsDashboard", "/analytics/dashboard", "DashboardOutlined", 80);
         EnsureChild(adminParent, "sidebar.analyticsReports", "/analytics/reports", "ScheduleOutlined", 81);
+        EnsureChild(adminParent, "sidebar.systemlogs", "/admin/logs", "CodeOutlined", 82);
 
         if (toAdd.Count > 0)
         {

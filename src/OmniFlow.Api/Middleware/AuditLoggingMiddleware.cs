@@ -25,9 +25,19 @@ public class AuditLoggingMiddleware
 
         if (isMutation && isApiPath && context.User.Identity?.IsAuthenticated == true)
         {
-            context.Request.EnableBuffering();
-            var body = await new StreamReader(context.Request.Body).ReadToEndAsync();
-            context.Request.Body.Position = 0;
+            string? body = null;
+            var contentType = context.Request.ContentType ?? string.Empty;
+
+            if (contentType.StartsWith("multipart/form-data", StringComparison.OrdinalIgnoreCase))
+            {
+                body = "[Multipart File Data - Omitted]";
+            }
+            else
+            {
+                context.Request.EnableBuffering();
+                body = await new StreamReader(context.Request.Body).ReadToEndAsync();
+                context.Request.Body.Position = 0;
+            }
 
             var entityType = context.Request.Path.Value?.Split('/').Skip(2).FirstOrDefault() ?? "Unknown";
 

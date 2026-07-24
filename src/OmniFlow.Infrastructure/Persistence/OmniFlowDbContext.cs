@@ -78,6 +78,7 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
     public DbSet<SLAConfiguration> SLAConfigurations { get; set; }
     public DbSet<KnowledgeBaseArticle> KnowledgeBaseArticles => Set<KnowledgeBaseArticle>();
     public DbSet<AuditLog> AuditLogs { get; set; }
+    public DbSet<SystemLog> SystemLogs { get; set; }
 
     // Tenant registry: deliberately NOT an AuditableEntity, so it stays outside
     // the tenant global query filter (it is the root the filter resolves against).

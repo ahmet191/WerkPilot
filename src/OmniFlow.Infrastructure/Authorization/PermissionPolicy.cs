@@ -54,6 +54,7 @@ public static class PermissionPolicyNames
     public const string CategoriesManage = P + "categories.manage";
     public const string ServiceDesksManage = P + "servicedesks.manage";
     public const string AuditLogsView = P + "auditlogs.view";
+    public const string SystemLogsView = P + "systemlogs.view";
     public const string PermissionsManage = P + "permissions.manage";
     public const string TranslationsManage = P + "translations.manage";
     public const string UiSchemaManage = P + "uischema.manage";

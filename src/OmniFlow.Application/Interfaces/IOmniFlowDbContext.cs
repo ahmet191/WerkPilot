@@ -52,7 +52,8 @@ public interface IOmniFlowDbContext
     DbSet<UiSchemaOverride> UiSchemaOverrides { get; }
     DbSet<TicketAttachment> TicketAttachments { get; }
     DbSet<KnowledgeBaseArticle> KnowledgeBaseArticles { get; }
-    DbSet<AuditLog> AuditLogs { get; set; }
+    DbSet<AuditLog> AuditLogs { get; }
+    DbSet<SystemLog> SystemLogs { get; }
 
     DbSet<Tenant> Tenants { get; }
     DbSet<ApprovalRequest> ApprovalRequests { get; }

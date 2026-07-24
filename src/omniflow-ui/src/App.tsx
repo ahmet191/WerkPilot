@@ -41,6 +41,8 @@ const TicketFormDesignerPage = lazy(() => import('./features/admin/TicketFormDes
 const SlaEscalationMatrixPage = lazy(() => import('./features/admin/SlaEscalationMatrixPage').then(m => ({ default: m.SlaEscalationMatrixPage })));
 const ExecutiveDashboardPage = lazy(() => import('./features/analytics/ExecutiveDashboardPage').then(m => ({ default: m.ExecutiveDashboardPage })));
 const AutomatedReportsPage = lazy(() => import('./features/analytics/AutomatedReportsPage').then(m => ({ default: m.AutomatedReportsPage })));
+const SystemLogsPage = lazy(() => import('./features/admin/SystemLogsPage').then(m => ({ default: m.SystemLogsPage })));
+const TraceDetailsPage = lazy(() => import('./features/admin/TraceDetailsPage').then(m => ({ default: m.TraceDetailsPage })));
 const SecuritySettings = lazy(() => import('./features/account/SecuritySettings').then(m => ({ default: m.SecuritySettings })));
 const LoginPage = lazy(() => import('./features/auth/components/LoginPage').then(m => ({ default: m.LoginPage })));
 const SsoCallback = lazy(() => import('./features/auth/components/SsoCallback').then(m => ({ default: m.SsoCallback })));
@@ -99,6 +101,10 @@ function App() {
                 </Route>
                 <Route element={<ProtectedRoute requiredPermission={Perm.AuditLogsView} />}>
                   <Route path="auditlogs" element={<DynamicPage entityType="auditlogs" />} />
+                </Route>
+                <Route element={<ProtectedRoute requiredPermission={Perm.SystemLogsView} />}>
+                  <Route path="admin/logs" element={<SystemLogsPage />} />
+                  <Route path="admin/logs/trace/:traceId" element={<TraceDetailsPage />} />
                 </Route>
                 <Route element={<ProtectedRoute requiredPermission={Perm.TemplatesManage} />}>
                   <Route path="templates" element={<TemplatesAdminPage />} />

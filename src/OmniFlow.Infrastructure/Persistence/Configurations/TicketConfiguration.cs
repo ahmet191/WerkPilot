@@ -65,8 +65,9 @@ public class TicketConfiguration : IEntityTypeConfiguration<Ticket>
             .OnDelete(DeleteBehavior.SetNull);
 
         // The aggregate exposes these as read-only collections backed by private
-        // fields (_comments, _auditLogs); EF must read/write through the field.
+        // fields (_comments, _auditLogs, _attachments); EF must read/write through the field.
         builder.Navigation(t => t.Comments).UsePropertyAccessMode(PropertyAccessMode.Field);
         builder.Navigation(t => t.AuditLogs).UsePropertyAccessMode(PropertyAccessMode.Field);
+        builder.Navigation(t => t.Attachments).UsePropertyAccessMode(PropertyAccessMode.Field);
     }
 }
