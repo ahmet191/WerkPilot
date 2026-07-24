@@ -128,8 +128,14 @@ public class TemplatesController : ControllerBase
         var errors = OmniFlow.Application.Tickets.Workflow.WorkflowValidator.Validate(workflow);
         if (errors.Count > 0)
         {
-            throw new OmniFlow.Domain.Common.Exceptions.ValidationException(
-                new Dictionary<string, string[]> { ["workflow"] = errors.ToArray() });
+            var problem = new ValidationProblemDetails(new Dictionary<string, string[]> { ["workflow"] = errors.ToArray() })
+            {
+                Status = StatusCodes.Status400BadRequest,
+                Type = "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+                Title = "One or more validation errors occurred.",
+                Detail = "One or more validation failures have occurred."
+            };
+            return BadRequest(problem);
         }
 
         // A fresh reference from the request body: DetectChanges sees the new
