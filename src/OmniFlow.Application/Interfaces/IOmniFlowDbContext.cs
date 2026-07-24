@@ -37,6 +37,8 @@ public interface IOmniFlowDbContext
     DbSet<CustomDepartment> CustomDepartments { get; }
     DbSet<TicketFormSchema> TicketFormSchemas { get; }
     DbSet<SlaPolicyRule> SlaPolicyRules { get; }
+    DbSet<TicketAiPrediction> TicketAiPredictions { get; }
+    DbSet<ScheduledReport> ScheduledReports { get; }
     DbSet<ExpenseClaim> ExpenseClaims { get; }
     DbSet<AuthorityDelegation> AuthorityDelegations { get; }
     DbSet<DirectoryProfile> DirectoryProfiles { get; }

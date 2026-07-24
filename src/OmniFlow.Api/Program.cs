@@ -141,6 +141,10 @@ builder.Services.AddScoped<OmniFlow.Application.Interfaces.IEmailSender,
 builder.Services.AddScoped<OmniFlow.Application.Interfaces.IIdentityAccountService,
     OmniFlow.Infrastructure.Identity.IdentityAccountService>();
 
+// Phase 5 AI Service Registration
+builder.Services.AddHttpClient<OmniFlow.Application.Interfaces.IAiTriageService, 
+    OmniFlow.Infrastructure.Services.AiTriageService>();
+
 // Per-tenant permission matrix: endpoints are gated by permission keys that a
 // tenant admin can re-map to roles at runtime (see PermissionsController).
 builder.Services.AddMemoryCache();

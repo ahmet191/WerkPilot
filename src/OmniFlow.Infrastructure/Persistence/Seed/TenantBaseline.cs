@@ -247,7 +247,8 @@ public static class TenantBaseline
         EnsureChild(adminParent, "sidebar.formDesigner", "/settings/form-designer", "FileTextOutlined", 77);
         EnsureChild(adminParent, "sidebar.permissions", "/settings/permissions", "SafetyCertificateOutlined", 78);
         EnsureChild(adminParent, "sidebar.slaMatrix", "/settings/sla-matrix", "FieldTimeOutlined", 79);
-        EnsureChild(adminParent, "sidebar.reports", "/reports", "BarChartOutlined", 80);
+        EnsureChild(adminParent, "sidebar.analyticsDashboard", "/analytics/dashboard", "DashboardOutlined", 80);
+        EnsureChild(adminParent, "sidebar.analyticsReports", "/analytics/reports", "ScheduleOutlined", 81);
 
         if (toAdd.Count > 0)
         {

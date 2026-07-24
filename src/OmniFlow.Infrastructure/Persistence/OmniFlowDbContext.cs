@@ -67,6 +67,8 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
     public DbSet<CustomDepartment> CustomDepartments => Set<CustomDepartment>();
     public DbSet<TicketFormSchema> TicketFormSchemas => Set<TicketFormSchema>();
     public DbSet<SlaPolicyRule> SlaPolicyRules => Set<SlaPolicyRule>();
+    public DbSet<TicketAiPrediction> TicketAiPredictions => Set<TicketAiPrediction>();
+    public DbSet<ScheduledReport> ScheduledReports => Set<ScheduledReport>();
     public DbSet<ExpenseClaim> ExpenseClaims { get; set; }
     public DbSet<AuthorityDelegation> AuthorityDelegations { get; set; }
     public DbSet<DirectoryProfile> DirectoryProfiles { get; set; }

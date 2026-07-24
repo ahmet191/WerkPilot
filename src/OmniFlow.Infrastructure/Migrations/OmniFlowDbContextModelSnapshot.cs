@@ -2598,6 +2598,66 @@ namespace OmniFlow.Infrastructure.Migrations
                     b.ToTable("SLAConfigurations");
                 });
 
+            modelBuilder.Entity("OmniFlow.Domain.Entities.ScheduledReport", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("CronExpression")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Format")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastRunTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("ModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("NextRunTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Recipients")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ReportName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ScheduledReports");
+                });
+
             modelBuilder.Entity("OmniFlow.Domain.Entities.ServiceDesk", b =>
                 {
                     b.Property<Guid>("Id")
@@ -2938,6 +2998,61 @@ namespace OmniFlow.Infrastructure.Migrations
                     b.HasIndex("TenantId", "CurrentState");
 
                     b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("OmniFlow.Domain.Entities.TicketAiPrediction", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<double>("ConfidenceScore")
+                        .HasColumnType("double precision");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset?>("ModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("PredictedCategory")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PredictedPriority")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Reasoning")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("TicketId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TicketId");
+
+                    b.ToTable("TicketAiPredictions");
                 });
 
             modelBuilder.Entity("OmniFlow.Domain.Entities.TicketAttachment", b =>
@@ -4458,6 +4573,17 @@ namespace OmniFlow.Infrastructure.Migrations
                     b.Navigation("ServiceDesk");
 
                     b.Navigation("Template");
+                });
+
+            modelBuilder.Entity("OmniFlow.Domain.Entities.TicketAiPrediction", b =>
+                {
+                    b.HasOne("OmniFlow.Domain.Entities.Ticket", "Ticket")
+                        .WithMany()
+                        .HasForeignKey("TicketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ticket");
                 });
 
             modelBuilder.Entity("OmniFlow.Domain.Entities.TicketAttachment", b =>

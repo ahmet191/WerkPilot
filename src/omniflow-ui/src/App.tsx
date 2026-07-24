@@ -39,6 +39,8 @@ const UserAdminPage = lazy(() => import('./features/admin/UserAdminPage').then(m
 const DepartmentStudioPage = lazy(() => import('./features/admin/DepartmentStudioPage').then(m => ({ default: m.DepartmentStudioPage })));
 const TicketFormDesignerPage = lazy(() => import('./features/admin/TicketFormDesignerPage').then(m => ({ default: m.TicketFormDesignerPage })));
 const SlaEscalationMatrixPage = lazy(() => import('./features/admin/SlaEscalationMatrixPage').then(m => ({ default: m.SlaEscalationMatrixPage })));
+const ExecutiveDashboardPage = lazy(() => import('./features/analytics/ExecutiveDashboardPage').then(m => ({ default: m.ExecutiveDashboardPage })));
+const AutomatedReportsPage = lazy(() => import('./features/analytics/AutomatedReportsPage').then(m => ({ default: m.AutomatedReportsPage })));
 const SecuritySettings = lazy(() => import('./features/account/SecuritySettings').then(m => ({ default: m.SecuritySettings })));
 const LoginPage = lazy(() => import('./features/auth/components/LoginPage').then(m => ({ default: m.LoginPage })));
 const SsoCallback = lazy(() => import('./features/auth/components/SsoCallback').then(m => ({ default: m.SsoCallback })));
@@ -121,6 +123,10 @@ function App() {
                 </Route>
                 <Route element={<ProtectedRoute requiredPermission={Perm.UiSchemaManage} />}>
                   <Route path="settings/layouts" element={<UiSchemaAdminPage />} />
+                </Route>
+                <Route element={<ProtectedRoute requiredRoles={['Admin']} />}>
+                  <Route path="analytics/dashboard" element={<ExecutiveDashboardPage />} />
+                  <Route path="analytics/reports" element={<AutomatedReportsPage />} />
                 </Route>
 
                 {/* Platform operator surface — above the tenant boundary. */}
