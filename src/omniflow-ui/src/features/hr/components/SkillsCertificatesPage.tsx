@@ -3,6 +3,7 @@ import { Card, Table, Tag, Rate, Alert, Row, Col, Spin, Divider, Button, Modal, 
 import { TrophyOutlined, ExclamationCircleOutlined, CheckCircleOutlined, PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { api } from '../../../core/api';
+import { useTranslation } from '../../../core/LanguageContext';
 
 interface SkillItem {
   id: string;
@@ -25,6 +26,7 @@ interface CertificateItem {
 }
 
 export const SkillsCertificatesPage: React.FC = () => {
+  const { t } = useTranslation();
   const [skills, setSkills] = useState<SkillItem[]>([]);
   const [certificates, setCertificates] = useState<CertificateItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -69,13 +71,13 @@ export const SkillsCertificatesPage: React.FC = () => {
     setSubmitting(true);
     try {
       await api.post('/hr/skills', editingSkillId ? { ...values, id: editingSkillId } : values);
-      message.success(editingSkillId ? 'Skill updated.' : 'Skill added.');
+      message.success(editingSkillId ? t('skills.skillUpdated', 'Skill updated.') : t('skills.skillAdded', 'Skill added.'));
       setIsSkillModalOpen(false);
       setEditingSkillId(null);
       skillForm.resetFields();
       fetchData();
     } catch {
-      message.error('Failed to save skill.');
+      message.error(t('skills.skillSaveFailed', 'Failed to save skill.'));
     } finally {
       setSubmitting(false);
     }
@@ -84,10 +86,10 @@ export const SkillsCertificatesPage: React.FC = () => {
   const handleDeleteSkill = async (id: string) => {
     try {
       await api.delete(`/hr/skills/${id}`);
-      message.success('Skill removed.');
+      message.success(t('skills.skillRemoved', 'Skill removed.'));
       fetchData();
     } catch {
-      message.error('Failed to remove skill.');
+      message.error(t('skills.skillRemoveFailed', 'Failed to remove skill.'));
     }
   };
 
@@ -119,13 +121,13 @@ export const SkillsCertificatesPage: React.FC = () => {
         expirationDate: values.expirationDate ? values.expirationDate.toISOString() : null,
       };
       await api.post('/hr/certificates', payload);
-      message.success(editingCertId ? 'Certificate updated.' : 'Certificate added.');
+      message.success(editingCertId ? t('skills.certUpdated', 'Certificate updated.') : t('skills.certAdded', 'Certificate added.'));
       setIsCertModalOpen(false);
       setEditingCertId(null);
       certForm.resetFields();
       fetchData();
     } catch {
-      message.error('Failed to save certificate.');
+      message.error(t('skills.certSaveFailed', 'Failed to save certificate.'));
     } finally {
       setSubmitting(false);
     }
@@ -134,10 +136,10 @@ export const SkillsCertificatesPage: React.FC = () => {
   const handleDeleteCertificate = async (id: string) => {
     try {
       await api.delete(`/hr/certificates/${id}`);
-      message.success('Certificate removed.');
+      message.success(t('skills.certRemoved', 'Certificate removed.'));
       fetchData();
     } catch {
-      message.error('Failed to remove certificate.');
+      message.error(t('skills.certRemoveFailed', 'Failed to remove certificate.'));
     }
   };
 
@@ -148,13 +150,13 @@ export const SkillsCertificatesPage: React.FC = () => {
       <Card style={{ borderRadius: 16 }}>
         <h2 style={{ margin: '0 0 16px 0', fontWeight: 700 }}>
           <TrophyOutlined style={{ marginRight: 8, color: '#fa8c16' }} />
-          Competency Skill Matrix & Certification Vault
+          {t('skills.title', 'Competency Skill Matrix & Certification Vault')}
         </h2>
 
         {expiringAlerts.length > 0 && (
           <Alert
-            message="Certification Renewal Warning"
-            description={`${expiringAlerts.length} certification(s) require immediate renewal before expiry.`}
+            message={t('skills.renewalWarning', 'Certification Renewal Warning')}
+            description={t('skills.renewalDesc', '{n} certification(s) require immediate renewal before expiry.').replace('{n}', String(expiringAlerts.length))}
             type="warning"
             showIcon
             icon={<ExclamationCircleOutlined />}
@@ -167,9 +169,9 @@ export const SkillsCertificatesPage: React.FC = () => {
         ) : (
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-              <h3 style={{ margin: 0 }}>🎯 Skill Matrix & Competency Evaluations</h3>
+              <h3 style={{ margin: 0 }}>🎯 {t('skills.matrixSection', 'Skill Matrix & Competency Evaluations')}</h3>
               <Button type="primary" icon={<PlusOutlined />} onClick={() => openSkillModal()}>
-                Add Skill
+                {t('skills.addSkill', 'Add Skill')}
               </Button>
             </div>
 
@@ -181,7 +183,7 @@ export const SkillsCertificatesPage: React.FC = () => {
                       <Tag color="cyan" style={{ marginBottom: 8 }}>{s.category}</Tag>
                       <Space size={0}>
                         <Button type="text" size="small" icon={<EditOutlined />} onClick={() => openSkillModal(s)} />
-                        <Popconfirm title="Remove this skill?" onConfirm={() => handleDeleteSkill(s.id)} okText="Remove" cancelText="Cancel">
+                        <Popconfirm title={t('skills.confirmRemoveSkill', 'Remove this skill?')} onConfirm={() => handleDeleteSkill(s.id)} okText={t('skills.remove', 'Remove')} cancelText={t('common.cancel', 'Cancel')}>
                           <Button type="text" size="small" danger icon={<DeleteOutlined />} />
                         </Popconfirm>
                       </Space>
@@ -195,7 +197,7 @@ export const SkillsCertificatesPage: React.FC = () => {
               ))}
               {skills.length === 0 && (
                 <Col span={24}>
-                  <div style={{ textAlign: 'center', color: 'var(--text-secondary)', padding: 20 }}>No skills added yet.</div>
+                  <div style={{ textAlign: 'center', color: 'var(--text-secondary)', padding: 20 }}>{t('skills.noSkills', 'No skills added yet.')}</div>
                 </Col>
               )}
             </Row>
@@ -203,52 +205,52 @@ export const SkillsCertificatesPage: React.FC = () => {
             <Divider />
 
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-              <h3 style={{ margin: 0 }}>📜 Certification Vault & Expiry Alarms</h3>
+              <h3 style={{ margin: 0 }}>📜 {t('skills.vaultSection', 'Certification Vault & Expiry Alarms')}</h3>
               <Button type="primary" icon={<PlusOutlined />} onClick={() => openCertModal()}>
-                Add Certificate
+                {t('skills.addCert', 'Add Certificate')}
               </Button>
             </div>
 
             <Table
               dataSource={certificates}
               rowKey="id"
-              locale={{ emptyText: 'No certificates added yet.' }}
+              locale={{ emptyText: t('skills.noCerts', 'No certificates added yet.') }}
               columns={[
                 {
-                  title: 'Certification Name',
+                  title: t('skills.colCertName', 'Certification Name'),
                   dataIndex: 'certificateName',
                   render: (name: string, record: CertificateItem) => (
                     <div>
                       <strong>{name}</strong>
-                      {record.isMandatory && <Tag color="red" style={{ marginLeft: 8 }}>Mandatory</Tag>}
+                      {record.isMandatory && <Tag color="red" style={{ marginLeft: 8 }}>{t('skills.mandatory', 'Mandatory')}</Tag>}
                     </div>
                   )
                 },
-                { title: 'Issuing Body', dataIndex: 'issuingOrganization' },
-                { title: 'Credential ID', dataIndex: 'credentialId' },
+                { title: t('skills.colIssuer', 'Issuing Body'), dataIndex: 'issuingOrganization' },
+                { title: t('skills.colCredential', 'Credential ID'), dataIndex: 'credentialId' },
                 {
-                  title: 'Issue Date',
+                  title: t('skills.colIssueDate', 'Issue Date'),
                   dataIndex: 'issueDate',
                   render: (d: string) => dayjs(d).format('DD MMM YYYY')
                 },
                 {
-                  title: 'Expiration Status',
+                  title: t('skills.colExpiry', 'Expiration Status'),
                   dataIndex: 'expirationDate',
                   render: (exp: string, record: CertificateItem) => {
-                    if (!exp) return <Tag color="default">No Expiry</Tag>;
-                    if (record.isExpired) return <Tag color="red" icon={<ExclamationCircleOutlined />}>Expired ({dayjs(exp).format('DD/MM/YYYY')})</Tag>;
-                    if (record.isExpiringSoon) return <Tag color="warning" icon={<ExclamationCircleOutlined />}>Expires Soon ({dayjs(exp).format('DD/MM/YYYY')})</Tag>;
-                    return <Tag color="green" icon={<CheckCircleOutlined />}>Valid until {dayjs(exp).format('DD/MM/YYYY')}</Tag>;
+                    if (!exp) return <Tag color="default">{t('skills.noExpiry', 'No Expiry')}</Tag>;
+                    if (record.isExpired) return <Tag color="red" icon={<ExclamationCircleOutlined />}>{t('skills.expired', 'Expired')} ({dayjs(exp).format('DD/MM/YYYY')})</Tag>;
+                    if (record.isExpiringSoon) return <Tag color="warning" icon={<ExclamationCircleOutlined />}>{t('skills.expiresSoon', 'Expires Soon')} ({dayjs(exp).format('DD/MM/YYYY')})</Tag>;
+                    return <Tag color="green" icon={<CheckCircleOutlined />}>{t('skills.validUntil', 'Valid until')} {dayjs(exp).format('DD/MM/YYYY')}</Tag>;
                   }
                 },
                 {
-                  title: 'Actions',
+                  title: t('skills.colActions', 'Actions'),
                   key: 'actions',
                   width: 100,
                   render: (_: unknown, record: CertificateItem) => (
                     <Space size={0}>
                       <Button type="text" size="small" icon={<EditOutlined />} onClick={() => openCertModal(record)} />
-                      <Popconfirm title="Remove this certificate?" onConfirm={() => handleDeleteCertificate(record.id)} okText="Remove" cancelText="Cancel">
+                      <Popconfirm title={t('skills.confirmRemoveCert', 'Remove this certificate?')} onConfirm={() => handleDeleteCertificate(record.id)} okText={t('skills.remove', 'Remove')} cancelText={t('common.cancel', 'Cancel')}>
                         <Button type="text" size="small" danger icon={<DeleteOutlined />} />
                       </Popconfirm>
                     </Space>
@@ -262,64 +264,64 @@ export const SkillsCertificatesPage: React.FC = () => {
 
       {/* Add / Edit Skill Modal */}
       <Modal
-        title={editingSkillId ? 'Edit Skill' : 'Add New Skill'}
+        title={editingSkillId ? t('skills.editSkill', 'Edit Skill') : t('skills.addNewSkill', 'Add New Skill')}
         open={isSkillModalOpen}
         onCancel={() => { setIsSkillModalOpen(false); setEditingSkillId(null); }}
         footer={null}
         destroyOnClose
       >
         <Form form={skillForm} layout="vertical" onFinish={handleSaveSkill}>
-          <Form.Item name="skillName" label="Skill Name" rules={[{ required: true }]}>
-            <Input placeholder="e.g. React, C#, Leadership" />
+          <Form.Item name="skillName" label={t('skills.skillName', 'Skill Name')} rules={[{ required: true }]}>
+            <Input placeholder={t('skills.skillNamePlaceholder', 'e.g. React, C#, Leadership')} />
           </Form.Item>
-          <Form.Item name="category" label="Category" rules={[{ required: true }]}>
+          <Form.Item name="category" label={t('skills.category', 'Category')} rules={[{ required: true }]}>
             <Select options={[
-              { value: 'Technical', label: 'Technical' },
-              { value: 'Leadership', label: 'Leadership' },
-              { value: 'Domain', label: 'Domain' },
-              { value: 'Compliance', label: 'Compliance' }
+              { value: 'Technical', label: t('skills.catTechnical', 'Technical') },
+              { value: 'Leadership', label: t('skills.catLeadership', 'Leadership') },
+              { value: 'Domain', label: t('skills.catDomain', 'Domain') },
+              { value: 'Compliance', label: t('skills.catCompliance', 'Compliance') }
             ]} />
           </Form.Item>
-          <Form.Item name="proficiencyLevel" label="Proficiency Level (1-5)" rules={[{ required: true }]}>
+          <Form.Item name="proficiencyLevel" label={t('skills.proficiency', 'Proficiency Level (1-5)')} rules={[{ required: true }]}>
             <Rate count={5} />
           </Form.Item>
           <div style={{ textAlign: 'right' }}>
-            <Button onClick={() => { setIsSkillModalOpen(false); setEditingSkillId(null); }} style={{ marginRight: 8 }}>Cancel</Button>
-            <Button type="primary" htmlType="submit" loading={submitting}>{editingSkillId ? 'Save' : 'Add Skill'}</Button>
+            <Button onClick={() => { setIsSkillModalOpen(false); setEditingSkillId(null); }} style={{ marginRight: 8 }}>{t('common.cancel', 'Cancel')}</Button>
+            <Button type="primary" htmlType="submit" loading={submitting}>{editingSkillId ? t('common.save', 'Save') : t('skills.addSkill', 'Add Skill')}</Button>
           </div>
         </Form>
       </Modal>
 
       {/* Add / Edit Certificate Modal */}
       <Modal
-        title={editingCertId ? 'Edit Certification' : 'Add Certification'}
+        title={editingCertId ? t('skills.editCert', 'Edit Certification') : t('skills.addCertification', 'Add Certification')}
         open={isCertModalOpen}
         onCancel={() => { setIsCertModalOpen(false); setEditingCertId(null); }}
         footer={null}
         destroyOnClose
       >
         <Form form={certForm} layout="vertical" onFinish={handleSaveCertificate}>
-          <Form.Item name="certificateName" label="Certification Name" rules={[{ required: true }]}>
-            <Input placeholder="e.g. AWS Certified Solutions Architect" />
+          <Form.Item name="certificateName" label={t('skills.colCertName', 'Certification Name')} rules={[{ required: true }]}>
+            <Input placeholder={t('skills.certNamePlaceholder', 'e.g. AWS Certified Solutions Architect')} />
           </Form.Item>
-          <Form.Item name="issuingOrganization" label="Issuing Organization" rules={[{ required: true }]}>
-            <Input placeholder="e.g. Amazon Web Services" />
+          <Form.Item name="issuingOrganization" label={t('skills.issuingOrg', 'Issuing Organization')} rules={[{ required: true }]}>
+            <Input placeholder={t('skills.issuerPlaceholder', 'e.g. Amazon Web Services')} />
           </Form.Item>
-          <Form.Item name="credentialId" label="Credential ID">
+          <Form.Item name="credentialId" label={t('skills.colCredential', 'Credential ID')}>
             <Input />
           </Form.Item>
-          <Form.Item name="issueDate" label="Issue Date" rules={[{ required: true }]}>
+          <Form.Item name="issueDate" label={t('skills.colIssueDate', 'Issue Date')} rules={[{ required: true }]}>
             <DatePicker style={{ width: '100%' }} />
           </Form.Item>
-          <Form.Item name="expirationDate" label="Expiration Date (Optional)">
+          <Form.Item name="expirationDate" label={t('skills.expiryOptional', 'Expiration Date (Optional)')}>
             <DatePicker style={{ width: '100%' }} />
           </Form.Item>
           <Form.Item name="isMandatory" valuePropName="checked">
-            <Checkbox>This certification is legally mandatory for my role</Checkbox>
+            <Checkbox>{t('skills.mandatoryLabel', 'This certification is legally mandatory for my role')}</Checkbox>
           </Form.Item>
           <div style={{ textAlign: 'right' }}>
-            <Button onClick={() => { setIsCertModalOpen(false); setEditingCertId(null); }} style={{ marginRight: 8 }}>Cancel</Button>
-            <Button type="primary" htmlType="submit" loading={submitting}>{editingCertId ? 'Save' : 'Add Certificate'}</Button>
+            <Button onClick={() => { setIsCertModalOpen(false); setEditingCertId(null); }} style={{ marginRight: 8 }}>{t('common.cancel', 'Cancel')}</Button>
+            <Button type="primary" htmlType="submit" loading={submitting}>{editingCertId ? t('common.save', 'Save') : t('skills.addCert', 'Add Certificate')}</Button>
           </div>
         </Form>
       </Modal>
