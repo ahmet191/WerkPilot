@@ -36,6 +36,9 @@ const WorkflowDesignerPage = lazy(() => import('./features/admin/WorkflowDesigne
 const TranslationsAdminPage = lazy(() => import('./features/admin/TranslationsAdminPage').then(m => ({ default: m.TranslationsAdminPage })));
 const UiSchemaAdminPage = lazy(() => import('./features/admin/UiSchemaAdminPage').then(m => ({ default: m.UiSchemaAdminPage })));
 const UserAdminPage = lazy(() => import('./features/admin/UserAdminPage').then(m => ({ default: m.UserAdminPage })));
+const DepartmentStudioPage = lazy(() => import('./features/admin/DepartmentStudioPage').then(m => ({ default: m.DepartmentStudioPage })));
+const TicketFormDesignerPage = lazy(() => import('./features/admin/TicketFormDesignerPage').then(m => ({ default: m.TicketFormDesignerPage })));
+const SlaEscalationMatrixPage = lazy(() => import('./features/admin/SlaEscalationMatrixPage').then(m => ({ default: m.SlaEscalationMatrixPage })));
 const SecuritySettings = lazy(() => import('./features/account/SecuritySettings').then(m => ({ default: m.SecuritySettings })));
 const LoginPage = lazy(() => import('./features/auth/components/LoginPage').then(m => ({ default: m.LoginPage })));
 const SsoCallback = lazy(() => import('./features/auth/components/SsoCallback').then(m => ({ default: m.SsoCallback })));
@@ -109,6 +112,9 @@ function App() {
                 <Route element={<ProtectedRoute requiredPermission={Perm.PermissionsManage} />}>
                   <Route path="settings/permissions" element={<PermissionMatrixPage />} />
                   <Route path="settings/visibility" element={<VisibilityMatrixPage />} />
+                  <Route path="settings/department-studio" element={<DepartmentStudioPage />} />
+                  <Route path="settings/form-designer" element={<TicketFormDesignerPage />} />
+                  <Route path="settings/sla-matrix" element={<SlaEscalationMatrixPage />} />
                 </Route>
                 <Route element={<ProtectedRoute requiredPermission={Perm.TranslationsManage} />}>
                   <Route path="settings/translations" element={<TranslationsAdminPage />} />

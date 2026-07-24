@@ -243,7 +243,10 @@ public static class TenantBaseline
         EnsureChild(hrParent, "sidebar.skills", "/hr/skills", "TrophyOutlined", 21);
         EnsureChild(hrParent, "sidebar.trainings", "/hr/trainings", "ReadOutlined", 22);
         EnsureChild(adminParent, "sidebar.visibility", "/settings/visibility", "EyeOutlined", 75);
+        EnsureChild(adminParent, "sidebar.deptStudio", "/settings/department-studio", "BankOutlined", 76);
+        EnsureChild(adminParent, "sidebar.formDesigner", "/settings/form-designer", "FileTextOutlined", 77);
         EnsureChild(adminParent, "sidebar.permissions", "/settings/permissions", "SafetyCertificateOutlined", 78);
+        EnsureChild(adminParent, "sidebar.slaMatrix", "/settings/sla-matrix", "FieldTimeOutlined", 79);
         EnsureChild(adminParent, "sidebar.reports", "/reports", "BarChartOutlined", 80);
 
         if (toAdd.Count > 0)

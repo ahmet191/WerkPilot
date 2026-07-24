@@ -64,6 +64,9 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
     public DbSet<HR.EmployeeSkill> EmployeeSkills => Set<HR.EmployeeSkill>();
     public DbSet<HR.EmployeeCertificate> EmployeeCertificates => Set<HR.EmployeeCertificate>();
     public DbSet<HR.TrainingCourse> TrainingCourses => Set<HR.TrainingCourse>();
+    public DbSet<CustomDepartment> CustomDepartments => Set<CustomDepartment>();
+    public DbSet<TicketFormSchema> TicketFormSchemas => Set<TicketFormSchema>();
+    public DbSet<SlaPolicyRule> SlaPolicyRules => Set<SlaPolicyRule>();
     public DbSet<ExpenseClaim> ExpenseClaims { get; set; }
     public DbSet<AuthorityDelegation> AuthorityDelegations { get; set; }
     public DbSet<DirectoryProfile> DirectoryProfiles { get; set; }
@@ -148,6 +151,27 @@ public class OmniFlowDbContext : IdentityDbContext<ApplicationUser, ApplicationR
             entity.HasIndex(t => new { t.TenantId, t.EmployeeUserId });
             entity.Property(t => t.Title).HasMaxLength(200).IsRequired();
             entity.HasOne(t => t.EmployeeUser).WithMany().HasForeignKey(t => t.EmployeeUserId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        builder.Entity<CustomDepartment>(entity =>
+        {
+            entity.HasIndex(d => new { d.TenantId, d.Code }).IsUnique();
+            entity.Property(d => d.Name).HasMaxLength(150).IsRequired();
+            entity.HasOne(d => d.ParentDepartment).WithMany().HasForeignKey(d => d.ParentDepartmentId).OnDelete(DeleteBehavior.Restrict);
+        });
+
+        builder.Entity<TicketFormSchema>(entity =>
+        {
+            entity.HasIndex(f => new { f.TenantId, f.ServiceDeskId });
+            entity.Property(f => f.FormTitle).HasMaxLength(200).IsRequired();
+            entity.HasOne(f => f.ServiceDesk).WithMany().HasForeignKey(f => f.ServiceDeskId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        builder.Entity<SlaPolicyRule>(entity =>
+        {
+            entity.HasIndex(s => new { s.TenantId, s.Priority });
+            entity.Property(s => s.Name).HasMaxLength(150).IsRequired();
+            entity.HasOne(s => s.EscalateToUser).WithMany().HasForeignKey(s => s.EscalateToUserId).OnDelete(DeleteBehavior.SetNull);
         });
 
         builder.Entity<HR.EmployeeProfile>(entity =>

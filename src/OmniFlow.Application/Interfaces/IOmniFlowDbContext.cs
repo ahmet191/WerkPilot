@@ -34,6 +34,9 @@ public interface IOmniFlowDbContext
     DbSet<Domain.Entities.HR.EmployeeSkill> EmployeeSkills { get; }
     DbSet<Domain.Entities.HR.EmployeeCertificate> EmployeeCertificates { get; }
     DbSet<Domain.Entities.HR.TrainingCourse> TrainingCourses { get; }
+    DbSet<CustomDepartment> CustomDepartments { get; }
+    DbSet<TicketFormSchema> TicketFormSchemas { get; }
+    DbSet<SlaPolicyRule> SlaPolicyRules { get; }
     DbSet<ExpenseClaim> ExpenseClaims { get; }
     DbSet<AuthorityDelegation> AuthorityDelegations { get; }
     DbSet<DirectoryProfile> DirectoryProfiles { get; }
