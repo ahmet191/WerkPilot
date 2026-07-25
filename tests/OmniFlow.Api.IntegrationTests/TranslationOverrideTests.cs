@@ -20,6 +20,8 @@ public class TranslationOverrideTests : IClassFixture<CustomWebApplicationFactor
     private const string RequesterUser = "alice@omniflow.com";
     private const string DemoPass = "Demo@12345";
     private const string ProbeKey = "sidebar.tickets";
+    // The shipped default for ProbeKey; asserted by the default/revert cases.
+    private const string ProbeDefault = "All Tickets";
 
     private readonly CustomWebApplicationFactory _factory;
 
@@ -32,7 +34,7 @@ public class TranslationOverrideTests : IClassFixture<CustomWebApplicationFactor
         var dict = await anonymous.GetFromJsonAsync<Dictionary<string, string>>("/api/localization/en");
 
         Assert.NotNull(dict);
-        Assert.Equal("Tickets", dict![ProbeKey]);
+        Assert.Equal(ProbeDefault,dict![ProbeKey]);
     }
 
     [Fact]
@@ -52,7 +54,7 @@ public class TranslationOverrideTests : IClassFixture<CustomWebApplicationFactor
         var row = editing.GetProperty("items").EnumerateArray()
             .First(i => i.GetProperty("key").GetString() == ProbeKey);
         Assert.True(row.GetProperty("isCustomized").GetBoolean());
-        Assert.Equal("Tickets", row.GetProperty("defaultValue").GetString());
+        Assert.Equal(ProbeDefault,row.GetProperty("defaultValue").GetString());
         Assert.Equal("Requests", row.GetProperty("overrideValue").GetString());
 
         // Revert.
@@ -60,7 +62,7 @@ public class TranslationOverrideTests : IClassFixture<CustomWebApplicationFactor
         Assert.Equal(HttpStatusCode.NoContent, remove.StatusCode);
 
         var reverted = await admin.GetFromJsonAsync<Dictionary<string, string>>("/api/localization/en");
-        Assert.Equal("Tickets", reverted![ProbeKey]);
+        Assert.Equal(ProbeDefault,reverted![ProbeKey]);
     }
 
     [Fact]
@@ -84,7 +86,7 @@ public class TranslationOverrideTests : IClassFixture<CustomWebApplicationFactor
         var otherAdmin = await ClientAsync(otherEmail, "LangPass@123");
 
         var otherDict = await otherAdmin.GetFromJsonAsync<Dictionary<string, string>>("/api/localization/en");
-        Assert.Equal("Tickets", otherDict![ProbeKey]); // untouched by the demo tenant's wording
+        Assert.Equal(ProbeDefault,otherDict![ProbeKey]); // untouched by the demo tenant's wording
 
         // Clean up so the shared demo tenant is left as found.
         await demoAdmin.DeleteAsync($"/api/localization/admin/en/{ProbeKey}");

@@ -73,10 +73,11 @@ namespace OmniFlow.Api.Controllers
             return Ok(result);
         }
 
-        /// <summary>Creates or updates one of the logged-in employee's skills.</summary>
-        [HttpPost("skills")]
-        public async Task<ActionResult<Guid>> SaveSkill([FromBody] SaveEmployeeSkillCommand command, CancellationToken cancellationToken)
+        /// <summary>Updates one of the logged-in employee's skills. (Creation is HrSkillsController.AddSkill.)</summary>
+        [HttpPut("skills/{id:guid}")]
+        public async Task<ActionResult<Guid>> UpdateSkill(Guid id, [FromBody] SaveEmployeeSkillCommand command, CancellationToken cancellationToken)
         {
+            command.Id = id;
             command.UserId = CurrentUserId;
             return Ok(await _mediator.Send(command, cancellationToken));
         }
@@ -89,10 +90,11 @@ namespace OmniFlow.Api.Controllers
             return NoContent();
         }
 
-        /// <summary>Creates or updates one of the logged-in employee's certificates.</summary>
-        [HttpPost("certificates")]
-        public async Task<ActionResult<Guid>> SaveCertificate([FromBody] SaveEmployeeCertificateCommand command, CancellationToken cancellationToken)
+        /// <summary>Updates one of the logged-in employee's certificates. (Creation is HrSkillsController.AddCertificate.)</summary>
+        [HttpPut("certificates/{id:guid}")]
+        public async Task<ActionResult<Guid>> UpdateCertificate(Guid id, [FromBody] SaveEmployeeCertificateCommand command, CancellationToken cancellationToken)
         {
+            command.Id = id;
             command.UserId = CurrentUserId;
             return Ok(await _mediator.Send(command, cancellationToken));
         }

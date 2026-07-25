@@ -70,7 +70,8 @@ export const SkillsCertificatesPage: React.FC = () => {
   const handleSaveSkill = async (values: any) => {
     setSubmitting(true);
     try {
-      await api.post('/hr/skills', editingSkillId ? { ...values, id: editingSkillId } : values);
+      if (editingSkillId) await api.put(`/hr/skills/${editingSkillId}`, values);
+      else await api.post('/hr/skills', values);
       message.success(editingSkillId ? t('skills.skillUpdated', 'Skill updated.') : t('skills.skillAdded', 'Skill added.'));
       setIsSkillModalOpen(false);
       setEditingSkillId(null);
@@ -116,11 +117,11 @@ export const SkillsCertificatesPage: React.FC = () => {
     try {
       const payload = {
         ...values,
-        id: editingCertId ?? undefined,
         issueDate: values.issueDate.toISOString(),
         expirationDate: values.expirationDate ? values.expirationDate.toISOString() : null,
       };
-      await api.post('/hr/certificates', payload);
+      if (editingCertId) await api.put(`/hr/certificates/${editingCertId}`, payload);
+      else await api.post('/hr/certificates', payload);
       message.success(editingCertId ? t('skills.certUpdated', 'Certificate updated.') : t('skills.certAdded', 'Certificate added.'));
       setIsCertModalOpen(false);
       setEditingCertId(null);
