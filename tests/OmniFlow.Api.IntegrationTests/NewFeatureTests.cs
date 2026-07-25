@@ -72,6 +72,31 @@ public class NewFeatureTests : IClassFixture<CustomWebApplicationFactory>
     }
 
     [Fact]
+    public async Task Validation_rejects_malformed_admin_config_commands()
+    {
+        // The admin clears authorization, so a 400 here proves the FluentValidation
+        // pipeline (not RBAC) is rejecting the malformed payload for each of the
+        // Phase 2-5 commands.
+        var admin = await ClientAsync(AdminUser, AdminPass);
+
+        // SLA: blank name + an out-of-range escalation threshold.
+        var badSla = new { name = "", priority = "Nonsense", responseTimeMinutes = 0, resolutionTimeHours = 0, escalateAfterPercent = 250, isActive = true };
+        Assert.Equal(HttpStatusCode.BadRequest, (await admin.PostAsJsonAsync("/api/slas/policies", badSla)).StatusCode);
+
+        // Custom department: no name, and a colour that is not a hex swatch.
+        var badDept = new { name = "", code = "X", departmentType = "Custom", colorHex = "not-a-colour", isActive = true };
+        Assert.Equal(HttpStatusCode.BadRequest, (await admin.PostAsJsonAsync("/api/departments/studio", badDept)).StatusCode);
+
+        // Form schema: no desk selected and malformed field JSON.
+        var badForm = new { serviceDeskId = Guid.Empty, formTitle = "", formDescription = "d", fieldsJson = "{ not json", isActive = true };
+        Assert.Equal(HttpStatusCode.BadRequest, (await admin.PostAsJsonAsync("/api/forms/schemas", badForm)).StatusCode);
+
+        // Goal: blank title and a quarter that is not Q1-Q4/Annual.
+        var badGoal = new { title = "", quarter = "Q9", year = 2026, targetValue = 100, currentValue = 0, unit = "Percentage", status = "InProgress" };
+        Assert.Equal(HttpStatusCode.BadRequest, (await admin.PostAsJsonAsync("/api/hr/goals", badGoal)).StatusCode);
+    }
+
+    [Fact]
     public async Task Skill_create_and_delete_round_trips_for_the_owner()
     {
         var admin = await ClientAsync(AdminUser, AdminPass);

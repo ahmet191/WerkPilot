@@ -87,7 +87,7 @@ public class TicketAttachmentsController : ControllerBase
             ?? throw new NotFoundException(nameof(Ticket), ticketId);
 
         var uploaderId = _userContext.UserId != Guid.Empty ? _userContext.UserId : ticket.RequesterId;
-        var attachmentIds = new List<Guid>();
+        var attachments = new List<TicketAttachment>();
 
         foreach (var file in files)
         {
@@ -97,10 +97,14 @@ public class TicketAttachmentsController : ControllerBase
                 throw new ValidationException("file", $"The file '{file.FileName}' exceeds the {MaxBytes / (1024 * 1024)} MB limit.");
             }
 
+            // Enforce the allowlist (defence in depth): reject unknown types with a
+            // clear message rather than silently relabelling them. The UI surfaces
+            // the same rule up front so this is a fallback, not the first the user hears of it.
             var contentType = string.IsNullOrWhiteSpace(file.ContentType) ? "application/octet-stream" : file.ContentType;
             if (!AllowedContentTypes.Contains(contentType))
             {
-                contentType = "application/octet-stream";
+                throw new ValidationException("files",
+                    $"'{file.FileName}' has an unsupported type. Allowed: images (PNG/JPG/GIF/WebP), PDF, text/CSV, Word, Excel and ZIP.");
             }
 
             await using var stream = file.OpenReadStream();
@@ -108,11 +112,15 @@ public class TicketAttachmentsController : ControllerBase
 
             var attachment = ticket.AddAttachment(
                 uploaderId, SanitizeFileName(file.FileName), contentType, file.Length, storageKey);
-            
-            attachmentIds.Add(attachment.Id);
+
+            attachments.Add(attachment);
         }
 
         await _context.SaveChangesAsync(HttpContext.RequestAborted);
+
+        // Ids are only populated once SaveChanges runs (AddAttachment leaves them
+        // unset), so read them here rather than at add-time.
+        var attachmentIds = attachments.Select(a => a.Id).ToList();
 
         // Let the assignee know file(s) landed on their ticket.
         if (ticket.AssigneeId is { } assigneeId && assigneeId != uploaderId && attachmentIds.Count > 0)

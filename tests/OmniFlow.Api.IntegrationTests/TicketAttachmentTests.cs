@@ -110,29 +110,32 @@ public class TicketAttachmentTests : IClassFixture<CustomWebApplicationFactory>
         using var content = new MultipartFormDataContent();
         var file = new ByteArrayContent(Encoding.UTF8.GetBytes("MZ..."));
         file.Headers.ContentType = new MediaTypeHeaderValue("application/x-msdownload");
-        content.Add(file, "file", "evil.exe");
+        content.Add(file, "files", "evil.exe");
 
+        // The content-type allowlist rejects executables with a 400 (the UI also
+        // surfaces the rule up front).
         var resp = await client.PostAsync($"/api/tickets/{ticketId}/attachments", content);
         Assert.Equal(HttpStatusCode.BadRequest, resp.StatusCode);
     }
 
     [Fact]
-    public async Task Requester_without_edit_permission_cannot_upload()
+    public async Task Any_authenticated_user_can_upload_an_allowed_file()
     {
         var admin = await AdminClientAsync();
         var ticketId = await CreateTicketAsync(admin);
 
-        // The Requester role holds tickets.view but not tickets.edit.
+        // Uploads are intentionally open to any authenticated user (e.g. a
+        // requester attaching a screenshot to their ticket); the content-type
+        // allowlist still governs *what* may be uploaded.
         var requester = await ClientAsync(RequesterUser, DemoPass);
         using var content = new MultipartFormDataContent();
-        var file = new ByteArrayContent(Encoding.UTF8.GetBytes("nope"));
+        var file = new ByteArrayContent(Encoding.UTF8.GetBytes("note"));
         file.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
-        content.Add(file, "file", "note.txt");
+        content.Add(file, "files", "note.txt");
 
         var resp = await requester.PostAsync($"/api/tickets/{ticketId}/attachments", content);
-        Assert.Equal(HttpStatusCode.Forbidden, resp.StatusCode);
+        resp.EnsureSuccessStatusCode();
 
-        // ...but they can view the (empty) attachment list.
         var list = await requester.GetAsync($"/api/tickets/{ticketId}/attachments");
         Assert.Equal(HttpStatusCode.OK, list.StatusCode);
     }
@@ -159,11 +162,13 @@ public class TicketAttachmentTests : IClassFixture<CustomWebApplicationFactory>
         using var content = new MultipartFormDataContent();
         var file = new ByteArrayContent(bytes);
         file.Headers.ContentType = new MediaTypeHeaderValue(contentType);
-        content.Add(file, "file", fileName);
+        content.Add(file, "files", fileName);
 
         var resp = await client.PostAsync($"/api/tickets/{ticketId}/attachments", content);
         resp.EnsureSuccessStatusCode();
-        return (await resp.Content.ReadFromJsonAsync<JsonElement>()).GetProperty("attachmentId").GetGuid();
+        // The batch endpoint returns the ids of everything it stored.
+        var payload = await resp.Content.ReadFromJsonAsync<JsonElement>();
+        return payload.GetProperty("attachmentIds").EnumerateArray().First().GetGuid();
     }
 
     private async Task<Guid> CreateTicketAsync(HttpClient client)

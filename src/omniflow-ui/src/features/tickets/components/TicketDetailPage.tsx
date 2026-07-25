@@ -175,10 +175,14 @@ export const TicketDetailPage: React.FC = () => {
     }
   };
 
+  // Keep this in step with the server allowlist in TicketAttachmentsController.
+  const ALLOWED_ACCEPT = '.png,.jpg,.jpeg,.gif,.webp,.pdf,.txt,.csv,.zip,.doc,.docx,.xls,.xlsx';
+
   const uploadProps: UploadProps = {
     customRequest: handleCustomUpload,
     showUploadList: false,
     multiple: true,
+    accept: ALLOWED_ACCEPT,
   };
 
   if (loading) {
@@ -311,6 +315,9 @@ export const TicketDetailPage: React.FC = () => {
               </Upload>
             )}
           >
+            <Text type="secondary" style={{ fontSize: 12, display: 'block', marginBottom: 10 }}>
+              {t('ticket.allowedTypes', 'Allowed: images, PDF, text/CSV, Word, Excel and ZIP · up to 25 MB per file.')}
+            </Text>
             {ticket.attachments.length === 0 ? (
               <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={t('ticket.noAttachments', 'No files attached')} />
             ) : (
