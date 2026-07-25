@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Statistic, Spin, Typography, theme, Empty } from 'antd';
-import { Area, Pie } from '@ant-design/plots';
 import { BarChartOutlined, DashboardOutlined, FieldTimeOutlined, RobotOutlined, WarningOutlined } from '@ant-design/icons';
 import { api } from '../../core/api';
 import { useTranslation } from '../../core/LanguageContext';
@@ -96,14 +95,14 @@ export const ExecutiveDashboardPage: React.FC = () => {
         <Col xs={24} lg={16}>
           <Card title={t('execDash.volumeTrend', 'Ticket Volume Trend (30 Days)')} style={{ height: '100%' }}>
             {trendHasData
-              ? <Area data={trend} xField="date" yField="count" height={300} />
+              ? <AreaTrend data={trend} color={token.colorPrimary} />
               : <Empty description={t('execDash.noTrend', 'No tickets created in this period yet')} style={{ padding: '60px 0' }} />}
           </Card>
         </Col>
         <Col xs={24} lg={8}>
           <Card title={t('execDash.byPriority', 'Distribution by Priority')} style={{ height: '100%' }}>
             {priorityHasData
-              ? <Pie data={byPriority} angleField="value" colorField="type" radius={0.8} innerRadius={0.6} height={300} legend={{ position: 'bottom' }} />
+              ? <PriorityDonut data={byPriority} totalLabel={t('execDash.total', 'Total')} />
               : <Empty description={t('execDash.noData', 'No data yet')} style={{ padding: '60px 0' }} />}
           </Card>
         </Col>
@@ -126,6 +125,99 @@ export const ExecutiveDashboardPage: React.FC = () => {
           </Card>
         </Col>
       </Row>
+    </div>
+  );
+};
+
+// ── Lightweight, dependency-free charts ────────────────────────────────
+// Rendered as plain SVG so they paint reliably in every environment and add
+// no heavy charting dependency for two simple visuals.
+
+const PRIORITY_COLORS: Record<string, string> = {
+  Critical: '#f5222d',
+  High: '#fa8c16',
+  Medium: '#722ed1',
+  Low: '#1677ff',
+};
+const FALLBACK_PALETTE = ['#1677ff', '#722ed1', '#fa8c16', '#f5222d', '#13c2c2', '#52c41a'];
+
+/** Filled area + line trend over evenly spaced points. */
+const AreaTrend: React.FC<{ data: { date: string; count: number }[]; color: string }> = ({ data, color }) => {
+  const W = 720, H = 300, padX = 36, padY = 24;
+  const max = Math.max(1, ...data.map(d => d.count));
+  const n = data.length;
+  const x = (i: number) => padX + (n <= 1 ? 0 : (i * (W - 2 * padX)) / (n - 1));
+  const y = (v: number) => H - padY - (v / max) * (H - 2 * padY);
+  const line = data.map((d, i) => `${x(i)},${y(d.count)}`).join(' ');
+  const area = `${padX},${H - padY} ${line} ${x(n - 1)},${H - padY}`;
+  const gridVals = [0, 0.25, 0.5, 0.75, 1];
+
+  return (
+    <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={300} preserveAspectRatio="xMidYMid meet" role="img">
+      <defs>
+        <linearGradient id="trendFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={color} stopOpacity="0.35" />
+          <stop offset="100%" stopColor={color} stopOpacity="0.02" />
+        </linearGradient>
+      </defs>
+      {gridVals.map((g, i) => {
+        const gy = padY + g * (H - 2 * padY);
+        return (
+          <g key={i}>
+            <line x1={padX} y1={gy} x2={W - padX} y2={gy} stroke="var(--border-color)" strokeWidth="1" opacity="0.5" />
+            <text x={4} y={gy + 4} fontSize="11" fill="var(--text-secondary)">{Math.round(max * (1 - g))}</text>
+          </g>
+        );
+      })}
+      <polygon points={area} fill="url(#trendFill)" />
+      <polyline points={line} fill="none" stroke={color} strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
+      {data.map((d, i) => d.count > 0 ? <circle key={i} cx={x(i)} cy={y(d.count)} r="3" fill={color} /> : null)}
+      {data.map((d, i) => (i === 0 || i === n - 1 || i === Math.floor(n / 2))
+        ? <text key={`l${i}`} x={x(i)} y={H - 6} fontSize="11" fill="var(--text-secondary)" textAnchor="middle">{d.date.slice(5)}</text>
+        : null)}
+    </svg>
+  );
+};
+
+/** Donut of proportional slices with a legend and a centre total. */
+const PriorityDonut: React.FC<{ data: { type: string; value: number }[]; totalLabel: string }> = ({ data, totalLabel }) => {
+  const total = data.reduce((s, d) => s + d.value, 0);
+  const cx = 100, cy = 100, rOut = 82, rIn = 52;
+  const polar = (r: number, deg: number): [number, number] => {
+    const a = ((deg - 90) * Math.PI) / 180;
+    return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
+  };
+  const slicePath = (start: number, end: number) => {
+    const sweep = Math.min(end - start, 359.99);
+    const e = start + sweep;
+    const [x1, y1] = polar(rOut, e), [x2, y2] = polar(rOut, start);
+    const [x3, y3] = polar(rIn, start), [x4, y4] = polar(rIn, e);
+    const large = sweep > 180 ? 1 : 0;
+    return `M${x1} ${y1} A${rOut} ${rOut} 0 ${large} 0 ${x2} ${y2} L${x3} ${y3} A${rIn} ${rIn} 0 ${large} 1 ${x4} ${y4} Z`;
+  };
+  let acc = 0;
+  const slices = data.map((d, i) => {
+    const start = (acc / total) * 360;
+    acc += d.value;
+    const end = (acc / total) * 360;
+    return { ...d, start, end, color: PRIORITY_COLORS[d.type] ?? FALLBACK_PALETTE[i % FALLBACK_PALETTE.length] };
+  });
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 8 }}>
+      <svg viewBox="0 0 200 200" width={220} height={220} role="img">
+        {slices.map((s, i) => <path key={i} d={slicePath(s.start, s.end)} fill={s.color} />)}
+        <text x={cx} y={cy - 4} textAnchor="middle" fontSize="30" fontWeight="700" fill="var(--text-primary)">{total}</text>
+        <text x={cx} y={cy + 18} textAnchor="middle" fontSize="12" fill="var(--text-secondary)">{totalLabel}</text>
+      </svg>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px 16px', justifyContent: 'center', marginTop: 16 }}>
+        {slices.map((s, i) => (
+          <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--text-secondary)' }}>
+            <span style={{ width: 10, height: 10, borderRadius: 2, background: s.color, display: 'inline-block' }} />
+            {s.type} · {s.value}
+          </span>
+        ))}
+      </div>
     </div>
   );
 };

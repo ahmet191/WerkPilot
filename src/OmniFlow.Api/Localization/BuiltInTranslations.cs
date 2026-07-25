@@ -1282,6 +1282,7 @@ public static class BuiltInTranslations
                 { "execDash.slaBreach", "SLA İhlal Oranı" },
                 { "execDash.volumeTrend", "Talep Hacmi Trendi (30 Gün)" },
                 { "execDash.byPriority", "Önceliğe Göre Dağılım" },
+                { "execDash.total", "Toplam" },
                 { "execDash.noTrend", "Bu dönemde henüz talep oluşturulmadı" },
                 { "execDash.noData", "Henüz veri yok" },
                 { "execDash.aiTitle", "AI Triyaj Aktif" },
