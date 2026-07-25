@@ -87,9 +87,23 @@ public deployment at a database seeded this way without changing them first.
 - **Dynamic ticketing** — ticket templates define their own fields, form layout
   and state machine (Stateless). A visual workflow designer (React Flow) edits
   transitions, guards and approval policies without a deploy.
+- **AI-assisted triage** — new tickets are classified for category and priority
+  by Google Gemini and the prediction is persisted per ticket. With no API key
+  it degrades to a keyword heuristic, so triage always returns a usable result;
+  predictions are advisory and never mutate a ticket on their own.
 - **Approval engine** — sequential, role- or manager-resolved approval chains
   driving both tickets and leave requests, with delegation support.
-- **HRIS** — employees, departments, org chart, leave, assets, expense claims.
+- **HRIS** — employees, departments, org chart, leave, assets and expense
+  claims, plus a self-service employee centre and HR depth: performance goals /
+  OKRs, a skills & certifications matrix, LMS training with assessment scoring,
+  and onboarding checklists.
+- **Analytics & reporting** — an executive KPI dashboard (SLA breach rate,
+  first-time resolution, 30-day volume trend, priority mix) and cron-scheduled
+  email reports, with CSV export from every analytics view.
+- **No-deploy admin studios** — department studio, a dynamic ticket-form
+  designer, an SLA escalation matrix, per-tenant permission and desk-visibility
+  matrices, and UI-schema (grid layout) and interface-text editors — all
+  configured at runtime.
 - **Multi-tenancy** — enforced by an EF Core global query filter on every
   entity; tenants are provisioned from a platform console with their own
   seeded baseline.
@@ -103,8 +117,9 @@ public deployment at a database seeded this way without changing them first.
   Quartz-scheduled SLA jobs backed by PostgreSQL.
 - **Auth** — OpenIddict (password / refresh / custom grants), TOTP MFA with
   recovery codes, optional external OIDC SSO and optional LDAP.
-- **Customizable interface text** — any UI string can be reworded per tenant;
-  shipped defaults stay in code, only overrides are stored.
+- **Localized, customizable interface** — English, Turkish and German out of the
+  box, with dark/light theming; any UI string can be reworded per tenant, and
+  shipped defaults stay in code so only overrides are stored.
 
 ## Architecture
 
@@ -125,9 +140,13 @@ Dependencies point inward: Infrastructure never references the web layer.
 ## Tests
 
 ```bash
-dotnet test                          # 73 tests
+dotnet test                          # 93 tests (37 unit + 56 integration)
 cd src/omniflow-ui && npm run build  # type-check + production build
 ```
+
+Unit tests cover CQRS handlers and FluentValidation validators; integration
+tests exercise the full HTTP stack — auth, RBAC, multi-tenant isolation, ticket
+attachments, and the analytics/admin surfaces — against a real Postgres.
 
 Integration tests start a throwaway PostgreSQL via Testcontainers, so Docker
 must be running. CI runs the same commands on every push.
@@ -139,6 +158,7 @@ boots and runs fully without any of them; each is enabled by supplying config.
 
 | Integration | Enable with |
 |---|---|
+| AI ticket triage (Gemini) | `Gemini:ApiKey` — falls back to a keyword heuristic without it |
 | Email (SMTP) | `Email:Host` — already pointed at Mailpit under Docker |
 | External OIDC SSO | `Sso:Oidc:Enabled` + authority/client credentials |
 | LDAP / Active Directory | `Ldap:Enabled` + host and bind settings |
@@ -208,8 +228,20 @@ WerkPilot was designed and built as a modern showcase of **AI-assisted enterpris
 
 ## License
 
-**Proprietary — all rights reserved.** The source is public for evaluation and
-review only; it is not open-source and no usage, distribution, or production
-rights are granted. See [LICENSE](LICENSE). Security policy: [SECURITY.md](SECURITY.md).
-Contribution terms: [CONTRIBUTING.md](CONTRIBUTING.md).
+**Proprietary — all rights reserved © Ahmet Sekerci.**
+
+This repository is published **solely as a portfolio and evaluation piece** — to
+demonstrate the author's engineering work to prospective employers and
+reviewers. It is **not** open-source.
+
+You may **view and read** the source for personal evaluation only. You may **not**
+fork, clone for reuse, copy, modify, redistribute, publish, sublicense, sell,
+or otherwise use it — in whole or in part — for any commercial, for-profit, or
+production purpose, nor incorporate any part of it into another work. Making the
+source publicly visible grants **no** license or usage right of any kind.
+
+For purchase or licensing enquiries, please
+[contact the author](https://github.com/ahmet191).
+
+See [LICENSE](LICENSE). Security policy: [SECURITY.md](SECURITY.md).
 
